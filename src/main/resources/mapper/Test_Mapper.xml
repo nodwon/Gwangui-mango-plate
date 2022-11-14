@@ -23,15 +23,15 @@
 
 
     <select id="selectMango2" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
 
     <select id="selectMango2All" resultType="com.smart.project.web.home.vo.MangoVO">
-        SELECT * FROM foodlist;
+        SELECT * FROM foodlist
     </select>
 
     <select id="selectName" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where  name= #{name};
+        SELECT * FROM foodlist where  name= #{name}
     </select>
 
 <!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
@@ -47,12 +47,32 @@
     </select>
 
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
-        SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
+        SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
 
     <select id="getMangoVO" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where name = #{name};
+        SELECT * FROM foodlist where name = #{name}
     </select>
+
+    <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
+        insert into wishList_tbl(useremail, placename, roadname, mainimg)
+        select #{useremail},#{placename},#{roadname},#{mainimg}
+        from dual where not exists (select useremail, placename from wishList_tbl where useremail = #{useremail} and placename = #{placename})
+    </insert>
+
+    <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO">
+        select * from wishList_tbl where useremail=#{useremail}
+    </select>
+
+
+    <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
+        delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
+    </delete>
+
+    <update id="viewCount" parameterType="java.lang.String">
+        update foodlist set viewCount = viewCount + 1 where name = #{name}
+    </update>
+
 
 
 </mapper>

@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="/css/m_yby_mainlist.css">
     <link href="../css/styles.css" rel="stylesheet" />
 
+
+
+
     <script src="/resources/vendors/polyfill.min.js"></script>
     <script src="/resources/vendors/jquery.min.js"></script>
     <script src="/resources/vendors/lodash.min.js"></script>
@@ -53,7 +56,7 @@
                             <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
-                                <p th:text="${session.email}"></p>
+                                <p class="email" th:text="${session.email}"></p>
                             </a>
                         </form>
 

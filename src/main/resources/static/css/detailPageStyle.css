@@ -93,6 +93,16 @@ body {
   height: 350px;
 }
 
+.bi-eye {
+  font-size: 23px;
+  color: grey;
+}
+
+.viewCount {
+  color: grey;
+  font-size: 20px;
+  margin-left: 5px;
+}
 
 hr {
   margin: 1rem 0;
