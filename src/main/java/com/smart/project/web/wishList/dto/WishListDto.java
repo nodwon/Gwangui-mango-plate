@@ -1,5 +1,4 @@
-package com.smart.project.web.mago.wishList.dto;
-
+package com.smart.project.web.wishList.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
