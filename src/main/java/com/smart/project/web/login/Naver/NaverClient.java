@@ -51,7 +51,7 @@ public class NaverClient {
         );
         return responseEntity.getBody(); // 반환받은 실제 데이터 정보
     }
-    public SearchImageRes searchImage(SearchImageReq searchImageReq){ // 이미지
+    public SearchImageRes searchImage(SearchLocalReq searchImageReq){ // 이미지
         var uri = UriComponentsBuilder.fromUriString(naverImageSearchUrl)
                 .queryParams(searchImageReq.toMultiValueMap())
                 .build()
