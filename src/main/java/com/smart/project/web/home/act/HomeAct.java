@@ -52,7 +52,7 @@ public class HomeAct {
 		}*/
 
 		//log.error("{}",data);
-		return "mango";
+		return "dddd/login";
 	}
 
 	@RequestMapping("/cookie/add2")
