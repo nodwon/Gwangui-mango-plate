@@ -7,6 +7,7 @@ $(()=>{
 export class mango{
     constructor() {
         this.eventBind();
+        //
     }
 
     eventBind(){
@@ -24,11 +25,11 @@ export class mango{
 
 
         $("input[name=search]").on("focusout",(e)=>{
-            console.log("12322")
+            console.log("1232ㄴㅇㄹㄴㅇㅁ123123ㄹ2")
 
         });
 
-//ㄴㅇㄹㅇㄴㅁㄹㅇㄴㅁㄹㄴㅁ
+
 
     }
 
