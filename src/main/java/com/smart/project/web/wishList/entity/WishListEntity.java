@@ -1,5 +1,6 @@
 package com.smart.project.web.wishList.entity;
 
+import com.smart.project.web.wishListDB.MemoryDbEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class WishListEntity { //DB연결
+public class WishListEntity extends MemoryDbEntity {
 
     private String title;                   // 음식명, 장소명
     private String category;                // 카테고리

@@ -1,7 +1,7 @@
 package com.smart.project.web.wishList.Service;
 
-import com.smart.project.web.login.Naver.NaverClient;
-import com.smart.project.web.login.Naver.dto.SearchLocalReq;
+import com.smart.project.web.Naver.NaverClient;
+import com.smart.project.web.Naver.dto.SearchLocalReq;
 import com.smart.project.web.wishList.Repository.WishListRepository;
 import com.smart.project.web.wishList.dto.WishListDto;
 import com.smart.project.web.wishList.entity.WishListEntity;
@@ -10,6 +10,7 @@ import lombok.var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service  // 해당클래스를 루트 컨테이너에 빈 객체로 생성해주는 어노테이션
 @RequiredArgsConstructor
@@ -22,7 +23,6 @@ public class WishListService {
         var searchLocalReq = new SearchLocalReq();
         searchLocalReq.setQuery(query);
         var searchLocalRes = naverClient.searchLocal(searchLocalReq);
-        return new WishListDto();
 
         if (searchLocalRes.getTotal() > 0) {
             var localItem = searchLocalRes.getItems().stream().findFirst().get();
@@ -50,10 +50,10 @@ public class WishListService {
         return new WishListDto();
     }
 
-    public WishListDto add(WishListDto wishListDto){
+    public WishListEntity add(WishListDto wishListDto){
         var entity = dtoToEntity(wishListDto);
-//        var saveEntity  =wishListRepository.save(entity);
-//                return entityToDto(saveEntity);
+        var saveEntity  =wishListRepository.save(entity);
+                return entityToDto(saveEntity);
     }
 
     private WishListEntity dtoToEntity(WishListDto wishListDto){
@@ -71,7 +71,7 @@ public class WishListService {
         return entity;
 
     }
-    private WishListDto dtoToEntity(WishListEntity wishListEntity){
+    private WishListEntity entityToDto(WishListEntity wishListEntity){
         var dto = new WishListEntity();
         //entity.setIndex(wishListDto.getIndex()); => DB연결했을때
         dto.setTitle(wishListEntity.getTitle());
@@ -84,24 +84,25 @@ public class WishListService {
         dto.setVisitCount(wishListEntity.getVisitCount());
         dto.setLastVisitDate(wishListEntity.getLastVisitDate());
         return dto;
-//
+
     }
-//    public List<WishListDto> findAll(){
-//        return wishListRepository.findAll()
-//                .stream()
-//                .map(it -> entityToDto(it))
-//                .collect(Collectors.toList());
-//    }
-    //public void delete(int index) {
-    //    wishListRepository.deleteById(index);
-    //}
-    //public void addVisit(int index){
-    //    var wishItem = wishListRepository.findById(index);
-    //    if(wishItem.isPresent()){
-    //        var item = wishItem.get();
-    //        item.setVisit(true);
-    //        item.setVisitCount(item.getVisitCount()+1);
-    //    }
+    public List<WishListEntity> findAll(){
+        return wishListRepository.findAll()
+               .stream()
+                .map(it -> entityToDto(it))
+                .collect(Collectors.toList());
+    }
+
+    public void delete(int index) {
+       wishListRepository.deleteById(index);
+    }
+    public void addVisit(int index){
+       var wishItem = wishListRepository.findById(index);
+       if(wishItem.isPresent()){
+           var item = wishItem.get();
+          item.setVisit(true);
+          item.setVisitCount(item.getVisitCount()+1);
+        }
 }
 
 }

@@ -1,4 +1,4 @@
-package com.smart.project.web.login.Naver.dto;
+package com.smart.project.web.Naver.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

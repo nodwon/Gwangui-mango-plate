@@ -4,5 +4,5 @@ naver:
       local : https://openapi.naver.com/v1/search/local.json
       image : https://openapi.naver.com/v1/search/image
   client:
-    id:
-    secrect:
+    id: fxe4FMYGdXkH1dkr62iP
+    secrect: cfOQfsgAJj

@@ -72,7 +72,7 @@ public class HomeAct {
 	@RequestMapping("/join")
 	public String join(){
 		log.error("{}",commonCodeComponent.getCodeList("style_f"));
-		return "dddd/join";
+		return "dddd/login";
 	}
 
 	@RequestMapping("/data")

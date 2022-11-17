@@ -1,10 +1,8 @@
-package com.smart.project.web.login.Naver;
+package com.smart.project.web.Naver;
 
-import com.smart.project.web.login.Naver.dto.SearchImageReq;
-import com.smart.project.web.login.Naver.dto.SearchImageRes;
-import com.smart.project.web.login.Naver.dto.SearchLocalReq;
-import com.smart.project.web.login.Naver.dto.SearchLocalRes;
-import lombok.var;
+import com.smart.project.web.Naver.dto.SearchLocalReq;
+import com.smart.project.web.Naver.dto.SearchLocalRes;
+import com.smart.project.web.Naver.dto.SearchImageRes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.lang.reflect.ParameterizedType;
 
 @Component // 개발자가 직접 작성한 Class를 Bean에 직접 등록하기 위해 사용
 public class NaverClient {
