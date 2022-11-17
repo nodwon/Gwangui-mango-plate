@@ -3,10 +3,13 @@ package com.smart.project.web.home.act;
 import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.LocCodeComponent;
 import com.smart.project.component.data.CodeObject;
+import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.mangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,8 @@ public class HomeDataAct {
 	CommonCodeComponent commonCodeComponent;
 
 	final private LocCodeComponent locCodeComponent;
+	final private Test test;
+
 
 	@PostMapping("/data/wantLoc")
 	public Map<String, Object> getWantLoc(@RequestBody Map param){
@@ -79,4 +84,18 @@ public class HomeDataAct {
 
 		return data;
 	}
+
+
+
+
+	@PostMapping("/data/mango")
+	public Map<String,mangoVO>getMangoData(@RequestBody Map param){
+		Map<String, mangoVO> data = commonCodeComponent.getmangoAll();
+		//db에 바로 넣기
+		log.error("{}",data);
+
+		return data;
+	}
+
+
 }

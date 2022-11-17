@@ -11331,4 +11331,17 @@ form.example::after {
   .d-print-none {
     display: none !important;
   }
+
+}
+#map{
+  padding :0;
+
+}
+
+div.fixed{
+
+  position: sticky ;
+  top:0;
+  z-index: 100;
+
 }
