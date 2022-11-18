@@ -3,6 +3,9 @@ package com.smart.project.proc;
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
 import com.smart.project.web.home.vo.TestVO;
+import com.smart.project.web.home.vo.locationVO;
+import com.smart.project.web.home.vo.mango2VO;
+import com.smart.project.web.home.vo.mangoVO;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
@@ -19,4 +22,8 @@ public interface Test {
 	 **********************************************************************************************/
 	List<TestVO> sqlMenu2(String userId);
 
+    void insertMangoJson(List<mangoVO> mangoVOList);
+
+    List<mangoVO> selectMango();
+	List<mango2VO> selectMango2(String mainmenu);
 }

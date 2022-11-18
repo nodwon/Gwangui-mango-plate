@@ -84,6 +84,7 @@ abstract class CodeComponent {
 		return codeObject.getCodeList();
 	}
 
+
 	/**********************************************************************************************
 	 * @Method 설명 : 해당 id에 일치하는 json객체의 codeList중 code가 일치하는 json 리턴
 	 * @작성일   : 2019-01-28

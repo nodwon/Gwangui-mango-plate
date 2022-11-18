@@ -6,6 +6,7 @@ import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
 import com.smart.project.security.StudyCookieService;
 import com.smart.project.web.home.vo.TestVO;
+import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +37,11 @@ public class HomeAct {
 
 	@RequestMapping("/")
 	public String home(Model model, InternCookie cookie, HttpServletRequest request){
-		Map<String, mangoVO> data = commonCodeComponent.getmangoAll();
+		/*Map<String, mangoVO> data = commonCodeComponent.getmangoAll();
 		//db에 바로 넣기
 		//
 		log.error("{}",data);
+*/
 
 
 		return "mango";
