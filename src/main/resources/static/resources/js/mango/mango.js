@@ -10,9 +10,16 @@ export class mango{
     }
 
     eventBind(){
-        console.log("하이루")
+       console.log("하이루")
+
+
+
+
+
+
+
+
+
     }
-
-
-
 }
+

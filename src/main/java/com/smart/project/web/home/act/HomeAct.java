@@ -59,7 +59,7 @@ public class HomeAct {
 		}*/
 
 		//log.error("{}",data);
-		return "mango";
+		return "mango";  //작업하고 싶은 페이지 수정하기
 	}
 
 	@RequestMapping("/cookie/add2")
@@ -86,5 +86,10 @@ public class HomeAct {
 	@ResponseBody
 	public String homeData(){
 		return "index";
+	}
+
+	@RequestMapping("/detailPage")
+	public String datailPage(){
+		return"detailPage";
 	}
 }

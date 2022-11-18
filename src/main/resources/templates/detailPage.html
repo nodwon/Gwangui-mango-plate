@@ -1,55 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    /* 이미지 */
-    .grid-image {
-        display:flex;
-        flex-wrap:wrap;
-        align-items:flex-start;
-        margin:30px 0;
-    }
-    .grid-image img {
-        width:calc(33.333% - 10px);
-        margin:0 15px 15px 0;
-    }
-    .grid-image img:nth-of-type(3n),
-    .grid-image img:last-child {
-        margin-right:0;
-    }
-    @media screen and (max-width:640px){
-        .grid-image img {
-            width:calc(50% - 15px);
-        }
-    }
-    @media screen and (max-width:480px){
-        .grid-image img:nth-of-type(2n) {
-            margin-right:0;
-        }
-        .grid-image img:nth-of-type(3n) {
-            margin-right:15px;
-        }
-    }
-</style>
-
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{border-bottom-width:1px;border-color:black;border-style:solid;border-top-width:1px;border-width:0px;
-        font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-    .tg th{border-bottom-width:1px;border-color:black;border-style:solid;border-top-width:1px;border-width:0px;
-        font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-    .tg .tg-ofg3{background-color:#ffffff;border-color:#333333;color:#9b9b9b;
-        font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;text-align:left;vertical-align:top}
-    .tg .tg-f2a8{font-family:serif !important;font-size:35px;font-weight:bold;text-align:left;vertical-align:top}
-    .tg .tg-9rpp{background-color:#ffffff;border-color:#333333;color:#9b9b9b;
-        font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;text-align:left;vertical-align:middle}
-    .tg .tg-mnzm{font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;text-align:left;vertical-align:top}
-    .tg .tg-jyg6{background-color:#ffffff;color:#fe0000;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
-        text-align:left;vertical-align:top}
-    .tg .tg-l6nl{border-color:#000000;color:#000000;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
-        text-align:left;vertical-align:top}
-</style>
-
-
 
     <head>
         <meta charset="utf-8" />
@@ -89,42 +39,42 @@
             </div>
         </header>
         <!-- Page content-->
+
         <div class="container">
+
              <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
-                    <div class="card mb-4">
+                    <div class="card mb-3">
 
                         <!-- 음식 이미지 -->
-                        <div class="grid-image">
+                        <div class="grid-image my-0">
                             <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1067591_1530450190983162.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                             <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1660311616360583.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                             <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1637484735593478.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                         </div>
 
 
-
                         <!-- 가게 정보 -->
-                        <table class="tg" style="undefined;table-layout: fixed; width: 500px">
+                        <table class="tg" style="undefined;table-layout: fixed; width: 600px">
                             <colgroup>
                                 <col style="width: 80px">
                                 <col style="width: 223px">
                                 <col style="width: 76px">
                             </colgroup>
-                            <thead>
 
+
+
+                            <thead>
                             <tr>
                                 <th class="tg-f2a8" colspan="2">삼성 원조 양곱창</th>
-                                 <td> <i class="fa-solid fa-pencil fa-2x"></i>
-                                    <span>리뷰작성</span>
-                                    <i class="fa-regular fa-star fa-2x"></i>
-                                    <span>찜</span>
-                                 </td>
-                            </tr>
-
+                                <th><i class="fa-solid fa-pencil fa-2x me-3"></i>
+                                  <i class="fa-solid fa-star fa-2x me-2"></i></th>
+                             </tr>
                             </thead>
                             <tbody>
+                            <span></span>
                             <tr>
                                 <td class="tg-ofg3">주소</td>
                                 <td class="tg-mnzm" colspan="2">부산광역시 수영구 과정로 16</td>
@@ -245,7 +195,7 @@
 
             <!-- Footer-->
             <footer class="py-5 bg-dark">
-                <div class="container"><p class="m-0 text-center text-white">2022&copy; 므앙고플레이트 </p>
+                <div class="container"><p class="m-0 text-center text-white">&copy; team.B</p>
 
             </footer>
             <!-- Bootstrap core JS-->
