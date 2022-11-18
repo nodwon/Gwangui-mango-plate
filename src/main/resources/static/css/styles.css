@@ -11270,7 +11270,7 @@ form.example button {
     float: left;
     width: 20%;
     padding: 25px;
-    background: #2196F3;
+    background: #fd7e14;
     color: white;
     font-size: 25px;
     border: 1px solid grey;
@@ -11281,7 +11281,7 @@ form.example button {
 }
 
 form.example button:hover {
-    background: #0b7dda;
+    background: #fd7e14;
 }
 
 form.example::after {
@@ -11332,3 +11332,4 @@ form.example::after {
         display: none !important;
     }
 }
+

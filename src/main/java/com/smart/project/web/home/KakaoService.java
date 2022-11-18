@@ -82,13 +82,10 @@ public class KakaoService {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-
             //    요청에 필요한 Header에 포함될 내용
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
-
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line = "";
@@ -107,7 +104,7 @@ public class KakaoService {
 
             String profile_nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-           String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
             userInfo.put("nickname", profile_nickname);
             userInfo.put("email", email);
