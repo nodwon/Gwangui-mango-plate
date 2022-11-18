@@ -1,0 +1,10 @@
+social:
+  kakao:
+    client_id: 69be1a111282098525e83fb2e70767ec # 앱생성시 받은 REST API 키
+    redirect: /social/login/kakao
+    url:
+      login: https://kauth.kakao.com/oauth/authorize
+      token: https://kauth.kakao.com/oauth/token
+      profile: https://kapi.kakao.com/v2/user/me
+url:
+  base: http://localhost:8080
