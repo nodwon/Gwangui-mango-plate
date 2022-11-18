@@ -11334,6 +11334,8 @@ form.example::after {
 }
 
  #background {
-   background-image: url('https://www.baemin.com/_next/static/images/main_03@2x.jpg');
+   background-image: url("../resources/vendors/images/header_background_img.png");
 
 }
+
+
