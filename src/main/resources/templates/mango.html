@@ -19,6 +19,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
+        <script src="../resources/vendors/polyfill.min.js"></script>
+        <script src="../resources/vendors/jquery.min.js"></script>
+        <script src="../resources/vendors/lodash.min.js"></script>
+        <script src="../resources/vendors/axios.min.js"></script>
+        <script src="../resources/vendors/moment.min.js"></script>
+        <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
+        <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/onLoad.bundle.js')}"></script>
     </head>
     <style>
         div.fixed{
