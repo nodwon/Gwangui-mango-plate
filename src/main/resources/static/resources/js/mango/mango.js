@@ -7,6 +7,7 @@ $(()=>{
 export class mango{
     constructor() {
 
+        this.foodList = require("@/mango/foodList.html");
         this.eventBind();
 
 
@@ -16,6 +17,10 @@ export class mango{
             map: map
         });*/
 //123123
+        axios.post("data/mango2All",{}).then((result)=>{
+            $("#start").empty();
+            $("#start").append(this.foodList(result));
+        });
 
 
 

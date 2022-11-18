@@ -26,4 +26,6 @@ public interface Test {
 
     List<mangoVO> selectMango();
 	List<mango2VO> selectMango2(String mainmenu);
+
+	List<mango2VO> selectMango2All();
 }

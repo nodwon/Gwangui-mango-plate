@@ -120,6 +120,17 @@ public class HomeDataAct {
 	}
 
 
+	@PostMapping("/data/mango2All")
+	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
+		Map<String, Object> result = new HashMap<>();
+		List<mango2VO> data = test.selectMango2All();
+		/*List<mango2VO> data=null;*/
+		log.error("select 결과 list : {}",data);
+		result.put("food",data);
+
+		return result;
+	}
+
 	@PostMapping("/data/mango2")
 	public List<mango2VO>getMango2Data(@RequestBody Map param){
 	 String mainmenu = String.valueOf(param.get("menu"));
