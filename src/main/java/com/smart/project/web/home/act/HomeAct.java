@@ -72,4 +72,9 @@ public class HomeAct {
 	public String homeData(){
 		return "index";
 	}
+
+	@RequestMapping("/detailPage")
+	public String datailPage(){
+		return"detailPage";
+	}
 }
