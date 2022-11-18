@@ -19,7 +19,7 @@ public class KakaoController {
         String access_Token = kakaoService.getAccessToken(code);
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
         System.out.println("###access_Token#### : " + access_Token);
-//        System.out.println("###userInfo#### : " + userInfo.get("email"));
+        System.out.println("###userInfo#### : " + userInfo.get("email"));
         System.out.println("###nickname#### : " + userInfo.get("nickname"));
         System.out.println("###profile_image#### : " + userInfo.get("profile_image"));
         return "mango";
