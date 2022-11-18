@@ -6,20 +6,20 @@ import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
 import com.smart.project.security.StudyCookieService;
 import com.smart.project.web.home.vo.TestVO;
+import com.smart.project.web.home.vo.locationVO;
+import com.smart.project.web.home.vo.mangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,34 +32,19 @@ public class HomeAct {
 	final private
 	CommonCodeComponent commonCodeComponent;
 
-	final private Test test;
+	//final private Test test;
 
 
 	@RequestMapping("/")
 	public String home(Model model, InternCookie cookie, HttpServletRequest request){
+		/*Map<String, mangoVO> data = commonCodeComponent.getmangoAll();
+		//db에 바로 넣기
+		//
+		log.error("{}",data);
+*/
 
-	/*	model.addAttribute("data", commonCodeComponent.getCodeList("style_f"));
-		model.addAttribute("data2", commonCodeComponent.getCodeList("character_f"));
 
-		Map<String, CodeObject> data = commonCodeComponent.getAll();
-		log.error("***************************************");
-		List<TestVO> list = test.sqlMenu2("");
-		log.error("list===>{}", data);
-		for(TestVO dt : list){
-			log.error("{}//{}", dt.getUserId(), dt.getUserName());
-		}
-		//log.error("{}", list);
-		log.error("***************************************");
-
-		Iterator<String> keys = data.keySet().iterator();
-		while( keys.hasNext() ){
-			String key = keys.next();
-			//log.error("key==>{}, list==>{}", key, data.get(key));
-			model.addAttribute(key, data.get(key).getCodeList());
-		}*/
-
-		//log.error("{}",data);
-		return "mango";  //작업하고 싶은 페이지 수정하기
+		return "mango";
 	}
 
 	@RequestMapping("/cookie/add2")

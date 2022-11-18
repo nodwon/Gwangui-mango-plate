@@ -3,6 +3,7 @@ package com.smart.project.component;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.smart.project.component.data.CodeObject;
+import com.smart.project.web.home.vo.mangoVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,16 +19,19 @@ import java.util.List;
 import java.util.Map;
 
 abstract class CodeComponent {
-
+	final Map<String, mangoVO> mangoMap = new LinkedHashMap<>();
 	final Map<String, CodeObject> codeMap = new LinkedHashMap<>();
 	@Autowired ApplicationContext applicationContext;
 	@PostConstruct
 	public void init() {
 		String jsonFileName = jsonPath();
 		List<CodeObject> codeObjectList = getListFromJson(jsonFileName);
-
+		List<mangoVO> mangoObjectList = getMangoListFromJson(jsonFileName);
 		codeObjectList.forEach(data -> codeMap.put((data.getId()), data));
+		mangoObjectList.forEach(data -> mangoMap.put((data.getId()), data));
 	}
+
+
 
 	private List<CodeObject> getListFromJson(String jsonPath) {
 		List<CodeObject> codeList = new ArrayList<>();
@@ -41,6 +45,19 @@ abstract class CodeComponent {
 		}
 		return codeList;
 	}
+	private List<mangoVO> getMangoListFromJson(String jsonPath) {
+		List<mangoVO> mangoList = new ArrayList<>();
+		Resource resource = applicationContext.getResource(jsonPath);
+		try {
+			mangoList = new Gson().fromJson(new BufferedReader(new InputStreamReader(resource
+					.getInputStream())), new TypeToken<List<mangoVO>>() {
+			}.getType());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mangoList;
+	}
+
 
 	/**********************************************************************************************
 	 * @Method 설명  : 상속받은 code관련 컴포넌트에서 반드시 구현해야 한다. (어떤 json 파일을 사용할지를 리턴해야함)
@@ -66,6 +83,7 @@ abstract class CodeComponent {
 
 		return codeObject.getCodeList();
 	}
+
 
 	/**********************************************************************************************
 	 * @Method 설명 : 해당 id에 일치하는 json객체의 codeList중 code가 일치하는 json 리턴
@@ -112,6 +130,9 @@ abstract class CodeComponent {
 	 **********************************************************************************************/
 	public Map<String, CodeObject> getAll() {
 		return codeMap;
+	}
+	public Map<String, mangoVO> getmangoAll() {
+		return mangoMap;
 	}
 
 }
