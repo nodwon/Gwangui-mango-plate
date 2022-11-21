@@ -94,6 +94,18 @@ select {
   height: 60px;
 }
 
+p {
+  display: none;
+}
+
+.join_txt.confirm {
+  color: blue;
+}
+
+.join_txt.error {
+  color: red;
+}
+
 
 #btnId {
   margin-top: 12px;

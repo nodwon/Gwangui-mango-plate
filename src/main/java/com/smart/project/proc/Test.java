@@ -18,4 +18,8 @@ public interface Test {
 	 * @변경이력 :
 	 **********************************************************************************************/
 	List<TestVO> sqlMenu2(String userId);
+
+    void insertMember(TestVO vo);
+
+    int idCount(String userId);
 }

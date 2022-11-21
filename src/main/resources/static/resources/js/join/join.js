@@ -1,13 +1,13 @@
 "use strict";
 
 
-
 $(()=>{
 	new Join();
 })
 
 export class Join
 {
+
 	constructor() {
 		console.log('join')
 		this.eventBindgin();
@@ -77,6 +77,38 @@ export class Join
 			this.locEvent($(e.currentTarget).data());
 		})
 
+		this.joinEvent();
 
 	}
+
+	joinEvent(){
+		$('.btn_id').on('click', (e)=> {
+			console.log("클릭");
+			let userId = $('.form-control:eq(0)').val();
+			if(userId !== "") {
+				axios.post("/idCheck",{"userId": userId}).then((res)=>{
+						console.log(res);
+						if(res.data >= 1){
+							console.log("중복");
+							$('.join_txt.confirm').hide();
+							$('.join_txt.error').show();
+						} else if (res.data === 0){
+							console.log("사용가능");
+							$('.join_txt.error').hide();
+							$('.join_txt.confirm').show();
+						}
+				}).catch((e)=>{
+						console.log(e);
+				});
+			}
+		});
+	}
+
+
+
+
+
+
+
+
 }

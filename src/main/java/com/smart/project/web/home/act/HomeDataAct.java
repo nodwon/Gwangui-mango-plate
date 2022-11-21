@@ -3,6 +3,8 @@ package com.smart.project.web.home.act;
 import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.LocCodeComponent;
 import com.smart.project.component.data.CodeObject;
+import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +25,7 @@ public class HomeDataAct {
 
 	final private LocCodeComponent locCodeComponent;
 
+	final private Test test;
 	@PostMapping("/data/wantLoc")
 	public Map<String, Object> getWantLoc(@RequestBody Map param){
 		Map<String, Object> data = new HashMap<>();
@@ -78,5 +81,22 @@ public class HomeDataAct {
 		locCodeComponent.getCodeList("m003e");
 
 		return data;
+	}
+
+	@PostMapping("/register")
+	public TestVO createMember(TestVO vo) {
+
+		test.insertMember(vo);
+		log.info(vo.toString());
+		return vo;
+	}
+
+	@PostMapping("/idCheck")
+	public int checkDuplicateId(@RequestBody Map param){
+		String id = String.valueOf(param.get("userId"));
+
+		int idCount = test.idCount(id);
+
+		return idCount;
 	}
 }
