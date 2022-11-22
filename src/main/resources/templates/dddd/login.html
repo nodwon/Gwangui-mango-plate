@@ -86,11 +86,19 @@
           </div>
         </div>
         <div class="etc_box">
-          <div class="social_lg">
+<!--          <form id="frm" action="/kakaoJoin" method="post">-->
+            <input type="hidden" id="email" name="email" value="">
+            <input type="hidden" id="nickname" name="nickname" value="">
+<!--            <input id="testInput" type="submit" hidden>-->
+<!--          <label for="testInput">-->
             <a class="btn-login join_btn btn_click" id="kakao-login-btn">
-              <input type="hidden" id="tocken" name="tocken" value="0">
               <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
             </a>
+<!--          </label>-->
+<!--          </form>-->
+          <div class="social_lg">
+
+
           </div>
           <div class="join">
 
@@ -120,70 +128,9 @@
 <!--<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"-->
 <!--        integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>-->
 
-<!--<script>-->
-<!--  Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf'); // 사용하려는 앱의 JavaScript 키 입력-->
-<!--  console.log(Kakao.isInitialized());-->
-<!--</script>-->
-<!--<a id="kakao-login-btn" href="javascript:loginWithKakao()">-->
-<!--  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"-->
-<!--       alt="카카오 로그인 버튼" />-->
-<!--</a>-->
-<!--<p id="token-result"></p>-->
-
-<!--<script>-->
-<!--  function loginWithKakao() {-->
-<!--    Kakao.Auth.authorize({-->
-<!--      redirectUri: 'http://localhost:8080/mango'-->
-<!--    });-->
-<!--  }-->
-
-<!--  displayToken()-->
-<!--  function displayToken() {-->
-<!--    var token = getCookie('authorize-access-token');-->
-<!--    console.log(token);-->
-<!--    if(token) {-->
-<!--      Kakao.Auth.setAccessToken(token);-->
-<!--      Kakao.Auth.getStatusInfo()-->
-<!--              .then(function(res) {-->
-<!--                if (res.status === 'connected') {-->
-<!--                  document.getElementById('token-result').innerText-->
-<!--                          = 'login success, token: ' + Kakao.Auth.getAccessToken();-->
-<!--                  console.log(res);-->
-<!--                }-->
-<!--              })-->
-<!--              .catch(function(err) {-->
-<!--                Kakao.Auth.setAccessToken(null);-->
-<!--              });-->
-
-<!--    }-->
-<!--  }-->
-
-<!--  function getCookie(name) {-->
-<!--    var parts = document.cookie.split(name + '=');-->
-<!--    if (parts.length === 2) { return parts[1].split(';')[0]; }-->
-<!--  }-->
-<!--</script>-->
-<!--<script>-->
-<!--  $('.pw_hide').on('click', function() {-->
-<!--    $(this).toggleClass('active')-->
-<!--    $(this).siblings('.join_form').toggleClass('pass_active')-->
-<!--    $(this).siblings('.join_form').toggleClass('join_pass')-->
-
-<!--    if ($(this).siblings(':input').attr('type') == 'password'){-->
-<!--      $(this).siblings('input').attr('type', 'text')-->
-
-<!--    } else {-->
-<!--      $(this).siblings('input').attr('type', 'password')-->
-<!--    }-->
-
-<!--  })-->
-<!--</script>-->
-
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type='text/javascript'>
   Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf');
-
-
   $("#kakao-login-btn").on("click", function(){
     //1. 로그인 시도
     Kakao.Auth.login({
@@ -194,24 +141,65 @@
           url: '/v2/user/me',
           success: function(res) {
             console.log(res);
-            alert(JSON.stringify(authObj));
-            alert(JSON.stringify(res));
-
-            alert(res.kakao_account['email']);
-
-            alert(res.properties['nickname']);
-
-            let request = JSON.stringify(res.kakao_account['email']);
-            $(function(){
-              $('#tocken').val(request);
-              let value = $('input[name=tocken]').val();
-              alert(value);
-            });
+            // alert(JSON.stringify(authObj));
+            // alert(JSON.stringify(res));
+            // alert(res.kakao_account['email']);
+            // alert(res.properties['nickname']);
             console.log(authObj.access_token);
-            scope : 'profile_nickname, account_email';
-            location.href="http://localhost/mango";
+
+
+
+
+            $(function(){
+              let requestEmail = JSON.stringify(res.kakao_account['email']);
+              $('#email').val(requestEmail);
+              let value = $('input[name=email]').val();
+              // alert(value);
+              console.log(value);
+            });
+
+            $(function(){
+              let requestNick = JSON.stringify(res.properties['nickname']);
+              $('#nickname').val(requestNick);
+              let value = $('input[name=nickname]').val();
+              // alert(value);
+              console.log(value);
+
+            });
+            let email = $('input[name=email]').val();
+            let nickname = $('input[name=nickname]').val();
+            // scope : 'profile_nickname, account_email';
+            location.href="/kakaoJoin?nickname="+nickname+"&email="+email;
+
+
+
+            // let email = $('input[name=email]').val();
+            // let name = $('input[name=nickname]').val();
+            // let object={
+            //   "email":email,
+            //   "name" :name
+            // }
+            // axios.post("/kakaoJoin",{object}).then(()=>{
+            //   console.log("여까지 이동")
+            //   location.href="/mango";
+            // })
+            // $.ajax({
+            //   type : "post",
+            //   url : '/kakaoJoin',
+            //   data : {"nickname" : requestNick,
+            //           "email" : requestEmail},
+            //   dataType : "json",
+            //   success : function(json){
+            //     if(json.success){
+            //       createHiddenLoginForm(requestEmail)
+            //     }else{
+            //       alert("error");
+            //     }
+            //   }
+            // })
           }
         })
+
         console.log(authObj);
         let token = authObj.access_token;
       },
@@ -221,7 +209,18 @@
     });
 
   }) //
-
+// function createHiddenLoginForm(requestEmail){
+//   let frm = document.createElement('form');
+//   frm.setAttribute('method','post');
+//   frm.setAttribute('action', '/mango');
+//   let hiddenInput = document.createElement('input');
+//   hiddenInput.setAttribute('type','hidden');
+//   hiddenInput.setAttribute('name','email');
+//   hiddenInput.setAttribute('value',requestEmail);
+//   frm.appendChild(hiddenInput);
+//   document.body.appendChild(frm);
+//   frm.submit();
+// }
 
 </script>
 

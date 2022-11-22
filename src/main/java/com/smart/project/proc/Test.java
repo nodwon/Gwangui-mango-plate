@@ -3,6 +3,7 @@ package com.smart.project.proc;
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
 //import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.TestVO;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,5 @@ public interface Test {
 	 **********************************************************************************************/
 	List<TestVO> sqlMenu2(String userId);
 
-	HashMap<String, Object> kakaoinsert(HashMap<String, Object> userInfo);
-
-//	HashMap<String, Object> findkakao(HashMap<String, Object> userInfo);
+	void kakaoJoin(KakaoMemberVO vo);
 }

@@ -4,14 +4,8 @@
     <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">
         SELECT * FROM test;
     </select>
-<!--    <select id="findkakao" parameterType="java.util.HashMap" resultType="KakaoMemberVO">-->
-<!--        select * from kakao_table where nickname=#{nickname} and email=#{email}-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 정보 저장 &ndash;&gt;-->
-<!--    <insert id="kakaoinsert" parameterType="java.util.HashMap">-->
-<!--        insert into kakao_table(nickname, email)-->
-<!--        values(#{nickname}, #{email})-->
-<!--    </insert>-->
+    <insert id="kakaoJoin" parameterType="com.smart.project.web.home.vo.KakaoMemberVO">
+        insert into kakao_table (email,nickname) values (#{email},#{nickname})
+    </insert>
 
 </mapper>
