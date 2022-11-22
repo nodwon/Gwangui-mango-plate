@@ -4,11 +4,17 @@ import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.LocCodeComponent;
 import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.locationVO;
+import com.smart.project.web.home.vo.mango2VO;
+import com.smart.project.web.home.vo.mangoVO;
+import com.smart.project.web.home.vo.modalVO;
+import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +30,9 @@ public class HomeDataAct {
 	CommonCodeComponent commonCodeComponent;
 
 	final private LocCodeComponent locCodeComponent;
-
 	final private Test test;
+
+
 	@PostMapping("/data/wantLoc")
 	public Map<String, Object> getWantLoc(@RequestBody Map param){
 		Map<String, Object> data = new HashMap<>();
@@ -82,6 +89,81 @@ public class HomeDataAct {
 
 		return data;
 	}
+
+
+
+
+	@PostMapping("/data/mango")
+	public List<mangoVO>getMangoData(@RequestBody Map param){
+
+	/*	//db에 바로 넣기
+		log.error("{}",data);
+
+		Iterator<String> keys = data.keySet().iterator();   //keys =[sex, gender, want, style_f, style_m, character_f, character_m, job, salary, salary_convert, school, car, religion,]
+		List<mangoVO> mangoVOList = new ArrayList<>();
+		*//*while( keys.hasNext() ){   // 키가 있으면 true  없으면 false
+			String key = keys.next(); //key =  1. sex  2 gender  다음값이 입력된다.*//*
+		for(mangoVO v:data.values())
+		{
+			mangoVO mv = new mangoVO();
+			mv.setAddress(v.getAddress());
+			mv.setId(v.getId());
+			mv.setMenu(v.getMenu());
+			mv.setName(v.getName());
+			mv.setPhone(v.getPhone());
+			mangoVOList.add(mv);
+		}
+		*//*test.insertMangoJson(mangoVOList);*/
+		List<mangoVO> data = test.selectMango();
+
+
+
+		log.error("sdfsafd{}",data);
+		return data;
+	}
+
+
+	@PostMapping("/data/mango2All")
+	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
+		Map<String, Object> result = new HashMap<>();
+		List<mango2VO> data = test.selectMango2All();
+		/*List<mango2VO> data=null;*/
+		log.error("select 결과 list : {}",data);
+		result.put("food",data);
+
+		return result;
+	}
+
+	@PostMapping("/data/mango2")
+	public List<mango2VO>getMango2Data(@RequestBody Map param){
+	 String mainmenu = String.valueOf(param.get("menu"));
+	 log.error("검색창에 입력한 것 : {}",mainmenu);
+	List<mango2VO> data = test.selectMango2(mainmenu);
+		/*List<mango2VO> data=null;*/
+	log.error("select 결과 list : {}",data);
+		return data;
+	}
+
+/*	@PostMapping("/data/select")//해외
+	public String userDB(@RequestBody modalVO param){
+
+
+		//String keyData = String.valueOf(param);  //우리가 post (key,object)
+		log.error("user 정보 확인 : {}", param);
+		//받은 MAP 데이터 {'KEY' : 값형태} 형태
+		log.error("user 정보 확인 : {}", param.getName());
+
+		//log.error("{}",isData);
+		List<modalVO> modalVO = new ArrayList<>();
+		modalVO.add(param);
+		log.error("{}",modalVO);
+
+
+		//add한 codeVOList를 데이터베이스에 넣기
+		//test.userInsert(modalVO);
+
+		return "index";
+	}*/
 
 	@PostMapping("/register")
 	public TestVO createMember(TestVO vo) {

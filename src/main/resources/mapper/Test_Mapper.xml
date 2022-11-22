@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.project.proc.Test" >
     <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">
@@ -15,4 +15,23 @@
     </select>
 
 
+
+    <insert id ="insertMangoJson" parameterType="java.util.List">
+        insert into bteam (id,name,address,menu,phone) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.name},#{item.address},#{item.menu},#{item.phone})
+        </foreach>
+    </insert>
+
+    <select id="selectMango" resultType="com.smart.project.web.home.vo.mangoVO">
+        SELECT * FROM mangodb;
+    </select>
+
+    <select id="selectMango2" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="java.lang.String">
+        SELECT * FROM mango2db where  mainmenu like concat('%',#{mainmenu},'%');
+    </select>
+
+    <select id="selectMango2All" resultType="com.smart.project.web.home.vo.mango2VO">
+        SELECT * FROM mango2db;
+    </select>
 </mapper>
