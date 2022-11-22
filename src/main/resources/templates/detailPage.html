@@ -2,6 +2,8 @@
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layoutContents.html}">
 <head>
     <link href="../css/styles.css" rel="stylesheet" />
     <meta charset="utf-8" />
@@ -16,30 +18,28 @@
 
        <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 
-        <script src="../resources/vendors/polyfill.min.js"></script>
+     <!--   <script src="../resources/vendors/polyfill.min.js"></script>
         <script src="../resources/vendors/jquery.min.js"></script>
         <script src="../resources/vendors/lodash.min.js"></script>
         <script src="../resources/vendors/axios.min.js"></script>
         <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
         <script src="../resources/vendors/moment.min.js"></script>
+-->
 
-
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
+ <!--       <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
         <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
         <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
         <link rel="stylesheet" type="text/css" href="../css/mobile.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_seem.css">
+        <link rel="stylesheet" type="text/css" href="../css/m_yby_seem.css">-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/detailPageStyle.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
-
-        <script type="text/javascript" th:src="${@versionComponent.getVersion('../resources/build/detailPage.bundle.js')}"></script>
-
+    <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>
 
     </head>
-    <body>
+<div layout:fragment="content" class="pc__container">
     <div  class ="fixed navbar-expand-lg" >
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -119,7 +119,7 @@
 
 
                         <!-- 가게 정보 -->
-                        <table class="tg" style="undefined;table-layout: fixed; width: 600px">
+                        <table class="tg" >
                             <colgroup>
                                 <col style="width: 80px">
                                 <col style="width: 223px">
@@ -265,6 +265,6 @@
         </div>
 
 
-    </body>
-</html>
+
+</div>
 

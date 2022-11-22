@@ -2,12 +2,11 @@
 $(()=>{
     new detailPage();
 })
-////
 export class detailPage{
     constructor() {
-        console.log("성공했나safdsfadsfs");
+        console.log("성공했나safdsfsd21312321fsdfd21321sadsfs");
 
-        console.log("성공했나safdsfa12312312dsfs");
+
         this.event();
     }
 

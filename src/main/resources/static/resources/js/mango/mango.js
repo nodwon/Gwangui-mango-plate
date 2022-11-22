@@ -12,7 +12,6 @@ export class mango{
 
 
 
-
   /*      var marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(latitude, longitude),
             map: map
