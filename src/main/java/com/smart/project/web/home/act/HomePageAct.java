@@ -19,11 +19,11 @@ import java.util.Map;
 public class HomePageAct {
 
     final private Test test;
-
+    
+    //카카오 로그인 데이터 저장
     @RequestMapping("/kakaoJoin")
     public String kakaoJoin(@ModelAttribute KakaoMemberVO vo) {
-        System.out.println("이동");
-        System.out.println(vo);
+
         test.kakaoJoin(vo);
         return "redirect:/mango";
     }

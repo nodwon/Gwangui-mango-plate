@@ -86,26 +86,17 @@
           </div>
         </div>
         <div class="etc_box">
-<!--          <form id="frm" action="/kakaoJoin" method="post">-->
             <input type="hidden" id="email" name="email" value="">
             <input type="hidden" id="nickname" name="nickname" value="">
-<!--            <input id="testInput" type="submit" hidden>-->
-<!--          <label for="testInput">-->
             <a class="btn-login join_btn btn_click" id="kakao-login-btn">
               <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
             </a>
-<!--          </label>-->
-<!--          </form>-->
           <div class="social_lg">
-
-
           </div>
           <div class="join">
-
             <a class="join_btn btn_click">일반 회원가입</a>
             <div class="offer_box">
               <p class="jn_msg">※ 한번가입으로 <span>PC 웹, 모바일 웹</span> 어디서나 사용이 가능합니다.</p>
-
               <div class="yby_offer">
               </div>
             </div>
@@ -115,18 +106,6 @@
     </div>
   </form>
 </div>
-
-
-<!--<script src="polyfill.min.js"></script>-->
-<!--<script src="../vendors/jquery.min.js"></script>-->
-<!--<script src="../vendors/lodash.min.js"></script>-->
-<!--<script src="../vendors/axios.min.js"></script>-->
-<!--<script src="../vendors/moment.min.js"></script>-->
-<!--<script src="../vendors/jquery-mobile.event.min.js"></script>-->
-<!--<script src="../vendors/onLoad.bundle.js"></script>-->
-<!--<script src="../static/resources/vendors/siteMap.bundle.js"></script>-->
-<!--<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"-->
-<!--        integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous"></script>-->
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type='text/javascript'>
@@ -146,10 +125,6 @@
             // alert(res.kakao_account['email']);
             // alert(res.properties['nickname']);
             console.log(authObj.access_token);
-
-
-
-
             $(function(){
               let requestEmail = JSON.stringify(res.kakao_account['email']);
               $('#email').val(requestEmail);
@@ -164,42 +139,13 @@
               let value = $('input[name=nickname]').val();
               // alert(value);
               console.log(value);
-
             });
             let email = $('input[name=email]').val();
             let nickname = $('input[name=nickname]').val();
             // scope : 'profile_nickname, account_email';
             location.href="/kakaoJoin?nickname="+nickname+"&email="+email;
-
-
-
-            // let email = $('input[name=email]').val();
-            // let name = $('input[name=nickname]').val();
-            // let object={
-            //   "email":email,
-            //   "name" :name
-            // }
-            // axios.post("/kakaoJoin",{object}).then(()=>{
-            //   console.log("여까지 이동")
-            //   location.href="/mango";
-            // })
-            // $.ajax({
-            //   type : "post",
-            //   url : '/kakaoJoin',
-            //   data : {"nickname" : requestNick,
-            //           "email" : requestEmail},
-            //   dataType : "json",
-            //   success : function(json){
-            //     if(json.success){
-            //       createHiddenLoginForm(requestEmail)
-            //     }else{
-            //       alert("error");
-            //     }
-            //   }
-            // })
           }
         })
-
         console.log(authObj);
         let token = authObj.access_token;
       },
@@ -207,23 +153,7 @@
         alert(JSON.stringify(err));
       }
     });
-
-  }) //
-// function createHiddenLoginForm(requestEmail){
-//   let frm = document.createElement('form');
-//   frm.setAttribute('method','post');
-//   frm.setAttribute('action', '/mango');
-//   let hiddenInput = document.createElement('input');
-//   hiddenInput.setAttribute('type','hidden');
-//   hiddenInput.setAttribute('name','email');
-//   hiddenInput.setAttribute('value',requestEmail);
-//   frm.appendChild(hiddenInput);
-//   document.body.appendChild(frm);
-//   frm.submit();
-// }
-
+  })
 </script>
-
-
 </body>
 </html>
