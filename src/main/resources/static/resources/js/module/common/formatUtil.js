@@ -71,6 +71,7 @@ export class FormatUtil {
 		pattern.kr = /^[가-힣]+$/; // 한국어
 		pattern.en = /[a-z]/ig; // 영어
 		pattern.special = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi; // 특수문자
+		pattern.password = /^[A-Za-z0-9]{4,12}$/;
 
 
 		return pattern[kind];

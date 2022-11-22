@@ -1,5 +1,6 @@
 "use strict";
 
+import {FormatUtil} from "../module/common/formatUtil.js";
 
 $(()=>{
 	new Join();
@@ -81,20 +82,21 @@ export class Join
 
 	}
 
+	// 회원가입
 	joinEvent(){
+
+		// 아이디 중복 검사
 		$('.btn_id').on('click', (e)=> {
-			console.log("클릭");
+			$('.btn_id').addClass('active');
 			let userId = $('.form-control:eq(0)').val();
 			if(userId !== "") {
 				axios.post("/idCheck",{"userId": userId}).then((res)=>{
-						console.log(res);
+						//console.log(res);
 						if(res.data >= 1){
-							console.log("중복");
 							$('.join_txt.confirm').hide();
-							$('.join_txt.error').show();
+							$('.join_txt.error:eq(0)').show();
 						} else if (res.data === 0){
-							console.log("사용가능");
-							$('.join_txt.error').hide();
+							$('.join_txt.error:eq(0)').hide();
 							$('.join_txt.confirm').show();
 						}
 				}).catch((e)=>{
@@ -102,13 +104,50 @@ export class Join
 				});
 			}
 		});
+
+		// 제출 방지(아이디 중복확인 안했을 경우, 미입력인 경우, 비밀번호와 비밀번호 확인이 불일치인 경우)
+		$('.frm').on('submit', function (e) {
+			if(!$('.btn_id').hasClass('active')) {
+				alert("아이디 중복 확인을 해주세요");
+				$('.join_txt.error').hide();
+				e.preventDefault();
+			}
+			if($('#inputEmail').val() === '') {
+				$('.join_txt.error').hide();
+				$('.join_txt.error:eq(1)').show();
+				e.preventDefault();
+			}
+			if($('#inputPassword').val() !== $('#inputPasswordConfirm').val()) {
+				$('.join_txt.error').hide();
+				$('.join_txt.error:eq(2)').show();
+				e.preventDefault();
+			}
+			if($('#inputName').val() === '') {
+				$('.join_txt.error').hide();
+				$('.join_txt.error:eq(4)').show();
+				e.preventDefault();
+			}
+			if($('#inputPhoneNumber').val() === '') {
+				$('.join_txt.error').hide();
+				$('.join_txt.error:eq(5)').show();
+				e.preventDefault();
+			}
+
+		});
+
+
+		// 비밀번호 4 ~ 12자 영어,숫자만 입력 가능
+		$('.form-control:eq(2)').on("keyup",(e)=>{
+			let pattern = FormatUtil.pattern('password');
+			if (!pattern.test($('.form-control:eq(2)').val())) {
+				$('.join_txt.error').hide();
+				$('.join_txt.error:eq(3)').show();
+			} else {
+				$('.join_txt.error').hide();
+			}
+		});
+
+
 	}
-
-
-
-
-
-
-
 
 }
