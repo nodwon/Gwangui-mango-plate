@@ -3,12 +3,13 @@
 $(()=>{
     new mango();
 })
-
+//
 export class mango{
     constructor() {
 
         this.foodList = require("@/mango/foodList.html");
-        this.eventBind();
+        this.modalList = require("@/mango/modalList.html");
+
 
 
 
@@ -16,11 +17,15 @@ export class mango{
             position: new naver.maps.LatLng(latitude, longitude),
             map: map
         });*/
-//123123
+//123123//
         axios.post("data/mango2All",{}).then((result)=>{
             $("#start").empty();
             $("#start").append(this.foodList(result));
+/*            $(".pop_region_content.region_content_kr").empty();
+            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
+            this.eventBind();
         });
+
 
 
 
@@ -28,6 +33,51 @@ export class mango{
 
     }
 
+
+    modalShow(){
+
+
+
+        this.eventModal()
+
+
+
+    }
+
+
+
+
+    eventModal()
+    {
+
+        //모달 x
+        $(".btn_cls").on("click",(e)=>{
+            $(".normal_pop_wrap").addClass("hidden")
+        });
+
+        //모달 최근본 이미지 클릭시 이벤트
+        $(".slct_food").on("click",(e)=>{
+            if(!$(e.currentTarget).hasClass("active"))
+            {
+                $(e.currentTarget).addClass("active");
+                $(".slct_want").removeClass("active");
+                $(".pop_region_content.region_content_kr").removeClass("hidden");
+
+            }
+        });
+        //모달 가고싶은곳
+        $(".slct_want").on("click",(e)=>{
+            if(!$(e.currentTarget).hasClass("active"))
+            {
+                $(e.currentTarget).addClass("active");
+                $(".slct_food").removeClass("active");
+                $(".pop_region_content.region_content_kr").addClass("hidden");
+            }
+        });
+
+
+
+    }
     eventBind(){
 
         console.log("gddgㅇㄴㅁㄹㅇ213123123ㄴ")
@@ -36,7 +86,7 @@ export class mango{
             alert("상세페이지로 이동하고싶으면 form 의 action과 form의 onsubmit를 지워주세요")
             //눌러지면 검색 상세창으로 이동
             /*$(".example.py-5").removeAttr("onsubmit")*/
-////////
+            location.href='/test1';
         })
 
 
@@ -45,7 +95,7 @@ export class mango{
         $("input[name=search]").on("focusout",(e)=>{
             let object = {"menu":$("input[name=search]").val()}
             if(!($("input[name=search]").val()===""))
-            {
+            {//
                 axios.post("data/mango2",object).then((result)=>{
                     let data = result.data;   //data = List<locationVO>
                     var mapOptions = {
@@ -99,6 +149,46 @@ export class mango{
 
         });
 
+        $(".btn btn-outline-dark mt-auto").on("click",(e)=>{
+
+        });
+
+        $("#modal").on("click",(e)=>{
+            $(".normal_pop_wrap").removeClass("hidden")
+            this.modalShow();
+
+        });
+
+
+        $(".card.h-100").on("click",(e)=>{
+            let name = $(e.currentTarget).find('.name').text();
+            let roadName =  $(e.currentTarget).find('.roadName').text();
+            let src =  $(e.currentTarget).find('.card-img-top').attr("src");
+            let storeName =$(e.currentTarget).find('.name').text();
+            let object = {
+                "name": name,
+                "roadName":roadName,
+                "src":src
+            }
+            axios({
+                method : "post",
+                url : "/test2",
+                params : object
+
+            }).then((response)=>{
+                /*location.href ="test2";*/
+
+                $(".pop_region_content.region_content_kr").append(response.data);
+               /* location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*/
+                location.href="/detailPage";
+            })
+
+            console.log("선택된 가게 이름 :" ,name);
+            console.log("선택된 가게 도로명 : ",roadName);
+            console.log("선택된 가게 사진 : ",src);
+            /*location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*/
+
+        });
 
     }
 

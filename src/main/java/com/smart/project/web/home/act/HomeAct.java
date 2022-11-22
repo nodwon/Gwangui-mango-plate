@@ -77,4 +77,6 @@ public class HomeAct {
 	public String datailPage(){
 		return"detailPage";
 	}
+
+
 }

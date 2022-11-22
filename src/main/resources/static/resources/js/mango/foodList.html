@@ -1,5 +1,7 @@
 {{each data.food}}
+
 <div class="col mb-5">
+
   <div class="card h-100">
     <!-- Product image-->
     <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
@@ -7,9 +9,9 @@
     <div class="card-body p-4">
       <div class="text-center">
         <!-- Product name-->
-        <h5 class="fw-bolder">{{$value.name}}</h5>
+        <h5 class="fw-bolder"><a class ="name"href="#">{{$value.name}}</a></h5>
         <!-- Product price-->
-        {{$value.roadname}}
+        <a class = "roadName" href="#">{{$value.roadname}}</a>
       </div>
     </div>
     <!-- Product actions-->
@@ -18,4 +20,5 @@
     </div>
   </div>
 </div>
+
 {{/each}}

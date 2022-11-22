@@ -7,6 +7,7 @@ import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mango2VO;
 import com.smart.project.web.home.vo.mangoVO;
+import com.smart.project.web.home.vo.modalVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -141,4 +142,24 @@ public class HomeDataAct {
 		return data;
 	}
 
+/*	@PostMapping("/data/select")//해외
+	public String userDB(@RequestBody modalVO param){
+
+
+		//String keyData = String.valueOf(param);  //우리가 post (key,object)
+		log.error("user 정보 확인 : {}", param);
+		//받은 MAP 데이터 {'KEY' : 값형태} 형태
+		log.error("user 정보 확인 : {}", param.getName());
+
+		//log.error("{}",isData);
+		List<modalVO> modalVO = new ArrayList<>();
+		modalVO.add(param);
+		log.error("{}",modalVO);
+
+
+		//add한 codeVOList를 데이터베이스에 넣기
+		//test.userInsert(modalVO);
+
+		return "index";
+	}*/
 }
