@@ -2,10 +2,12 @@ package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
+//import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.TestVO;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Master
@@ -18,4 +20,8 @@ public interface Test {
 	 * @변경이력 :
 	 **********************************************************************************************/
 	List<TestVO> sqlMenu2(String userId);
+
+	HashMap<String, Object> kakaoinsert(HashMap<String, Object> userInfo);
+
+//	HashMap<String, Object> findkakao(HashMap<String, Object> userInfo);
 }

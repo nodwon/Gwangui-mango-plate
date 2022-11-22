@@ -19,7 +19,13 @@
   <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
   <link rel="stylesheet" type="text/css" href="../css/mobile.css">
   <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
-
+  <script src="/resources/vendors/polyfill.min.js"></script>
+  <script src="/resources/vendors/jquery.min.js"></script>
+  <script src="/resources/vendors/lodash.min.js"></script>
+  <script src="/resources/vendors/axios.min.js"></script>
+  <script src="/resources/vendors/moment.min.js"></script>
+  <script src="/resources/vendors/jquery-mobile.event.min.js"></script>
+  <script type="text/javascript" src="/resources/js/join/login.js"></script>
   <style>
     body{
       background-image: url("https://www.studyon.co.kr/files/attach/images/242354/731/471/6.jpg");
@@ -81,7 +87,8 @@
         </div>
         <div class="etc_box">
           <div class="social_lg">
-            <a class="btn-login join_btn btn_click" href="https://kauth.kakao.com/oauth/authorize?client_id=69be1a111282098525e83fb2e70767ec&redirect_uri=http://localhost:8080/mango&response_type=code">
+            <a class="btn-login join_btn btn_click" id="kakao-login-btn">
+              <input type="hidden" id="tocken" name="tocken" value="0">
               <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
             </a>
           </div>
@@ -100,6 +107,7 @@
     </div>
   </form>
 </div>
+
 
 <!--<script src="polyfill.min.js"></script>-->
 <!--<script src="../vendors/jquery.min.js"></script>-->
@@ -170,6 +178,53 @@
 
 <!--  })-->
 <!--</script>-->
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type='text/javascript'>
+  Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf');
+
+
+  $("#kakao-login-btn").on("click", function(){
+    //1. 로그인 시도
+    Kakao.Auth.login({
+      success: function(authObj) {
+
+        //2. 로그인 성공시, API 호출
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function(res) {
+            console.log(res);
+            alert(JSON.stringify(authObj));
+            alert(JSON.stringify(res));
+
+            alert(res.kakao_account['email']);
+
+            alert(res.properties['nickname']);
+
+            let request = JSON.stringify(res.kakao_account['email']);
+            $(function(){
+              $('#tocken').val(request);
+              let value = $('input[name=tocken]').val();
+              alert(value);
+            });
+            console.log(authObj.access_token);
+            scope : 'profile_nickname, account_email';
+            location.href="http://localhost/mango";
+          }
+        })
+        console.log(authObj);
+        let token = authObj.access_token;
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      }
+    });
+
+  }) //
+
+
+</script>
+
 
 </body>
 </html>

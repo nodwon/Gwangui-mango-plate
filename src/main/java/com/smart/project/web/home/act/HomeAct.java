@@ -60,25 +60,25 @@ public class HomeAct {
 		return "dddd/login";
 	}
 
-	@RequestMapping("/cookie/add2")
-	public String cookieAdd(HttpServletResponse response) throws java.io.UnsupportedEncodingException {
-		StudyCookieService.createCookie(response, "USER_ID", "mygod76");
-		StudyCookieService.createCookie(response, "NAME", URLEncoder.encode("김남현", "EUC-KR"));
-		StudyCookieService.createCookie(response, "EMP_NO", URLEncoder.encode("emp_no=1234", "UTF-8"));
-		return "cookie";
-	}
-
-	@GetMapping(value = "cookie3")
-	public void cookieAdd2(HttpServletResponse response, Model model){
-		model.addAttribute("aaa", "aaa");
-		log.error("aaaaaa");
-	}
-
-	@RequestMapping("/join")
-	public String join(){
-		log.error("{}",commonCodeComponent.getCodeList("style_f"));
-		return "dddd/join";
-	}
+//	@RequestMapping("/cookie/add2")
+//	public String cookieAdd(HttpServletResponse response) throws java.io.UnsupportedEncodingException {
+//		StudyCookieService.createCookie(response, "USER_ID", "mygod76");
+//		StudyCookieService.createCookie(response, "NAME", URLEncoder.encode("김남현", "EUC-KR"));
+//		StudyCookieService.createCookie(response, "EMP_NO", URLEncoder.encode("emp_no=1234", "UTF-8"));
+//		return "cookie";
+//	}
+//
+//	@GetMapping(value = "cookie3")
+//	public void cookieAdd2(HttpServletResponse response, Model model){
+//		model.addAttribute("aaa", "aaa");
+//		log.error("aaaaaa");
+//	}
+//
+//	@RequestMapping("/join")
+//	public String join(){
+//		log.error("{}",commonCodeComponent.getCodeList("style_f"));
+//		return "dddd/join";
+//	}
 
 //	@RequestMapping("/data")
 //	@ResponseBody
@@ -87,15 +87,17 @@ public class HomeAct {
 //	}
 
 	@RequestMapping("/admin")
-	public String admin(){ return "index"; }
+	public String admin(){
+		return "index";
+	}
 	@RequestMapping("/mango")
 	public String main(){ return "mango"; }
-
-@RequestMapping("/")
-public String home(@RequestParam(value = "code", required = false) String code) throws Exception{
-	System.out.println("#########" + code);
-	return "dddd/login";
-}
+//
+//@RequestMapping("/")
+//public String home(@RequestParam(value = "code", required = false) String code) throws Exception{
+//	System.out.println("#########" + code);
+//	return "dddd/login";
+//}
 @RequestMapping("/login")
 	public String login(){
 		return "dddd/login";
