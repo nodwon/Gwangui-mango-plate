@@ -5,7 +5,7 @@
         SELECT * FROM test;
     </select>
     <insert id="kakaoJoin" parameterType="com.smart.project.web.home.vo.KakaoMemberVO">
-        insert into kakao_table (email,nickname) values (#{email},#{nickname})
+        insert ignore into table_join (userEmail,userName) values (#{email},#{nickname})
     </insert>
 
 </mapper>
