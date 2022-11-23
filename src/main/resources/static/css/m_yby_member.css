@@ -423,8 +423,20 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .pop_region .region_tab .flex_container li a {display:block; width:100%; height:40px; border-bottom:3px solid #f3f0f1;}
 .pop_region .region_tab .slct_kr {background:#f3f0f1 url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_kr_off.png") no-repeat center; background-size:60px 32px;}
 .pop_region .region_tab .slct_kr.active {background:#fff url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_kr_on.png") no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_food {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
+.pop_region .region_tab .slct_food.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
 .pop_region .region_tab .slct_abroad {background:#f3f0f1 url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_abroad_off.png") no-repeat center; background-size:60px 32px;}
 .pop_region .region_tab .slct_abroad.active {background:#fff url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_abroad_on.png") no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_want {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
+.pop_region .region_tab .slct_want.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_want span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_want.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_food span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_food.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+
+
+
+
 .pop_region .pop_region_hd .slct_city {color:#ff0;}
 .pop_region .pop_region_hd .slct_city::before {content:"'"; margin-right:3px;}
 .pop_region .pop_region_hd .slct_city::after {content:"'"; margin-left:3px;}
