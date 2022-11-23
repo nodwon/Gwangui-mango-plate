@@ -264,7 +264,11 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .social_lg.android__googles .sc_gg:hover {background-color: #fff;}
 
 .join_btn {width: 200px; height: 40px; line-height: 38px; border-radius: 5px; color: #c8315c; font-size: 1.14rem; font-weight: 700; background: rgba(255, 255, 255, 0.7); border: 2px solid #c8315c; margin: 10px auto 5px auto;}
+.login_kakao{
+    width: 100%;
+    height: 100%;
 
+}
 .join_btn:hover {background-color: #fff;}
 .join_btn:active {background-color: #fff;}
 @media (max-width:359px) {
@@ -574,6 +578,8 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .vesion_info .version_new{font-weight:700; color:#ffa500;}
 .vesion_info .btn_update{float:left; position:relative; width:94px; height:34px; top:3px; margin-left:20px; background:#ffa500; border-radius:3px; font-size:1.07rem; font-weight:700; color:#fff; overflow:hidden;}
 .ripple:after{content:''; position:absolute; top:50%; left:30%; width:5px; height:5px; background:rgba(255, 255, 255, .3); opacity:0; border-radius:100%; transform:scale(1, 1) translate(-50%); transform-origin:50% 50%; animation:ripple 1.8s ease-out infinite;}
+
+
 @keyframes ripple {
     0% {
       transform: scale(0, 0);

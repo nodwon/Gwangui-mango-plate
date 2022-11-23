@@ -10,17 +10,21 @@ import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mangoVO;
 import com.smart.project.web.home.vo.modalVO;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ibatis.mapping.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -62,22 +66,34 @@ public class HomeAct {
 		log.error("aaaaaa");
 	}
 
-	@RequestMapping("/join")
-	public String join(){
-		log.error("{}",commonCodeComponent.getCodeList("style_f"));
-		return "dddd/join";
-	}
 
-	@RequestMapping("/data")
-	@ResponseBody
-	public String homeData(){
+	@RequestMapping("/admin")
+	public String admin(){
 		return "index";
 	}
+	@RequestMapping("/mango")
+	public String main(){ return "mango"; }
+//
+//@RequestMapping("/")
+//public String home(@RequestParam(value = "code", required = false) String code) throws Exception{
+//	System.out.println("#########" + code);
+//	return "dddd/login";
+//}
+@RequestMapping("/login")
+	public String login(){
+		return "dddd/login";
+}
+
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute modalVO modal){
 		log.error("12231321{}",modal);
 		return"detailPage";
+	}
+
+	@RequestMapping("/join")
+	public String mJoin() {
+		return "mJoin";
 	}
 
 

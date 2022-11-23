@@ -2,6 +2,8 @@ package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
+//import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.TestVO;
 import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mango2VO;
@@ -9,6 +11,7 @@ import com.smart.project.web.home.vo.mangoVO;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Master
@@ -22,6 +25,8 @@ public interface Test {
 	 **********************************************************************************************/
 	List<TestVO> sqlMenu2(String userId);
 
+	void kakaoJoin(KakaoMemberVO vo);
+
     void insertMangoJson(List<mangoVO> mangoVOList);
 
     List<mangoVO> selectMango();
@@ -30,4 +35,8 @@ public interface Test {
 	List<mango2VO> selectMango2All();
 
     List<mango2VO> selectName(String name);
+
+    void insertMember(TestVO vo);
+
+    int idCount(String userId);
 }

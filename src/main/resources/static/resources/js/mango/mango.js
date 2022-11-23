@@ -28,7 +28,12 @@ export class mango{
         this.modalList = require("@/mango/modalList.html");
 
 
-        $("#Nav").append(this.head);
+
+/*        axios.post("/data/head",{}).then((result)=>{
+            $("#Nav").append(result.data);
+
+        })*/
+        /*$("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
   /*      var marker = new naver.maps.Marker({
