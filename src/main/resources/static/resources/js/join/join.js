@@ -132,7 +132,6 @@ export class Join
 				$('.join_txt.error:eq(5)').show();
 				e.preventDefault();
 			}
-
 		});
 
 

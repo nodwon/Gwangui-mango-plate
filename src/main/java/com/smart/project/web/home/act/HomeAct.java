@@ -44,7 +44,7 @@ public class HomeAct {
 */
 
 
-		Iterator<String> keys = data.keySet().iterator();
+		/*Iterator<String> keys = data.keySet().iterator();
 		while( keys.hasNext() ){
 			String key = keys.next();
 			//log.error("key==>{}, list==>{}", key, data.get(key));
@@ -52,7 +52,7 @@ public class HomeAct {
 		}*/
 
 		//log.error("{}",data);
-		return "mJoin";
+		//return "mJoin";
 		return "mango";
 	}
 
@@ -70,11 +70,6 @@ public class HomeAct {
 		log.error("aaaaaa");
 	}
 
-	@RequestMapping("/join")
-	public String join(){
-		log.error("{}",commonCodeComponent.getCodeList("style_f"));
-		return "dddd/join";
-	}
 
 	@RequestMapping("/data")
 	@ResponseBody
@@ -85,6 +80,11 @@ public class HomeAct {
 	@RequestMapping("/detailPage")
 	public String datailPage(){
 		return"detailPage";
+	}
+
+	@RequestMapping("/join")
+	public String mJoin() {
+		return "mJoin";
 	}
 
 
