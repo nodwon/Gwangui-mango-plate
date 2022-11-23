@@ -20,7 +20,7 @@ public class HomePageAct {
 
     final private Test test;
     
-    //카카오 로그인 데이터 저장
+    //카카오 로그인 데이터 저장111
     @RequestMapping("/kakaoJoin")
     public String kakaoJoin(@ModelAttribute KakaoMemberVO vo) {
 
