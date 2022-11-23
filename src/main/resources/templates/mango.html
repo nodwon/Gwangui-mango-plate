@@ -77,23 +77,25 @@
                             <li class="nav-item"><a class="nav-link active" href="#bottom">Down</a></li>
                         </ul>
                         <form class="d-flex">
-                            <a th:if="${session.email eq null}" href="/login" class="btn btn-outline-dark me-3" type="submit">
+                            <a th:if="${session.email eq null} or ${session.result eq null}" href="/login" class="btn btn-outline-dark me-3" type="submit">
                                 <i class="fa-solid fa-check"></i>
                                 로그인
                             </a>
                         </form>
                         <form class="d-flex">
-                            <a href="/join" th:if="${session.email eq null}" class="btn btn-outline-dark me-3" type="submit">
+                            <a href="/join" th:if="${session.email eq null} or ${session.result eq null}" class="btn btn-outline-dark me-3" type="submit">
                                 <i class="fa-solid fa-user-plus"></i>
                                 회원가입
                             </a>
                         </form>
 
                         <form class="d-flex" action="/logout">
-                            <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
+                            <a th:if="${session.email} or ${session.result}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
                                 <p th:text="${session.email}"></p>
+                                <p th:text="${session.result eq 1}"></p>
+
                             </a>
                         </form>
 

@@ -32,16 +32,24 @@ public class HomePageAct {
 
     final private Test test;
 
-//    @PostMapping("/commonLogin")
-//    public String commonLogin(TestVO vo, HttpSession session){
-//        TestVO cvo =
-//
-//
-//        if (vo.getUserEmail()!=null){
-//            session.setAttribute("email",vo.getUserEmail());
-//        }
-//        return "redirect:/mango";
-//    }
+    @PostMapping("/commonLogin")
+    public String commonLogin(TestVO vo, HttpSession session){
+        log.error("{}",vo);
+        String userId = vo.getUserId();
+        String userPw = vo.getUserPw();
+
+        int result  = test.selectOneMem(userId,userPw);
+
+        log.error("{}",result );
+        if(result==1){
+            System.out.println("로그인 성공");
+            session.setAttribute("result",result);
+        }else{
+            System.out.println("로그인 실패");
+            return "dddd/login";
+        }
+        return "redirect:/mango";
+    }
 
     @PostMapping("/register")
     public String createMember(TestVO vo) {
@@ -108,7 +116,9 @@ public class HomePageAct {
         return "test2";
     }
 
-    // 왜 @ModelAttribute는 modal 매핑이되지않을까요?
+
+
+
 
     @RequestMapping("/test2")
     public String getData(Model model ,@ModelAttribute modalVO modal){

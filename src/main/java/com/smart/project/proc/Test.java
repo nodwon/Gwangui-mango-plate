@@ -8,6 +8,8 @@ import com.smart.project.web.home.vo.TestVO;
 import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mango2VO;
 import com.smart.project.web.home.vo.mangoVO;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
@@ -39,4 +41,8 @@ public interface Test {
     void insertMember(TestVO vo);
 
     int idCount(String userId);
+
+	TestVO selectOneMem(TestVO vo);
+	@Select("select count(*) from table_join where userID=#{userId} and userPw=#{userPw}")
+    int selectOneMem(@Param("userId") String userId,@Param("userPw") String userPw);
 }

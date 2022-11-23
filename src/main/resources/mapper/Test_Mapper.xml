@@ -8,7 +8,6 @@
         insert ignore into table_join (userEmail,userName) values (#{email},#{nickname})
     </insert>
 
-
     <insert id="insertMember" parameterType="com.smart.project.web.home.vo.TestVO">
         insert into table_join(userId,userEmail,userPw,userName,userPhoneNum) values
             (#{userId},#{userEmail},#{userPw},#{userName},#{userPhoneNum})
@@ -17,8 +16,6 @@
     <select id="idCount" parameterType="string" resultType="int">
         select count(*) from table_join where userId = #{userId}
     </select>
-
-
 
     <insert id ="insertMangoJson" parameterType="java.util.List">
         insert into bteam (id,name,address,menu,phone) values
@@ -42,4 +39,6 @@
     <select id="selectName" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="java.lang.String">
         SELECT * FROM mango2db where  name= #{name}
     </select>
+
+
 </mapper>
