@@ -73,7 +73,7 @@ export class mango{
     eventModal()
     {
 
-        //모달 x
+        /*//모달 x
         $(".btn_cls").on("click",(e)=>{
             $(".normal_pop_wrap").addClass("hidden")
         });
@@ -97,7 +97,7 @@ export class mango{
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
-
+*/
 
 
     }
@@ -106,16 +106,17 @@ export class mango{
         console.log("gddgㅇㄴㅁㄹㅇ213123123ㄴ")
         $("#search").on("click",(e)=>{
             console.log("버튼이벤트")
-            alert("상세페이지로 이동하고싶으면 form 의 action과 form의 onsubmit를 지워주세요")
+
             //눌러지면 검색 상세창으로 이동
             /*$(".example.py-5").removeAttr("onsubmit")*/
-            location.href='/test1';
+            /*location.href='/test1';*/
         })
 
 
 
         //검색한 맛집 마커로 표시하기
-        $("input[name=search]").on("focusout",(e)=>{
+      /*  $("input[name=search]").on("focusout",(e)=>{*/
+        $("#search").on("click",(e)=>{
             let object = {"menu":$("input[name=search]").val()}
             if(!($("input[name=search]").val()===""))
             {//
