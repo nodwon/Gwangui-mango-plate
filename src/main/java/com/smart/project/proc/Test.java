@@ -33,4 +33,8 @@ public interface Test {
 	List<mango2VO> selectMango2(String mainmenu);
 
 	List<mango2VO> selectMango2All();
+
+    void insertMember(TestVO vo);
+
+    int idCount(String userId);
 }

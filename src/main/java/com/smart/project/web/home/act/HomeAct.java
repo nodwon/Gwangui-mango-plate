@@ -6,8 +6,6 @@ import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
 import com.smart.project.security.StudyCookieService;
 import com.smart.project.web.home.vo.TestVO;
-import com.smart.project.web.home.vo.locationVO;
-import com.smart.project.web.home.vo.mangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +63,6 @@ public class HomeAct {
 		log.error("aaaaaa");
 	}
 
-	@RequestMapping("/join")
-	public String join(){
-		log.error("{}",commonCodeComponent.getCodeList("style_f"));
-		return "dddd/join";
-	}
 
 	@RequestMapping("/admin")
 	public String admin(){
@@ -93,6 +85,11 @@ public class HomeAct {
 	@RequestMapping("/detailPage")
 	public String datailPage(){
 		return"detailPage";
+	}
+
+	@RequestMapping("/join")
+	public String mJoin() {
+		return "mJoin";
 	}
 
 

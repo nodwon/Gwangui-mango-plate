@@ -9,6 +9,17 @@
     </insert>
 
 
+    <insert id="insertMember" parameterType="com.smart.project.web.home.vo.TestVO">
+        insert into table_join(userId,userEmail,userPw,userName,userPhoneNum) values
+            (#{userId},#{userEmail},#{userPw},#{userName},#{userPhoneNum})
+    </insert>
+
+    <select id="idCount" parameterType="string" resultType="int">
+        select count(*) from table_join where userId = #{userId}
+    </select>
+
+
+
     <insert id ="insertMangoJson" parameterType="java.util.List">
         insert into bteam (id,name,address,menu,phone) values
         <foreach collection="list" item="item" separator=",">

@@ -8,6 +8,8 @@ import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mango2VO;
 import com.smart.project.web.home.vo.mangoVO;
 import com.smart.project.web.home.vo.modalVO;
+import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -162,4 +164,21 @@ public class HomeDataAct {
 
 		return "index";
 	}*/
+
+	@PostMapping("/register")
+	public TestVO createMember(TestVO vo) {
+
+		test.insertMember(vo);
+		log.info(vo.toString());
+		return vo;
+	}
+
+	@PostMapping("/idCheck")
+	public int checkDuplicateId(@RequestBody Map param){
+		String id = String.valueOf(param.get("userId"));
+
+		int idCount = test.idCount(id);
+
+		return idCount;
+	}
 }
