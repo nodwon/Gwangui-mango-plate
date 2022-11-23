@@ -180,13 +180,7 @@ public class HomeDataAct {
 		return "index";
 	}*/
 
-	@PostMapping("/register")
-	public TestVO createMember(TestVO vo) {
 
-		test.insertMember(vo);
-		log.info(vo.toString());
-		return vo;
-	}
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){

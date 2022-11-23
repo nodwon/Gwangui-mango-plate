@@ -93,6 +93,7 @@ public class HomeAct {
 
 	@RequestMapping("/join")
 	public String mJoin() {
+
 		return "mJoin";
 	}
 

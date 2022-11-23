@@ -2,6 +2,7 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.smart.project.web.home.vo.modalVO;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -29,13 +31,32 @@ import java.util.List;
 public class HomePageAct {
 
     final private Test test;
+
+//    @PostMapping("/commonLogin")
+//    public String commonLogin(TestVO vo, HttpSession session){
+//        TestVO cvo =
+//
+//
+//        if (vo.getUserEmail()!=null){
+//            session.setAttribute("email",vo.getUserEmail());
+//        }
+//        return "redirect:/mango";
+//    }
+
+    @PostMapping("/register")
+    public String createMember(TestVO vo) {
+
+        test.insertMember(vo);
+        log.info(vo.toString());
+        return "redirect:/mango";
+    }
     
     //카카오 로그인 데이터 저장111
     @RequestMapping("/kakaoJoin")
     public String kakaoJoin(@ModelAttribute KakaoMemberVO vo, HttpSession session) {
         if(vo.getEmail()!=null){
             System.out.println(vo+"vo값");
-            session.setAttribute("email",vo.getNickname());
+            session.setAttribute("email",vo.getEmail());
             System.out.println(vo.getEmail());
         }
 
@@ -43,8 +64,12 @@ public class HomePageAct {
         System.out.println(vo);
         return "redirect:/mango";
     }
-
-
+    @RequestMapping("/logout")
+    public String logoutMainGET(HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/mango";
+    }
 
 
     @RequestMapping("/test1")
