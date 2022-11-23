@@ -87,5 +87,12 @@ public class HomePageAct {
         return "test";
 
     }
+    @RequestMapping("/getHtml")
+    public String getHtml(){
+
+        return "topNav";
+
+
+    }
 
 }

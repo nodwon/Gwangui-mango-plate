@@ -7,179 +7,119 @@
 <head>
     <link href="../css/styles.css" rel="stylesheet" />
     <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Blog Home - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <!--<script type="text/javascript" src="../resources/js/mango/detailPageScripts.js"></script>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Blog Home - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <!--<script type="text/javascript" src="../resources/js/mango/detailPageScripts.js"></script>-->
 
-       <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 
-     <!--   <script src="../resources/vendors/polyfill.min.js"></script>
-        <script src="../resources/vendors/jquery.min.js"></script>
-        <script src="../resources/vendors/lodash.min.js"></script>
-        <script src="../resources/vendors/axios.min.js"></script>
-        <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
-        <script src="../resources/vendors/moment.min.js"></script>
--->
 
- <!--       <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
-        <link rel="stylesheet" type="text/css" href="../css/mobile.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_seem.css">-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/detailPageStyle.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/detailPageStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
     <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>
 
-    </head>
-<div layout:fragment="content" class="pc__container">
-    <div  class ="fixed navbar-expand-lg" >
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <a class="btn btn-outline-dark me-3" type="submit">
-                            <i class="fa-solid fa-check"></i>
-                            로그인
-                        </a>
-                    </form>
+</head>
+<div layout:fragment="content" >
 
-                    <form class="d-flex">
-                        <a class="btn btn-outline-dark me-3" type="submit">
-                            <i class="fa-solid fa-user-plus"></i>
-                            회원가입
-                        </a>
-                    </form>
-
-                    <form class="d-flex">
-                        <a class="btn btn-outline-dark me-3" type="submit" hidden>
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            로그아웃
-                        </a>
-                    </form>
-
-                    <!-- 찜(가고싶다) -->
-                    <form class="d-flex">
-                        <a class="btn btn-outline-dark" id="modal" type="submit">
-                            <i class="fa-solid fa-user-large"></i>
-                            <span class="badge bg-dark text-white rounded-pill">0</span>
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </nav>
+    <div id = "Nav" class="fixed">
     </div>
-        <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-light border-bottom mb-4" style="background-image: url('https://mp-seoul-image-production-s3.mangoplate.com/0776fea76b4a824ff583128cb51dd45c.jpg')">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder">므앙고 플레이트</h1>
-                    <p class="lead mb-0">내가 찾던 맛집</p>
-                </div>
-            </div>
-        </header>
-        <!-- Page content-->
-
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4" style="background-image: url('https://mp-seoul-image-production-s3.mangoplate.com/0776fea76b4a824ff583128cb51dd45c.jpg')">
         <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">므앙고 플레이트</h1>
+                <p class="lead mb-0">내가 찾던 맛집</p>
+            </div>
+        </div>
+    </header>
+    <!-- Page content-->
 
-             <div class="row">
-                <!-- Blog entries-->
-                <div class="col-lg-8">
-                    <!-- Featured blog post-->
-                    <div class="card mb-3">
+    <div class="container">
 
-                        <!-- 음식 이미지 -->
-                        <div class="grid-image my-0">
-                            <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1067591_1530450190983162.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
-                            <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1660311616360583.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
-                            <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1637484735593478.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
-                        </div>
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div class="card mb-3">
 
-
-                        <!-- 가게 정보 -->
-                        <table class="tg" >
-                            <colgroup>
-                                <col style="width: 80px">
-                                <col style="width: 223px">
-                                <col style="width: 76px">
-                            </colgroup>
+                    <!-- 음식 이미지 -->
+                    <div class="grid-image my-0">
+                        <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1067591_1530450190983162.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
+                        <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1660311616360583.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
+                        <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1637484735593478.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
+                    </div>
 
 
+                    <!-- 가게 정보 -->
+                    <table class="tg" >
+                        <colgroup>
+                            <col style="width: 80px">
+                            <col style="width: 223px">
+                            <col style="width: 76px">
+                        </colgroup>
 
-                            <thead>
-                            <tr>
-                                <th class="tg-f2a8" colspan="2">삼성 원조 양곱창</th>
-                                <th><i class="fa-solid fa-pencil fa-2x me-3"></i>
-                                  <i class="fa-solid fa-star fa-2x me-2"></i></th>
-                             </tr>
-                            </thead>
-                            <tbody>
-                            <span></span>
-                            <tr>
-                                <td class="tg-ofg3">주소</td>
-                                <td class="tg-mnzm" colspan="2">부산광역시 수영구 과정로 16</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">전화번호</td>
-                                <td class="tg-mnzm" colspan="2">000-1234-1234</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">음식종류</td>
-                                <td class="tg-mnzm" colspan="2">고기 요리</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">가격대</td>
-                                <td class="tg-mnzm" colspan="2">2만원 ~ 3만원</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">주차</td>
-                                <td class="tg-mnzm" colspan="2">주차공간없음</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">영업시간</td>
-                                <td class="tg-mnzm" colspan="2">16:30 ~ 23:00</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-ofg3">휴일</td>
-                                <td class="tg-jyg6" colspan="2">일</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-9rpp" rowspan="3">메뉴</td>
-                                <td class="tg-l6nl">특양</td>
-                                <td class="tg-l6nl">30,000원</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-mnzm">양곱창</td>
-                                <td class="tg-mnzm">33,000원</td>
-                            </tr>
-                            <tr>
-                                <td class="tg-mnzm">곱창</td>
-                                <td class="tg-mnzm">31,000원</td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+
+                        <thead>
+                        <tr>
+                            <th class="tg-f2a8" colspan="2">삼성 원조 양곱창</th>
+                            <th><i class="fa-solid fa-pencil fa-2x me-3"></i>
+                                <i class="fa-solid fa-star fa-2x me-2"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <span></span>
+                        <tr>
+                            <td class="tg-ofg3">주소</td>
+                            <td class="tg-mnzm" colspan="2">부산광역시 수영구 과정로 16</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">전화번호</td>
+                            <td class="tg-mnzm" colspan="2">000-1234-1234</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">음식종류</td>
+                            <td class="tg-mnzm" colspan="2">고기 요리</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">가격대</td>
+                            <td class="tg-mnzm" colspan="2">2만원 ~ 3만원</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">주차</td>
+                            <td class="tg-mnzm" colspan="2">주차공간없음</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">영업시간</td>
+                            <td class="tg-mnzm" colspan="2">16:30 ~ 23:00</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofg3">휴일</td>
+                            <td class="tg-jyg6" colspan="2">일</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-9rpp" rowspan="3">메뉴</td>
+                            <td class="tg-l6nl">특양</td>
+                            <td class="tg-l6nl">30,000원</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-mnzm">양곱창</td>
+                            <td class="tg-mnzm">33,000원</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-mnzm">곱창</td>
+                            <td class="tg-mnzm">31,000원</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
 
                     <!-- 리뷰 -->
@@ -226,44 +166,43 @@
                         </div>
                     </section>
 
-                        <!-- Pagination-->
-                        <nav aria-label="Pagination">
-                            <hr class="my-0" />
-                            <ul class="pagination justify-content-center my-4">
-                                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                                <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                                <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav>
                 </div>
-
-                    <!-- Side widgets-->
-                    <div class="col-lg-4" >
-
-                        <!-- 지도 -->
-                        <div class="card mb-4">
-                            <div class="card-header">위치</div>
-                            <div class="card-body">위치지도</div>
-                        </div>
-                    </div>
             </div>
 
+            <!-- Side widgets-->
+            <div class="col-lg-4" >
 
-
-            <!-- Footer-->
-            <footer class="py-5 bg-dark">
-                <div class="container"><p class="m-0 text-center text-white">&copy; team.B</p>
+                <!-- 지도 -->
+                <div class="card mb-4">
+                    <div class="card-header">위치</div>
+                    <div class="card-body">위치지도</div>
                 </div>
-            </footer>
-
-    <!-- Bootstrap core JS-->
+            </div>
         </div>
 
+
+        <!-- Footer 바텀 js로 추가-->
+
+        <!-- Footer-->
+
+        <!-- Bootstrap core JS-->
+    </div>
+    <footer id="bottom" class="py-5 bg-dark">
+
+    </footer>
 
 
 </div>

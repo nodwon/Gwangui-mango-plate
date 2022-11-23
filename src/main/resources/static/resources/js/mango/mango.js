@@ -4,13 +4,32 @@ $(()=>{
     new mango();
 })
 //
+
+
+
 export class mango{
     constructor() {
+ /*       axios({
+            method : "post",
+            url : "/getHtml",
 
+        }).then((response)=>{
+            /!*location.href ="test2";*!/
+
+            $("#Nav").append(response.data);
+
+
+        })*/
+
+
+        this.head=require("@/mango/head.html")
+        this.bottom= require("@/mango/bottom.html")
         this.foodList = require("@/mango/foodList.html");
         this.modalList = require("@/mango/modalList.html");
 
 
+        $("#Nav").append(this.head);
+        $("#bottom").append(this.bottom);
 
   /*      var marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(latitude, longitude),
@@ -179,7 +198,7 @@ export class mango{
 
                 $(".pop_region_content.region_content_kr").append(response.data);
                /* location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*/
-                location.href="/detailPage";
+                /*location.href="/detailPage";*/
             })
 
             console.log("선택된 가게 이름 :" ,name);
