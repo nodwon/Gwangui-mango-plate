@@ -8,6 +8,7 @@ import com.smart.project.security.StudyCookieService;
 import com.smart.project.web.home.vo.TestVO;
 import com.smart.project.web.home.vo.locationVO;
 import com.smart.project.web.home.vo.mangoVO;
+import com.smart.project.web.home.vo.modalVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +75,8 @@ public class HomeAct {
 	}
 
 	@RequestMapping("/detailPage")
-	public String datailPage(){
+	public String datailPage(@ModelAttribute modalVO modal){
+		log.error("12231321{}",modal);
 		return"detailPage";
 	}
 

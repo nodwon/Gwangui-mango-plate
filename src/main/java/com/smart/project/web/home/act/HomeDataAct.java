@@ -136,9 +136,20 @@ public class HomeDataAct {
 	public List<mango2VO>getMango2Data(@RequestBody Map param){
 	 String mainmenu = String.valueOf(param.get("menu"));
 	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	List<mango2VO> data = test.selectMango2(mainmenu);
+	 List<mango2VO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
 	log.error("select 결과 list : {}",data);
+		return data;
+	}
+
+	@PostMapping("/data/map")
+	public List<mango2VO>getMapData(@RequestBody Map param){
+		String name = String.valueOf(param.get("name"));
+		log.error("검색창에 입력한 것 : {}",name);
+
+		List<mango2VO> data = test.selectName(name);
+		/*List<mango2VO> data=null;*/
+		log.error("select 결과 list : {}",data);
 		return data;
 	}
 

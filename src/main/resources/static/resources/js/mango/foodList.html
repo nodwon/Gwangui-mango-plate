@@ -4,19 +4,20 @@
 
   <div class="card h-100">
     <!-- Product image-->
-    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+    <a href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+      <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"  alt="..." /> </a>
     <!-- Product details-->
     <div class="card-body p-4">
       <div class="text-center">
         <!-- Product name-->
-        <h5 class="fw-bolder"><a class ="name"href="#">{{$value.name}}</a></h5>
+        <h5 class="fw-bolder"><a class ="name"href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">{{$value.name}}</a></h5>
         <!-- Product price-->
-        <a class = "roadName" href="#">{{$value.roadname}}</a>
+        <a class = "roadName" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">{{$value.roadname}}</a>
       </div>
     </div>
     <!-- Product actions-->
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-      <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?roadname={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">View options</a></div>
+      <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">View options</a></div>
     </div>
   </div>
 </div>

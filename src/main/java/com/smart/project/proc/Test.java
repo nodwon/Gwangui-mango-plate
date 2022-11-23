@@ -25,7 +25,9 @@ public interface Test {
     void insertMangoJson(List<mangoVO> mangoVOList);
 
     List<mangoVO> selectMango();
-	List<mango2VO> selectMango2(String mainmenu);
+	List<mango2VO> selectMango2(String search);
 
 	List<mango2VO> selectMango2All();
+
+    List<mango2VO> selectName(String name);
 }
