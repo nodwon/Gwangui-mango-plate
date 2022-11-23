@@ -38,15 +38,17 @@ public class HomePageAct {
         String userId = vo.getUserId();
         String userPw = vo.getUserPw();
 
-        int result  = test.selectOneMem(userId,userPw);
+        TestVO result  = test.selectOneMem(userId,userPw);
 
-        log.error("{}",result );
-        if(result==1){
+
+        log.error("21321321321{}",result );
+        if(result!=null){
             System.out.println("로그인 성공");
-            session.setAttribute("result",result);
+            session.setAttribute("email",result.getUserEmail());
         }else{
             System.out.println("로그인 실패");
-            return "dddd/login";
+
+            return "/login";
         }
         return "redirect:/mango";
     }

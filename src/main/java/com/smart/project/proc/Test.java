@@ -43,6 +43,6 @@ public interface Test {
     int idCount(String userId);
 
 	TestVO selectOneMem(TestVO vo);
-	@Select("select count(*) from table_join where userID=#{userId} and userPw=#{userPw}")
-    int selectOneMem(@Param("userId") String userId,@Param("userPw") String userPw);
+	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
+    TestVO selectOneMem(@Param("userId") String userId,@Param("userPw") String userPw);
 }
