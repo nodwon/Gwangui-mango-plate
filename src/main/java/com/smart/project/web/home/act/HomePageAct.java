@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.smart.project.web.home.vo.modalVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,11 +32,18 @@ public class HomePageAct {
     
     //카카오 로그인 데이터 저장111
     @RequestMapping("/kakaoJoin")
-    public String kakaoJoin(@ModelAttribute KakaoMemberVO vo) {
+    public String kakaoJoin(@ModelAttribute KakaoMemberVO vo, HttpSession session) {
+        if(vo.getEmail()!=null){
+            System.out.println(vo+"vo값");
+            session.setAttribute("email",vo.getNickname());
+            System.out.println(vo.getEmail());
+        }
 
         test.kakaoJoin(vo);
+        System.out.println(vo);
         return "redirect:/mango";
     }
+
 
 
 
@@ -113,5 +122,6 @@ public class HomePageAct {
 
 
     }
+
 
 }

@@ -49,7 +49,7 @@ public class HomeAct {
 */
 
 
-		return "mango";
+		return "dddd/login";
 	}
 
 	@RequestMapping("/cookie/add2")
