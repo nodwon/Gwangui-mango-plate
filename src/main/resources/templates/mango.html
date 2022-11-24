@@ -4,66 +4,34 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layouts/layoutContents.html}">
+
     <head>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!--<script type="text/javascript" src="../resources/js/mango.js"></script>-->
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../../resources/assets/favicon.ico"/>
-        <script src="https://kit.fontawesome.com/13c79383be.js" crossorigin="anonymous"></script>
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
-        <!--  <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">-->
         <link rel="stylesheet" type="text/css" href="../css/portal/default.css">
-        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
-    <script src="../resources/vendors/polyfill.min.js"></script>
-        <script src="../resources/vendors/jquery.min.js"></script>
-        <script src="../resources/vendors/lodash.min.js"></script>
-        <script src="../resources/vendors/axios.min.js"></script>
-        <script src="../resources/vendors/moment.min.js"></script>
-        <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
-        <link rel="stylesheet" type="text/css" href="../css/mobile.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_seem.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" th:src="${@versionComponent.getVersion('../resources/build/mango.bundle.js')}"></script>
-        <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/onLoad.bundle.js')}"></script>
-
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/13c79383be.js" crossorigin="anonymous"></script>
+        <!--<script type="text/javascript" src="../resources/js/mango.js"></script>-->
     </head>
-
     <style>
 
-
-       /* .normal_pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:4000; display:flex; flex-wrap:wrap; flex-direction:row; align-items:center; justify-content:center;}
-        .pop_region .region_tab .slct_food {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
-        .pop_region .region_tab .slct_food.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
-        .pop_region .region_tab .slct_want {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
-        .pop_region .region_tab .slct_want.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
-        .pop_region .region_tab .slct_want span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
-        .pop_region .region_tab .slct_want.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
-        .pop_region .region_tab .slct_food span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
-        .pop_region .region_tab .slct_food.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}*/
-
     </style>
-
-
-
     <div layout:fragment="content">
     <!-- Navigation 상단바바바-->
 
@@ -258,7 +226,7 @@
                             <!-- Product image-->
                             <a href="/detailPage?name=중식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
-
+                            </a>
                                 <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -275,6 +243,7 @@
                                 <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=중식">Add to cart</a></p></div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -460,4 +429,8 @@
     </footer>
 
     </div>
+
+    <section layout:fragment="contentScriptFragment">
+        <script type="text/javascript" th:src="${@versionComponent.getVersion('../resources/build/mango.bundle.js')}"></script>
+    </section>
 </html>

@@ -5,31 +5,17 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layouts/layoutContents.html}">
 <head>
-    <link href="../css/styles.css" rel="stylesheet" />
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
-    <!-- Favicon-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <!--<script type="text/javascript" src="../resources/js/mango/detailPageScripts.js"></script>-->
-
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/detailPageStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
-    <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>
-
 </head>
 
 <div layout:fragment="content" >
-
     <div id = "Nav" class="fixed">
     </div>
     <!-- Page header with logo and tagline-->
@@ -44,7 +30,6 @@
     <!-- Page content-->
 
     <div class="container">
-
         <div class="row">
             <!-- Blog entries-->
             <div class="col-lg-8">
@@ -215,3 +200,9 @@
 
 </div>
 
+
+
+<section layout:fragment="contentScriptFragment">
+    <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>
+
+</section>

@@ -16,6 +16,7 @@ module.exports = {
         join: path.join(context, '/js/join/join.js'),
         mango:path.join(context,'/js/mango/mango.js'),
         detailPage : path.join(context, '/js/mango/detailPage.js'),
+        login : path.join(context,'/js/join/login.js')
     },
     devtool: 'eval',//inline-source-map, eval
     devServer: {

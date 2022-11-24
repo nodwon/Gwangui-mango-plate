@@ -37,5 +37,5 @@ public interface Test {
 	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
 	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
 
-	/*List<mango2VO> searchAll(String );*/
+	List<Mango2VO> searchAll(String search);
 }

@@ -42,7 +42,6 @@ public class HomeDataAct {
 		return result;
 	}
 
-/*
 	@PostMapping("/data/searchAll")
 	public Map<String, Object> getSearchAll(@RequestBody Map param){
 		Map<String, Object> result = new HashMap<>();
@@ -50,15 +49,13 @@ public class HomeDataAct {
 
 		List<Mango2VO> data = test.searchAll(search);
 
-		*/
-/*List<mango2VO> data=null;*//*
+
 
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
 
 		return result;
 	}
-*/
 
 
 
