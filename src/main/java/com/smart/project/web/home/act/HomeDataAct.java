@@ -4,16 +4,13 @@ import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.LocCodeComponent;
 import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.locationVO;
-import com.smart.project.web.home.vo.mango2VO;
-import com.smart.project.web.home.vo.mangoVO;
-import com.smart.project.web.home.vo.modalVO;
+import com.smart.project.web.home.vo.*;
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,14 +24,14 @@ import java.util.*;
 @RequiredArgsConstructor
 public class HomeDataAct {
 
-	final private
+/*	final private
 	CommonCodeComponent commonCodeComponent;
 
-	final private LocCodeComponent locCodeComponent;
+	final private LocCodeComponent locCodeComponent;*/
 	final private Test test;
 
 
-	@PostMapping("/data/wantLoc")
+	/*@PostMapping("/data/wantLoc")
 	public Map<String, Object> getWantLoc(@RequestBody Map param){
 		Map<String, Object> data = new HashMap<>();
 		String keyData = String.valueOf(param.get("key"));
@@ -91,7 +88,7 @@ public class HomeDataAct {
 		return data;
 	}
 
-
+*/
 
 
 	@PostMapping("/data/mango")
@@ -135,9 +132,50 @@ public class HomeDataAct {
 		return result;
 	}
 
+	@PostMapping("/data/searchAll")
+	public Map<String, Object> getSearchAll(@RequestBody Map param){
+		Map<String, Object> result = new HashMap<>();
+		String search = String.valueOf(param.get("search"));
+
+		List<mango2VO> data = test.searchAll(search);
+
+		/*List<mango2VO> data=null;*/
+		log.error("select 결과 list : {}",data);
+		result.put("food",data);
+
+		return result;
+	}
+
+
+
+
 	@PostMapping("/data/mango2")
-	public List<mango2VO>getMango2Data(@RequestBody Map param){
+	public List<mango2VO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
 	 String mainmenu = String.valueOf(param.get("menu"));
+	 String search = String.valueOf(param.get("menu"));
+
+	 cri.setSearch(search);
+
+		if(search!=null)
+		{
+
+			List<mangoVO> list =test.getList(cri);// 해당 페이지의 perPageNum 만큼의 리스트
+			model.addAttribute("list", list); // list --> ArrayList를 가르킨다.
+			log.error("{}",list);
+			/*
+	//페이징 처리에 필요한 객체를 생성
+			//1 2 3 4 5 6 7 8 9 10 페이지를 만들기위해서는 endpage, totalCount 등 PageMaker에 대한 객체생성
+			PageMaker pageMaker= new PageMaker();
+			//전체 게시물의 수를 구하기
+
+			pageMaker.setCri(cri);   // 현재페이지를 넣어주자.
+			pageMaker.setTotalCount(test.totalCount());
+
+			model.addAttribute("pageMaker",pageMaker);*/
+		}
+
+
+
 	 log.error("검색창에 입력한 것 : {}",mainmenu);
 	 List<mango2VO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
