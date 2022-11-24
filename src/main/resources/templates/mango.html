@@ -79,7 +79,7 @@
                         </form>
 
                         <!-- 찜(가고싶다) -->
-                        <form class="d-flex">
+                        <form class="d-flex" action="data/wishList">
                             <a class="btn btn-outline-dark" id="modal" type="submit">
                                 <i class="fa-solid fa-user-large"></i>
                                 <span class="badge bg-dark text-white rounded-pill">0</span>
@@ -347,7 +347,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a >
+                                    <a href="/detailPage?name=카페/디저트">
                                     <p><h5 class="fw-bolder">카페/디저트</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -357,21 +357,21 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=카페,디저트">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="foodType col mb-5">
+                    <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a>
+                            <a href="/detailPage?name=버거">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/50836_1579495488063112.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a>
+                                    <a href="/detailPage?name=버거">
                                     <p><h5 class="fw-bolder">버거</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -379,7 +379,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -394,7 +394,21 @@
 
 
         <!--  지역 선택 모달 -->
+        <div class="hidden">
 
+                    </ul>
+                </div>
+                <div class="botom_btn">
+                    <div class="btn_half btn_prev" style="display:none;"
+                    ><a>이전</a>
+                    </div>
+                    <div class="btn_full btn_slct">
+                        <a>내 정보</a>갈비
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section id="pagination" class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
