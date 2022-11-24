@@ -264,7 +264,11 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .social_lg.android__googles .sc_gg:hover {background-color: #fff;}
 
 .join_btn {width: 200px; height: 40px; line-height: 38px; border-radius: 5px; color: #c8315c; font-size: 1.14rem; font-weight: 700; background: rgba(255, 255, 255, 0.7); border: 2px solid #c8315c; margin: 10px auto 5px auto;}
+.login_kakao{
+    width: 100%;
+    height: 100%;
 
+}
 .join_btn:hover {background-color: #fff;}
 .join_btn:active {background-color: #fff;}
 @media (max-width:359px) {
@@ -419,8 +423,20 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .pop_region .region_tab .flex_container li a {display:block; width:100%; height:40px; border-bottom:3px solid #f3f0f1;}
 .pop_region .region_tab .slct_kr {background:#f3f0f1 url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_kr_off.png") no-repeat center; background-size:60px 32px;}
 .pop_region .region_tab .slct_kr.active {background:#fff url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_kr_on.png") no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_food {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
+.pop_region .region_tab .slct_food.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
 .pop_region .region_tab .slct_abroad {background:#f3f0f1 url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_abroad_off.png") no-repeat center; background-size:60px 32px;}
 .pop_region .region_tab .slct_abroad.active {background:#fff url("https://image.yeoboya.com/imgs/new_wedding/new_jsp/member/slct_region_abroad_on.png") no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_want {background:#f3f0f1  no-repeat center; background-size:60px 32px;}
+.pop_region .region_tab .slct_want.active {background:#fff  no-repeat center; background-size:60px 32px; border-bottom:3px solid #d6665a}
+.pop_region .region_tab .slct_want span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_want.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_food span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+.pop_region .region_tab .slct_food.active span{display:block; width:100%; height:100%; line-height: 45px;  text-align:center;}
+
+
+
+
 .pop_region .pop_region_hd .slct_city {color:#ff0;}
 .pop_region .pop_region_hd .slct_city::before {content:"'"; margin-right:3px;}
 .pop_region .pop_region_hd .slct_city::after {content:"'"; margin-left:3px;}
@@ -562,6 +578,8 @@ input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSa
 .vesion_info .version_new{font-weight:700; color:#ffa500;}
 .vesion_info .btn_update{float:left; position:relative; width:94px; height:34px; top:3px; margin-left:20px; background:#ffa500; border-radius:3px; font-size:1.07rem; font-weight:700; color:#fff; overflow:hidden;}
 .ripple:after{content:''; position:absolute; top:50%; left:30%; width:5px; height:5px; background:rgba(255, 255, 255, .3); opacity:0; border-radius:100%; transform:scale(1, 1) translate(-50%); transform-origin:50% 50%; animation:ripple 1.8s ease-out infinite;}
+
+
 @keyframes ripple {
     0% {
       transform: scale(0, 0);

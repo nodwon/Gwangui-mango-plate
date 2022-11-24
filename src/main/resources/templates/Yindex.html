@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/layoutContents.html}">
+<head>
+	<!--    thymeleaf layout dialect가 contents페이지의 head태그를 layout의 head태그에 자동으로 추가해준다. -->
+	<!--    필요힌 css, script 추가영역 -->
+	<link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
+</head>
+<div layout:fragment="content" class="pc__container">
+	<header class="header">
+		<button class="btn_back_area">
+			<div class="btn_back">
+				<span class="blind">뒤로</span>
+			</div>
+		</button>
+		<h1 class="header_txt">더보기</h1>
+		<button class="btn_home_area">
+			<div class="btn_home">
+				<span class="blind">홈으로</span>
+			</div>
+		</button>
+	</header>
+	<div class="container">
+		<div id="data">
+			<th:block th:each="row : ${data}">
+				<span th:data-key="${row.code}" th:text="${row.codeName}">
+				</span>
+			</th:block>
+
+		</div>
+		<div id="data2">
+		<span th:each="row : ${data2}">
+			<th:block th:Text="${row.codeName}"></th:block>
+		</span>
+		</div>
+		<div id="want">
+		<span th:each="row : ${gender}">
+			<th:block th:Text="${row.codeName}"></th:block>
+		</span>
+		</div>
+		<input type="hidden">
+		<!-- #5693 브랜드 스토리 더보기 아이콘 추가 및 순서 변경 -->
+		<ul class="more_ul" id="moreUL">
+			<li><a class="base_info">기본정보설정/<br>휴면설정</a></li>
+			<li><a class="set_item">내 아이템관리/<br>코인충전</a></li>
+			<li><a class="brandstory">브랜드<br>스토리</a></li>
+			<li><a class="award">수상/인증</a></li>
+			<li><a class="set_block"><span class="ft_pink">지인차단 관리</span>/<br>차단회원 관리</a></li>
+			<li><a class="visit_record">방문기록설정</a></li>
+			<!-- #5660 영상톡 추가 - 알림수신설정 -> 개인설정 변경 -->
+			<li><a class="setting">개인 설정</a></li>
+			<li><a class="b_partner">사업제휴</a></li>
+			<li><a class="board_talk">Talk 게시판</a></li>
+			<li><a class="invite_kko">카톡친구초대</a></li>
+			<li><a class="center_cs">고객센터</a></li>
+			<li><a class="withdrawal">탈퇴하기</a></li>
+		</ul>
+		<!-- // #5693 -->
+		<div class="cf_wrap">
+			<div class="cf_header">
+				<img src="https://image.yeoboya.com/imgs/new_wedding/mobile/img4/video_new_title.png" alt="여보야 홍보영상" class="cf_title">
+				<div class="view_cf">영상조회수 : <span class="cf_num">123,278</span>회</div>
+			</div>
+			<div class="cf_content">
+				<div class="cf_iframe">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/C4jHnoWQZpw?autoplay=1&amp;controls=0&amp;rel=0&amp;enablejsapi=1&amp;origin=http%3A%2F%2Fm.yeoboya.com&amp;widgetid=1"></iframe>
+				</div>
+			</div>
+			<div class="cf_share">
+				<div class="share_kko">
+					<img src="https://image.yeoboya.com/imgs/new_wedding/mobile/evnt_page/btn_share_kko.png" width="30px" height="32px" alt="카카오톡공유">
+				</div>
+				<div class="share_kks">
+					<img src="https://image.yeoboya.com/imgs/new_wedding/mobile/evnt_page/btn_share_kks.png" width="30px" height="32px" alt="카카오스토리공유">
+				</div>
+				<div class="share_fcb">
+					<img src="https://image.yeoboya.com/imgs/new_wedding/mobile/evnt_page/btn_share_fcb.png" width="90px" height="32px" alt="페이스북공유">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section layout:fragment="contentScriptFragment">
+	<script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/sample.bundle.js')}"></script>
+</section>

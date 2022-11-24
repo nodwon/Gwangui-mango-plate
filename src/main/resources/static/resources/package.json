@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --progress --inline --hot",
     "w": "webpack --watch",
     "build": "cross-env NODE_ENV=production webpack",
-    "build:dev": "cross-env NODE_ENV=development webpack"
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "type": "module"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "@types/js-base64": "^3.0.0",
     "art-template": "^4.12.2",
     "art-template-loader": "^1.4.3",
+    "axios": "^1.1.3",
     "axios-progress-bar": "^1.2.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-dynamic-import-node": "^2.0.0",

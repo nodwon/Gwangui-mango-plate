@@ -1,132 +1,151 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="robots" content="ALL">
-    <meta name="robots" content="index,follow">
-    <meta name="revisit-after" content="1 days">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="robots" content="ALL">
+  <meta name="robots" content="index,follow">
+  <meta name="revisit-after" content="1 days">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <title>B_plate</title>
 
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <title>여보야</title>
-
-    <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
-    <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
-    <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
-    <link rel="stylesheet" type="text/css" href="../css/mobile.css">
-    <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
-
-    <script src="../vendors/polyfill.min.js"></script>
-    <script src="../vendors/jquery.min.js"></script>
-    <script src="../vendors/lodash.min.js"></script>
-    <script src="../vendors/axios.min.js"></script>
-    <script src="../vendors/moment.min.js"></script>
-    <script src="../vendors/jquery-mobile.event.min.js"></script>
-    <script src="../vendors/onLoad.bundle.js"></script>
-    <style>
-        body{
-            background-image: url("https://www.studyon.co.kr/files/attach/images/242354/731/471/6.jpg");
-            background-repeat : no-repeat;
-            background-size: cover;
-        }
-    </style>
+  <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
+  <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
+  <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
+  <link rel="stylesheet" type="text/css" href="../css/mobile.css">
+  <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
+  <script src="/resources/vendors/polyfill.min.js"></script>
+  <script src="/resources/vendors/jquery.min.js"></script>
+  <script src="/resources/vendors/lodash.min.js"></script>
+  <script src="/resources/vendors/axios.min.js"></script>
+  <script src="/resources/vendors/moment.min.js"></script>
+  <script src="/resources/vendors/jquery-mobile.event.min.js"></script>
+  <script type="text/javascript" src="/resources/js/join/login.js"></script>
+  <style>
+    body{
+      background-image: url("https://www.studyon.co.kr/files/attach/images/242354/731/471/6.jpg");
+      background-repeat : no-repeat;
+      background-size: cover;
+    }
+  </style>
 </head>
 
 <body>
 <div  style="height: 851px;">
-    <form class="login_form">
-        <input type="hidden">
-        <div class="flex_container login">
-            <div class="login_wrap">
-                <div class="y_people">
-                </div>
-                <div class="login_box">
-                    <div class="y_logo">
-                        <img src=>
-                    </div>
-                    <div class="input_id">
-                        <div class="id_box">
-                            <label class="login_lb id_lb">아이디</label>
-                            <input type="text" class="input_box" placeholder="아이디">
-                        </div>
-                        <p class="mail">@</p>
-                        <div class="select_box">
-                            <input type="text" class="mail_box hidden">
-                            <a class="del_input hidden"></a>
-                            <select class="mail_d">
-                                <option>naver.com</option>
-                                <option>nate.com</option>
-                                <option>daum.net</option>
-                                <option>hanmail.net</option>
-                                <option>gmail.com</option>
-                                <option>직접입력</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input_pw">
-                        <label class="login_lb pw_lb">비밀번호</label>
-                        <!-- #5784 비밀번호 표시기능 -->
-                        <!-- 비밀번호 보기 : join_pass 클래스 삭제 -->
-                        <input type="password" class="join_form join_pass" placeholder="비밀번호" maxlength="12">
-                        <!-- 비밀번호 보기 아이콘 : active 클래스 추가 -->
-                        <a class="pw_hide"></a>
-                        <!-- // #5784 -->
-                    </div>
-
-                    <div class="input_btn">
-                        <input type="button" class="btn_login btn_click" value="로그인">
-                    </div>
-                    <div class="etc_menu">
-                        <a><p class="find_info">이메일·비밀번호 찾기</p></a>
-                        <span class="etc_menu_bar"></span>
-                        <a><p class="customer_center">고객센터</p></a>
-                    </div>
-                </div>
-                <div class="etc_box">
-                    <div class="social_lg">
-                        <div class="join_btn btn_click" id="kakaologin" href="#" style=background-color:yellow>
-<!--                            <a class="btn-login kakaotalk" href="#" onclick="trackEvent('CLICK_LOGIN_KAKAO','','','PU_LOGIN');">-->
-                                <img src="https://image.yeoboya.com/imgs/new_wedding/mobile/new_login/ico_sc_kko.png" alt="카카오">
-                                <span class="text">카카오톡으로 계속하기</span>
-                            </a>
-                        </div>
-
-                    </div>
-                    <div class="join">
-                        <p class="jn_msg">※ 한번가입으로 <span>PC 웹, 모바일 웹</span> 어디서나 사용이 가능합니다.</p>
-                        <a class="join_btn btn_click">회원가입</a>
-                        <div class="offer_box">
-
-                            <div class="yby_offer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <form class="login_form" action="/commonLogin" method="post">
+    <input type="hidden">
+    <div class="flex_container login">
+      <div class="login_wrap">
+        <div class="y_people">
         </div>
-    </form>
+
+        <div class="login_box">
+
+          <div class="y_logo">
+            <img src=>
+          </div>
+          <div>
+            <div class="input_id">
+              <div class="id_box">
+                <label class="login_lb id_lb">아이디</label>
+                <input type="text" name="userId" class="input_box" placeholder="아이디">
+              </div>
+            </div>
+            <div class="input_pw">
+              <label class="login_lb pw_lb">비밀번호</label>
+              <!-- #5784 비밀번호 표시기능 -->
+              <!-- 비밀번호 보기 : join_pass 클래스 삭제 -->
+              <input type="password" name="userPw" class="join_form join_pass" placeholder="비밀번호" maxlength="12">
+              <!-- 비밀번호 보기 아이콘 : active 클래스 추가 -->
+              <a class="pw_hide"></a>
+              <!-- // #5784 -->
+            </div>
+          </div>
+
+          <div class="input_btn">
+            <input type="submit" class="btn_login btn_click" value="로그인">
+          </div>
+
+          <div class="etc_menu">
+            <a><p class="find_info">이메일·비밀번호 찾기</p></a>
+          </div>
+        </div>
+
+
+        <div class="etc_box">
+            <input type="hidden" id="email" name="email" value="">
+            <input type="hidden" id="nickname" name="nickname" value="">
+            <a class="btn-login join_btn btn_click" id="kakao-login-btn">
+              <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
+            </a>
+          <div class="social_lg">
+          </div>
+          <div class="join">
+            <a href="/join" class="join_btn btn_click" type="submit">일반 회원가입</a>
+            <div class="offer_box">
+              <p class="jn_msg">※ 한번가입으로 <span>PC 웹, 모바일 웹</span> 어디서나 사용이 가능합니다.</p>
+              <div class="yby_offer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
-<script>
-    $('.pw_hide').on('click', function() {
-        $(this).toggleClass('active')
-        $(this).siblings('.join_form').toggleClass('pass_active')
-        $(this).siblings('.join_form').toggleClass('join_pass')
 
-        if ($(this).siblings(':input').attr('type') == 'password'){
-            $(this).siblings('input').attr('type', 'text')
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type='text/javascript'>
+  Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf');
+  $("#kakao-login-btn").on("click", function(){
+    //1. 로그인 시도
+    Kakao.Auth.login({
+      success: function(authObj) {
 
-        } else {
-            $(this).siblings('input').attr('type', 'password')
+        //2. 로그인 성공시, API 호출
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function(res) {
+            console.log(res);
+            // alert(JSON.stringify(authObj));
+            // alert(JSON.stringify(res));
+            // alert(res.kakao_account['email']);
+            // alert(res.properties['nickname']);
+            console.log(authObj.access_token);
+            $(function(){
+              let requestEmail = JSON.stringify(res.kakao_account['email']);
+              $('#email').val(requestEmail);
+              let value = $('input[name=email]').val();
+              // alert(value);
+              console.log(value);
+            });
 
-        }
-
-    })
+            $(function(){
+              let requestNick = JSON.stringify(res.properties['nickname']);
+              $('#nickname').val(requestNick);
+              let value = $('input[name=nickname]').val();
+              // alert(value);
+              console.log(value);
+            });
+            let email = $('input[name=email]').val();
+            let nickname = $('input[name=nickname]').val();
+            // scope : 'profile_nickname, account_email';
+            location.href="/kakaoJoin?nickname="+nickname+"&email="+email;
+          }
+        })
+        console.log(authObj);
+        let token = authObj.access_token;
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      }
+    });
+  })
 </script>
-<script src="../vendors/siteMap.bundle.js"></script>
 </body>
 </html>

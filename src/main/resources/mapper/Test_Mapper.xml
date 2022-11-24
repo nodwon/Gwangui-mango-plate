@@ -4,4 +4,58 @@
     <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">
         SELECT * FROM test;
     </select>
+    <insert id="kakaoJoin" parameterType="com.smart.project.web.home.vo.KakaoMemberVO">
+        insert ignore into table_join (userEmail,userName) values (#{email},#{nickname})
+    </insert>
+
+
+    <insert id="insertMember" parameterType="com.smart.project.web.home.vo.TestVO">
+        insert into table_join(userId,userEmail,userPw,userName,userPhoneNum) values
+            (#{userId},#{userEmail},#{userPw},#{userName},#{userPhoneNum})
+    </insert>
+
+    <select id="idCount" parameterType="string" resultType="int">
+        select count(*) from table_join where userId = #{userId}
+    </select>
+
+
+
+    <insert id ="insertMangoJson" parameterType="java.util.List">
+        insert into bteam (id,name,address,menu,phone) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.name},#{item.address},#{item.menu},#{item.phone})
+        </foreach>
+    </insert>
+
+    <select id="selectMango" resultType="com.smart.project.web.home.vo.mangoVO">
+        SELECT * FROM mangodb;
+    </select>
+
+    <select id="selectMango2" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="java.lang.String">
+        SELECT * FROM mango2db where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%');
+    </select>
+
+    <select id="selectMango2All" resultType="com.smart.project.web.home.vo.mango2VO">
+        SELECT * FROM mango2db;
+    </select>
+
+    <select id="selectName" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="java.lang.String">
+        SELECT * FROM mango2db where  name= #{name}
+    </select>
+
+    <select id="searchAll" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="java.lang.String">
+        SELECT * FROM mango2db where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%');
+    </select>
+
+<!--
+
+    <select id="searchAll" resultType="com.smart.project.web.home.vo.mango2VO" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT * FROM mango2db where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%');
+        limit #{pageStart},#{perPageNum}
+
+    </select>
+-->
+
+
+
 </mapper>
