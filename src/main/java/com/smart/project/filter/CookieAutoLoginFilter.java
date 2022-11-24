@@ -1,12 +1,9 @@
 package com.smart.project.filter;
 
-import com.smart.project.util.ClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,18 +27,6 @@ public class CookieAutoLoginFilter implements HandlerInterceptor {
     private double preTime = 0.0;
     private double afterTime = 0.0;
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        preTime = new Date().getTime();//시작시간
-        log.error("data===>{}", request.getRequestURI());
-        if(!checkUrlPermission(request, response)){
-            String protocol = request.isSecure() ? "https://" : "http://";
-            response.sendRedirect(protocol + request.getServerName() + "/member/login/index");
-            return false;
-        }
-
-        return HandlerInterceptor.super.preHandle(request, response, handler);
-    }
 
     /**********************************************************************************************
      * @Method 설명 : 여보야 스토어 정기점검 체크 루틴
@@ -59,48 +44,6 @@ public class CookieAutoLoginFilter implements HandlerInterceptor {
         return false;
     }
 
-    /**
-     * 접속한 URL의 접근 권한을 확인한다.
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    private boolean checkUrlPermission(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            boolean isLogin = checkLogin(request);
-            String accessUrl = request.getRequestURI();
-
-            //* 접근 제한 링크
-            if(!checkNoLoginAccess(accessUrl)) {
-                //로그인 전용페이지
-                log.info("This session is logout status... : " + request.getRemoteAddr() + " : No Accessable Url : "+accessUrl);
-                return false;
-            }
-            return true;
-        }catch(Exception e){
-            log.info("Login checkPermission Exception...."+ e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * cookie에 로그인 사용자 정보가 존재하는 지와 유효한지 확인한다.
-     *
-     * @param request
-     * @return
-     */
-    private boolean checkLogin(HttpServletRequest request){
-        try {
-            Map<String, String> cookieMap = ClientUtil.getCurrentCookie(request);
-            String USER_ID = cookieMap.get("USER_ID");
-
-            return (StringUtils.isNotEmpty(USER_ID));
-        }catch(Exception e){
-            log.info("checkLogin Exception...."+ e.getMessage());
-            return false;
-        }
-    }
 
     /**
      * 로그인 전 접속 불가 페이지 확인

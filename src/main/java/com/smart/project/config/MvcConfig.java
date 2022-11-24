@@ -1,8 +1,6 @@
 package com.smart.project.config;
 
 import com.smart.project.filter.CookieAutoLoginFilter;
-import com.smart.project.security.InternCookieResolver;
-import com.smart.project.security.LoginUserCookieInterceptor;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -52,11 +50,6 @@ public class MvcConfig implements WebMvcConfigurer {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.indentOutput(true).dateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add( new InternCookieResolver() );
     }
 
     @Bean

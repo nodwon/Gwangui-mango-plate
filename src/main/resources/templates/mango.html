@@ -26,18 +26,18 @@
         <!--  <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">-->
         <link rel="stylesheet" type="text/css" href="../css/portal/default.css">
         <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
-  <!--  <script src="../resources/vendors/polyfill.min.js"></script>
+    <script src="../resources/vendors/polyfill.min.js"></script>
         <script src="../resources/vendors/jquery.min.js"></script>
         <script src="../resources/vendors/lodash.min.js"></script>
         <script src="../resources/vendors/axios.min.js"></script>
         <script src="../resources/vendors/moment.min.js"></script>
         <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">-->
+        <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
         <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
-        <!--<link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
+        <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
         <link rel="stylesheet" type="text/css" href="../css/mobile.css">
         <link rel="stylesheet" type="text/css" href="../css/m_yby_seem.css">
-        <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">-->
+        <link rel="stylesheet" type="text/css" href="../css/m_yby_mainlist.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -48,7 +48,6 @@
     </head>
 
     <style>
-
 
 
        /* .normal_pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:4000; display:flex; flex-wrap:wrap; flex-direction:row; align-items:center; justify-content:center;}
@@ -67,6 +66,8 @@
 
     <div layout:fragment="content">
     <!-- Navigation 상단바바바-->
+
+
     <div id = "Nav" class="fixed">
         <div class ="navbar-expand-lg" >
 
@@ -212,6 +213,15 @@
      </section>-->
 
         <!-- Section-->
+        <style>
+            .p-4{
+                padding: 0 !important;
+            }
+            a {
+                color : black;
+
+            }
+        </style>
 
         <section class="py-5">
 
@@ -222,24 +232,22 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
+                            <a href="/detailPage?name=한식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/153948/114224_1495617984049_21416?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">한식</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
+                                    <a href="/detailPage?name=한식">
+                                    <p><h5 class="fw-bolder">한식</h5></p>
+                                    </a>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=한식">View options</a></div>
+
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?name=한식">View options</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -248,27 +256,23 @@
                             <!-- Sale badge-->
 
                             <!-- Product image-->
+                            <a href="/detailPage?name=중식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
-                            <!-- Product details-->
+
+                                <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">중식</h5>
+                                    <a href="/detailPage?name=중식">
+                                    <p><h5 class="fw-bolder">중식</h5></p>
+                                    </a>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-<!--                                    <span class="text-muted text-decoration-line-through">$20.00</span>-->
+
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=중식">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=중식">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -277,50 +281,43 @@
                             <!-- Sale badge-->
 
                             <!-- Product image-->
+                            <a href="/detailPage?name=일식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/12883/2015985_1665665035328_1000001275?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">일식</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
+                                    <a href="/detailPage?name=일식">
+                                    <p><h5 class="fw-bolder">일식</h5></p>
+                                    </a>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=일식">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=일식">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
+                            <a href="/detailPage?name=양식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/67094_1592053130327492.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">양식</h5>
+                                    <a href="/detailPage?name=양식">
+                                    <p><h5 class="fw-bolder">양식</h5></p>
+                                    </a>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=양식">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=양식">Add to cart</a><p></div>
                             </div>
                         </div>
                     </div>
@@ -329,49 +326,43 @@
                             <!-- Sale badge-->
 
                             <!-- Product image-->
+                            <a href="/detailPage?name=치킨">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/371364_1445214856878.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
-                            <!-- Product details-->
+                            </a>
+                                <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">치킨</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
+                                    <a href="/detailPage?name=양식">
+                                    <p><h5 class="fw-bolder">치킨</h5></p>
+                                    </a>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=치킨">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=치킨">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
+                            <a href="/detailPage?name=분식">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/195133/968026_1566749098661_21430?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">분식</h5>
+                                    <a href="/detailPage?name=분식">
+                                    <p><h5 class="fw-bolder">분식</h5></p>
+                                    </a>
                                     <!-- Product price-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=분식">View options</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=분식">View options</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -380,52 +371,46 @@
                             <!-- Sale badge-->
 
                             <!-- Product image-->
+                            <a href="/detailPage?name=카페/디저트">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/396239/osg4_ird-_k1s3.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">카페, 디저트</h5>
+                                    <a href="/detailPage?name=카페/디저트">
+                                    <p><h5 class="fw-bolder">카페/디저트</h5></p>
+                                    </a>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
+
 
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=카페,디저트">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=카페,디저트">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
+                            <a href="/detailPage?name=버거">
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/50836_1579495488063112.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
+                            </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">버거</h5>
+                                    <a href="/detailPage?name=버거">
+                                    <p><h5 class="fw-bolder">버거</h5></p>
+                                    </a>
                                     <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -440,39 +425,7 @@
 
 
         <!--  지역 선택 모달 -->
-        <div class="normal_pop_wrap hidden">
-            <div class="full_modal"></div>
-            <div class="pop_region">
-                <div class="pop_region_hd">
-                    <!-- 국내/해외 지역 미선택시 -->
-                    <span id="addressTitle">맛집 </span>
-                    <!-- 국내 지역 선택시 -->
-                    <!-- <span class="slct_city">광주</span>
-                    <span class="slct_city_suf">상세지역을 선택하세요</span> -->
-                    <div class="btn_cls"><a>닫기</a>
-                    </div>
-                </div>
-                <div class="region_tab">
-                    <ul class="flex_container">
-                        <li><a class="slct_food active"><span>최근 본 이미지</span></a></li>
-                        <li><a class="slct_want"><span> 가고 싶은 곳</span></a></li>
-                    </ul>
-                </div>
-                <!-- 국내 지역선택-->
-                <div class="pop_region_content region_content_kr">
-                    <ul>
-                        <!-- 지역 선택시 class="chk_active" 추가 -->
-                    </ul>
-                </div>
-                <!-- 국내 상세 지역 선택 -->
-                <div class="pop_region_content region_content_kr_detail hidden">
-                    <ul>
-
-                    </ul>
-                </div>
-                <!-- 해외 지역선택 -->
-                <div class="pop_region_content region_content_abroad hidden">
-                    <ul>
+        <div class="hidden">
 
                     </ul>
                 </div>
@@ -507,3 +460,4 @@
     </footer>
 
     </div>
+</html>

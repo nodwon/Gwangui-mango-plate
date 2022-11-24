@@ -3,7 +3,7 @@ package com.smart.project.web.home.vo;
 import lombok.Data;
 
 @Data
-public class mango2VO {
+public class Mango2VO {
 
     private String id;
     private String opendata;

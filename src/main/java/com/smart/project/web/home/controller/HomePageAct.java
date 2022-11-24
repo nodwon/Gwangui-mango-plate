@@ -1,27 +1,17 @@
-package com.smart.project.web.home.act;
+package com.smart.project.web.home.controller;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.smart.project.web.home.vo.modalVO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.smart.project.web.home.vo.ModalVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +23,12 @@ public class HomePageAct {
     final private Test test;
 
     @PostMapping("/commonLogin")
-    public String commonLogin(TestVO vo, HttpSession session){
+    public String commonLogin(CommonMemberVO vo, HttpSession session){
         log.error("{}",vo);
         String userId = vo.getUserId();
         String userPw = vo.getUserPw();
 
-        TestVO result  = test.selectOneMem(userId,userPw);
+        CommonMemberVO result  = test.selectOneMem(userId,userPw);
 
 
         log.error("21321321321{}",result );
@@ -48,13 +38,13 @@ public class HomePageAct {
         }else{
             System.out.println("로그인 실패");
 
-            return "/login";
+            return "Member/login/login";
         }
         return "redirect:/mango";
     }
 
     @PostMapping("/register")
-    public String createMember(TestVO vo) {
+    public String createMember(CommonMemberVO vo) {
 
         test.insertMember(vo);
         log.info(vo.toString());
@@ -82,31 +72,15 @@ public class HomePageAct {
     }
 
 
-    @RequestMapping("/test1")
-    public String join12(Model model, @RequestParam("name") String name,@RequestParam("roadName") String roadName,@RequestParam("src") String src){
-      /*  list<vo> store = model.getAttribute("stores");
-        store.add(new vo());
-        model.addAttribute("stores",store);*/
-        log.error("name => {}",name);
-        log.error("name => {}",roadName);
-        log.error("name => {}",src);
-        model.addAttribute("name",name);
-        model.addAttribute("roadName",roadName);
-        model.addAttribute("src",src);
-        return "test";
-    }
-    @RequestMapping("/data/select")//해외
-    public String userDB(Model model , @ModelAttribute modalVO param){
-
-
-
+/*    @RequestMapping("/data/select")//해외
+    public String userDB(Model model , @ModelAttribute ModalVO param){
         //String keyData = String.valueOf(param);  //우리가 post (key,object)
         log.error("user 정보 확인 : {}", param);
         //받은 MAP 데이터 {'KEY' : 값형태} 형태
         log.error("user 정보 확인 : {}", param.getName());
 
         //log.error("{}",isData);
-        List<modalVO> modalVO = new ArrayList<>();
+        List<ModalVO> modalVO = new ArrayList<>();
         modalVO.add(param);
         log.error("{}",modalVO);
         model.addAttribute("modalList",modalVO);
@@ -116,17 +90,17 @@ public class HomePageAct {
         //test.userInsert(modalVO);
 
         return "test2";
-    }
+    }*/
 
 
 
 
-
+/*
     @RequestMapping("/test2")
-    public String getData(Model model ,@ModelAttribute modalVO modal){
-      /*  list<vo> store = model.getAttribute("stores");
+    public String getData(Model model ,@ModelAttribute ModalVO modal){
+      *//*  list<vo> store = model.getAttribute("stores");
         store.add(new vo());
-        model.addAttribute("stores",store);*/
+        model.addAttribute("stores",store);*//*
         log.error("name => {}",modal.toString());
 
         model.addAttribute("name",modal.getName());
@@ -136,13 +110,13 @@ public class HomePageAct {
         return "test2";
 
 
-    }
-
+    }*/
+/*
     @RequestMapping("/getModal")
-    public String getModal(Model model, @ModelAttribute modalVO modal){
-      /*  list<vo> store = model.getAttribute("stores");
+    public String getModal(Model model, @ModelAttribute ModalVO modal){
+      *//*  list<vo> store = model.getAttribute("stores");
         store.add(new vo());
-        model.addAttribute("stores",store);*/
+        model.addAttribute("stores",store);*//*
 
         //리스트를 생성하는 부분은
 
@@ -151,14 +125,14 @@ public class HomePageAct {
         log.error("name => {}",modal.getSrc());
         return "test";
 
-    }
-    @RequestMapping("/getHtml")
+    }*/
+/*    @RequestMapping("/getHtml")
     public String getHtml(){
 
         return "topNav";
 
 
-    }
+    }*/
 
 
 }
