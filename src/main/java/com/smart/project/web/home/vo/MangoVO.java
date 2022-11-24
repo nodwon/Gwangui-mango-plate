@@ -1,9 +1,10 @@
 package com.smart.project.web.home.vo;
 
-        import lombok.Data;
+import lombok.Data;
 
 @Data
-public class Mango2VO {
+public class MangoVO {
+
 
     private String id;
     private String name;
@@ -13,6 +14,4 @@ public class Mango2VO {
     private String roadname;
     private String latitude;
     private String longitude;
-
-
 }

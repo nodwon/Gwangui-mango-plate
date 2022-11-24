@@ -121,6 +121,7 @@ export class mango{
             let object = {"menu":$("input[name=search]").val()}
             if(!($("input[name=search]").val()===""))
             {//
+                $(".py-5.map").removeClass("hidden");
                 axios.post("data/mango2",object).then((result)=>{
                     let data = result.data;   //data = List<locationVO>
                     var mapOptions = {
@@ -138,6 +139,8 @@ export class mango{
                         let roadname = e.roadname;
                         let mainmenu = e.mainmenu;
                         let url = "url이 필요해요";
+                        console.log(latitude);
+                        console.log(longitude);
 
                         var marker = new naver.maps.Marker({
                             position: new naver.maps.LatLng(latitude, longitude),
@@ -193,9 +196,24 @@ export class mango{
             this.modalShow();
 
         });
+        //한식 ,중식, 일식 눌렀을때 이벤트
+        $(".foodType").on("click",(e)=>{
+            let search = {"search":$(e.currentTarget).find('.fw-bolder').text()};
+            axios.post("data/searchAll",search).then((result)=>{
+
+                console.log(result)
+                $("#start").empty();
+                $("#start").append(this.foodList(result));
+                /*            $(".pop_region_content.region_content_kr").empty();
+                            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
+
+            });
+
+        });
 
 
-        $(".card.h-100").on("click",(e)=>{
+
+/*        $("#cardList").on("click",(e)=>{
             let name = $(e.currentTarget).find('.name').text();
             let roadName =  $(e.currentTarget).find('.roadName').text();
             let src =  $(e.currentTarget).find('.card-img-top').attr("src");
@@ -211,19 +229,19 @@ export class mango{
                 params : object
 
             }).then((response)=>{
-                /*location.href ="test2";*/
+                /!*location.href ="test2";*!/
 
                 $(".pop_region_content.region_content_kr").append(response.data);
-               /* location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*/
-                /*location.href="/detailPage";*/
+               /!* location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*!/
+                /!*location.href="/detailPage";*!/
             })
 
             console.log("선택된 가게 이름 :" ,name);
             console.log("선택된 가게 도로명 : ",roadName);
             console.log("선택된 가게 사진 : ",src);
-            /*location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*/
+            /!*location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*!/
 
-        });
+        });*/
 
     }
 

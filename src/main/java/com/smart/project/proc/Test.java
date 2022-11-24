@@ -5,7 +5,7 @@ import com.smart.project.annotation.Master;
 //import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.Mango2VO;
+import com.smart.project.web.home.vo.MangoVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -23,11 +23,11 @@ public interface Test {
 	 **********************************************************************************************/
 	void kakaoJoin(KakaoMemberVO vo);
 
-	List<Mango2VO> selectMango2(String search);
+	List<MangoVO> selectMango2(String search);
 
-	List<Mango2VO> selectMango2All();
+	List<MangoVO> selectMango2All();
 
-    List<Mango2VO> selectName(String name);
+    List<MangoVO> selectName(String name);
 
     void insertMember(CommonMemberVO vo);
 
@@ -37,5 +37,5 @@ public interface Test {
 	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
 	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
 
-	List<Mango2VO> searchAll(String search);
+	List<MangoVO> searchAll(String search);
 }

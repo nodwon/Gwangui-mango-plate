@@ -3,7 +3,6 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
-import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
@@ -34,7 +32,7 @@ public class HomeDataAct {
 	@PostMapping("/data/mango2All")
 	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
 		Map<String, Object> result = new HashMap<>();
-		List<Mango2VO> data = test.selectMango2All();
+		List<MangoVO> data = test.selectMango2All();
 		/*List<mango2VO> data=null;*/
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
@@ -47,7 +45,7 @@ public class HomeDataAct {
 		Map<String, Object> result = new HashMap<>();
 		String search = String.valueOf(param.get("search"));
 
-		List<Mango2VO> data = test.searchAll(search);
+		List<MangoVO> data = test.searchAll(search);
 
 
 
@@ -61,7 +59,7 @@ public class HomeDataAct {
 
 
 	@PostMapping("/data/mango2")
-	public List<Mango2VO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
+	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
 	 String mainmenu = String.valueOf(param.get("menu"));
 	 String search = String.valueOf(param.get("menu"));
 
@@ -88,18 +86,18 @@ public class HomeDataAct {
 
 
 	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	 List<Mango2VO> data = test.selectMango2(mainmenu);
+	 List<MangoVO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
 	log.error("select 결과 list : {}",data);
 		return data;
 	}
 
 	@PostMapping("/data/map")
-	public List<Mango2VO>getMapData(@RequestBody Map param){
+	public List<MangoVO>getMapData(@RequestBody Map param){
 		String name = String.valueOf(param.get("name"));
 		log.error("검색창에 입력한 것 : {}",name);
 
-		List<Mango2VO> data = test.selectName(name);
+		List<MangoVO> data = test.selectName(name);
 		/*List<mango2VO> data=null;*/
 		log.error("select 결과 list : {}",data);
 		return data;
