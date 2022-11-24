@@ -10,6 +10,7 @@ import com.smart.project.web.home.vo.mango2VO;
 import com.smart.project.web.home.vo.mangoVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
@@ -45,4 +46,11 @@ public interface Test {
 	TestVO selectOneMem(TestVO vo);
 	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
     TestVO selectOneMem(@Param("userId") String userId,@Param("userPw") String userPw);
+
+
+	List<mango2VO> searchAll(String search);
+
+    List<mangoVO> getList(Criteria cri);
+
+	int totalCount();
 }

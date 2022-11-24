@@ -33,7 +33,7 @@ export class mango{
             $("#Nav").append(result.data);
 
         })*/
-        /*$("#Nav").append(this.head);*/
+       /* $("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
   /*      var marker = new naver.maps.Marker({
@@ -41,16 +41,16 @@ export class mango{
             map: map
         });*/
 //123123//
-        axios.post("data/mango2All",{}).then((result)=>{
+ /*       axios.post("data/mango2All",{}).then((result)=>{
             $("#start").empty();
             $("#start").append(this.foodList(result));
-/*            $(".pop_region_content.region_content_kr").empty();
-            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
+/!*            $(".pop_region_content.region_content_kr").empty();
+            $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
             this.eventBind();
-        });
+        });*/
 
 
-
+        this.eventBind();
 
 
 
@@ -112,6 +112,7 @@ export class mango{
             /*location.href='/test1';*/
         })
 
+        //상단 검색창
 
 
         //검색한 맛집 마커로 표시하기
@@ -170,6 +171,16 @@ export class mango{
                     })
                 });
             }
+            let search = {"search":$("input[name=search]").val()}
+            axios.post("data/searchAll",search).then((result)=>{
+
+                console.log(result)
+                $("#start").empty();
+                $("#start").append(this.foodList(result));
+                /*            $(".pop_region_content.region_content_kr").empty();
+                            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
+
+            });
 
         });
 
