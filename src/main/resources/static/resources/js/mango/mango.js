@@ -116,6 +116,7 @@ export class mango{
 
 
         //검색한 맛집 마커로 표시하기
+        //git이름변경
       /*  $("input[name=search]").on("focusout",(e)=>{*/
         $("#search").on("click",(e)=>{
             let object = {"menu":$("input[name=search]").val()}
