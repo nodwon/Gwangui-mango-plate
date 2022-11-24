@@ -21,7 +21,7 @@ export class mango{
 
         })*/
 
-
+//12
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
         this.foodList = require("@/mango/foodList.html");
