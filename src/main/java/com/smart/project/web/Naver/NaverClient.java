@@ -3,6 +3,7 @@ package com.smart.project.web.Naver;
 import com.smart.project.web.Naver.dto.SearchLocalReq;
 import com.smart.project.web.Naver.dto.SearchLocalRes;
 import com.smart.project.web.Naver.dto.SearchImageRes;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;

@@ -1,6 +1,5 @@
 package com.smart.project.web.home.act;
 
-import com.smart.project.common.vo.InternCookie;
 import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
@@ -38,7 +37,7 @@ public class HomeAct {
 
 
 	@RequestMapping("/")
-	public String home(Model model, Criteria cri, InternCookie cookie, HttpServletRequest request){
+	public String home(Model model, Criteria cri,  HttpServletRequest request){
 
 
 
