@@ -158,10 +158,10 @@ public class HomeDataAct {
 
 		if(search!=null)
 		{
-
+/*
 			List<mangoVO> list =test.getList(cri);// 해당 페이지의 perPageNum 만큼의 리스트
 			model.addAttribute("list", list); // list --> ArrayList를 가르킨다.
-			log.error("{}",list);
+			log.error("{}",list);*/
 			/*
 	//페이징 처리에 필요한 객체를 생성
 			//1 2 3 4 5 6 7 8 9 10 페이지를 만들기위해서는 endpage, totalCount 등 PageMaker에 대한 객체생성
