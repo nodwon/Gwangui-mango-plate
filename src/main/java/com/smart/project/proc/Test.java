@@ -1,20 +1,15 @@
 package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
-import com.smart.project.common.vo.MenuVO;
+
 //import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.TestVO;
-import com.smart.project.web.home.vo.locationVO;
-import com.smart.project.web.home.vo.mango2VO;
-import com.smart.project.web.home.vo.mangoVO;
+import com.smart.project.web.home.vo.Mango2VO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import com.smart.project.web.home.vo.*;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Master
@@ -26,31 +21,21 @@ public interface Test {
 	 * @작성자 : 김남현
 	 * @변경이력 :
 	 **********************************************************************************************/
-	List<TestVO> sqlMenu2(String userId);
-
 	void kakaoJoin(KakaoMemberVO vo);
 
-    void insertMangoJson(List<mangoVO> mangoVOList);
+	List<Mango2VO> selectMango2(String search);
 
-    List<mangoVO> selectMango();
-	List<mango2VO> selectMango2(String search);
+	List<Mango2VO> selectMango2All();
 
-	List<mango2VO> selectMango2All();
+    List<Mango2VO> selectName(String name);
 
-    List<mango2VO> selectName(String name);
-
-    void insertMember(TestVO vo);
+    void insertMember(CommonMemberVO vo);
 
     int idCount(String userId);
 
-	TestVO selectOneMem(TestVO vo);
+	/*CommonMemberVO selectOneMem(CommonMemberVO vo);*/
 	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
-    TestVO selectOneMem(@Param("userId") String userId,@Param("userPw") String userPw);
+	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
 
-
-	List<mango2VO> searchAll(String search);
-
-    List<mangoVO> getList(Criteria cri);
-
-	int totalCount();
+	/*List<mango2VO> searchAll(String );*/
 }
