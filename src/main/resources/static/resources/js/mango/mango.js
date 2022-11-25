@@ -20,8 +20,6 @@ export class mango{
 
 
         })*/
-
-
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
         this.foodList = require("@/mango/foodList.html");
@@ -51,56 +49,36 @@ export class mango{
 
 
         this.eventBind();
-
-
-
+        this.modalEvent();
     }
 
 
-    modalShow(){
-
-
+    /*modalShow(){
 
         this.eventModal()
+    }*/
+    //위시 리스트 클릭시 모달창 팝업
+    modalEvent(){
+        $('#modal').on('click',(e)=>{
+            console.log('위시리스트')
+            this.modalshow($(e.currentTarget).data());
+        })
+    }
 
+    modalshow(key){
+        let md = require("@/mango/wishListModal.html")
+        let call = {'key' : $('#wsModal').val()};
 
+        axios.post('/data/wish', call).then((result)=>{
+            console.log(result)
 
+            $('.wishList').append(md(result));
+            $('.wishList').removeClass('hidden');
+        })
     }
 
 
 
-
-    eventModal()
-    {
-
-        /*//모달 x
-        $(".btn_cls").on("click",(e)=>{
-            $(".normal_pop_wrap").addClass("hidden")
-        });
-
-        //모달 최근본 이미지 클릭시 이벤트
-        $(".slct_food").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_want").removeClass("active");
-                $(".pop_region_content.region_content_kr").removeClass("hidden");
-
-            }
-        });
-        //모달 가고싶은곳
-        $(".slct_want").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_food").removeClass("active");
-                $(".pop_region_content.region_content_kr").addClass("hidden");
-            }
-        });
-*/
-
-
-    }
     eventBind(){
 
         console.log("gddgㅇㄴㅁㄹㅇ213123123ㄴ")
@@ -191,11 +169,11 @@ export class mango{
 
         });
 
-        $("#modal").on("click",(e)=>{
+        /*$("#modal").on("click",(e)=>{
             $(".normal_pop_wrap").removeClass("hidden")
             this.modalShow();
 
-        });
+        });*/
         //한식 ,중식, 일식 눌렀을때 이벤트
         $(".foodType").on("click",(e)=>{
             let search = {"search":$(e.currentTarget).find('.fw-bolder').text()};

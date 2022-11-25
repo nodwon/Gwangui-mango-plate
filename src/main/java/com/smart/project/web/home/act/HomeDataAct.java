@@ -137,4 +137,10 @@ public class HomeDataAct {
 
 		return idCount;
 	}
+
+	@PostMapping("/data/wish")
+	public Map<String, Object> getwish(@RequestBody Map param){
+		Map<String, Object> data = new HashMap<>();
+		return data;
+	}
 }

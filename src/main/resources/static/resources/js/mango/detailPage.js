@@ -1,14 +1,17 @@
 "use strict";
+import md from "@/mango/wishListModal.html";
+
 $(()=>{
     new detailPage();
 })
 export class detailPage{
     constructor() {
 
+        this.modalEvent();
 
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
-        $("#Nav").append(this.head);
+        /*$("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
         console.log("s123123dsfsdfdfsddfgdfgsdsdfsdfsdfsaf");
@@ -66,6 +69,25 @@ export class detailPage{
 
 
         this.DetailEvent();
+    }
+
+    modalEvent(){
+        $('#modal').on('click',(e)=>{
+            console.log('위시리스트')
+            this.modalshow($(e.currentTarget).data());
+        })
+    }
+
+    modalshow(key){
+        let md = require("@/mango/wishListModal.html")
+        let call = {'key' : $('#wsModal').val()};
+
+        axios.post('/data/wish', call).then((result)=>{
+            console.log(result)
+
+            $('.wishList').append(md(result));
+            $('.wishList').removeClass('hidden');
+        })
     }
 
     DetailEvent(){
