@@ -241,17 +241,31 @@ export class mango{
         //한식 ,중식, 일식 눌렀을때 이벤트
         $(".foodType").on("click",(e)=>{
             $(".py-5.map").removeClass("hidden");
+            $("#pagination").removeClass("hidden");
 
-
-            let search = {"search":$(e.currentTarget).find('.fw-bolder').text()};
+            let search = {"search":$(e.currentTarget).find('.fw-bolder').text(),"pageNum":1};
 
             let object =  {"menu":$(e.currentTarget).find('.fw-bolder').text()};
-            this.getMap(object)
+            this.searchKeyword =$(e.currentTarget).find('.fw-bolder').text();
 
-            axios.post("data/searchAll",search).then((result)=>{
+
+            if(!($(e.currentTarget).find('.fw-bolder').text()===""))
+            {
+                this.getMap(object)
+            }
+
+
+                axios.post("data/searchAll",search).then((result)=>{
+
 
                 console.log(result)
-                $("#start").empty();
+                    console.log(result)
+                    console.log(result.data.size)
+
+                    let test1 = result.data.size;
+                    let test2 = Math.ceil(test1/10);
+
+                    $("#start").empty();
                 $("#start").append(this.foodList(result));
                 /*            $(".pop_region_content.region_content_kr").empty();
                             $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
