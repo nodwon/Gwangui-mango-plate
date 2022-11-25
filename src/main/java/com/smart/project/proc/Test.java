@@ -38,4 +38,10 @@ public interface Test {
 	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
 
 	List<Mango2VO> searchAll(String search);
+
+	@Select("select userId from table_join where userEmail=#{userEmail} and userName=#{userName}")
+	CommonMemberVO findMemberId(@Param("userEmail") String userEmail,@Param("userName") String userName);
+
+	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
+	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 }

@@ -1,5 +1,6 @@
 package com.smart.project.web.home.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
@@ -9,9 +10,13 @@ import com.smart.project.web.home.vo.ModalVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.util.resources.cldr.rof.CalendarData_rof_TZ;
+import sun.util.resources.cldr.rwk.CalendarData_rwk_TZ;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +74,53 @@ public class HomePageAct {
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/mango";
+    }
+
+    @PostMapping("/FindId")
+    public String FindId(CommonMemberVO vo, HttpServletResponse response) throws Exception {
+
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter out = response.getWriter();
+
+        log.error("id{}",vo);
+        String userEmail = vo.getUserEmail();
+        String userName = vo.getUserName();
+
+        CommonMemberVO result = test.findMemberId(userEmail, userName);
+
+        if(result != null) {
+            System.out.println("아이디 찾기 성공");
+            out.println("<script>alert('아이디는 "+result.getUserId()+" 입니다');</script>");
+        }
+        else {
+            System.out.println("아이디 찾기 실패");
+            out.println("<script>alert('가입된 아이디가 없습니다');</script>");
+        }
+        return "Member/login/password";
+    }
+
+    @PostMapping("/FindPw")
+    public String FindPw(CommonMemberVO vo, HttpServletResponse response) throws Exception {
+
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter out = response.getWriter();
+
+        log.error("pw{}",vo);
+        String userEmail = vo.getUserEmail();
+        String userName = vo.getUserName();
+        String userPhoneNum = vo.getUserPhoneNum();
+
+        CommonMemberVO result = test.findMemberPw(userEmail, userName, userPhoneNum);
+
+        if(result != null) {
+            System.out.println("비밀번호 찾기 성공");
+            out.println("<script>alert('비밀번호는 "+result.getUserPw()+" 입니다');</script>");
+        }
+        else {
+            System.out.println("비밀번호 찾기 실패");
+            out.println("<script>alert('가입된 비밀번호가 없습니다.');</script>");
+        }
+        return "Member/login/password";
     }
 
 
