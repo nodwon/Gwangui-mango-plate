@@ -9,19 +9,17 @@ $(()=>{
 
 export class mango{
     constructor() {
-        /*       axios({
-                   method : "post",
-                   url : "/getHtml",
+ /*       axios({
+            method : "post",
+            url : "/getHtml",
 
-               }).then((response)=>{
-                   /!*location.href ="test2";*!/
+        }).then((response)=>{
+            /!*location.href ="test2";*!/
 
-                   $("#Nav").append(response.data);
+            $("#Nav").append(response.data);
 
 
-               })*/
-
-        this.searchKeyword = "";
+        })*/
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
         this.foodList = require("@/mango/foodList.html");
@@ -30,25 +28,25 @@ export class mango{
 
 
 
-        /*        axios.post("/data/head",{}).then((result)=>{
-                    $("#Nav").append(result.data);
+/*        axios.post("/data/head",{}).then((result)=>{
+            $("#Nav").append(result.data);
 
-                })*/
-        /* $("#Nav").append(this.head);*/
+        })*/
+       /* $("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
-        /*      var marker = new naver.maps.Marker({
-                  position: new naver.maps.LatLng(latitude, longitude),
-                  map: map
-              });*/
+  /*      var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(latitude, longitude),
+            map: map
+        });*/
 //123123//
-        /*       axios.post("data/mango2All",{}).then((result)=>{
-                   $("#start").empty();
-                   $("#start").append(this.foodList(result));
-       /!*            $(".pop_region_content.region_content_kr").empty();
-                   $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
-                   this.eventBind();
-               });*/
+ /*       axios.post("data/mango2All",{}).then((result)=>{
+            $("#start").empty();
+            $("#start").append(this.foodList(result));
+/!*            $(".pop_region_content.region_content_kr").empty();
+            $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
+            this.eventBind();
+        });*/
 
 
         this.eventBind();
@@ -73,7 +71,7 @@ export class mango{
     }
 
     modalshow(key){
-        let md = require("@/mango/wishListModal.html")
+        let md = require("../../../../templates/wishListModal.html")
         let call = {'key' : $('#wsModal').val()};
 
         axios.post('/data/wish', call).then((result)=>{

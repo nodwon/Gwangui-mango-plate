@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -66,28 +64,29 @@ public class HomeDataAct {
 	}
 
 	//게시물 개수에 따라 [page 개수 추가해보자]
-	/*@PostMapping("/data/page")
+/*	@PostMapping("/data/page")
 	public Map<String, Object> getPageNum(@RequestBody Map param, HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 
 		String search = String.valueOf(param.get("search"));
+
 		List<MangoVO> data = test.searchAll(search);
 
+		log.error("select 결과 list : {}",data);
 		result.put("food",data);
-
-
 
 		return result;
 	}*/
 
 
 
+
 	@PostMapping("/data/mango2")
 	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
-	 String mainmenu = String.valueOf(param.get("menu"));
-	 String search = String.valueOf(param.get("menu"));
+		String mainmenu = String.valueOf(param.get("menu"));
+		String search = String.valueOf(param.get("menu"));
 
-	 cri.setSearch(search);
+		cri.setSearch(search);
 
 		if(search!=null)
 		{
@@ -109,10 +108,10 @@ public class HomeDataAct {
 
 
 
-	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	 List<MangoVO> data = test.selectMango2(mainmenu);
+		log.error("검색창에 입력한 것 : {}",mainmenu);
+		List<MangoVO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
-	log.error("select 결과 list : {}",data);
+		log.error("select 결과 list : {}",data);
 		return data;
 	}
 
@@ -126,9 +125,12 @@ public class HomeDataAct {
 		log.error("select 결과 list : {}",data);
 		return data;
 	}
-
-
-
+	@RequestMapping("/wishStore")
+	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
+		ModalVO data = vo;
+		log.error("name => {}",vo);
+		return data;
+	}
 
 /*	@PostMapping("/data/select")//해외
 	public String userDB(@RequestBody modalVO param){

@@ -1,5 +1,5 @@
 "use strict";
-import md from "@/mango/wishListModal.html";
+import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
@@ -9,17 +9,18 @@ export class detailPage{
 
         this.modalEvent();
 
-
+        this.favoriteStore();
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
         /*$("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
-        console.log("s123123dsfsdfdfsddfgdfgsdsdfsdfsdfsaf");
+        console.log("detailpage");
 
         let search = {"name":$(".tg-f2a8").text()}
         axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
+
             var mapOptions = {
                 center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
                 zoom: 17
@@ -63,7 +64,7 @@ export class detailPage{
                     }
                 });
 
-                console.log("DSFDSFD"+latitude);
+                console.log("위도"+latitude);
                 console.log( longitude)
             })
         });
@@ -80,7 +81,7 @@ export class detailPage{
     }
 
     modalshow(key){
-        let md = require("@/mango/wishListModal.html")
+        let md = require("../../../../templates/wishListModal.html")
         let call = {'key' : $('#wsModal').val()};
 
         axios.post('/data/wish', call).then((result)=>{
@@ -127,6 +128,51 @@ export class detailPage{
         });
 
     }
+
+    favoriteStore(){
+        $('.favoriteStore').on("click",(e)=>{
+            let name = $('.name').text();
+            let roadName = $('.roadName').text();
+            let src = $(".card-img-top>img").attr("src");
+            console.log(name);
+            console.log(roadName);
+            console.log(src);
+            let Object = {
+                "name" : name,
+                "roadName" : roadName,
+                "src" : src
+            }
+
+            axios({
+                method:"post",
+                url:'/wishStore',
+                params : Object
+            }).then((result)=>{
+                console.log(result.data);
+            })
+
+
+            /*
+            axios({
+                method : "post",
+                url : "wishst",
+                params : object
+
+            }).then((response)=>{
+                location.href ="mango/wishListModal";
+
+                $(".wish_middle_list").append(response.data);
+                location.href="/mango/wishListModal?name="+name+"&roadName="+roadName+"&src="+src;
+                location.href="redirect:/detailPage";
+            })
+
+            console.log("선택된 가게 이름 :" ,name);
+            console.log("선택된 가게 도로명 : ",roadName);
+            console.log("선택된 가게 사진 : ",src);
+            location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
+        })
+    }
+
 }
 
 

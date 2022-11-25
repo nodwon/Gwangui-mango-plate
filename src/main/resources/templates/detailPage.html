@@ -53,7 +53,7 @@
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
                                 <p th:text="${session.email}"></p>
-                                <p th:text="${session.result}"></p>
+
 
                             </a>
                         </form>
@@ -91,7 +91,8 @@
                 <div class="card mb-3">
 
                     <!-- 음식 이미지 -->
-                    <div class="grid-image my-0">
+
+                    <div class="card-img-top grid-image my-0">
                         <img alt="" th:src="${modalVO.src}" />
                         <img alt="" th:src="${modalVO.src}" />
                         <img alt="" th:src="${modalVO.src}" />
@@ -112,18 +113,19 @@
 
                         <thead>
                         <tr>
-                            <th class="tg-f2a8" colspan="2" th:text="${modalVO.name}"></th>
+                            <th class="name tg-f2a8" colspan="2" th:text="${modalVO.name}"></th>
                             <th><a><i class="fa-solid fa-pencil fa-2x me-3"></i></a>
-                                <a><i class="fa-solid fa-star fa-2x me-2"></i></a>
-                                </th>
+                                <i class="favoriteStore fa-solid fa-star fa-2x me-2"></i>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         <span></span>
                         <tr>
                             <td class="tg-ofg3">주소</td>
-                            <td class="tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
+                            <td class="roadName tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
                         </tr>
+
                         <tr>
                             <td class="tg-ofg3">전화번호</td>
                             <td class="tg-mnzm" colspan="2">000-1234-1234</td>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 
 @Slf4j
@@ -45,21 +46,20 @@ public class HomeAct {
 	@RequestMapping("/mango")
 	public String main(){ return "mango"; }
 
-@RequestMapping("/login")
+	@RequestMapping("/login")
 	public String login(){
 		return "Member/login/login";
 }
 
 
 	@RequestMapping("/detailPage")
-	public String datailPage(@ModelAttribute ModalVO modal){
-		log.error("12231321{}",modal);
+	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session){
+		session.setAttribute("modal",modal);
 		return"detailPage";
 	}
 
 	@RequestMapping("/join")
 	public String mJoin() {
-
 		return "Member/join/mJoin";
 	}
 

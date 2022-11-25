@@ -3,6 +3,7 @@ package com.smart.project.web.home.controller;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.MangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.smart.project.web.home.vo.ModalVO;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -95,22 +97,8 @@ public class HomePageAct {
 
 
 
-/*
-    @RequestMapping("/test2")
-    public String getData(Model model ,@ModelAttribute ModalVO modal){
-      *//*  list<vo> store = model.getAttribute("stores");
-        store.add(new vo());
-        model.addAttribute("stores",store);*//*
-        log.error("name => {}",modal.toString());
-
-        model.addAttribute("name",modal.getName());
-        model.addAttribute("roadName",modal.getRoadName());
-        model.addAttribute("src",modal.getSrc());
-
-        return "test2";
 
 
-    }*/
 /*
     @RequestMapping("/getModal")
     public String getModal(Model model, @ModelAttribute ModalVO modal){
