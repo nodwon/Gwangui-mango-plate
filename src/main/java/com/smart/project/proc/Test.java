@@ -4,6 +4,7 @@ import com.smart.project.annotation.Master;
 
 //import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.CommonMemberVO;
+import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.MangoVO;
 import org.apache.ibatis.annotations.Param;
@@ -37,5 +38,6 @@ public interface Test {
 	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
 	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
 
-	List<MangoVO> searchAll(String search);
+	/*List<MangoVO> searchAll(String search);*/
+	List<MangoVO> searchAll(Criteria criteria);
 }

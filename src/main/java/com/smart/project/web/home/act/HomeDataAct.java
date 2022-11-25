@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
@@ -41,20 +42,43 @@ public class HomeDataAct {
 	}
 
 	@PostMapping("/data/searchAll")
-	public Map<String, Object> getSearchAll(@RequestBody Map param){
+	public Map<String, Object> getSearchAll(@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
-		String search = String.valueOf(param.get("search"));
+		String search = "";
+		int pageNum = 1;
+		if(param.get("search") != null)
+			search = String.valueOf(param.get("search"));
+		if(param.get("pageNum") != null )
+			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
 
-		List<MangoVO> data = test.searchAll(search);
+		cri.setSearch(search);
+		cri.setPage(pageNum);
+		List<MangoVO> data = test.searchAll(cri);
+
+		log.error("데이터 사이즈 {}",data.size());
 
 
-
+		result.put("size",data.size());;
+		session.setAttribute("size",data.size());
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
-
 		return result;
 	}
 
+	//게시물 개수에 따라 [page 개수 추가해보자]
+	/*@PostMapping("/data/page")
+	public Map<String, Object> getPageNum(@RequestBody Map param, HttpSession session){
+		Map<String, Object> result = new HashMap<>();
+
+		String search = String.valueOf(param.get("search"));
+		List<MangoVO> data = test.searchAll(search);
+
+		result.put("food",data);
+
+
+
+		return result;
+	}*/
 
 
 

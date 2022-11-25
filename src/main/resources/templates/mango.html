@@ -34,6 +34,11 @@
     </style>
     <div layout:fragment="content">
     <!-- Navigation 상단바바바-->
+   <!-- <p th:text="${}"></p>-->
+<!--        <tr th:each="db: ${list}">
+             <p th:text="${db.getName()}"></p>
+        </tr>-->
+
 
     <div id = "Nav" class="fixed">
         <div class ="navbar-expand-lg" >
@@ -67,7 +72,7 @@
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
                                 <p th:text="${session.email}"></p>
-                                <p th:text="${session.result}"></p>
+
 
                             </a>
                         </form>
@@ -342,7 +347,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=카페/디저트">
+                                    <a >
                                     <p><h5 class="fw-bolder">카페/디저트</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -352,21 +357,21 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=카페,디저트">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/detailPage?name=버거">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/50836_1579495488063112.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=버거">
+                                    <a>
                                     <p><h5 class="fw-bolder">버거</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -374,7 +379,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -388,23 +393,7 @@
         </div>
 
 
-
-
-        <div class="hidden">
-                    </ul>
-                </div>
-                <div class="botom_btn">
-                    <div class="btn_half btn_prev" style="display:none;"
-                    ><a>이전</a>
-                    </div>
-                    <div class="btn_full btn_slct">
-                        <a>내 정보</a>갈비
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!--  지역 선택 모달 -->
 
 
         <section id="pagination" class="py-5">
@@ -413,8 +402,15 @@
         <ul class="pagination justify-content-center">
 
             <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{/?page=1}"  >1</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+
+                <th:block th:each="num : ${#numbers.sequence(1,10)}">
+
+                    <li class="page-item x"><a class="page-link" th:text="${num}" ></a></li>
+                    <!--"-->
+                </th:block>
+
+            <!--th:href="@{(page=${num})}"-->
+
             <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
         </ul>
         </div>

@@ -34,19 +34,17 @@
         SELECT * FROM foodmango where  name= #{name}
     </select>
 
-    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
+<!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%')
             or foodtype like concat('%',#{search},'%');
-    </select>
+    </select>-->
 
-<!--
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
-        SELECT * FROM mango2db where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%');
-        limit #{pageStart},#{perPageNum}
+        SELECT * FROM mango2db where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
+        limit #{pageStart},#{perPageNum} ;
 
     </select>
--->
 
 
 

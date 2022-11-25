@@ -9,6 +9,7 @@ export class detailPage{
 
         this.modalEvent();
 
+
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
         /*$("#Nav").append(this.head);*/
