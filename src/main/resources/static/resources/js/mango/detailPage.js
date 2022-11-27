@@ -4,6 +4,11 @@ import {axios} from "../../vendors/axios.min";
 $(()=>{
     new detailPage();
 })
+const commentContainer = document.getElementById('allComments')
+document.getElementById('addComments').addEventListener('click',
+    function (ev){
+        addComment(ev);
+    });
 
 function addComment(ev) {
     let commentText;
@@ -14,13 +19,17 @@ function addComment(ev) {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'Delete';
     deleteButton.innerHTML = '삭제';
-    const wrapDiv = document.createElement('div');
-    wrapDiv.className = 'wrapper';
-    wrapDiv.style.marginLeft =0;
-    commentText = document.getElementById('review').value;
-    wrapDiv.append(textBox, replyButton, deleteButton);
-    commentContanier.append(wrapDiv);
+    if(hasClass(ev.currentTarget.parentElement, 'container')) {
+        const wrapDiv = document.createElement('div');
+        wrapDiv.className = 'wrapper'
+        wrapDiv.style.marginLeft = 0;
+        commentText = document.getElementById('review').value;
+        document.getElementById('review').value = ' ';
+        wrapDiv.append(textBox, replyButton, deleteButton);
+        commentContanier.append(wrapDiv);
+    }else{
 
+    }
 }
 function hasClass(elem, className){
     return elem.className.split(' ').indexOf(className) >-1;
@@ -51,11 +60,7 @@ document.getElementById('allComments').addEventListener('click', function (e){
 
 export class detailPage{
     constructor() {
-        const commentContainer = document.getElementById('allComments')
-        document.getElementById('addComments').addEventListener('click',
-            function (ev){
-            addComment(ev);
-            });
+
 
 
         this.head=require("@/mango/head.html")
@@ -128,15 +133,6 @@ export class detailPage{
 
         //map를 표시
         $("#mapShow").append()
-
-    }
-    saveReview() {
-        let reviewdata = $("#mTxtArea").val();
-        console.log("reviewdata");
-        axios.post("/saveReview",reviewdata).then(response => {
-            console.log(response)
-            debugger;
-        });
 
     }
 
