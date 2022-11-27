@@ -3,7 +3,6 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
-import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,27 +33,33 @@ public class HomeDataAct {
 	@PostMapping("/data/mango2All")
 	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
 		Map<String, Object> result = new HashMap<>();
-		List<Mango2VO> data = test.selectMango2All();
+		List<MangoVO> data = test.selectMango2All();
 		/*List<mango2VO> data=null;*/
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
 
 		return result;
 	}
-
-
-
 /*
 	@PostMapping("/data/searchAll")
-	public Map<String, Object> getSearchAll(@RequestBody Map param){
+	public Map<String, Object> getSearchAll(@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
-		String search = String.valueOf(param.get("search"));
+		String search = "";
+		int pageNum = 1;
+		if(param.get("search") != null)
+			search = String.valueOf(param.get("search"));
+		if(param.get("pageNum") != null )
+			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
 
-		List<Mango2VO> data = test.searchAll(search);
+		cri.setSearch(search);
+		cri.setPage(pageNum);
+		List<MangoVO> data = test.searchAll(cri);
 
-		*/
-/*List<mango2VO> data=null;*//*
+		log.error("데이터 사이즈 {}",data.size());
 
+
+		result.put("size",data.size());;
+		session.setAttribute("size",data.size());
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
 
@@ -66,7 +71,7 @@ public class HomeDataAct {
 
 
 	@PostMapping("/data/mango2")
-	public List<Mango2VO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
+	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
 	 String mainmenu = String.valueOf(param.get("menu"));
 	 String search = String.valueOf(param.get("menu"));
 
@@ -93,18 +98,18 @@ public class HomeDataAct {
 
 
 	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	 List<Mango2VO> data = test.selectMango2(mainmenu);
+	 List<MangoVO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
 	log.error("select 결과 list : {}",data);
 		return data;
 	}
 
 	@PostMapping("/data/map")
-	public List<Mango2VO>getMapData(@RequestBody Map param){
+	public List<MangoVO>getMapData(@RequestBody Map param){
 		String name = String.valueOf(param.get("name"));
 		log.error("검색창에 입력한 것 : {}",name);
 
-		List<Mango2VO> data = test.selectName(name);
+		List<MangoVO> data = test.selectName(name);
 		/*List<mango2VO> data=null;*/
 		log.error("select 결과 list : {}",data);
 		return data;

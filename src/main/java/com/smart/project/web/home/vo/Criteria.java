@@ -11,7 +11,7 @@ public class Criteria {
     private int perPageNum;// 한 페이지에 보여줄 게시글에 수
     public Criteria() {
         this.page = 1;
-        this.perPageNum = 5;
+        this.perPageNum = 8;
     }
     //현제 페이지의 게시글의 시작번호
     //1 페이지는 0게시물번호 부터 시작한다.  0~9

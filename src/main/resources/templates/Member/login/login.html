@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layoutContents.html}">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="robots" content="ALL">
   <meta name="robots" content="index,follow">
   <meta name="revisit-after" content="1 days">
@@ -12,20 +14,10 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
-  <title>B_plate</title>
 
-  <link rel="stylesheet" type="text/css" href="../css/m_yby_font.css">
-  <link rel="stylesheet" type="text/css" href="../css/m_yby_default.css">
-  <link rel="stylesheet" type="text/css" href="../css/m_yby_popup.css">
-  <link rel="stylesheet" type="text/css" href="../css/mobile.css">
+
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
-  <script src="/resources/vendors/polyfill.min.js"></script>
-  <script src="/resources/vendors/jquery.min.js"></script>
-  <script src="/resources/vendors/lodash.min.js"></script>
-  <script src="/resources/vendors/axios.min.js"></script>
-  <script src="/resources/vendors/moment.min.js"></script>
-  <script src="/resources/vendors/jquery-mobile.event.min.js"></script>
-  <script type="text/javascript" src="/resources/js/join/login.js"></script>
   <style>
     body{
       background-image: url("https://www.studyon.co.kr/files/attach/images/242354/731/471/6.jpg");
@@ -34,8 +26,8 @@
     }
   </style>
 </head>
+<div layout:fragment="content">
 
-<body>
 <div  style="height: 851px;">
   <form class="login_form" action="/commonLogin" method="post">
     <input type="hidden">
@@ -78,11 +70,11 @@
 
 
         <div class="etc_box">
-            <input type="hidden" id="email" name="email" value="">
-            <input type="hidden" id="nickname" name="nickname" value="">
-            <a class="btn-login join_btn btn_click" id="kakao-login-btn">
-              <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
-            </a>
+          <input type="hidden" id="email" name="email" value="">
+          <input type="hidden" id="nickname" name="nickname" value="">
+          <a class="btn-login join_btn btn_click" id="kakao-login-btn">
+            <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"  style="max-width: 100%; height: auto;"  alt="카카오">
+          </a>
           <div class="social_lg">
           </div>
           <div class="join">
@@ -98,54 +90,9 @@
     </div>
   </form>
 </div>
+</div>
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type='text/javascript'>
-  Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf');
-  $("#kakao-login-btn").on("click", function(){
-    //1. 로그인 시도
-    Kakao.Auth.login({
-      success: function(authObj) {
-
-        //2. 로그인 성공시, API 호출
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function(res) {
-            console.log(res);
-            // alert(JSON.stringify(authObj));
-            // alert(JSON.stringify(res));
-            // alert(res.kakao_account['email']);
-            // alert(res.properties['nickname']);
-            console.log(authObj.access_token);
-            $(function(){
-              let requestEmail = JSON.stringify(res.kakao_account['email']);
-              $('#email').val(requestEmail);
-              let value = $('input[name=email]').val();
-              // alert(value);
-              console.log(value);
-            });
-
-            $(function(){
-              let requestNick = JSON.stringify(res.properties['nickname']);
-              $('#nickname').val(requestNick);
-              let value = $('input[name=nickname]').val();
-              // alert(value);
-              console.log(value);
-            });
-            let email = $('input[name=email]').val();
-            let nickname = $('input[name=nickname]').val();
-            // scope : 'profile_nickname, account_email';
-            location.href="/kakaoJoin?nickname="+nickname+"&email="+email;
-          }
-        })
-        console.log(authObj);
-        let token = authObj.access_token;
-      },
-      fail: function(err) {
-        alert(JSON.stringify(err));
-      }
-    });
-  })
-</script>
-</body>
+<section layout:fragment="contentScriptFragment">
+  <script type="text/javascript" th:src="${@versionComponent.getVersion('../resources/build/login.bundle.js')}"></script>
+</section>
 </html>
