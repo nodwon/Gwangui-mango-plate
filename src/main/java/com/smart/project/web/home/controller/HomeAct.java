@@ -27,7 +27,6 @@ public class HomeAct {
 
 		model.addAttribute("list",list);
 
-
 		return "mango";
 	}
 	@RequestMapping("/foodTypeListPage")
@@ -45,7 +44,7 @@ public class HomeAct {
 	@RequestMapping("/mango")
 	public String main(){ return "mango"; }
 
-@RequestMapping("/login")
+	@RequestMapping("/login")
 	public String login(){
 		return "Member/login/login";
 }

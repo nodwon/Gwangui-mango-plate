@@ -4,9 +4,58 @@ import {axios} from "../../vendors/axios.min";
 $(()=>{
     new detailPage();
 })
+
+function addComment(ev) {
+    let commentText;
+    const textBox = document.createElement('div');
+    const replyButton = document.createElement('button');
+    replyButton.className = 'reply';
+    replyButton.innerHTML = '답글';
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'Delete';
+    deleteButton.innerHTML = '삭제';
+    const wrapDiv = document.createElement('div');
+    wrapDiv.className = 'wrapper';
+    wrapDiv.style.marginLeft =0;
+    commentText = document.getElementById('review').value;
+    wrapDiv.append(textBox, replyButton, deleteButton);
+    commentContanier.append(wrapDiv);
+
+}
+function hasClass(elem, className){
+    return elem.className.split(' ').indexOf(className) >-1;
+}
+document.getElementById('allComments').addEventListener('click', function (e){
+    if (hasClass(e.currentTarget, 'reply')) {
+        const parentDiv = e.currentTarget.parentElement;
+        const wrapDiv = document.createElement('div');
+        wrapDiv.style.marginLeft =
+            (Number.parseInt(parentDiv.style.marginLeft) + 15).toString() + 'px';
+        wrapDiv.className = 'wrapper';
+        const textArea = document.createElement('textarea');
+        textArea.style.marginRight = '20px';
+        const addButton = document.createElement('textarea');
+        addButton.className = 'addReply';
+        addButton.innerHTML = '답글';
+        const cancelButton = document.createElement('button');
+        cancelButton.innerHTML = '취소'
+        cancelButton.className = 'cancelReply';
+        wrapDiv.append(textArea, addButton, cancelButton);
+        parentDiv.appendChild(wrapDiv);
+    }else if(hasClass(e.currentTarget, 'cancelReply')) {
+        e.currentTarget.parentElement.innerHTML = ' ';
+    }else if (hasClass(e.currentTarget, 'deleteComment')){
+        e.currentTarget.parentElement.remove();
+    }
+});
+
 export class detailPage{
     constructor() {
-
+        const commentContainer = document.getElementById('allComments')
+        document.getElementById('addComments').addEventListener('click',
+            function (ev){
+            addComment(ev);
+            });
 
 
         this.head=require("@/mango/head.html")

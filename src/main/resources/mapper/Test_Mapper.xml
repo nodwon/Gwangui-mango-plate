@@ -17,15 +17,7 @@
     <select id="idCount" parameterType="string" resultType="int">
         select count(*) from table_join where userId = #{userId}
     </select>
-
-<!--    <insert id ="insertMangoJson" parameterType="java.util.List">
-        insert into bteam (id,name,address,menu,phone) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.name},#{item.address},#{item.menu},#{item.phone})
-        </foreach>
-    </insert>-->
-
-
+    
     <select id="selectMango2" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
     </select>
@@ -37,18 +29,30 @@
     <select id="selectName" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodmango where  name= #{name}
     </select>
-
-<!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%')
-            or foodtype like concat('%',#{search},'%');
-    </select>-->
-
-
+    
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
         limit #{pageStart},#{perPageNum} ;
 
     </select>
-
+    
+    <select id="getReviewList" resultType="com.smart.project.web.home.vo.ReviewVO">
+        SELECT * FROM  review_table
+            where bno = #{bno}
+        ORDER BY  rno DESC 
+    </select>
+    <insert id="saveReview">
+        insert into review_table (id, title,review,grade)
+        values (#{id},#{title},#{review}, #{grade})
+    </insert>
+    <update id="updateReview">
+        update review_table set
+        reply = #{reply}, update =SYSTEM_TIME
+            where rno = #{rno}
+    </update>
+    <delete id="deleteReview">
+        DELETE FROM review_table
+            where rno = #{rno}
+    </delete>
 
 </mapper>
