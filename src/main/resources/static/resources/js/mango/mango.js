@@ -99,7 +99,7 @@ export class mango{
             let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
                 center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
-                zoom: 17
+                zoom: 11
             };
 
             var map = new naver.maps.Map('map', mapOptions);
@@ -150,14 +150,24 @@ export class mango{
                 let pageMaker = result.data.page
                 let startPage = pageMaker.startPage
                 let endPage =pageMaker.endPage
+                let prev = pageMaker.prev;
+                let next = pageMaker.next;
                 console.log("엔드페이지는 ",endPage)
-                let paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                let paging =''
+                if(prev){
+                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                }
+
                 for ( var i = startPage;i<=endPage;i++)
                 {
                     let page=' <li class="page-item x"><a class="page-link"  >'+i+'</a></li>';
                     paging= paging+page
                 }
-                paging = paging+ '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                if(next)
+                {
+                    paging = paging+ '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                }
+
                 console.log(result)
                 $(".pagination.justify-content-center").empty().append(paging)
                 this.pageEvnet();
