@@ -10,6 +10,10 @@
             (#{userId},#{userEmail},#{userPw},#{userName},#{userPhoneNum})
     </insert>
 
+    <insert id="saveReview" parameterType="com.smart.project.web.home.vo.ReviewVO" >
+        insert into review (review) values (#{review})
+    </insert>
+
     <select id="idCount" parameterType="string" resultType="int">
         select count(*) from table_join where userId = #{userId}
     </select>
@@ -46,7 +50,6 @@
 
     </select>
 -->
-
 
 
 </mapper>
