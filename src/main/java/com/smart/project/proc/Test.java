@@ -6,6 +6,7 @@ import com.smart.project.annotation.Master;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.Mango2VO;
+import com.smart.project.web.home.vo.ReviewVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,7 @@ public interface Test {
     List<Mango2VO> selectName(String name);
 
     void insertMember(CommonMemberVO vo);
+	void saveReview(ReviewVO reviewVO);
 
     int idCount(String userId);
 
