@@ -1,4 +1,6 @@
 "use strict";
+import {axios} from "../../vendors/axios.min";
+
 $(()=>{
     new detailPage();
 })
@@ -78,6 +80,16 @@ export class detailPage{
         $("#mapShow").append()
 
     }
+    saveReview() {
+        let reviewdata = $("#mTxtArea").val();
+        console.log("reviewdata");
+        axios.post("/saveReview",reviewdata).then(response => {
+            console.log(response)
+            debugger;
+        });
+
+    }
+
     ModalEvent() {
         $(".btn_cls").on("click",(e)=>{
             $(".normal_pop_wrap").addClass("hidden")
@@ -102,6 +114,18 @@ export class detailPage{
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
+       $("#btn_review").on("click",(e)=>{
+            if($(e.currentTarget)) {
+                this.saveReview();
+            }
+        })
+        $(".btn_reset").click(function(){
+            return document.getElementById("mTxtArea").value='';
+        })
+        $("#detailTitle").click(function(){
+            return "/";
+
+        })
 
     }
 }
