@@ -46,6 +46,10 @@
 
     </select>
 
+    <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT count(*) FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
+    </select>
+
 
 
 </mapper>

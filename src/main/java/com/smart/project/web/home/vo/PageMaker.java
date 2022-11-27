@@ -9,7 +9,7 @@ public class PageMaker {
     // 현재 페이지와 한페이지당 몇개씩 볼 것인가를 가지고있어야된다.
     private Criteria cri; // page . perPageNum
     private int totalCount; // 총 게시물 개수
-    private int displayPageNum =5; //하단에 출력되는 페이지 개수
+    private int displayPageNum =8; //하단에 출력되는 페이지 개수
     private int startPage; // 시작페이지 번호 3,10일떄 1    11 -> 2
     private int endPage; // 끝페이지 번호 (총게시물 수에따라 조정이필요하다)
     private boolean prev ;  // 이전버튼(true,false)

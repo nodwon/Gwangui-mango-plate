@@ -12,7 +12,6 @@ export class detailPage{
         $("#Nav").append(this.head);
         $("#bottom").append(this.bottom);
 
-        console.log("s123123dsfsdfdfsddfgdfgsdsdfsdfsdfsaf");
 
         let search = {"name":$(".tg-f2a8").text()}
         axios.post("data/map",search).then((result)=>{

@@ -28,8 +28,6 @@ public class HomeDataAct {
 
 
 
-
-
 	@PostMapping("/data/mango2All")
 	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
 		Map<String, Object> result = new HashMap<>();
@@ -40,7 +38,7 @@ public class HomeDataAct {
 
 		return result;
 	}
-
+	// 검색 입력 or 음식 메뉴 클릭 시 음식점 리스트 띄우기
 	@PostMapping("/data/searchAll")
 	public Map<String, Object> getSearchAll(@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
@@ -51,105 +49,38 @@ public class HomeDataAct {
 		if(param.get("pageNum") != null )
 			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
 
-		cri.setSearch(search);
-		cri.setPage(pageNum);
+		cri.setSearch(search); // 검색 창에 입력한 것
+		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
 		List<MangoVO> data = test.searchAll(cri);
-
 		log.error("데이터 사이즈 {}",data.size());
+		int totalCount = test.totalCount(cri);
 
+		if(!(totalCount==0))
+		{
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(totalCount);
 
-		result.put("size",data.size());;
-		session.setAttribute("size",data.size());
+			result.put("page",pageMaker);
+		}
+		else
+		{
+			result.put("page",null);
+		}
+
 		log.error("select 결과 list : {}",data);
 		result.put("food",data);
 		return result;
-	}
-
-	//게시물 개수에 따라 [page 개수 추가해보자]
-	/*@PostMapping("/data/page")
-	public Map<String, Object> getPageNum(@RequestBody Map param, HttpSession session){
-		Map<String, Object> result = new HashMap<>();
-
-		String search = String.valueOf(param.get("search"));
-		List<MangoVO> data = test.searchAll(search);
-
-		result.put("food",data);
-
-
-
-		return result;
-	}*/
-
-
-
-	@PostMapping("/data/mango2")
-	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
-	 String mainmenu = String.valueOf(param.get("menu"));
-	 String search = String.valueOf(param.get("menu"));
-
-	 cri.setSearch(search);
-
-		if(search!=null)
-		{
-/*
-			List<mangoVO> list =test.getList(cri);// 해당 페이지의 perPageNum 만큼의 리스트
-			model.addAttribute("list", list); // list --> ArrayList를 가르킨다.
-			log.error("{}",list);*/
-			/*
-	//페이징 처리에 필요한 객체를 생성
-			//1 2 3 4 5 6 7 8 9 10 페이지를 만들기위해서는 endpage, totalCount 등 PageMaker에 대한 객체생성
-			PageMaker pageMaker= new PageMaker();
-			//전체 게시물의 수를 구하기
-
-			pageMaker.setCri(cri);   // 현재페이지를 넣어주자.
-			pageMaker.setTotalCount(test.totalCount());
-
-			model.addAttribute("pageMaker",pageMaker);*/
-		}
-
-
-
-	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	 List<MangoVO> data = test.selectMango2(mainmenu);
-		/*List<mango2VO> data=null;*/
-	log.error("select 결과 list : {}",data);
-		return data;
 	}
 
 	@PostMapping("/data/map")
 	public List<MangoVO>getMapData(@RequestBody Map param){
 		String name = String.valueOf(param.get("name"));
-		log.error("검색창에 입력한 것 : {}",name);
-
+		log.error("클릭한 맛집  : {}",name);
 		List<MangoVO> data = test.selectName(name);
-		/*List<mango2VO> data=null;*/
-		log.error("select 결과 list : {}",data);
 		return data;
 	}
 
-
-
-
-/*	@PostMapping("/data/select")//해외
-	public String userDB(@RequestBody modalVO param){
-
-
-		//String keyData = String.valueOf(param);  //우리가 post (key,object)
-		log.error("user 정보 확인 : {}", param);
-		//받은 MAP 데이터 {'KEY' : 값형태} 형태
-		log.error("user 정보 확인 : {}", param.getName());
-
-		//log.error("{}",isData);
-		List<modalVO> modalVO = new ArrayList<>();
-		modalVO.add(param);
-		log.error("{}",modalVO);
-
-
-		//add한 codeVOList를 데이터베이스에 넣기
-		//test.userInsert(modalVO);
-
-		return "index";
-	}*/
 
 
 

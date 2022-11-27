@@ -37,44 +37,23 @@ export class mango{
         /* $("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
 
-        /*      var marker = new naver.maps.Marker({
-                  position: new naver.maps.LatLng(latitude, longitude),
-                  map: map
-              });*/
-//123123//
-        /*       axios.post("data/mango2All",{}).then((result)=>{
-                   $("#start").empty();
-                   $("#start").append(this.foodList(result));
-       /!*            $(".pop_region_content.region_content_kr").empty();
-                   $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
-                   this.eventBind();
-               });*/
-
-
         this.eventBind();
         $("#pagination").addClass("hidden");
 
-
     }
-
-
+    cashing ={
+        $search :$("input[name=search]"),
+        $start :  $("#start")
+    }
 
     modalShow(){
-
-
-
         this.eventModal()
-
-
-
     }
-
 
 
 
     eventModal()
     {
-
         /*//모달 x
         $(".btn_cls").on("click",(e)=>{
             $(".normal_pop_wrap").addClass("hidden")
@@ -101,13 +80,23 @@ export class mango{
         });
 */
 
-
     }
-    getMap(object){
-        $(".py-5.map").removeClass("hidden");
+    pageEvnet()
+    {
+        $(".page-item.x").on("click",(e)=>{
+            $("#pagination").removeClass("hidden");
+            let pageNum = $(e.currentTarget).text();
+            let search = {"search":this.searchKeyword, "pageNum":pageNum};
+           this.foodPageList(search);
 
-        axios.post("data/mango2",object).then((result)=>{
-            let data = result.data;   //data = List<locationVO>
+        });
+    }
+    //지도 foodlist 와 page 처리하는 이벤트
+    foodPageList(search){
+        $(".py-5.map").removeClass("hidden");
+        axios.post("data/searchAll",search).then((result)=>{
+            //지도처리
+            let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
                 center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
                 zoom: 17
@@ -153,162 +142,58 @@ export class mango{
                 });
 
 
-            })
-        });
-
-
-    }
-    eventBind(){
-
-        console.log("gddgㅇㄴㅁㄹㅇ213123123ㄴ")
-        $("#search").on("click",(e)=>{
-            console.log("버튼이벤트")
-
-            //눌러지면 검색 상세창으로 이동
-            /*$(".example.py-5").removeAttr("onsubmit")*/
-            /*location.href='/test1';*/
-        })
-
-        //상단 검색창
-
-
-        $(".page-item.x").on("click",(e)=>{
-            $("#pagination").removeClass("hidden");
-            let pageNum = $(e.currentTarget).text();
-            console.log($(e.currentTarget).text())
-            axios.post("data/searchAll",{"search":this.searchKeyword, "pageNum":pageNum}).then((res)=>{
-                console.log(res);
-                $("#start").empty();
-                $("#start").append(this.foodList(res));
             });
 
-        });
-
-        //검색한 맛집 마커로 표시하기
-        //git이름변경
-        /*  $("input[name=search]").on("focusout",(e)=>{*/
-        $("#search").on("click",(e)=>{
-            $("#pagination").removeClass("hidden");
-            //지도생성
-            let object = {"menu":$("input[name=search]").val()}
-            this.searchKeyword = $("input[name=search]").val();
-            if(!($("input[name=search]").val()===""))
+            //페이징처리
+            if(!(result.data.page==null))
             {
-                this.getMap(object)
-            }
-
-
-            let search = {"search":$("input[name=search]").val() , "pageNum" : 1}
-            axios.post("data/searchAll",search).then((result)=>{
-
+                let pageMaker = result.data.page
+                let startPage = pageMaker.startPage
+                let endPage =pageMaker.endPage
+                console.log("엔드페이지는 ",endPage)
+                let paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                for ( var i = startPage;i<=endPage;i++)
+                {
+                    let page=' <li class="page-item x"><a class="page-link"  >'+i+'</a></li>';
+                    paging= paging+page
+                }
+                paging = paging+ '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
                 console.log(result)
-                console.log(result.data.size)
-
-                let test1 = result.data.size;
-                let test2 = Math.ceil(test1/10);
-
-
-                console.log(test2);
-
-                $("#start").empty();
-                $("#start").append(this.foodList(result));
-                /*            $(".pop_region_content.region_content_kr").empty();
-                            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
-
-
-            });
-
-
-  /*          axios.post("data/page",{}).then((result)=>{
-                $(".page-item.x").empty();
-                $(".page-item.x").append(this.pageList(result));
-            })*/
-
-
-
-
+                $(".pagination.justify-content-center").empty().append(paging)
+                this.pageEvnet();
+            }
+            this.cashing.$start.empty();
+            this.cashing.$start.append(this.foodList(result));
         });
+    }
 
-        $(".btn btn-outline-dark mt-auto").on("click",(e)=>{
+    eventBind(){
+        $("#search").on("click",(e)=>{
 
+            this.searchKeyword = this.cashing.$search.val();
+            if(!(this.searchKeyword ===""))
+            {
+                let search = {"search": this.searchKeyword, "pageNum" : 1}
+                this.foodPageList(search);
+            }
         });
 
         $("#modal").on("click",(e)=>{
             $(".normal_pop_wrap").removeClass("hidden")
             this.modalShow();
-
         });
         //한식 ,중식, 일식 눌렀을때 이벤트
         $(".foodType").on("click",(e)=>{
             $(".py-5.map").removeClass("hidden");
             $("#pagination").removeClass("hidden");
-
             let search = {"search":$(e.currentTarget).find('.fw-bolder').text(),"pageNum":1};
-
-            let object =  {"menu":$(e.currentTarget).find('.fw-bolder').text()};
             this.searchKeyword =$(e.currentTarget).find('.fw-bolder').text();
-
 
             if(!($(e.currentTarget).find('.fw-bolder').text()===""))
             {
-                this.getMap(object)
+                this.foodPageList(search);
             }
-
-
-                axios.post("data/searchAll",search).then((result)=>{
-
-
-                console.log(result)
-                    console.log(result)
-                    console.log(result.data.size)
-
-                    let test1 = result.data.size;
-                    let test2 = Math.ceil(test1/10);
-
-                    $("#start").empty();
-                $("#start").append(this.foodList(result));
-                /*            $(".pop_region_content.region_content_kr").empty();
-                            $(".pop_region_content.region_content_kr").append(this.modalList(result));*/
-
-            });
-         /*   axios.post("data/page",search).then((result)=>{
-                $(".page-item.x").empty();
-                $(".page-item.x").append(this.pageList(result));
-            })*/
-
         });
-
-
-
-        /*        $("#cardList").on("click",(e)=>{
-                    let name = $(e.currentTarget).find('.name').text();
-                    let roadName =  $(e.currentTarget).find('.roadName').text();
-                    let src =  $(e.currentTarget).find('.card-img-top').attr("src");
-                    let storeName =$(e.currentTarget).find('.name').text();
-                    let object = {
-                        "name": name,
-                        "roadName":roadName,
-                        "src":src
-                    }
-                    axios({
-                        method : "post",
-                        url : "/test2",
-                        params : object
-
-                    }).then((response)=>{
-                        /!*location.href ="test2";*!/
-
-                        $(".pop_region_content.region_content_kr").append(response.data);
-                       /!* location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*!/
-                        /!*location.href="/detailPage";*!/
-                    })
-
-                    console.log("선택된 가게 이름 :" ,name);
-                    console.log("선택된 가게 도로명 : ",roadName);
-                    console.log("선택된 가게 사진 : ",src);
-                    /!*location.href="/test1?name="+name+"&roadName="+roadName+"&src="+src;*!/
-
-                });*/
 
     }
 
