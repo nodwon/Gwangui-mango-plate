@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -25,6 +23,8 @@ public class HomeDataAct {
 
 	final private LocCodeComponent locCodeComponent;*/
 	final private Test test;
+
+
 
 
 
@@ -80,9 +80,12 @@ public class HomeDataAct {
 		List<MangoVO> data = test.selectName(name);
 		return data;
 	}
-
-
-
+	@RequestMapping("/wishStore")
+	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
+		ModalVO data = vo;
+		log.error("name => {}",vo);
+		return data;
+	}
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){

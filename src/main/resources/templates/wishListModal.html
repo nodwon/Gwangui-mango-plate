@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layoutContents.html}">
+<!-- Button trigger modal -->
+<div layout:fragment="content">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="region_tab">
+
+    </div>
+    <div class="modal-dialog">
+        <!-- Scrollable modal -->
+        <div class="modal-dialog modal-dialog-scrollable">
+        </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <ul class="wish_middle_list">
+                        </ul>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>-->
+                    <!--<button type="button" class="btn btn-primary"></button>-->
+                </div>
+            </div>
+    </div>
+</div>
+</div>

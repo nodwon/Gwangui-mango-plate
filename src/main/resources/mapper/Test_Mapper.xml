@@ -31,7 +31,7 @@
     </select>
 
     <select id="selectName" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodmango where  name= #{name}
+        SELECT * FROM foodmango where  name= #{name};
     </select>
 
 <!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">

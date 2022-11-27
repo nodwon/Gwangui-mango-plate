@@ -7,7 +7,7 @@ export class Login{
 
     constructor() {
 
-        console.log("로그인페이wl");
+        console.log("로그인페이지");
         this.event();
 
     }
