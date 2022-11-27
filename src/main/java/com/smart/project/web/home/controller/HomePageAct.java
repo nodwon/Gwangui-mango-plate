@@ -3,17 +3,14 @@ package com.smart.project.web.home.controller;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.ReviewVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.smart.project.web.home.vo.ModalVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -49,6 +46,13 @@ public class HomePageAct {
         test.insertMember(vo);
         log.info(vo.toString());
         return "redirect:/mango";
+    }
+    @PostMapping("/saveReview")
+    public String saveReview(ReviewVO reviewVO){
+        log.error("sdafsdfda{}",reviewVO);
+    /*    test.saveReview(reviewVO);
+        log.info(reviewVO.toString());*/
+        return "redirect:/detailPage";
     }
     
     //카카오 로그인 데이터 저장111
@@ -133,6 +137,7 @@ public class HomePageAct {
 
 
     }*/
+
 
 
 }
