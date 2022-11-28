@@ -72,7 +72,7 @@
     <!--위시 리스트 모달-->
     <div class="wishList">
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
@@ -80,10 +80,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <ul th:if="${session.email}" th:each="list, i:${session.list}" class="wish_middle_list">
-                                <a><li th:text="${list.name}"></li></a>
-                                <a><li th:text="${list.roadName}"></li></a>
-                                    <a><li th:value="${list.src}"></li></a>
+                            <ul th:each="list, i:${session.list}" class="wish_middle_list">
+<!--                                <a th:with="link=|/link${}" th:href="@{'/detailPage'(roadName=${list.roadName})(name=${list.name})(src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg')}"><li th:text="${list.name}"></li>-->
+                                <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg|" th:href="@{${link}}">
+                                    <li th:text="${list.name}"></li>
+                                    <li th:text="${list.roadName}"></li>
+                                    <li th:value="${list.src}"></li>
+                                </a>
                             </ul>
                         </div>
                     </div>

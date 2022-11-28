@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 
@@ -54,20 +54,26 @@ public class HomeAct {
 		return "Member/login/login";
 }
 
-
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session, Model model){
-		list.add(modal);
-		HashSet<String> duplicateData = new HashSet<>(list);
-		model.addAttribute("name", modal.getName());
-		model.addAttribute("roadName", modal.getRoadName());
-		model.addAttribute("src", modal.getSrc());
-		session.setAttribute("list", duplicateData);
+		/*HttpSession sessionEmail = request.getParameter();*/
+//		String loginEmail = (String) session.getAttribute("email");
 
-		log.error("중복결과제거 => {}", duplicateData);
-
+		log.error("list 값 =>{}", list);
+		if(list.size()!=0) {
+			list.add(modal);
+			HashSet<String> duplicateData = new HashSet<>(list);
+			model.addAttribute("name", modal.getName());
+			model.addAttribute("roadName", modal.getRoadName());
+			model.addAttribute("src", modal.getSrc());
+			session.setAttribute("list", duplicateData);
+//		log.error("가져온 세션 이메일 => {}", loginEmail);
+			log.error("중복결과제거 => {}", duplicateData);
+		}
 		return"detailPage";
+
 	}
+
 
 	@RequestMapping("/join")
 	public String mJoin() {

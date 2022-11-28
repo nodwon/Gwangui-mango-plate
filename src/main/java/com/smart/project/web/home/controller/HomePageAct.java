@@ -68,8 +68,10 @@ public class HomePageAct {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
         HttpSession session = request.getSession();
         session.invalidate();
+        request.getSession(true);
         return "redirect:/mango";
     }
+
 
 
 /*    @RequestMapping("/data/select")//해외
