@@ -23,9 +23,7 @@ public class HomeAct {
 
 	@RequestMapping("/")
 	public String home(Model model, Criteria cri, HttpServletRequest request) {
-
 	 List<MangoVO> list = test.searchAll(cri) ;
-
 		model.addAttribute("list",list);
 
 
@@ -54,7 +52,7 @@ public class HomeAct {
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session){
-		session.setAttribute("modal",modal);
+
 		return"detailPage";
 	}
 

@@ -47,7 +47,6 @@ public class HomePageAct {
 
     @PostMapping("/register")
     public String createMember(CommonMemberVO vo) {
-
         test.insertMember(vo);
         log.info(vo.toString());
         return "redirect:/mango";
@@ -61,7 +60,6 @@ public class HomePageAct {
             session.setAttribute("email",vo.getEmail());
             System.out.println(vo.getEmail());
         }
-
         test.kakaoJoin(vo);
         System.out.println(vo);
         return "redirect:/mango";
