@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,6 +120,16 @@ public class HomePageAct {
 
 
     }*/
+    @PostMapping("/data/modal")
+    public String getModal(Model model, ModalVO modal){
+        model.addAttribute("name", modal.getName());
+        model.addAttribute("roadName", modal.getRoadName());
+        model.addAttribute("src", modal.getSrc());
+        log.error("name => {}",modal.getName());
+        log.error("roadname => {}",modal.getRoadName());
+        log.error("src => {}",modal.getSrc());
+        return "detailPage";
+    }
 
 
 }

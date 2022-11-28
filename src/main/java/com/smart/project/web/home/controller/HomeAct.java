@@ -53,6 +53,8 @@ public class HomeAct {
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session){
 
+
+
 		return"detailPage";
 	}
 
