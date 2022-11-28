@@ -1,3 +1,4 @@
+
 {{each data.food}}
 
 <div class="col mb-5">
@@ -5,7 +6,7 @@
   <div class="cardList card h-100" >
     <!-- Product image-->
     <a href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-      <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"  alt="..." /> </a>
+      <img class="card-img-top" src="{{$value.img1}}"  alt="..." /> </a>
     <!-- Product details-->
     <div class="card-body p-4">
       <div class="text-center">
@@ -28,6 +29,4 @@
 
   </div>
 </div>
-
-
 {{/each}}

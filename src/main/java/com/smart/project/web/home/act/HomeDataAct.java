@@ -82,6 +82,7 @@ public class HomeDataAct {
 	}
 	@RequestMapping("/wishStore")
 	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
+
 		ModalVO data = vo;
 		log.error("name => {}",vo);
 		return data;

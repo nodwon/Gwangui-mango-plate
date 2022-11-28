@@ -13,62 +13,21 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/detailPageStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
 </head>
 
+
+
 <div layout:fragment="content" >
-    <div id = "Nav" class="fixed">
-        <div class ="navbar-expand-lg" >
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container px-4 px-lg-5">
-                    <a class="navbar-brand" href="/">Start Bootstrap
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">Up</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
-
-
-                        </ul>
-
-
-
-                        <form class="d-flex">
-                            <!--로그인버튼이 생기려면 email세션 null result==0 -->
-                            <a th:if="${session.email}==null" href="/login" class="btn btn-outline-dark me-3" type="submit">
-                                <i class="fa-solid fa-check"></i>
-                                로그인
-                            </a>
-                        </form>
-                        <form class="d-flex">
-                            <a  th:if="${session.email eq null}" href="/join" class="btn btn-outline-dark me-3" type="submit">
-                                <i class="fa-solid fa-user-plus"></i>
-                                회원가입
-                            </a>
-                        </form>
-
-                        <form class="d-flex" action="/logout">
-                            <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                로그아웃
-                                <p th:text="${session.email}"></p>
-
-
-                            </a>
-                        </form>
-
-                        <!-- 찜(가고싶다) -->
-                        <form class="d-flex" action="data/wishList">
-                            <button type="button" id="modal"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <i class="fa-solid fa-user-large"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
     <!--위시 리스트 모달-->
     <div class="wishList">
     </div>
@@ -92,10 +51,13 @@
 
                     <!-- 음식 이미지 -->
 
-                    <div class="card-img-top grid-image my-0">
-                        <img alt="" th:src="${modalVO.src}" />
-                        <img alt="" th:src="${modalVO.src}" />
-                        <img alt="" th:src="${modalVO.src}" />
+                    <div class="card-img-top grid-image my-0" >
+                        <img alt=""  th:src="${mango.getImg1()}" />
+                        <img alt=""  th:src="${mango.getImg2()}" />
+
+
+                        <img th:if="${not #strings.isEmpty(mango.getImg3())}" alt="" th:src="${mango.getImg3()}" />
+
                         <!--<img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1660311616360583.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                         <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1637484735593478.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                     --></div>
@@ -128,29 +90,28 @@
 
                         <tr>
                             <td class="tg-ofg3">전화번호</td>
-                            <td class="tg-mnzm" colspan="2">000-1234-1234</td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getPhone()}"></td>
                         </tr>
                         <tr>
                             <td class="tg-ofg3">음식종류</td>
-                            <td class="tg-mnzm" colspan="2">고기 요리</td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getFoodtype()}"></td>
                         </tr>
                         <tr>
-                            <td class="tg-ofg3">가격대</td>
-                            <td class="tg-mnzm" colspan="2">2만원 ~ 3만원</td>
+                            <td class="tg-ofg3">메인 메뉴</td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getMainmenu()}"></td>
                         </tr>
+
                         <tr>
-                            <td class="tg-ofg3">주차</td>
-                            <td class="tg-mnzm" colspan="2">주차공간없음</td>
+                            <td class="tg-ofg3">별점 </td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getReview()}"></td>
                         </tr>
+
                         <tr>
-                            <td class="tg-ofg3">영업시간</td>
-                            <td class="tg-mnzm" colspan="2">16:30 ~ 23:00</td>
+                            <td class="tg-ofg3">리뷰개수 </td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getReviewcount()}"></td>
                         </tr>
-                        <tr>
-                            <td class="tg-ofg3">휴일</td>
-                            <td class="tg-jyg6" colspan="2">일</td>
-                        </tr>
-                        <tr>
+
+             <!--           <tr>
                             <td class="tg-9rpp" rowspan="3">메뉴</td>
                             <td class="tg-l6nl">특양</td>
                             <td class="tg-l6nl">30,000원</td>
@@ -162,7 +123,7 @@
                         <tr>
                             <td class="tg-mnzm">곱창</td>
                             <td class="tg-mnzm">31,000원</td>
-                        </tr>
+                        </tr>-->
                         </tbody>
                     </table>
 
@@ -250,9 +211,7 @@
 
         <!-- Bootstrap core JS-->
     </div>
-    <footer id="bottom" class="py-5 bg-dark">
 
-    </footer>
 
 
 </div>

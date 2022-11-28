@@ -10,10 +10,8 @@ export class detailPage{
         this.modalEvent();
 
         this.favoriteStore();
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
         /*$("#Nav").append(this.head);*/
-        $("#bottom").append(this.bottom);
+
 
         console.log("detailpage");
 
@@ -35,6 +33,7 @@ export class detailPage{
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
+
                 let url = "url이 필요해요";
 
                 var marker = new naver.maps.Marker({

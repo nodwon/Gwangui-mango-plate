@@ -10,8 +10,15 @@ public class MangoVO {
     private String name;
     private String foodtype;
     private String mainmenu;
-    private String originaddress;
     private String roadname;
     private String latitude;
     private String longitude;
+    private String review;
+    private String phone;
+    private String src;
+    private String reviewcount;
+    private String img1;
+    private String img2;
+    private String img3;
+
 }

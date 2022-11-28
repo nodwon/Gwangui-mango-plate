@@ -22,8 +22,6 @@ export class mango{
                })*/
 
         this.searchKeyword = "";
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
         this.foodList = require("@/mango/foodList.html");
         this.modalList = require("@/mango/modalList.html");
         this.pageList = require("@/mango/pagingNumber.html");
@@ -34,21 +32,7 @@ export class mango{
             $("#Nav").append(result.data);
 
         })*/
-       /* $("#Nav").append(this.head);*/
-        $("#bottom").append(this.bottom);
 
-  /*      var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(latitude, longitude),
-            map: map
-        });*/
-
- /*       axios.post("data/mango2All",{}).then((result)=>{
-            $("#start").empty();
-            $("#start").append(this.foodList(result));
-/!*            $(".pop_region_content.region_content_kr").empty();
-            $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
-            this.eventBind();
-        });*/
 
 
         this.eventBind();
@@ -73,9 +57,9 @@ export class mango{
 
     modalshow(){
         let md = require("../../../../templates/wishListModal.html")
-        let call = {'key' : $('#wsModal').val()};
+       /* let call = {'key' : $('#wsModal').val()};*/
 
-        axios.post('/data/wish', call).then((result)=>{
+        axios.post('/data/wish', {}).then((result)=>{
             console.log(result)
 
             $('.wishList').append(md(result));
@@ -144,6 +128,7 @@ export class mango{
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
+                let img1 = e.img1;
                 let url = "url이 필요해요";
 
 
@@ -155,7 +140,7 @@ export class mango{
                     '<div class="iw_inner">',
                     '   <h3>'+name+'</h3>',
                     '   <p>'+mainmenu+'<br>',
-                    '       <img src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       <img src='+img1+' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
                     '       '+roadname+'<br>',
                     '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
                     '   </p>',
@@ -205,6 +190,7 @@ export class mango{
                 $(".pagination.justify-content-center").empty().append(paging)
                 this.pageEvnet();
             }
+
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
         });
@@ -239,7 +225,7 @@ export class mango{
         });
 
     }
-    
+
     insertModal(){
         $(document).ready(function(){
             $('.card-img-top').on('show.bs.modal',function (e){
