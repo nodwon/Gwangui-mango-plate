@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div
+<html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -17,6 +17,60 @@
 
 <div layout:fragment="content" >
     <div id = "Nav" class="fixed">
+        <div class ="navbar-expand-lg" >
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container px-4 px-lg-5">
+                    <a class="navbar-brand" href="/">Start Bootstrap
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">Up</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
+
+
+                        </ul>
+
+
+
+                        <form class="d-flex">
+                            <!--로그인버튼이 생기려면 email세션 null result==0 -->
+                            <a th:if="${session.email}==null" href="/login" class="btn btn-outline-dark me-3" type="submit">
+                                <i class="fa-solid fa-check"></i>
+                                로그인
+                            </a>
+                        </form>
+                        <form class="d-flex">
+                            <a  th:if="${session.email eq null}" href="/join" class="btn btn-outline-dark me-3" type="submit">
+                                <i class="fa-solid fa-user-plus"></i>
+                                회원가입
+                            </a>
+                        </form>
+
+                        <form class="d-flex" action="/logout">
+                            <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                로그아웃
+                                <p th:text="${session.email}"></p>
+
+
+                            </a>
+                        </form>
+
+                        <!-- 찜(가고싶다) -->
+                        <form class="d-flex" action="data/wishList">
+                            <button type="button" id="modal"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <i class="fa-solid fa-user-large"></i> 위시리스트
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--위시 리스트 모달-->
+    <div class="wishList">
     </div>
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4" style="background-image: url('https://mp-seoul-image-production-s3.mangoplate.com/0776fea76b4a824ff583128cb51dd45c.jpg')">
@@ -37,7 +91,8 @@
                 <div class="card mb-3">
 
                     <!-- 음식 이미지 -->
-                    <div class="grid-image my-0">
+
+                    <div class="card-img-top grid-image my-0">
                         <img alt="" th:src="${modalVO.src}" />
                         <img alt="" th:src="${modalVO.src}" />
                         <img alt="" th:src="${modalVO.src}" />
@@ -58,9 +113,9 @@
 
                         <thead>
                         <tr>
-                            <th class="tg-f2a8" colspan="2" th:text="${modalVO.name}"></th>
-                            <th><i class="fa-solid fa-pencil fa-2x me-3"></i>
-                                <i class="fa-solid fa-star fa-2x me-2"></i>
+                            <th class="name tg-f2a8" colspan="2" th:text="${modalVO.name}"></th>
+                            <th><a><i class="fa-solid fa-pencil fa-2x me-3"></i></a>
+                                <i class="favoriteStore fa-solid fa-star fa-2x me-2"></i>
                             </th>
                         </tr>
                         </thead>
@@ -68,8 +123,9 @@
                         <span></span>
                         <tr>
                             <td class="tg-ofg3">주소</td>
-                            <td class="tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
+                            <td class="roadName tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
                         </tr>
+
                         <tr>
                             <td class="tg-ofg3">전화번호</td>
                             <td class="tg-mnzm" colspan="2">000-1234-1234</td>

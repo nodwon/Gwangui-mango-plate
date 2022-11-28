@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -114,9 +112,12 @@ public class HomeDataAct {
 		log.error("select 결과 list : {}",data);
 		return data;
 	}
-
-
-
+	@RequestMapping("/wishStore")
+	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
+		ModalVO data = vo;
+		log.error("name => {}",vo);
+		return data;
+	}
 
 /*	@PostMapping("/data/select")//해외
 	public String userDB(@RequestBody modalVO param){

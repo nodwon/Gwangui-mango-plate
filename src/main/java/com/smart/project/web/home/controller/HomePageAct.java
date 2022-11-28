@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -73,6 +74,54 @@ public class HomePageAct {
         return "redirect:/mango";
     }
 
+
+/*    @RequestMapping("/data/select")//해외
+    public String userDB(Model model , @ModelAttribute ModalVO param){
+        //String keyData = String.valueOf(param);  //우리가 post (key,object)
+        log.error("user 정보 확인 : {}", param);
+        //받은 MAP 데이터 {'KEY' : 값형태} 형태
+        log.error("user 정보 확인 : {}", param.getName());
+
+        //log.error("{}",isData);
+        List<ModalVO> modalVO = new ArrayList<>();
+        modalVO.add(param);
+        log.error("{}",modalVO);
+        model.addAttribute("modalList",modalVO);
+
+
+        //add한 codeVOList를 데이터베이스에 넣기
+        //test.userInsert(modalVO);
+
+        return "test2";
+    }*/
+
+
+
+
+
+
+/*
+    @RequestMapping("/getModal")
+    public String getModal(Model model, @ModelAttribute ModalVO modal){
+      *//*  list<vo> store = model.getAttribute("stores");
+        store.add(new vo());
+        model.addAttribute("stores",store);*//*
+
+        //리스트를 생성하는 부분은
+
+        log.error("name => {}",modal.getName());
+        log.error("name => {}",modal.getRoadName());
+        log.error("name => {}",modal.getSrc());
+        return "test";
+
+    }*/
+/*    @RequestMapping("/getHtml")
+    public String getHtml(){
+
+        return "topNav";
+
+
+    }*/
 
 
 }

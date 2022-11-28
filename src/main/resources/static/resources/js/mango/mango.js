@@ -30,24 +30,57 @@ export class mango{
 
 
 
-        /*        axios.post("/data/head",{}).then((result)=>{
-                    $("#Nav").append(result.data);
+/*        axios.post("/data/head",{}).then((result)=>{
+            $("#Nav").append(result.data);
 
-                })*/
-        /* $("#Nav").append(this.head);*/
+        })*/
+       /* $("#Nav").append(this.head);*/
         $("#bottom").append(this.bottom);
+
+  /*      var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(latitude, longitude),
+            map: map
+        });*/
+
+ /*       axios.post("data/mango2All",{}).then((result)=>{
+            $("#start").empty();
+            $("#start").append(this.foodList(result));
+/!*            $(".pop_region_content.region_content_kr").empty();
+            $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
+            this.eventBind();
+        });*/
+
 
         this.eventBind();
         $("#pagination").addClass("hidden");
 
+
+        this.modalEvent();
     }
     cashing ={
         $search :$("input[name=search]"),
         $start :  $("#start")
     }
+    //위시 리스트 클릭시 모달창 팝업
+    modalEvent(){
+        $('#modal').on('click',(e)=>{
+            console.log('위시리스트')
+            this.modalshow($(e.currentTarget).data());
+        })
+    }
 
-    modalShow(){
-        this.eventModal()
+
+
+    modalshow(key){
+        let md = require("../../../../templates/wishListModal.html")
+        let call = {'key' : $('#wsModal').val()};
+
+        axios.post('/data/wish', call).then((result)=>{
+            console.log(result)
+
+            $('.wishList').append(md(result));
+            $('.wishList').removeClass('hidden');
+        })
     }
 
 
