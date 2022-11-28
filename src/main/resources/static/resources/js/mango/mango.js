@@ -129,7 +129,7 @@ export class mango{
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
                 let img1 = e.img1;
-                let url = "url이 필요해요";
+                let url = e.url;
 
 
                 var marker = new naver.maps.Marker({
@@ -142,7 +142,7 @@ export class mango{
                     '   <p>'+mainmenu+'<br>',
                     '       <img src='+img1+' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
                     '       '+roadname+'<br>',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
+                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');

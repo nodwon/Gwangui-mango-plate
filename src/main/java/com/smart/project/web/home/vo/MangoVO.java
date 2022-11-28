@@ -15,7 +15,7 @@ public class MangoVO {
     private String longitude;
     private String review;
     private String phone;
-    private String src;
+    private String url;
     private String reviewcount;
     private String img1;
     private String img2;
