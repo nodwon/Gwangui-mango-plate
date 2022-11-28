@@ -38,6 +38,8 @@ public interface Test {
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
 
+	int totalCount(Criteria criteria);
+
 	void saveReview(ReviewDTO reviewDTO);
 
 }
