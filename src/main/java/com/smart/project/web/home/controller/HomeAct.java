@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class HomeAct {
 	final private Test test;
+
+	ArrayList list = new ArrayList();
 
 
 	@RequestMapping("/")
@@ -51,7 +56,15 @@ public class HomeAct {
 
 
 	@RequestMapping("/detailPage")
-	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session){
+	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session, Model model){
+		list.add(modal);
+		HashSet<String> duplicateData = new HashSet<>(list);
+		model.addAttribute("name", modal.getName());
+		model.addAttribute("roadName", modal.getRoadName());
+		model.addAttribute("src", modal.getSrc());
+		session.setAttribute("list", duplicateData);
+
+		log.error("중복결과제거 => {}", duplicateData);
 
 		return"detailPage";
 	}

@@ -76,11 +76,11 @@ export class detailPage{
     modalEvent(){
         $('#modal').on('click',(e)=>{
             console.log('위시리스트')
-            this.modalshow($(e.currentTarget).data());
+            this.modalshow();
         })
     }
 
-    modalshow(key){
+    modalshow(){
         let md = require("../../../../templates/wishListModal.html")
         let call = {'key' : $('#wsModal').val()};
 
