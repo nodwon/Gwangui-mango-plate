@@ -165,19 +165,46 @@
                         </tr>
                         </tbody>
                     </table>
+                    <section id="wrapper">
+                        <aside class="card">
+                            <div class="row">
+                                <div class="col-3">
+                                    <th:if="${session.email">
+                                    <label for ="comment" th:text="${session.Nickname}"></label>
+                                    <label for ="comment" th:name="comment">${session.Nickname}</label>
+                                    <div class="d-flex">
+                                        <button class="ml-auto" id="addComments" type="button">추가</button>
+                                        <button class="ml-auto" id="removeComments" type="button">지우기</button>
+                                        <!--                                        <button class="ml-auto" onclick= "eraseText()" id="removeCommets" type="button">지우기</button>-->
+                                        <div id="allComments"> </div>
 
-                    <!-- 리뷰 -->
-                    <section class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <div class="container">
-                                    <textarea name="review" class="form-control" rows="3" placeholder="리뷰를 작성해주세요"></textarea>
-                                    <button type="reset"  name="reset" class="previous action-button" value="취소" style="float: right;"/>
-                                    <button type="submit" id="addComments" name="submit" class="submit action-button" value="확인" style="float: right;"/>
-                                    <div id="allComments"></div>
+                                    </div>
+                                    </if>
                                 </div>
+                                <div class="col-9">
+                                    <textarea type="review" id="comment" placeholder="리뷰를작성하세요"></textarea>
+                                </div>
+                            </div>
+<!--                            <div class="row">-->
+<!--                                <div class="col-12">-->
+<!--                                    <div id="addTask">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </aside>
+                    </section>
+<!--                    &lt;!&ndash; 리뷰 &ndash;&gt;-->
+<!--                    <section class="mb-5">-->
+<!--                        <div class="card bg-light">-->
+<!--                            <div class="card-body">-->
+<!--                                <div class="container">-->
+<!--                                    <textarea name="review" class="form-control" rows="3" placeholder="리뷰를 작성해주세요"></textarea>-->
+<!--                                    <button type="reset"  name="reset" class="previous action-button" value="취소" style="float: right;"/>-->
+<!--                                    <button type="submit" id="addComments" name="submit" class="submit action-button" value="확인" style="float: right;"/>-->
+<!--                                    <div id="allComments"></div>-->
+<!--                                </div>-->
 
-                                <!-- Comment with nested comments-->
+<!--                                 Comment with nested comments-->
 <!--                                <div class="d-flex mb-4">-->
 <!--                                    &lt;!&ndash; Parent comment&ndash;&gt;-->
 <!--                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
@@ -194,25 +221,25 @@
 <!--                                        </div>-->
 <!--                                    </div>-->
 <!--                                </div>-->
-                                <!-- Single comment-->
-                                <div class="d-flex mt-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">이막창</div>
-                                        맛집이에요~
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex mt-4" >
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">박염통</div>
-                                        맛집이에요~
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+<!--                                 Single comment-->
+<!--                                <div class="d-flex mt-4">-->
+<!--                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                    <div class="ms-3">-->
+<!--                                        <div class="fw-bold">이막창</div>-->
+<!--                                        맛집이에요~-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; Single comment&ndash;&gt;-->
+<!--                                <div class="d-flex mt-4" >-->
+<!--                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                    <div class="ms-3">-->
+<!--                                        <div class="fw-bold">박염통</div>-->
+<!--                                        맛집이에요~-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
                         <hr class="my-0" />

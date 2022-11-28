@@ -3,9 +3,6 @@
 $(()=>{
     new mango();
 })
-//
-
-
 
 export class mango{
     constructor() {
@@ -239,9 +236,6 @@ export class mango{
         });
 
     }
-
-
-
 }
 
 

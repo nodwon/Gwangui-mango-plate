@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
-import java.util.List;//
+import java.util.List;
 
 @Master
 @Component
@@ -38,8 +38,5 @@ public interface Test {
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
 
-	int totalCount(Criteria criteria);
-
 	void saveReview(ReviewDTO reviewDTO);
-
 }

@@ -2,8 +2,6 @@ package com.smart.project.web.home.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class ReviewDTO {
     private String id;
