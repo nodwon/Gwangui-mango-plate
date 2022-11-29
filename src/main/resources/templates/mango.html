@@ -168,7 +168,7 @@
                                     <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
                                         <li th:text="${list.name}"></li>
                                         <li th:text="${list.roadName}"></li>
-                                        <img th:text="${list.src}">
+                                        <img style="width: 100%;height: 100%" th:src="${list.src}">
                                     </a>
                                 </ul>
                             </div>

@@ -63,12 +63,18 @@ public class HomeAct {
 		// 최근 클릭한 가게
 		log.error("src 값 =>{}", modal.getSrc());
 		log.error("list 값 =>{}", list);
+		StringBuffer str = new StringBuffer(modal.getSrc());
+		str.insert(str.indexOf(",")+1,"&src=");
+		modal.setSrc(str.toString());
+
 		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		model.addAttribute("name", modal.getName());
 		model.addAttribute("roadName", modal.getRoadName());
-		model.addAttribute("src", modal.getSrc());
-		log.error("주소=>{}",modal.getSrc());
+		model.addAttribute("src", str.toString());
+
+		/*model.addAttribute("src", modal.getSrc());*/
+		log.error("주소=>{}",str.toString());
 		session.setAttribute("list", duplicateData);
 //		log.error("가져온 세션 이메일 => {}", loginEmail);
 		log.error("중복결과제거 => {}", duplicateData);
