@@ -50,7 +50,7 @@ export class mango{
     }
     //위시 리스트 클릭시 모달창 팝업
     wishListEvent(){
-        console.log();
+        console.log("병수짱");
     }
 
     modalshow(){
