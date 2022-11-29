@@ -41,18 +41,16 @@ export class mango{
 
 
         this.modalEvent();
+        this.wishListEvent();s
+
     }
     cashing ={
         $search :$("input[name=search]"),
         $start :  $("#start")
     }
     //위시 리스트 클릭시 모달창 팝업
+    wishListEvent(){
 
-    modalEvent(){
-        $('#modal').on('click',(e)=>{
-            console.log('위시리스트')
-            this.modalshow();
-        })
     }
 
     modalshow(){
