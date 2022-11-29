@@ -38,16 +38,17 @@ public class HomeAct {
 	public String foodTypeListPage(Model model, Criteria cri, HttpServletRequest request) {
 	/*	List<MangoVO> list = test.searchAll("한");
 		model.addAttribute("list",list);*/
-
 		return "foodTypeListPage";
 	}
 
 	@RequestMapping("/admin")
 	public String admin(){
-		return "admin";
+		return "admin/admin";
 	}
 	@RequestMapping("/mango")
-	public String main(){ return "mango"; }
+	public String main(){
+		return "mango";
+	}
 
 	@RequestMapping("/login")
 	public String login(){
@@ -58,18 +59,17 @@ public class HomeAct {
 	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session, Model model){
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
-
+		// 최근 클릭한 가게
 		log.error("list 값 =>{}", list);
-		if(list.size()!=0) {
-			list.add(modal);
-			HashSet<String> duplicateData = new HashSet<>(list);
-			model.addAttribute("name", modal.getName());
-			model.addAttribute("roadName", modal.getRoadName());
-			model.addAttribute("src", modal.getSrc());
-			session.setAttribute("list", duplicateData);
+		list.add(modal);
+		HashSet<String> duplicateData = new HashSet<>(list);
+		model.addAttribute("name", modal.getName());
+		model.addAttribute("roadName", modal.getRoadName());
+		model.addAttribute("src", modal.getSrc());
+		session.setAttribute("list", duplicateData);
 //		log.error("가져온 세션 이메일 => {}", loginEmail);
-			log.error("중복결과제거 => {}", duplicateData);
-		}
+		log.error("중복결과제거 => {}", duplicateData);
+
 		return"detailPage";
 
 	}

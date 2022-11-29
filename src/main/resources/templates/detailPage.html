@@ -81,7 +81,6 @@
                     <div class="modal-body">
                         <div class="modal-body">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
-<!--                                <a th:with="link=|/link${}" th:href="@{'/detailPage'(roadName=${list.roadName})(name=${list.name})(src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg')}"><li th:text="${list.name}"></li>-->
                                 <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg|" th:href="@{${link}}">
                                     <li th:text="${list.name}"></li>
                                     <li th:text="${list.roadName}"></li>
@@ -91,8 +90,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
+                        <button type="button" class="btn btn-primary">초기화</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
