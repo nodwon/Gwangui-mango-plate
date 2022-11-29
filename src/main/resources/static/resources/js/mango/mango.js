@@ -198,7 +198,7 @@ export class mango{
 
     eventBind(){
         $("#search").on("click",(e)=>{
-
+            $("#pagination").removeClass("hidden");
             this.searchKeyword = this.cashing.$search.val();
             if(!(this.searchKeyword ===""))
             {
