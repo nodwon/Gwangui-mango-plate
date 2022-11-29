@@ -11368,3 +11368,14 @@ div.card-img-top img {
   height: 100%;
   object-fit: cover;
 }
+
+
+
+.modal_body_img {
+  border: 1px solid black;
+  float:left;
+}
+
+.modal_body_name {
+  float:left;
+}

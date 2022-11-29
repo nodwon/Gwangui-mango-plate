@@ -37,9 +37,9 @@
                         <div class="modal-body dong">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
                                 <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
-                                    <li th:text="${list.name}"></li>
-                                    <li th:text="${list.roadName}"></li>
-                                    <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                    <img class=modal_body_img style="width: 80px;height: 80px" th:src="${list.src}">
+                                    <div class=modal_body_name><p th:text="${list.name}"></p>
+                                        <p th:text="${list.roadName}"></p></div>
                                 </a>
                             </ul>
                         </div>
