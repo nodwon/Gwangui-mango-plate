@@ -54,7 +54,6 @@ public class HomeAct {
 	public String datailPage(Model model,@ModelAttribute ModalVO modal, HttpSession session){
 		String name = modal.getName();
 		MangoVO mangoVO = test.getMangoVO(name);
-
 		model.addAttribute("mango",mangoVO);
 
 		return"detailPage";
