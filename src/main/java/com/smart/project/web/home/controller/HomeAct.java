@@ -76,6 +76,8 @@ public class HomeAct {
 		MangoVO mangoVO = test.getMangoVO(name);
 		model.addAttribute("mango",mangoVO);
 
+
+
 		return"detailPage";
 	}
 
