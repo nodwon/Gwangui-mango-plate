@@ -10,14 +10,15 @@ export class detailPage{
         this.modalEvent();
 
         this.favoriteStore();
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
         /*$("#Nav").append(this.head);*/
-        $("#bottom").append(this.bottom);
+
 
         console.log("detailpage");
 
-        let search = {"name":$(".tg-f2a8").text()}
+        let name =$(".name").text();
+        let search = {"name":name}
+
+
         axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
 
@@ -35,7 +36,10 @@ export class detailPage{
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
-                let url = "url이 필요해요";
+                let img1 = e.img1;
+
+
+                let url = e.url;
 
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(latitude, longitude),
@@ -45,9 +49,9 @@ export class detailPage{
                     '<div class="iw_inner">',
                     '   <h3>'+name+'</h3>',
                     '   <p>'+mainmenu+'<br>',
-                    '       <img src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
                     '       '+roadname+'<br>',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
+                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');

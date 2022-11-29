@@ -52,6 +52,7 @@ public class HomeDataAct {
 		cri.setSearch(search); // 검색 창에 입력한 것
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
 		List<MangoVO> data = test.searchAll(cri);
+
 		log.error("데이터 사이즈 {}",data.size());
 		int totalCount = test.totalCount(cri);
 
@@ -82,6 +83,7 @@ public class HomeDataAct {
 	}
 	@RequestMapping("/wishStore")
 	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
+
 		ModalVO data = vo;
 		log.error("name => {}",vo);
 		return data;

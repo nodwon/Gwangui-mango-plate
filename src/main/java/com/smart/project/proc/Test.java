@@ -42,4 +42,6 @@ public interface Test {
 	List<MangoVO> searchAll(Criteria criteria);
 
 	int totalCount(Criteria criteria);
+
+	MangoVO getMangoVO(String name);
 }

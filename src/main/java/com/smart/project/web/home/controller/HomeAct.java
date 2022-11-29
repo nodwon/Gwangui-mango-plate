@@ -38,6 +38,7 @@ public class HomeAct {
 	public String foodTypeListPage(Model model, Criteria cri, HttpServletRequest request) {
 	/*	List<MangoVO> list = test.searchAll("한");
 		model.addAttribute("list",list);*/
+
 		return "foodTypeListPage";
 	}
 
@@ -69,6 +70,9 @@ public class HomeAct {
 		session.setAttribute("list", duplicateData);
 //		log.error("가져온 세션 이메일 => {}", loginEmail);
 		log.error("중복결과제거 => {}", duplicateData);
+		String name = modal.getName();
+		MangoVO mangoVO = test.getMangoVO(name);
+		model.addAttribute("mango",mangoVO);
 
 		return"detailPage";
 

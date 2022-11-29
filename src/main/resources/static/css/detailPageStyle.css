@@ -11363,3 +11363,8 @@ textarea.form-control-lg {
   text-align:left;vertical-align:top}
 .tg .tg-l6nl{border-color:#000000;color:#000000;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
   text-align:left;vertical-align:top}
+div.card-img-top img {
+
+  height: 100%;
+  object-fit: cover;
+}
