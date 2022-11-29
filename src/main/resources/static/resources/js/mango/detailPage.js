@@ -15,7 +15,10 @@ export class detailPage{
 
         console.log("detailpage");
 
-        let search = {"name":$(".tg-f2a8").text()}
+        let name =$(".name").text();
+        let search = {"name":name}
+
+
         axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
 
