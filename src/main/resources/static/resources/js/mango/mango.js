@@ -41,7 +41,7 @@ export class mango{
 
 
         this.modalEvent();
-        this.wishListEvent();s
+        this.wishListEvent();
 
     }
     cashing ={
@@ -50,24 +50,18 @@ export class mango{
     }
     //위시 리스트 클릭시 모달창 팝업
     wishListEvent(){
-        console.log("병수짱");
+        console.log("");
     }
 
     modalshow(){
         let md = require("../../../../templates/wishListModal.html")
        /* let call = {'key' : $('#wsModal').val()};*/
-
         axios.post('/data/wish', {}).then((result)=>{
             console.log(result)
-
             $('.wishList').append(md(result));
             $('.wishList').removeClass('hidden');
         })
     }
-
-
-
-
 
     pageEvnet()
     {
@@ -167,6 +161,15 @@ export class mango{
     modalEvent(){
         $('#modal').on('click',()=>{
             console.log('위시리스트')
+
+            $(".btn.btn-primary.reset").on('click',(e)=>{
+                axios.post("/clearpost", {}).then((result)=> {
+
+                    $(".modal-body.dong").empty();
+
+                });
+            });
+
             // this.modalshow();
         })
         // const myModal = document.getElementById('myModal')

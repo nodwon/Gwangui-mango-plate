@@ -85,15 +85,16 @@ export class detailPage{
     }
 
     modalshow(){
-        let md = require("../../../../templates/wishListModal.html")
-        let call = {'key' : $('#wsModal').val()};
 
-        axios.post('/data/wish', call).then((result)=>{
-            console.log(result)
 
-            $('.wishList').append(md(result));
-            $('.wishList').removeClass('hidden');
-        })
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then((result)=> {
+
+                $(".modal-body.dong").empty();
+                console.log(result.data);
+            });
+        });
+
     }
 
     DetailEvent(){

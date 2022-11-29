@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.http.HttpSession;
 
 
@@ -25,6 +22,13 @@ public class HomeAct {
 
 	ArrayList list = new ArrayList();
 
+	@RequestMapping("/clearpost")
+	public String clearpost(@RequestBody Map param) {
+
+		list.clear();
+
+		return "mango";
+	}
 
 	@RequestMapping("/")
 	public String home(Model model, Criteria cri, HttpServletRequest request) {
@@ -66,7 +70,6 @@ public class HomeAct {
 		StringBuffer str = new StringBuffer(modal.getSrc());
 		str.insert(str.indexOf(",")+1,"&src=");
 		modal.setSrc(str.toString());
-
 		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		model.addAttribute("name", modal.getName());
