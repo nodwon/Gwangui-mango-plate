@@ -165,44 +165,15 @@
                         </tr>
                         </tbody>
                     </table>
-                    <section id="wrapper">
-                        <aside class="card">
-                            <div class="row">
-                                <div class="col-3">
-                                    <th:if="${session.email">
-                                    <label for ="comment" th:text="${session.Nickname}"></label>
-                                    <label for ="comment" th:name="comment">${session.Nickname}</label>
-                                    <div class="d-flex">
-                                        <button class="btn-secondary like-review">
-                                            <i class="fa fa-heart" aria-hidden="true"></i> Like
-                                        </button>
-                                        <button class="btn-secondary reply">
-                                            <i class="fa-shape fa-solid fa-reply" aria-hidden="true"></i> repl
-                                        </button>
-                                    </div>
-                                    </if>
-                                </div>
-                                <div class="col-9">
-                                    <textarea name="comment" id="comment" placeholder="리뷰를작성하세요"></textarea>
-                                    <button class="ml-auto" id="addComments">추가</button>
-                                    <button class="ml-auto" id="removeComments">지우기</button>
-                                    <div id="allComments"> </div>
-                                </div>
-                            </div>
-                        </aside>
-                    </section>
-<!--                    &lt;!&ndash; 리뷰 &ndash;&gt;-->
-<!--                    <section class="mb-5">-->
-<!--                        <div class="card bg-light">-->
-<!--                            <div class="card-body">-->
-<!--                                <div class="container">-->
-<!--                                    <textarea name="review" class="form-control" rows="3" placeholder="리뷰를 작성해주세요"></textarea>-->
-<!--                                    <button type="reset"  name="reset" class="previous action-button" value="취소" style="float: right;"/>-->
-<!--                                    <button type="submit" id="addComments" name="submit" class="submit action-button" value="확인" style="float: right;"/>-->
-<!--                                    <div id="allComments"></div>-->
-<!--                                </div>-->
-
-
+                    <hr style="border: #0d0501" >
+                    <div class="container">
+                        <h4 for="comment" name="comment">리뷰 </h4>
+                        <button id="reviewcount">  </button>
+                        <textarea id="comment"></textarea>
+                        <button id="addComments">추가</button>
+<!--                        <button id="removeComments">취소</button>-->
+                        <div id="allComments"></div>
+                    </div>
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
                         <hr class="my-0" />
@@ -249,8 +220,6 @@
 
 
 </div>
-
-
 
 <section layout:fragment="contentScriptFragment">
     <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>
