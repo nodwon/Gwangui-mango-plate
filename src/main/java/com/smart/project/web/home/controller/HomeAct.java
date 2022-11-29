@@ -61,12 +61,14 @@ public class HomeAct {
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
 		// 최근 클릭한 가게
+		log.error("src 값 =>{}", modal.getSrc());
 		log.error("list 값 =>{}", list);
 		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		model.addAttribute("name", modal.getName());
 		model.addAttribute("roadName", modal.getRoadName());
 		model.addAttribute("src", modal.getSrc());
+		log.error("주소=>{}",modal.getSrc());
 		session.setAttribute("list", duplicateData);
 //		log.error("가져온 세션 이메일 => {}", loginEmail);
 		log.error("중복결과제거 => {}", duplicateData);
@@ -75,9 +77,7 @@ public class HomeAct {
 		model.addAttribute("mango",mangoVO);
 
 		return"detailPage";
-
 	}
-
 
 	@RequestMapping("/join")
 	public String mJoin() {

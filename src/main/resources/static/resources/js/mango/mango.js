@@ -41,7 +41,6 @@ export class mango{
 
 
         this.modalEvent();
-        this.insertModal();
     }
     cashing ={
         $search :$("input[name=search]"),

@@ -36,10 +36,10 @@
                     <div class="modal-body">
                         <div class="modal-body">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg|" th:href="@{${link}}">
+                                <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
                                     <li th:text="${list.name}"></li>
                                     <li th:text="${list.roadName}"></li>
-                                    <li th:value="${list.src}"></li>
+                                    <img th:text="${list.src}">
                                 </a>
                             </ul>
                         </div>
