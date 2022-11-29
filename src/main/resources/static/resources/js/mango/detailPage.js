@@ -1,21 +1,27 @@
 "use strict";
+import md from "../../../../templates/wishListModal.html";
+
 $(()=>{
     new detailPage();
 })
 export class detailPage{
     constructor() {
 
+        this.modalEvent();
 
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
-        $("#Nav").append(this.head);
-        $("#bottom").append(this.bottom);
+        this.favoriteStore();
+        /*$("#Nav").append(this.head);*/
 
-        console.log("s123123dsfsdfdfsddfgdfgsdsdfsdfsdfsaf");
 
-        let search = {"name":$(".tg-f2a8").text()}
+        console.log("detailpage");
+
+        let name =$(".name").text();
+        let search = {"name":name}
+
+
         axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
+
             var mapOptions = {
                 center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
                 zoom: 17
@@ -30,7 +36,10 @@ export class detailPage{
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
-                let url = "url이 필요해요";
+                let img1 = e.img1;
+
+
+                let url = e.url;
 
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(latitude, longitude),
@@ -40,9 +49,9 @@ export class detailPage{
                     '<div class="iw_inner">',
                     '   <h3>'+name+'</h3>',
                     '   <p>'+mainmenu+'<br>',
-                    '       <img src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
                     '       '+roadname+'<br>',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
+                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
@@ -59,13 +68,33 @@ export class detailPage{
                     }
                 });
 
-                console.log("DSFDSFD"+latitude);
+                console.log("위도"+latitude);
                 console.log( longitude)
             })
         });
 
 
         this.DetailEvent();
+    }
+
+    modalEvent(){
+        $('#modal').on('click',(e)=>{
+            console.log('위시리스트')
+            this.modalshow();
+        })
+    }
+
+    modalshow(){
+
+
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then((result)=> {
+
+                $(".modal-body.dong").empty();
+                console.log(result.data);
+            });
+        });
+
     }
 
     DetailEvent(){
@@ -104,6 +133,51 @@ export class detailPage{
         });
 
     }
+
+    favoriteStore(){
+        $('.favoriteStore').on("click",(e)=>{
+            let name = $('.name').text();
+            let roadName = $('.roadName').text();
+            let src = $(".card-img-top>img").attr("src");
+            console.log(name);
+            console.log(roadName);
+            console.log(src);
+            let Object = {
+                "name" : name,
+                "roadName" : roadName,
+                "src" : src
+            }
+
+            axios({
+                method:"post",
+                url:'/wishStore',
+                params : Object
+            }).then((result)=>{
+                console.log(result.data);
+            })
+
+
+            /*
+            axios({
+                method : "post",
+                url : "wishst",
+                params : object
+
+            }).then((response)=>{
+                location.href ="mango/wishListModal";
+
+                $(".wish_middle_list").append(response.data);
+                location.href="/mango/wishListModal?name="+name+"&roadName="+roadName+"&src="+src;
+                location.href="redirect:/detailPage";
+            })
+
+            console.log("선택된 가게 이름 :" ,name);
+            console.log("선택된 가게 도로명 : ",roadName);
+            console.log("선택된 가게 사진 : ",src);
+            location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
+        })
+    }
+
 }
 
 

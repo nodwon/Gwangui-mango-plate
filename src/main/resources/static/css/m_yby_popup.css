@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*------- 팝업 공통 ---------*/
-.normal_pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:4000; display:flex; flex-wrap:wrap; flex-direction:row; align-items:center; justify-content:center;}
-.full_modal{position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%; background:rgba(0,0,0,0.7);}
+.normal_pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:4000; display:flex; flex-wrap:wrap; flex-direction:row; align-items:center; justify-content:center; !important;}
+.full_modal{position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%; background:rgba(0,0,0,0.7); !important;}
 .full_fake_modal{position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%;}
 .pop_wrap{position:relative; width:300px; height:auto; background:#fff; border-radius:5px;}
 .pop_wide_wrap{position:relative; width:330px; height:auto; background:#fff; border-radius:10px;}

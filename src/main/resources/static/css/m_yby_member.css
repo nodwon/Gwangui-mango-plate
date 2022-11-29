@@ -4,7 +4,7 @@
                 공통
 ==================================*/
 input, select {background-color: transparent; border:none; outline: none;}
-form {position: relative; width:100%; height:auto;}
+form {position: relative; height:auto;}
 input[type="password"]::placeholder {letter-spacing: -0.5px; font-family:'NotoSansKR'}
 /* 멤버페이지 공통 bg */
 .member_bg {min-height:100vh; background:url("https://image.yeoboya.com/imgs/new_wedding/mobile/new_login/img_bg_wrap.png") no-repeat; background-size:auto 105%; background-position:center top; overflow-x:hidden; overflow-y:auto;}

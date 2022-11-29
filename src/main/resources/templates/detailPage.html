@@ -13,10 +13,44 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/detailPageStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+
+    </style>
+
 </head>
 
+
+
 <div layout:fragment="content" >
-    <div id = "Nav" class="fixed">
+
+    <!--위시 리스트 모달-->
+    <div class="wishList">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body dong">
+                            <ul th:each="list, i:${session.list}" class="wish_middle_list">
+                                <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+                                    <li th:text="${list.name}"></li>
+                                    <li th:text="${list.roadName}"></li>
+                                    <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary reset">초기화</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4" style="background-image: url('https://mp-seoul-image-production-s3.mangoplate.com/0776fea76b4a824ff583128cb51dd45c.jpg')">
@@ -37,10 +71,12 @@
                 <div class="card mb-3">
 
                     <!-- 음식 이미지 -->
-                    <div class="grid-image my-0">
-                        <img alt="" th:src="${modalVO.src}" />
-                        <img alt="" th:src="${modalVO.src}" />
-                        <img alt="" th:src="${modalVO.src}" />
+
+                    <div class="card-img-top grid-image my-0" >
+                        <img alt=""  th:src="${mango.getImg1()}" />
+                        <img alt=""  th:src="${mango.getImg2()}" />
+                        <img th:if="${not #strings.isEmpty(mango.getImg3())}" alt="" th:src="${mango.getImg3()}" />
+
                         <!--<img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1660311616360583.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                         <img alt="" src="https://mp-seoul-image-production-s3.mangoplate.com/1991439_1637484735593478.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80" />
                     --></div>
@@ -58,42 +94,48 @@
 
                         <thead>
                         <tr>
-                            <th class="tg-f2a8" colspan="2" th:text="${modalVO.name}"></th>
-                            <th><i class="fa-solid fa-pencil fa-2x me-3"></i>
-                                <i class="fa-solid fa-star fa-2x me-2"></i></th>
+                            <th class="tg-f2a8" colspan="2">
+                                <span class="name" th:text="${modalVO.getName()}"></span>
+                                  <span style="color: orange" th:text="${#numbers.formatDecimal(mango.getReview(),1,1)}"></span>
+                            </th>
+
+
+                            <th><a><i class="fa-solid fa-pencil fa-2x me-3"></i></a>
+                                <i class="favoriteStore fa-solid fa-star fa-2x me-2"></i>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         <span></span>
                         <tr>
                             <td class="tg-ofg3">주소</td>
-                            <td class="tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
+                            <td class="roadName tg-mnzm" colspan="2" th:text="${modalVO.roadName}"></td>
                         </tr>
+
                         <tr>
                             <td class="tg-ofg3">전화번호</td>
-                            <td class="tg-mnzm" colspan="2">000-1234-1234</td>
+                            <td class="number tg-mnzm" colspan="2" th:text ="${mango.getPhone()}"></td>
                         </tr>
                         <tr>
                             <td class="tg-ofg3">음식종류</td>
-                            <td class="tg-mnzm" colspan="2">고기 요리</td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getFoodtype()}"></td>
                         </tr>
                         <tr>
-                            <td class="tg-ofg3">가격대</td>
-                            <td class="tg-mnzm" colspan="2">2만원 ~ 3만원</td>
+                            <td class="tg-ofg3">메인 메뉴</td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getMainmenu()}"></td>
                         </tr>
+
                         <tr>
-                            <td class="tg-ofg3">주차</td>
-                            <td class="tg-mnzm" colspan="2">주차공간없음</td>
+                            <td class="tg-ofg3">별점 </td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getReview()}"></td>
                         </tr>
+
                         <tr>
-                            <td class="tg-ofg3">영업시간</td>
-                            <td class="tg-mnzm" colspan="2">16:30 ~ 23:00</td>
+                            <td class="tg-ofg3">리뷰개수 </td>
+                            <td class="tg-mnzm" colspan="2" th:text ="${mango.getReviewcount()}"></td>
                         </tr>
-                        <tr>
-                            <td class="tg-ofg3">휴일</td>
-                            <td class="tg-jyg6" colspan="2">일</td>
-                        </tr>
-                        <tr>
+
+             <!--           <tr>
                             <td class="tg-9rpp" rowspan="3">메뉴</td>
                             <td class="tg-l6nl">특양</td>
                             <td class="tg-l6nl">30,000원</td>
@@ -105,7 +147,7 @@
                         <tr>
                             <td class="tg-mnzm">곱창</td>
                             <td class="tg-mnzm">31,000원</td>
-                        </tr>
+                        </tr>-->
                         </tbody>
                     </table>
 
@@ -176,7 +218,7 @@
                 <!-- 지도 -->
                 <div class="card mb-4">
                     <div class="card-header">위치</div>
-                    <div class="card-body">위치지도</div>
+                    <div class="card-body" th:text="${mango.getRoadname()}"></div>
                 </div>
 
                 <div id="map" style="width:100%;height:500px;">
@@ -193,9 +235,7 @@
 
         <!-- Bootstrap core JS-->
     </div>
-    <footer id="bottom" class="py-5 bg-dark">
 
-    </footer>
 
 
 </div>

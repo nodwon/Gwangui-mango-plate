@@ -7,6 +7,7 @@
 
     <head>
 
+        <link href="../css/styles.css" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -17,7 +18,6 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="../css/portal/default.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -28,15 +28,24 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/13c79383be.js" crossorigin="anonymous"></script>
         <!--<script type="text/javascript" src="../resources/js/mango.js"></script>-->
-    </head>
-    <style>
+        <style>
 
-    </style>
+        </style>
+
+    </head>
+
+
+
     <div layout:fragment="content">
     <!-- Navigation 상단바바바-->
+   <!-- <p th:text="${}"></p>-->
+<!--        <tr th:each="db: ${list}">
+             <p th:text="${db.getName()}"></p>
+        </tr>-->
 
-
-    <div id = "Nav" class="fixed">
+        <!--<p th:text="세션값은 +${session.size}"></p>-->
+<!--        <th:block th:replace="fragments/head2 :: fragment-header"></th:block>-->
+    <!--<div id = "Nav" class="fixed">
         <div class ="navbar-expand-lg" >
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,14 +57,9 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">Up</a></li>
                             <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
-
-
                         </ul>
-
-
-
                         <form class="d-flex">
-                            <!--로그인버튼이 생기려면 email세션 null result==0 -->
+                            &lt;!&ndash;로그인버튼이 생기려면 email세션 null result==0 &ndash;&gt;
                             <a th:if="${session.email}==null" href="/login" class="btn btn-outline-dark me-3" type="submit">
                                 <i class="fa-solid fa-check"></i>
                                 로그인
@@ -73,17 +77,16 @@
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
                                 <p th:text="${session.email}"></p>
-                                <p th:text="${session.result}"></p>
+
 
                             </a>
                         </form>
 
-                        <!-- 찜(가고싶다) -->
-                        <form class="d-flex">
-                            <a class="btn btn-outline-dark" id="modal" type="submit">
-                                <i class="fa-solid fa-user-large"></i>
-                                <span class="badge bg-dark text-white rounded-pill">0</span>
-                            </a>
+                        &lt;!&ndash; 찜(가고싶다) &ndash;&gt;
+                        <form class="d-flex" action="data/wishList">
+                                <button type="button" id="modal"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="fa-solid fa-user-large"></i>
+                                </button>
                         </form>
                     </div>
                 </div>
@@ -91,7 +94,7 @@
         </div>
 
 
-    </div>
+    </div>-->
 
 
 
@@ -150,15 +153,38 @@
         </div>-->
         <!-- Header-->
 
-
+        <!--위시 리스트 모달-->
+        <div class="wishList">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-body dong">
+                                <ul th:each="list, i:${session.list}" class="wish_middle_list">
+                                    <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+                                        <li th:text="${list.name}"></li>
+                                        <li th:text="${list.roadName}"></li>
+                                        <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary reset">초기화</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <header id="background" class="py-5">
-
             <div class="container px-4 px-lg-5 my-5">
-
                 <div class="text-center text-black">
-
-                    <h1 class="display-4 fw-bolder">므앙고플레이트</h1>
-
+                    <h1 class="display-4 fw-bolder">망고플레이트</h1>
                     <form class="example py-5" id="sumbit" onsubmit="return false" >
                         <input type="text" placeholder="지역,식당 또는 음식" name="search" >
                         <button id="search" type="submit"><i class="fa fa-search"></i></button>
@@ -168,17 +194,21 @@
                 </div>
             </div>
         </header>
-        <!--//지도만들기-->
- <!--    <section class="py-5">
+     <!--   //지도만들기-->
+     <section class="py-5 map hidden">
          <div class="row  row-cols-2  justify-content-center ">
-         &lt;!&ndash;<div class="col mb-5">&ndash;&gt;
-         <div class="card">
-        <div id="map" style="width:100%;height:500px;">
-        </div>
+         <!--<div class="col mb-5">-->
+
+             <div class="col-lg-4" >
+                 <div  id="map" style="width: 100%;height:500px;object-fit: cover">
+             </div>
+
+
+
          </div>
          </div>
 
-     </section>-->
+     </section>
 
         <!-- Section-->
         <style>
@@ -197,17 +227,17 @@
 
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id ="start">
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/detailPage?name=한식">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/153948/114224_1495617984049_21416?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=한식">
+                                    <a>
                                     <p><h5 class="fw-bolder">한식</h5></p>
                                     </a>
                                 </div>
@@ -215,23 +245,23 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?name=한식">View options</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">View options</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
 
                             <!-- Product image-->
-                            <a href="/detailPage?name=중식">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                                 <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=중식">
+                                    <a>
                                     <p><h5 class="fw-bolder">중식</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -240,45 +270,45 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=중식">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
 
                             <!-- Product image-->
-                            <a href="/detailPage?name=일식">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/12883/2015985_1665665035328_1000001275?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=일식">
+                                    <a >
                                     <p><h5 class="fw-bolder">일식</h5></p>
                                     </a>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=일식">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" >Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/detailPage?name=양식">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/67094_1592053130327492.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=양식">
+                                    <a>
                                     <p><h5 class="fw-bolder">양식</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -286,44 +316,44 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=양식">Add to cart</a><p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a><p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
 
                             <!-- Product image-->
-                            <a href="/detailPage?name=치킨">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/371364_1445214856878.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                                 <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=양식">
+                                    <a >
                                     <p><h5 class="fw-bolder">치킨</h5></p>
                                     </a>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=치킨">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/detailPage?name=분식">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/195133/968026_1566749098661_21430?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=분식">
+                                    <a >
                                     <p><h5 class="fw-bolder">분식</h5></p>
                                     </a>
                                     <!-- Product price-->
@@ -331,24 +361,24 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=분식">View options</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">View options</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
 
                             <!-- Product image-->
-                            <a href="/detailPage?name=카페/디저트">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/396239/osg4_ird-_k1s3.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=카페/디저트">
-                                    <p><h5 class="fw-bolder">카페/디저트</h5></p>
+                                    <a >
+                                    <p><h5 class="fw-bolder">카페</h5></p>
                                     </a>
                                     <!-- Product reviews-->
 
@@ -357,21 +387,21 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=카페,디저트">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
+                    <div class="foodType col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/detailPage?name=버거">
+                            <a>
                             <img class="card-img-top" src="https://mp-seoul-image-production-s3.mangoplate.com/50836_1579495488063112.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" alt="..." />
                             </a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="/detailPage?name=버거">
+                                    <a>
                                     <p><h5 class="fw-bolder">버거</h5></p>
                                     </a>
                                     <!-- Product reviews-->
@@ -379,7 +409,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -394,22 +424,7 @@
 
 
         <!--  지역 선택 모달 -->
-        <div class="hidden">
 
-                    </ul>
-                </div>
-                <div class="botom_btn">
-                    <div class="btn_half btn_prev" style="display:none;"
-                    ><a>이전</a>
-                    </div>
-                    <!-- 국내/해외 지역 선택시 class="active" 추가-->
-                    <div class="btn_full btn_slct">
-                        <a>내 정보</a>갈비
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <section id="pagination" class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -417,8 +432,15 @@
         <ul class="pagination justify-content-center">
 
             <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{/?page=1}"  >1</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+
+                <th:block th:each="num : ${#numbers.sequence(1,10)}">
+
+                    <li class="page-item x"><a class="page-link" th:text="${num}" ></a></li>
+                    <!--"-->
+                </th:block>
+
+            <!--th:href="@{(page=${num})}"-->
+
             <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
         </ul>
         </div>
