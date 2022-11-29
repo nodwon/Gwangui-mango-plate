@@ -8,4 +8,5 @@ public class ReviewDTO {
     private String title;
     private Integer grade;
     private String review;
+    private String reviewDateUpDateStr;
 }

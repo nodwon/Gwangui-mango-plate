@@ -89,14 +89,14 @@ input[type=text]:invalid {
   height: 80%;
 }
 #addComments {
-  width: 50%;
+  width: 10%;
   padding: 5px;
   background-color: darkblue;
   color: white;
   align-self: flex-start;
 }
 #removeComments {
-  width: 50%;
+  width: 10%;
   padding: 5px;
   background-color: darkblue;
   color: white;
@@ -108,7 +108,7 @@ input[type=text]:invalid {
   padding: 10px;
   background-color: darkblue;
   color: white;
-  width: 30%;
+  width: 20%;
 
 }
 *,

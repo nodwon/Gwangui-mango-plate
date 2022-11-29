@@ -6,90 +6,113 @@ $(()=>{
 
 })
 
-window.onload = function setTemplate() {
-    document.getElementById('allComments').innerHTML = localStorage.getItem('template');
-};
-
-const commentContainer = document.getElementById('allComments');
-document.getElementById('addComments').addEventListener('click', function (ev) {
-    addComment(ev);
-});
-
-function addComment(ev) {
-    let commentText, wrapDiv;
-    const textBox = document.createElement('div');
-    const replyButton = document.createElement('button');
-    replyButton.className = 'reply';
-    replyButton.innerHTML = 'Reply';
-    const likeButton = document.createElement('button');
-    likeButton.innerHTML = 'Like';
-    likeButton.className = 'likeComment';
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'Delete';
-    deleteButton.className = 'deleteComment';
-    if(hasClass(ev.target.parentElement, 'col-9')) {
-        const wrapDiv = document.createElement('div');
-        wrapDiv.className = 'wrapper';
-        wrapDiv.style.marginLeft = 0;
-        commentText = document.getElementById('comment').value;
-        document.getElementById('comment').value = '';
-        textBox.innerHTML = commentText;
-        textBox.style.backgroundColor = "cornflowerblue";
-        wrapDiv.append(textBox, replyButton, likeButton, deleteButton);
-        commentContainer.appendChild(wrapDiv);
-    } else {
-        wrapDiv = ev.target.parentElement;
-        commentText = ev.target.parentElement.firstElementChild.value;
-        textBox.innerHTML = commentText;
-        textBox.style.backgroundColor = "paleturquoise";
-        wrapDiv.innerHTML = '';
-        wrapDiv.append(textBox, replyButton, likeButton, deleteButton);
-    }
-    setOnLocalStorage();
-}
-
-function setOnLocalStorage () {
-    localStorage.setItem('template', document.getElementById('allComments').innerHTML);
-}
-function hasClass(elem, className) {
-    return elem.className.split(' ').indexOf(className) > -1;
-}
-document.getElementById('allComments').addEventListener('click', function (e) {
-    if (hasClass(e.target, 'reply')) {
-        const parentDiv = e.target.parentElement;
-        const wrapDiv = document.createElement('div');
-        wrapDiv.style.marginLeft = (Number.parseInt(parentDiv.style.marginLeft) + 15).toString() + 'px';
-        wrapDiv.className = 'wrapper';
-        const textArea = document.createElement('textarea');
-        textArea.style.marginRight = '20px';
-        const addButton = document.createElement('button');
-        addButton.className = 'addReply';
-        addButton.innerHTML = 'Add';
-        const cancelButton = document.createElement('button');
-        cancelButton.innerHTML = 'Cancel';
-        cancelButton.className='cancelReply';
-        wrapDiv.append(textArea, addButton, cancelButton);
-        parentDiv.appendChild(wrapDiv);
-
-    } else if(hasClass(e.target, 'addReply')) {
-        addComment(e);
-    } else if(hasClass(e.target, 'likeComment')) {
-        const likeBtnValue = e.target.innerHTML;
-        e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
-        setOnLocalStorage();
-    } else if(hasClass(e.target, 'cancelReply')) {
-        e.target.parentElement.innerHTML = '';
-        setOnLocalStorage();
-    } else if(hasClass(e.target, 'deleteComment')) {
-        e.target.parentElement.remove();
-    }
-});
-
 export class detailPage{
     constructor() {
+        $(function () { // 리뷰 추가
+            let userName = document.createElement("h3"); // 이름
+            let input = document.getElementById('review').value; // 입력창
+            let title = document.createElement("h6"); // 제목
+            let status = document.createElement("p"); // 상태
+            let reply = document.createElement("ul"); // 답글버튼
+            let deleteButton = document.createElement("li"); // 삭제 버튼
+            let like = document.createElement("li"); // 좋아요 버튼
+            let replyList = document.createElement("li"); // 답글 리스트
+            document.querySelector("#addComments").addEventListener("click",function(e) {
+                console.log("asdfa");
+                like.innerHTML = "Like";
+                replyList.innerHTML = "댓글";
+                title.innerHTML = "userName";
+
+                let textnode = document.createTextNode(input);
+                status.appendChild(textnode);
+                status.prepend(title);
+                status.prepend(reply);
+                reply.appendChild(like);
+                reply.appendChild(replyList);
+                reply.appendChild(deleteButton);
+                document.getElementById('addTask').appendChild(status);
+                status.classList.add("statusBox");
+                like.classList.add("like");
+                replyList.classList.add("reply");
+                let statusBox = document.createElement("div");
+                //creates a button to delete status
+                let removeTask = document.createElement('input');
+                // adds type of which it is a button
+                removeTask.setAttribute('type', 'button');
+                removeTask.classList.add("removeButton");
+                // sets the buttons value
+                removeTask.setAttribute("value", "delete");
+                // sets the button next to the status text
+                deleteButton.appendChild(removeTask);
+                //sets the button to remove status
+                removeTask.addEventListener('click', function () {
+                    status.parentNode.removeChild(status);
+                }, false);
+                like.addEventListener('click', function () {
+                    this.classList.add("likeClicked");
+                }, false);
+                replyList.addEventListener('click', function () {
+                    this.classList.add("likeClicked");
+                    let luke = document.getElementById('addTask');
+                    let skywalker = document.createElement("textarea");
+                    let replied = document.createElement("p");
+                    let leia = document.createElement("input");
+                    leia.setAttribute('type', 'button');
+                    leia.setAttribute("value", "reply");
+                    leia.setAttribute("class", "removeButton");
+                    skywalker.setAttribute("id", "pushReply");
+                    skywalker.setAttribute("placeholder", "Reply to this comment");
+                    luke.appendChild(skywalker);
+                    luke.appendChild(leia);
+                    luke.appendChild(replied);
+                    leia.addEventListener('click', function () {
+                        let replyInput = document.getElementById('pushReply').value;
+                        let replyNode = document.createTextNode(replyInput);
+                        replied.appendChild(replyNode);
+                        if (replyInput === "") {
+                            replied.classList.remove("statusBox");
+                            skywalker.parentNode.removeChild(skywalker);
+                            this.parentNode.removeChild(this);
+                        } else {
+                            let replyName = document.createElement("h6");
+                            let deleteComment = document.createElement("p");
+                            deleteComment.innerHTML = "Delete";
+                            deleteComment.classList.add("deleteComment");
+                            replyName.innerHTML = `${vo.emailName} says:`;
+                            replied.prepend(replyName);
+                            replied.prepend(deleteComment);
+                            replied.classList.add("statusBox");
+                            skywalker.parentNode.removeChild(skywalker);
+                            this.parentNode.removeChild(this);
+                            deleteComment.addEventListener('click', function () {
+                                replied.parentNode.removeChild(replied);
+                            }, false);
+                        }
+                    }, false);
+                }, false);
+            })
+        });
+
+        $(function () { // 리뷰 지우기
+            document.querySelector("#removeComments").addEventListener("click",function(e){
+                console.log("sdafdfas");
+                document.getElementById("inputStatus").value = "";
+            })
+        });
+
+        $(function () { // 답글
+            $(document).one('click', '.reply', function (e) {
+
+            });
+        });
+        $(function () { // 좋아요
+            $(document).one('click', '.like-review', function (e) {
+                $(this).children(`.fa-heart`).addClass('animate-like');
+            });
+        });
+        document.querySelector("aside.card").innerHTML = "";
 
         this.modalEvent();
-
         this.favoriteStore();
         this.head=require("@/mango/head.html")
         this.bottom= require("@/mango/bottom.html")
@@ -207,11 +230,6 @@ export class detailPage{
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
-       $("#btn_review").on("click",(e)=>{
-            if($(e.currentTarget)) {
-                this.saveReview();
-            }
-        })
         $(".btn_reset").click(function(){
             return document.getElementById("mTxtArea").value='';
         })
@@ -221,6 +239,7 @@ export class detailPage{
         })
 
     }
+
 
     favoriteStore(){
         $('.favoriteStore').on("click",(e)=>{
@@ -265,6 +284,7 @@ export class detailPage{
             location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
         })
     }
+
 
 }
 

@@ -38,5 +38,5 @@ public interface Test {
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
 
-	void saveReview(ReviewDTO reviewDTO);
+//	void saveReview(ReviewDTO reviewDTO);
 }

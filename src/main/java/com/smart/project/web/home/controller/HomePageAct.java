@@ -49,10 +49,10 @@ public class HomePageAct {
         log.info(vo.toString());
         return "redirect:/mango";
     }
-    @PostMapping("/saveReview")
-    public void saveReview(ReviewDTO reviewDTO){
-        test.saveReview(reviewDTO);
-    }
+//    @PostMapping("/saveReview")
+//    public void saveReview(ReviewDTO reviewDTO){
+//        test.saveReview(reviewDTO);
+//    }
 
     //카카오 로그인 데이터 저장111
     @RequestMapping("/kakaoJoin")
