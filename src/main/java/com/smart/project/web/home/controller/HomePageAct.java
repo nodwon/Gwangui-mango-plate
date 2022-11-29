@@ -11,9 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,27 +28,32 @@ public class HomePageAct {
 
     final private Test test;
 
+    //일반 회원 로그인
     @PostMapping("/commonLogin")
-    public String commonLogin(CommonMemberVO vo, HttpSession session){
+    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletResponse response){
         log.error("{}",vo);
         String userId = vo.getUserId();
         String userPw = vo.getUserPw();
-
         CommonMemberVO result  = test.selectOneMem(userId,userPw);
+        String userEmail = result.getUserEmail();
+        log.error("user=>{}",result );
 
-
-        log.error("21321321321{}",result );
         if(result!=null){
             System.out.println("로그인 성공");
+            //로그인시 쿠키 생성
+            Cookie cookieId = new Cookie("email", userEmail);
+            // 쿠키 유지시간 설정(60초*1)
+            cookieId.setMaxAge(60*1);
+            response.addCookie(cookieId);
             session.setAttribute("email",result.getUserEmail());
         }else{
             System.out.println("로그인 실패");
-
             return "Member/login/login";
         }
         return "redirect:/mango";
     }
 
+    //가입
     @PostMapping("/register")
     public String createMember(CommonMemberVO vo) {
         test.insertMember(vo);
@@ -52,11 +61,16 @@ public class HomePageAct {
         return "redirect:/mango";
     }
     
-    //카카오 로그인 데이터 저장111
+    //카카오 로그인 데이터 저장
     @RequestMapping("/kakaoJoin")
-    public String kakaoJoin(@ModelAttribute KakaoMemberVO vo, HttpSession session) {
-        if(vo.getEmail()!=null){
-            System.out.println(vo+"vo값");
+    public String kakaoJoin(@ModelAttribute KakaoMemberVO vo, HttpSession session, HttpServletResponse response) {
+        log.error("vo값=>{}",vo);
+        String email = vo.getEmail();
+        Cookie cookieEmail = new Cookie("email", email);
+        cookieEmail.setMaxAge(60*1);
+        response.addCookie(cookieEmail);
+
+        if(!(vo.getEmail().equals(""))){
             session.setAttribute("email",vo.getEmail());
             System.out.println(vo.getEmail());
         }
@@ -64,12 +78,15 @@ public class HomePageAct {
         System.out.println(vo);
         return "redirect:/mango";
     }
+    //로그아웃
     @RequestMapping("/logout")
     public String logoutMainGET(HttpServletRequest request) throws Exception{
         HttpSession session = request.getSession();
         session.invalidate();
+        request.getSession(true);
         return "redirect:/mango";
     }
+
 
 
 /*    @RequestMapping("/data/select")//해외
@@ -119,6 +136,16 @@ public class HomePageAct {
 
 
     }*/
+    @PostMapping("/data/modal")
+    public String getModal(Model model, ModalVO modal){
+        model.addAttribute("name", modal.getName());
+        model.addAttribute("roadName", modal.getRoadName());
+        model.addAttribute("src", modal.getSrc());
+        log.error("name => {}",modal.getName());
+        log.error("roadname => {}",modal.getRoadName());
+        log.error("src => {}",modal.getSrc());
+        return "detailPage";
+    }
 
 
 }

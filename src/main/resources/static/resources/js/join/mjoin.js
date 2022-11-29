@@ -1,13 +1,13 @@
 "use strict";
 $(()=>{
-    new Login();
+    new mJoin();
 })
 
-export class Login{
+class mJoin{
 
     constructor() {
 
-        console.log("회원가입 페이지");
+        console.log("로그인페이지");
         this.event();
         this.email="" ;
         this.nickname="";
@@ -30,7 +30,6 @@ export class Login{
                         }
                     })
                     console.log(authObj);
-                    let token = authObj.access_token;
                 },
                 fail: function(err) {
                     alert(JSON.stringify(err));
@@ -40,5 +39,5 @@ export class Login{
 
     }
 
-//
+
 }

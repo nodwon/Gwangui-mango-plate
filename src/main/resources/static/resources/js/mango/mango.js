@@ -1,5 +1,7 @@
 "use strict";
 
+import md from "../../../../templates/wishListModal.html";
+
 $(()=>{
     new mango();
 })
@@ -27,7 +29,6 @@ export class mango{
         this.pageList = require("@/mango/pagingNumber.html");
 
 
-
 /*        axios.post("/data/head",{}).then((result)=>{
             $("#Nav").append(result.data);
 
@@ -40,19 +41,16 @@ export class mango{
 
 
         this.modalEvent();
-        this.insertModal();
+        this.wishListEvent();s
+
     }
     cashing ={
         $search :$("input[name=search]"),
         $start :  $("#start")
     }
     //위시 리스트 클릭시 모달창 팝업
-
-    modalEvent(){
-        $('#modal').on('click',(e)=>{
-            console.log('위시리스트')
-            this.modalshow();
-        })
+    wishListEvent(){
+        console.log("병수짱");
     }
 
     modalshow(){
@@ -69,35 +67,8 @@ export class mango{
 
 
 
-    eventModal()
-    {
-        /*//모달 x
-        $(".btn_cls").on("click",(e)=>{
-            $(".normal_pop_wrap").addClass("hidden")
-        });
 
-        //모달 최근본 이미지 클릭시 이벤트
-        $(".slct_food").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_want").removeClass("active");
-                $(".pop_region_content.region_content_kr").removeClass("hidden");
 
-            }
-        });
-        //모달 가고싶은곳
-        $(".slct_want").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_food").removeClass("active");
-                $(".pop_region_content.region_content_kr").addClass("hidden");
-            }
-        });
-*/
-
-    }
     pageEvnet()
     {
         $(".page-item.x").on("click",(e)=>{
@@ -109,9 +80,9 @@ export class mango{
         });
     }
     //지도 foodlist 와 page 처리하는 이벤트
-    foodPageList(search){
+    foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
-        axios.post("data/searchAll",search).then((result)=>{
+        axios.post("data/searchAll", search).then((result) => {
             //지도처리
             let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
@@ -121,8 +92,8 @@ export class mango{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data,(e)=>{
-                let latitude  = e.latitude;
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let foodtype = e.foodtype;
@@ -138,11 +109,11 @@ export class mango{
                 });
                 var contentString = [
                     '<div class="iw_inner">',
-                    '   <h3>'+name+'</h3>',
-                    '   <p>'+mainmenu+'<br>',
-                    '       <img src='+img1+' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       '+roadname+'<br>',
-                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
+                    '   <h3>' + name + '</h3>',
+                    '   <p>' + mainmenu + '<br>',
+                    '       <img src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       ' + roadname + '<br>',
+                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
@@ -151,7 +122,7 @@ export class mango{
                     content: contentString
                 });
 
-                naver.maps.Event.addListener(marker, "click", function(e) {
+                naver.maps.Event.addListener(marker, "click", function (e) {
                     if (infowindow.getMap()) {
                         infowindow.close();
                     } else {
@@ -163,27 +134,24 @@ export class mango{
             });
 
             //페이징처리
-            if(!(result.data.page==null))
-            {
+            if (!(result.data.page == null)) {
                 let pageMaker = result.data.page
                 let startPage = pageMaker.startPage
-                let endPage =pageMaker.endPage
+                let endPage = pageMaker.endPage
                 let prev = pageMaker.prev;
                 let next = pageMaker.next;
-                console.log("엔드페이지는 ",endPage)
-                let paging =''
-                if(prev){
-                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                console.log("엔드페이지는 ", endPage)
+                let paging = ''
+                if (prev) {
+                    paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
 
-                for ( var i = startPage;i<=endPage;i++)
-                {
-                    let page=' <li class="page-item x"><a class="page-link"  >'+i+'</a></li>';
-                    paging= paging+page
+                for (var i = startPage; i <= endPage; i++) {
+                    let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
+                    paging = paging + page
                 }
-                if(next)
-                {
-                    paging = paging+ '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                if (next) {
+                    paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
                 }
 
                 console.log(result)
@@ -195,6 +163,21 @@ export class mango{
             this.cashing.$start.append(this.foodList(result));
         });
     }
+    //위시 리스트 클릭시 모달창 팝업
+    modalEvent(){
+        $('#modal').on('click',()=>{
+            console.log('위시리스트')
+            // this.modalshow();
+        })
+        // const myModal = document.getElementById('myModal')
+        // const myInput = document.getElementById('myInput')
+        //
+        // myModal.addEventListener('shown.bs.modal', () => {
+        //     myInput.focus()
+        // })
+    }
+
+
 
     eventBind(){
         $("#search").on("click",(e)=>{
@@ -207,10 +190,7 @@ export class mango{
             }
         });
 
-/*        $("#modal").on("click",(e)=>{
-            $(".normal_pop_wrap").removeClass("hidden")
-            this.modalShow();
-        });*/
+
         //한식 ,중식, 일식 눌렀을때 이벤트
         $(".foodType").on("click",(e)=>{
             $(".py-5.map").removeClass("hidden");
@@ -225,19 +205,6 @@ export class mango{
         });
 
     }
-
-    insertModal(){
-        $(document).ready(function(){
-            $('.card-img-top').on('show.bs.modal',function (e){
-                let name = $(e.currentTarget).find('.name');
-                let roadName = $(e.currentTarget).find('.roadName');
-                let src = $(e.currentTarget).find('.src');
-                let obj = {}
-            });
-        });
-    }
-
-
 
 
 }

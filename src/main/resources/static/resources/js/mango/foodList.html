@@ -4,7 +4,7 @@
 
   <div class="cardList card h-100" >
     <!-- Product image-->
-    <a class="a" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+    <a class="a" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">
       <img class="card-img-top" src="{{$value.img1}}"  alt="..." /> </a>
     <!-- Product details-->
     <div class="card-body p-4">
@@ -12,7 +12,7 @@
         <!-- Product name-->
         <p>
         <h5 class="fw-bolder">
-        <a class ="name"href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">{{$value.name}}
+        <a class ="name"href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">{{$value.name}}
         <span style="color: orange" >{{$value.review}}</span>
 
         </a>
@@ -21,14 +21,14 @@
         </p>
         <p>
         <!-- Product price-->
-        <a class = "roadName" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">{{$value.roadname}}</a>
+        <a class = "roadName" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">{{$value.roadname}}</a>
 
       </div>
     </div>
     <!-- Product actions-->
 
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-      <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src=https://dummyimage.com/450x300/dee2e6/6c757d.jpg">View options</a></div>
+      <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">View options</a></div>
     </div>
     </p>
 
