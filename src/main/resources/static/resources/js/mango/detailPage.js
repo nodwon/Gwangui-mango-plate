@@ -8,7 +8,7 @@ export class detailPage{
     constructor() {
 
         this.modalEvent();
-
+        this.wishListEvent();
         this.favoriteStore();
         /*$("#Nav").append(this.head);*/
 
@@ -95,16 +95,24 @@ export class detailPage{
     }
 
     modalshow(){
-
-
         $(".btn.btn-primary.reset").on('click',(e)=>{
-            axios.post("/clearpost", {}).then((result)=> {
+            axios.post("/clearpost", {}).then(()=> {
 
-                $(".modal-body.dong").empty();
-                console.log(result.data);
+                $(".current").empty();
             });
         });
 
+    }
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
+        })
     }
 
     DetailEvent(){
@@ -144,50 +152,49 @@ export class detailPage{
 
     }
 
-    favoriteStore(){
+    favoriteStore(list){
         $('.favoriteStore').on("click",(e)=>{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
-            let src = $(".card-img-top>img").attr("src");
-            console.log(name);
-            console.log(roadName);
-            console.log(src);
+            let src = $(".card-img-top>.wishimg").attr("src");
+            // console.log(name);
+            // console.log(roadName);
+            // console.log(src);
             let Object = {
-                "name" : name,
-                "roadName" : roadName,
-                "src" : src
+                "placename" : name,
+                "roadname" : roadName,
+                "mainimg" : src
             }
-
             axios({
                 method:"post",
                 url:'/wishStore',
                 params : Object
             }).then((result)=>{
+                console.log(Object);
                 console.log(result.data);
             })
 
+            axios.post("data/wishSelect", {}).then((result)=>{
+                console.log(result);
 
-            /*
-            axios({
-                method : "post",
-                url : "wishst",
-                params : object
+                let data = result.data;
+                _.forEach(data,(e)=>{
+                    let mainimg = e.mainimg;
+                    let placename = e.placename;
+                    let roadname = e.roadname;
+                    console.log(mainimg);
+                    console.log(placename);
 
-            }).then((response)=>{
-                location.href ="mango/wishListModal";
-
-                $(".wish_middle_list").append(response.data);
-                location.href="/mango/wishListModal?name="+name+"&roadName="+roadName+"&src="+src;
-                location.href="redirect:/detailPage";
+                    var html = [
+                        '<li>'+placename+'</li>',
+                        '<li>'+roadname+'</li>',
+                        '<img style="width: 80px;height: 80px" src='+mainimg+'>'
+                    ].join('');
+                    $('.wish-list').append(html);
+                });
             })
-
-            console.log("선택된 가게 이름 :" ,name);
-            console.log("선택된 가게 도로명 : ",roadName);
-            console.log("선택된 가게 사진 : ",src);
-            location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
         })
     }
-
 }
 
 

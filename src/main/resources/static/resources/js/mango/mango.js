@@ -56,6 +56,7 @@ export class mango{
         })
     }
 
+
     pageEvnet()
     {
         $(".page-item.x").on("click",(e)=>{
@@ -148,8 +149,8 @@ export class mango{
                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
 
-                for (var i = startPage; i <= endPage; i++) {
-                    var page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
+                for (let i = startPage; i <= endPage; i++) {
+                    let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
                     paging = paging + page
                 }
                 if (next) {
@@ -165,23 +166,20 @@ export class mango{
             this.cashing.$start.append(this.foodList(result));
         });
     }
-    //위시 리스트 클릭시 모달창 팝업
+    //위시리스트 클릭 후 초기화
     modalEvent(){
         $('#modal').on('click',()=>{
             console.log('위시리스트')
 
             $(".btn.btn-primary.reset").on('click',(e)=>{
                 axios.post("/clearpost", {}).then((result)=> {
-
                     $(".modal-body.dong").empty();
-
                 });
             });
-
-
         })
 
     }
+
 
 
 
