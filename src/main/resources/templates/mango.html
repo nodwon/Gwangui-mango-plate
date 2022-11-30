@@ -7,6 +7,7 @@
 
     <head>
 
+        <link href="../css/styles.css" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -28,10 +29,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/13c79383be.js" crossorigin="anonymous"></script>
         <!--<script type="text/javascript" src="../resources/js/mango.js"></script>-->
-    </head>
-    <style>
+        <style>
 
-    </style>
+        </style>
+
+    </head>
+
+
+
     <div layout:fragment="content">
     <!-- Navigation 상단바바바-->
    <!-- <p th:text="${}"></p>-->
@@ -39,9 +44,9 @@
              <p th:text="${db.getName()}"></p>
         </tr>-->
 
-        <p th:text="세션값은 +${session.size}"></p>
-
-    <div id = "Nav" class="fixed">
+        <!--<p th:text="세션값은 +${session.size}"></p>-->
+<!--        <th:block th:replace="fragments/head2 :: fragment-header"></th:block>-->
+    <!--<div id = "Nav" class="fixed">
         <div class ="navbar-expand-lg" >
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -55,7 +60,7 @@
                             <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
                         </ul>
                         <form class="d-flex">
-                            <!--로그인버튼이 생기려면 email세션 null result==0 -->
+                            &lt;!&ndash;로그인버튼이 생기려면 email세션 null result==0 &ndash;&gt;
                             <a th:if="${session.email}==null" href="/login" class="btn btn-outline-dark me-3" type="submit">
                                 <i class="fa-solid fa-check"></i>
                                 로그인
@@ -78,10 +83,10 @@
                             </a>
                         </form>
 
-                        <!-- 찜(가고싶다) -->
+                        &lt;!&ndash; 찜(가고싶다) &ndash;&gt;
                         <form class="d-flex" action="data/wishList">
                                 <button type="button" id="modal"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <i class="fa-solid fa-user-large"></i> 위시리스트
+                                    <i class="fa-solid fa-user-large"></i>
                                 </button>
                         </form>
                     </div>
@@ -90,7 +95,7 @@
         </div>
 
 
-    </div>
+    </div>-->
 
 
 
@@ -151,15 +156,36 @@
 
         <!--위시 리스트 모달-->
         <div class="wishList">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-body dong">
+                                <ul th:each="list, i:${session.list}" class="wish_middle_list">
+                                    <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+                                        <li th:text="${list.name}"></li>
+                                        <li th:text="${list.roadName}"></li>
+                                        <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary reset">초기화</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <header id="background" class="py-5">
-
             <div class="container px-4 px-lg-5 my-5">
-
                 <div class="text-center text-black">
-
-                    <h1 class="display-4 fw-bolder">므앙고플레이트</h1>
-
+                    <h1 class="display-4 fw-bolder">망고플레이트</h1>
                     <form class="example py-5" id="sumbit" onsubmit="return false" >
                         <input type="text" placeholder="지역,식당 또는 음식" name="search" >
                         <button id="search" type="submit"><i class="fa fa-search"></i></button>
@@ -173,9 +199,13 @@
      <section class="py-5 map hidden">
          <div class="row  row-cols-2  justify-content-center ">
          <!--<div class="col mb-5">-->
-         <div class="card">
-        <div  id="map" style="width:100%;height:500px;">
-        </div>
+
+             <div class="col-lg-4" >
+                 <div  id="map" style="width: 100%;height:500px;object-fit: cover">
+             </div>
+
+
+
          </div>
          </div>
 
@@ -349,7 +379,7 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <a >
-                                    <p><h5 class="fw-bolder">카페/디저트</h5></p>
+                                    <p><h5 class="fw-bolder">카페</h5></p>
                                     </a>
                                     <!-- Product reviews-->
 
@@ -373,14 +403,14 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <a>
-                                    <p><h5 class="fw-bolder">버거</h5></p>
+                                    <p><h5 class="fw-bolder">패스트푸드</h5></p>
                                     </a>
                                     <!-- Product reviews-->
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" href="/detailPage?type=버거">Add to cart</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>

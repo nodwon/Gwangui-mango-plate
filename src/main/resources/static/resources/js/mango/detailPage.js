@@ -89,15 +89,17 @@ export class detailPage{
 
 
         this.modalEvent();
+        this.wishListEvent();
         this.favoriteStore();
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
         /*$("#Nav").append(this.head);*/
-        $("#bottom").append(this.bottom);
+
 
         console.log("detailpage");
 
-        let search = {"name":$(".tg-f2a8").text()}
+        let name =$(".name").text();
+        let search = {"name":name}
+
+
         axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
 
@@ -115,7 +117,10 @@ export class detailPage{
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
-                let url = "url이 필요해요";
+                let img1 = e.img1;
+
+
+                let url = e.url;
 
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(latitude, longitude),
@@ -125,12 +130,14 @@ export class detailPage{
                     '<div class="iw_inner">',
                     '   <h3>'+name+'</h3>',
                     '   <p>'+mainmenu+'<br>',
-                    '       <img src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
                     '       '+roadname+'<br>',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
+                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
+
+
 
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
@@ -151,24 +158,43 @@ export class detailPage{
 
 
         this.DetailEvent();
+        this.clearEvent();
+
+    }
+
+    clearEvent()
+    {
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
+        })
     }
 
     modalEvent(){
         $('#modal').on('click',(e)=>{
             console.log('위시리스트')
-            this.modalshow($(e.currentTarget).data());
+            this.modalshow();
         })
     }
 
-    modalshow(key){
-        let md = require("../../../../templates/wishListModal.html")
-        let call = {'key' : $('#wsModal').val()};
+    modalshow(){
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then(()=> {
 
-        axios.post('/data/wish', call).then((result)=>{
-            console.log(result)
+                $(".current").empty();
+            });
+        });
 
-            $('.wishList').append(md(result));
-            $('.wishList').removeClass('hidden');
+    }
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
         })
     }
 
@@ -217,47 +243,47 @@ export class detailPage{
     }
 
 
-    favoriteStore(){
+    favoriteStore(list){
         $('.favoriteStore').on("click",(e)=>{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
-            let src = $(".card-img-top>img").attr("src");
-            console.log(name);
-            console.log(roadName);
-            console.log(src);
+            let src = $(".card-img-top>.wishimg").attr("src");
+            // console.log(name);
+            // console.log(roadName);
+            // console.log(src);
             let Object = {
-                "name" : name,
-                "roadName" : roadName,
-                "src" : src
+                "placename" : name,
+                "roadname" : roadName,
+                "mainimg" : src
             }
-
             axios({
                 method:"post",
                 url:'/wishStore',
                 params : Object
             }).then((result)=>{
+                console.log(Object);
                 console.log(result.data);
             })
 
+            axios.post("data/wishSelect", {}).then((result)=>{
+                console.log(result);
 
-            /*
-            axios({
-                method : "post",
-                url : "wishst",
-                params : object
+                let data = result.data;
+                _.forEach(data,(e)=>{
+                    let mainimg = e.mainimg;
+                    let placename = e.placename;
+                    let roadname = e.roadname;
+                    console.log(mainimg);
+                    console.log(placename);
 
-            }).then((response)=>{
-                location.href ="mango/wishListModal";
-
-                $(".wish_middle_list").append(response.data);
-                location.href="/mango/wishListModal?name="+name+"&roadName="+roadName+"&src="+src;
-                location.href="redirect:/detailPage";
+                    var html = [
+                        '<li>'+placename+'</li>',
+                        '<li>'+roadname+'</li>',
+                        '<img style="width: 80px;height: 80px" src='+mainimg+'>'
+                    ].join('');
+                    $('.wish-list').append(html);
+                });
             })
-
-            console.log("선택된 가게 이름 :" ,name);
-            console.log("선택된 가게 도로명 : ",roadName);
-            console.log("선택된 가게 사진 : ",src);
-            location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
         })
     }
 

@@ -1,130 +1,89 @@
 "use strict";
 
+import md from "../../../../templates/wishListModal.html";
+
 $(()=>{
     new mango();
 })
 
 export class mango{
     constructor() {
- /*       axios({
-            method : "post",
-            url : "/getHtml",
-
-        }).then((response)=>{
-            /!*location.href ="test2";*!/
-
-                   $("#Nav").append(response.data);
 
 
-        })*/
 
-
-        this.head=require("@/mango/head.html")
-        this.bottom= require("@/mango/bottom.html")
+        this.searchKeyword = "";
         this.foodList = require("@/mango/foodList.html");
         this.modalList = require("@/mango/modalList.html");
         this.pageList = require("@/mango/pagingNumber.html");
 
 
-
-/*        axios.post("/data/head",{}).then((result)=>{
-            $("#Nav").append(result.data);
-
-        })*/
-       /* $("#Nav").append(this.head);*/
-        $("#bottom").append(this.bottom);
-
-  /*      var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(latitude, longitude),
-            map: map
-        });*/
-
- /*       axios.post("data/mango2All",{}).then((result)=>{
-            $("#start").empty();
-            $("#start").append(this.foodList(result));
-/!*            $(".pop_region_content.region_content_kr").empty();
-            $(".pop_region_content.region_content_kr").append(this.modalList(result));*!/
-            this.eventBind();
-        });*/
-
-
         this.eventBind();
-        $("#pagination").addClass("hidden");
+
+        this.cashing.$pagination.addClass("hidden");
+
+        if(sessionStorage.getItem("search")!=null)
+        {
+            this.cashing.$pagination.removeClass("hidden");
+            console.log()
+            let search = JSON.parse(sessionStorage.getItem("search"));
+            this.foodPageList(search);
 
 
+        }
         this.modalEvent();
+        this.wishListEvent();
+
+        this.clearEvent();
     }
     cashing ={
         $search :$("input[name=search]"),
-        $start :  $("#start")
+        $start :  $("#start"),
+        $pagination : $("#pagination")
     }
     //위시 리스트 클릭시 모달창 팝업
-    modalEvent(){
-        $('#modal').on('click',(e)=>{
-            console.log('위시리스트')
-            this.modalshow($(e.currentTarget).data());
-        })
+    wishListEvent(){
+        console.log("");
     }
 
-
-
-    modalshow(key){
-        let md = require("../../../../templates/wishListModal.html")
-        let call = {'key' : $('#wsModal').val()};
-
-        axios.post('/data/wish', call).then((result)=>{
-            console.log(result)
-
-            $('.wishList').append(md(result));
-            $('.wishList').removeClass('hidden');
-        })
-    }
-
-
-
-    eventModal()
+    clearEvent()
     {
-        /*//모달 x
-        $(".btn_cls").on("click",(e)=>{
-            $(".normal_pop_wrap").addClass("hidden")
-        });
-
-        //모달 최근본 이미지 클릭시 이벤트
-        $(".slct_food").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_want").removeClass("active");
-                $(".pop_region_content.region_content_kr").removeClass("hidden");
-
-            }
-        });
-        //모달 가고싶은곳
-        $(".slct_want").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_food").removeClass("active");
-                $(".pop_region_content.region_content_kr").addClass("hidden");
-            }
-        });
-*/
-
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
+        })
     }
+
+
     pageEvnet()
     {
         $(".page-item.x").on("click",(e)=>{
             $("#pagination").removeClass("hidden");
             let pageNum = $(e.currentTarget).text();
+            if(sessionStorage.getItem("search")!=null)
+            {
+                let s = JSON.parse(sessionStorage.getItem("search"));
+                this.searchKeyword = s["search"];
+
+            }
             let search = {"search":this.searchKeyword, "pageNum":pageNum};
-           this.foodPageList(search);
+
+            sessionStorage.setItem("search",JSON.stringify(search))
+
+            this.foodPageList(search);
+
 
         });
     }
     //지도 foodlist 와 page 처리하는 이벤트
-    foodPageList(search){
+
+
+
+
+    foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
-        axios.post("data/searchAll",search).then((result)=>{
+        axios.post("data/searchAll", search).then((result) => {
+            console.log(search)
+
             //지도처리
             let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
@@ -134,14 +93,15 @@ export class mango{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data,(e)=>{
-                let latitude  = e.latitude;
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
-                let url = "url이 필요해요";
+                let img1 = e.img1;
+                let url = e.url;
 
 
                 var marker = new naver.maps.Marker({
@@ -150,11 +110,11 @@ export class mango{
                 });
                 var contentString = [
                     '<div class="iw_inner">',
-                    '   <h3>'+name+'</h3>',
-                    '   <p>'+mainmenu+'<br>',
-                    '       <img src="https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/179982_1490328588168726.jpg?fit=around|362:362&crop=362:362;*,*&output-format=jpg&output-quality=80" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       '+roadname+'<br>',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">'+url+'/</a>',
+                    '   <h3>' + name + '</h3>',
+                    '   <p>' + mainmenu + '<br>',
+                    '       <img src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       ' + roadname + '<br>',
+                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
@@ -163,7 +123,7 @@ export class mango{
                     content: contentString
                 });
 
-                naver.maps.Event.addListener(marker, "click", function(e) {
+                naver.maps.Event.addListener(marker, "click", function (e) {
                     if (infowindow.getMap()) {
                         infowindow.close();
                     } else {
@@ -175,53 +135,65 @@ export class mango{
             });
 
             //페이징처리
-            if(!(result.data.page==null))
-            {
+            if (!(result.data.page == null)) {
                 let pageMaker = result.data.page
                 let startPage = pageMaker.startPage
-                let endPage =pageMaker.endPage
+                let endPage = pageMaker.endPage
                 let prev = pageMaker.prev;
                 let next = pageMaker.next;
-                console.log("엔드페이지는 ",endPage)
-                let paging =''
-                if(prev){
-                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                let paging = ''
+                if (prev) {
+                    paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
 
-                for ( var i = startPage;i<=endPage;i++)
-                {
-                    let page=' <li class="page-item x"><a class="page-link"  >'+i+'</a></li>';
-                    paging= paging+page
+                for (let i = startPage; i <= endPage; i++) {
+                    let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
+                    paging = paging + page
                 }
-                if(next)
-                {
-                    paging = paging+ '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                if (next) {
+                    paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
                 }
 
                 console.log(result)
                 $(".pagination.justify-content-center").empty().append(paging)
                 this.pageEvnet();
             }
+
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
         });
     }
+    //위시리스트 클릭 후 초기화
+    modalEvent(){
+        $('#modal').on('click',()=>{
+            console.log('위시리스트')
+
+            $(".btn.btn-primary.reset").on('click',(e)=>{
+                axios.post("/clearpost", {}).then((result)=> {
+                    $(".modal-body.dong").empty();
+                });
+            });
+        })
+
+    }
+
+
+
 
     eventBind(){
         $("#search").on("click",(e)=>{
-
+            $("#pagination").removeClass("hidden");
             this.searchKeyword = this.cashing.$search.val();
             if(!(this.searchKeyword ===""))
             {
                 let search = {"search": this.searchKeyword, "pageNum" : 1}
+                sessionStorage.setItem("search",JSON.stringify(search))
+
                 this.foodPageList(search);
             }
         });
 
-        $("#modal").on("click",(e)=>{
-            $(".normal_pop_wrap").removeClass("hidden")
-            this.modalShow();
-        });
+
         //한식 ,중식, 일식 눌렀을때 이벤트
         $(".foodType").on("click",(e)=>{
             $(".py-5.map").removeClass("hidden");
@@ -229,6 +201,7 @@ export class mango{
             let search = {"search":$(e.currentTarget).find('.fw-bolder').text(),"pageNum":1};
             this.searchKeyword =$(e.currentTarget).find('.fw-bolder').text();
 
+            sessionStorage.setItem("search",JSON.stringify(search))
             if(!($(e.currentTarget).find('.fw-bolder').text()===""))
             {
                 this.foodPageList(search);
@@ -236,6 +209,8 @@ export class mango{
         });
 
     }
+
+
 }
 
 

@@ -38,6 +38,22 @@ public interface Test {
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
 
+	int totalCount(Criteria criteria);
+
+	MangoVO getMangoVO(String name);
+
+	void insertWish(WishListVO vo);
+
+	List<WishListVO> selectWish(String useremail);
+	List<Mango2VO> searchAll(String search);
+
+	@Select("select userId from table_join where userEmail=#{userEmail} and userName=#{userName}")
+	CommonMemberVO findMemberId(@Param("userEmail") String userEmail,@Param("userName") String userName);
+
+	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
+	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
+
+    void viewCount(String name);
 	void saveReview(ReviewDTO reviewDTO);
 //	List<ImgFileDTO> getImeges(@Param("reviewId") String reviewId);
 //	void saveFile(
