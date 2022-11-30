@@ -1,5 +1,5 @@
 "use strict";
-import {axios} from "../../vendors/axios.min";
+import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
@@ -173,11 +173,13 @@ export class detailPage{
     modalEvent(){
         $('#modal').on('click',(e)=>{
             console.log('위시리스트')
-            this.modalshow();
+            $('.wish-list').empty();
+            this.wishListShowEvent();
+            this.modalShow();
         })
     }
 
-    modalshow(){
+    modalShow(){
         $(".btn.btn-primary.reset").on('click',(e)=>{
             axios.post("/clearpost", {}).then(()=> {
 
@@ -243,8 +245,8 @@ export class detailPage{
     }
 
 
-    favoriteStore(list){
-        $('.favoriteStore').on("click",(e)=>{
+    favoriteStore(){
+        $('.favoriteStore').on("click",()=>{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
             let src = $(".card-img-top>.wishimg").attr("src");
@@ -265,27 +267,49 @@ export class detailPage{
                 console.log(result.data);
             })
 
-            axios.post("data/wishSelect", {}).then((result)=>{
-                console.log(result);
-
-                let data = result.data;
-                _.forEach(data,(e)=>{
-                    let mainimg = e.mainimg;
-                    let placename = e.placename;
-                    let roadname = e.roadname;
-                    console.log(mainimg);
-                    console.log(placename);
-
-                    var html = [
-                        '<li>'+placename+'</li>',
-                        '<li>'+roadname+'</li>',
-                        '<img style="width: 80px;height: 80px" src='+mainimg+'>'
-                    ].join('');
-                    $('.wish-list').append(html);
-                });
-            })
         })
     }
+    //위시리스트 띄워주는 이벤트
+    wishListShowEvent(){
+        axios.post("data/wishSelect", {}).then((result)=>{
+            console.log(result);
+
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let mainimg = e.mainimg;
+                let placename = e.placename;
+                let roadname = e.roadname;
+                console.log(mainimg);
+                console.log(placename);
+
+                var html = [
+                    '<form class="wishForm">',
+                        '<li class="placename">'+placename+'</li>',
+                        '<li>'+roadname+'</li>',
+                        '<img style="width: 80px;height: 80px" src='+mainimg+'>',
+                        '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '</form>'
+                ].join('');
+                $('.wish-list').append(html);
+
+            });
+            this.wishListDeleteOne();
+        })
+
+    }
+    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
+    wishListDeleteOne(){
+        $('.deleteWish').on("click",(e)=>{
+                let placeName = $(e.currentTarget).prev().prev().prev().text();
+                console.log(placeName);
+
+                axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
+                    $(e.currentTarget).parent($('.wishForm')).remove();
+                   console.log(result);
+                })
+        })
+    }
+
 
 
 }

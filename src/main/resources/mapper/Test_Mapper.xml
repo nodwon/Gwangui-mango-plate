@@ -63,17 +63,23 @@
     </insert>
 
     <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
-        insert ignore into wishList_tbl(useremail, placename, roadname, mainimg) values
-        (#{useremail},#{placename},#{roadname},#{mainimg})
+        insert into wishList_tbl(useremail, placename, roadname, mainimg)
+        select #{useremail},#{placename},#{roadname},#{mainimg}
+        from dual where not exists (select useremail, placename from wishList_tbl where useremail = #{useremail} and placename = #{placename})
     </insert>
 
     <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO">
         select * from wishList_tbl where useremail=#{useremail}
     </select>
 
+    <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
+        delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
+    </delete>
+
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
+
 
 
 </mapper>

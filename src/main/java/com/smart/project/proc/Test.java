@@ -45,6 +45,8 @@ public interface Test {
 	void insertWish(WishListVO vo);
 
 	List<WishListVO> selectWish(String useremail);
+
+	void wishDelete(WishListVO vo);
 	List<Mango2VO> searchAll(String search);
 
 	@Select("select userId from table_join where userEmail=#{userEmail} and userName=#{userName}")
