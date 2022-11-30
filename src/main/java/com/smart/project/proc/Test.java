@@ -43,4 +43,6 @@ public interface Test {
 	MangoVO getMangoVO(String name);
 
 	void insertWish(WishListVO vo);
+
+	List<WishListVO> selectWish(String useremail);
 }

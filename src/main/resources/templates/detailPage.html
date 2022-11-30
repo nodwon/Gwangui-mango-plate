@@ -52,9 +52,8 @@
                     <div class="modal-body wish-body hidden">
                         <div class="modal-body wish">
                             <ul>
-                                <a>
-                                    <li>123</li>
-                                    <li>123</li>
+                                <a class="wish-list">
+
                                 </a>
                             </ul>
                         </div>
@@ -90,7 +89,7 @@
                     <!-- 음식 이미지 -->
 
                     <div class="card-img-top grid-image my-0" >
-                        <img alt=""  th:src="${mango.getImg1()}" />
+                        <img class="wishimg" alt=""  th:src="${mango.getImg1()}" />
                         <img alt=""  th:src="${mango.getImg2()}" />
                         <img th:if="${not #strings.isEmpty(mango.getImg3())}" alt="" th:src="${mango.getImg3()}" />
 

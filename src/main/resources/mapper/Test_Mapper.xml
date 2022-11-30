@@ -23,15 +23,15 @@
 
 
     <select id="selectMango2" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
 
     <select id="selectMango2All" resultType="com.smart.project.web.home.vo.MangoVO">
-        SELECT * FROM foodlist;
+        SELECT * FROM foodlist
     </select>
 
     <select id="selectName" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where  name= #{name};
+        SELECT * FROM foodlist where  name= #{name}
     </select>
 
 <!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
@@ -47,11 +47,11 @@
     </select>
 
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
-        SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%');
+        SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
 
     <select id="getMangoVO" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodlist where name = #{name};
+        SELECT * FROM foodlist where name = #{name}
     </select>
 
     <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
@@ -59,5 +59,8 @@
         (#{useremail},#{placename},#{roadname})
     </insert>
 
+    <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO" parameterType="java.lang.String">
+        select useremail, placename, roadname from wishList_tbl where useremail=#{useremail}
+    </select>
 
 </mapper>

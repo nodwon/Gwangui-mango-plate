@@ -85,8 +85,6 @@ export class detailPage{
     }
 
     modalshow(){
-
-
         $(".btn.btn-primary.reset").on('click',(e)=>{
             axios.post("/clearpost", {}).then(()=> {
 
@@ -144,11 +142,11 @@ export class detailPage{
 
     }
 
-    favoriteStore(){
+    favoriteStore(list){
         $('.favoriteStore').on("click",(e)=>{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
-            let src = $(".card-img-top>img").attr("src");
+            let src = $(".card-img-top>.wishimg").attr("src");
             console.log(name);
             console.log(roadName);
             console.log(src);
@@ -165,25 +163,25 @@ export class detailPage{
                 console.log(result.data);
             })
 
+            axios.post("data/wishSelect", {}).then((result)=>{
+                $('.wish-list').append(result);
+                console.log(result.data);
 
-            /*
-            axios({
-                method : "post",
-                url : "wishst",
-                params : object
 
-            }).then((response)=>{
-                location.href ="mango/wishListModal";
+                let data = result.data;
+                _.forEach(data,(e)=>{
 
-                $(".wish_middle_list").append(response.data);
-                location.href="/mango/wishListModal?name="+name+"&roadName="+roadName+"&src="+src;
-                location.href="redirect:/detailPage";
+                    let placename = e.placename;
+                    let roadname = e.roadname;
+
+                    var html = [
+                        '<li>'+placename+'</li>',
+                        '<li>'+roadname+'</li>'
+                    ].join('');
+                    $('.wish-list').append(html);
+                });
+
             })
-
-            console.log("선택된 가게 이름 :" ,name);
-            console.log("선택된 가게 도로명 : ",roadName);
-            console.log("선택된 가게 사진 : ",src);
-            location.href="wishListModal?name="+name+"&roadName="+roadName+"&src="+src;*/
         })
     }
 

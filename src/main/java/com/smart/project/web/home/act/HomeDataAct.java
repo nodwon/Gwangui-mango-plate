@@ -18,15 +18,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 public class HomeDataAct {
-
-/*	final private
-	CommonCodeComponent commonCodeComponent;
-
-	final private LocCodeComponent locCodeComponent;*/
 	final private Test test;
-
-
-
 
 
 	@PostMapping("/data/mango2All")
@@ -93,10 +85,20 @@ public class HomeDataAct {
 		log.error("세션에서 가져온 roadname => {}",roadname);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
-		if(!(vo.getUseremail().equals(""))) {
+		if(!(vo.getUseremail().equals("")) && vo.getUseremail()!=null) {
+			test.insertWish(vo);
+		}else {
+			log.error("로그인 되지 않음");
 		}
-		log.error("name => {}",vo);
-		test.insertWish(vo);
+		return data;
+	}
+	//위시리스트에 DB저장된 값 출력
+	@RequestMapping("/data/wishSelect")
+	public List<WishListVO> wishSelect(HttpServletRequest request){
+		String useremail = (String) request.getSession().getAttribute("email");
+		/*if(!(useremail.equals("")) && useremail!=null) {*/
+			List<WishListVO> data = test.selectWish(useremail);
+		/*}*/
 		return data;
 	}
 
