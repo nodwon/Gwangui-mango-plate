@@ -55,12 +55,12 @@
     </select>
 
     <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
-        insert ignore into wishList_tbl(useremail, placename, roadname) values
-        (#{useremail},#{placename},#{roadname})
+        insert ignore into wishList_tbl(useremail, placename, roadname, mainimg) values
+        (#{useremail},#{placename},#{roadname},#{mainimg})
     </insert>
 
-    <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO" parameterType="java.lang.String">
-        select useremail, placename, roadname from wishList_tbl where useremail=#{useremail}
+    <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO">
+        select * from wishList_tbl where useremail=#{useremail}
     </select>
 
 </mapper>

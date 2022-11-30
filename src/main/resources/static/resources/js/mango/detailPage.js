@@ -147,12 +147,13 @@ export class detailPage{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
             let src = $(".card-img-top>.wishimg").attr("src");
-            console.log(name);
-            console.log(roadName);
-            console.log(src);
+            // console.log(name);
+            // console.log(roadName);
+            // console.log(src);
             let Object = {
                 "placename" : name,
-                "roadname" : roadName
+                "roadname" : roadName,
+                "mainimg" : src
             }
             axios({
                 method:"post",
@@ -164,27 +165,26 @@ export class detailPage{
             })
 
             axios.post("data/wishSelect", {}).then((result)=>{
-                $('.wish-list').append(result);
-                console.log(result.data);
-
+                console.log(result);
 
                 let data = result.data;
                 _.forEach(data,(e)=>{
-
+                    let mainimg = e.mainimg;
                     let placename = e.placename;
                     let roadname = e.roadname;
+                    console.log(mainimg);
+                    console.log(placename);
 
                     var html = [
                         '<li>'+placename+'</li>',
-                        '<li>'+roadname+'</li>'
+                        '<li>'+roadname+'</li>',
+                        '<img src='+mainimg+'>'
                     ].join('');
                     $('.wish-list').append(html);
                 });
-
             })
         })
     }
-
 }
 
 

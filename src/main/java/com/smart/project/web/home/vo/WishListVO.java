@@ -7,4 +7,5 @@ public class WishListVO {
     private String useremail;
     private String placename;
     private String roadname;
+    private String mainimg;
 }
