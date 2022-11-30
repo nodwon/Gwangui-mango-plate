@@ -75,6 +75,16 @@ export class detailPage{
 
 
         this.DetailEvent();
+        this.clearEvent();
+
+    }
+
+    clearEvent()
+    {
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
+        })
     }
 
     modalEvent(){
