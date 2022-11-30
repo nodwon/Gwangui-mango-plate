@@ -109,6 +109,7 @@ public class HomePageAct {
         else {
             System.out.println("아이디 찾기 실패");
             out.println("<script>alert('가입된 아이디가 없습니다');</script>");
+
         }
         return "Member/login/password";
     }
@@ -132,7 +133,7 @@ public class HomePageAct {
         }
         else {
             System.out.println("비밀번호 찾기 실패");
-            out.println("<script>alert('가입된 비밀번호가 없습니다.');</script>");
+            out.println("<script>alert('가입된 비밀번호가 없습니다');</script>");
         }
         return "Member/login/password";
     }

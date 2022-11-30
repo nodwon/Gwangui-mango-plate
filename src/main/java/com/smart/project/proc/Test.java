@@ -3,10 +3,7 @@ package com.smart.project.proc;
 import com.smart.project.annotation.Master;
 
 //import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.CommonMemberVO;
-import com.smart.project.web.home.vo.Criteria;
-import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.MangoVO;
+import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -51,4 +48,6 @@ public interface Test {
 
 	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
+
+    void viewCount(String name);
 }

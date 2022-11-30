@@ -13,7 +13,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/detailPageStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <style>
 
     </style>
@@ -97,6 +97,7 @@
                             <th class="tg-f2a8" colspan="2">
                                 <span class="name" th:text="${modalVO.getName()}"></span>
                                   <span style="color: orange" th:text="${#numbers.formatDecimal(mango.getReview(),1,1)}"></span>
+                                <i class="bi bi-eye"></i><span class="viewCount" th:text="${mango.getViewCount()}"></span>
                             </th>
 
 
