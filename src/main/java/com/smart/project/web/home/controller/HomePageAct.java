@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -49,11 +50,6 @@ public class HomePageAct {
         log.info(vo.toString());
         return "redirect:/mango";
     }
-//    @PostMapping("/saveReview")
-//    public void saveReview(ReviewDTO reviewDTO){
-//        test.saveReview(reviewDTO);
-//    }
-
     //카카오 로그인 데이터 저장111
     @RequestMapping("/kakaoJoin")
     public String kakaoJoin(@ModelAttribute KakaoMemberVO vo, HttpSession session) {
@@ -73,6 +69,13 @@ public class HomePageAct {
         session.invalidate();
         return "redirect:/mango";
     }
+
+    @PostMapping("/saveReview")
+    public void saveReview(ReviewDTO reviewDTO){
+        String id = UUID.randomUUID().toString();
+        test.saveReview(reviewDTO);
+    }
+
 
 
 /*    @RequestMapping("/data/select")//해외

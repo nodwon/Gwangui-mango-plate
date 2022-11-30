@@ -7,6 +7,7 @@ $(()=>{
 })
 
 export class detailPage{
+
     constructor() {
         window.onload = function setTemplate() {
             document.getElementById('allComments').innerHTML = localStorage.getItem('template');
@@ -14,13 +15,14 @@ export class detailPage{
 
         const commentContainer = document.getElementById('allComments');
         document.getElementById('addComments').addEventListener('click', function (ev) {
+            //commentText를 DB에 넣은 다음에
             addComment(ev);
         });
 
         function addComment(ev) {
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
-            const likeButton = document.createElement('button');
+            const likeButton = document.createElement('button'); //버튼 만들기
             likeButton.innerHTML = 'Like';
             likeButton.className = 'likeComment';
             const deleteButton = document.createElement('button');
@@ -30,14 +32,14 @@ export class detailPage{
                 const wrapDiv = document.createElement('li');
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
-                if(commentText === null){
-                    alert('내용을 입력해주세요');
-                }else {
-                    document.getElementById('comment').value = '';
+                document.getElementById('comment').value = '';
+                saveReview(commentText);
+                if(saveReview(commentText)===true) {
                     textBox.innerHTML = commentText;
-
                     wrapDiv.append(textBox, likeButton, deleteButton);
                     commentContainer.appendChild(wrapDiv);
+                }else{
+                    return onn
                 }
             } else {
                 wrapDiv = ev.target.parentElement;
@@ -48,6 +50,19 @@ export class detailPage{
             }
             setOnLocalStorage();
         }
+        // function saveReview(){
+        //     process(this, async() =>{
+        //         await axios.post('/saveReview',{
+        //             id : this.reviewId;
+        //             title : this.title;
+        //             grade : this.grade;
+        //             commentText : this.review;
+        //
+        //         });
+        //         await ok(this, '')
+        //     })
+        //
+        // }
 
         function setOnLocalStorage() {
             localStorage.setItem('template', document.getElementById('allComments').innerHTML);

@@ -32,18 +32,15 @@
 
     </select>
 
-<!--    <select id="getReviewList" resultType="com.smart.project.web.home.vo.ReviewVO">-->
-<!--        SELECT * FROM  review_table-->
-<!--            where bno = #{bno}-->
-<!--        ORDER BY  rno DESC-->
-<!--    </select>-->
-<!--    <insert id="saveReview">-->
-<!--        insert into ReviewTable (id, title,review,grade, update_date)-->
-<!--        values (#{id},#{title},#{review}, #{grade} UTC_TIMESTAMP())on duplicate key-->
-
-<!--        update  id = #{id}, title = #{title}, review = #{review}, grade = #{grade}-->
-
-<!--    </insert>-->
+    <select id="getReviewList" resultType="com.smart.project.web.home.vo.ReviewDTO">
+        SELECT * FROM  review_table
+            where bno = #{bno}
+        ORDER BY  rno DESC
+    </select>
+    <insert id="saveReview">
+        insert into ReviewTable (id, title,review,grade, update_date)
+        values (#{id},#{title},#{review}, #{grade})
+    </insert>
 
 
 </mapper>

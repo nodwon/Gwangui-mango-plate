@@ -38,5 +38,14 @@ public interface Test {
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
 
-//	void saveReview(ReviewDTO reviewDTO);
+	void saveReview(ReviewDTO reviewDTO);
+//	List<ImgFileDTO> getImeges(@Param("reviewId") String reviewId);
+//	void saveFile(
+//			@Param("fileId") String fildId,
+//			@Param("reviewId") String reviewId,
+//			@Param("fileName") String fileName,
+//			@Param("fileSize") long fileSize,
+//			@Param("contentType") String contentType
+//	);
+	//void deleteFiles(@Param("fileIds") List<String> fileIds);
 }
