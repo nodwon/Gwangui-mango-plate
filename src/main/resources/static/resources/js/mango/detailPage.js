@@ -178,7 +178,7 @@ export class detailPage{
                     var html = [
                         '<li>'+placename+'</li>',
                         '<li>'+roadname+'</li>',
-                        '<img src='+mainimg+'>'
+                        '<img style="width: 80px;height: 80px" src='+mainimg+'>'
                     ].join('');
                     $('.wish-list').append(html);
                 });
