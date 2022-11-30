@@ -73,12 +73,7 @@ public class HomeAct {
 		model.addAttribute("name", modal.getName());
 		model.addAttribute("roadName", modal.getRoadName());
 		model.addAttribute("src", str.toString());
-
-		/*model.addAttribute("src", modal.getSrc());*/
-		log.error("주소=>{}",str.toString());
 		session.setAttribute("list", duplicateData);
-//		log.error("가져온 세션 이메일 => {}", loginEmail);
-		log.error("중복결과제거 => {}", duplicateData);
 		String name = modal.getName();
 		MangoVO mangoVO = test.getMangoVO(name);
 		model.addAttribute("mango",mangoVO);

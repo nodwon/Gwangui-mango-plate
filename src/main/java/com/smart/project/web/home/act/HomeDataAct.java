@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Struct;
 import java.util.*;
 
 @Slf4j
@@ -100,11 +101,28 @@ public class HomeDataAct {
 	//위시리스트에 DB저장된 값 출력
 	@RequestMapping("/data/wishSelect")
 	public List<WishListVO> wishSelect(HttpServletRequest request){
-		String useremail = (String) request.getSession().getAttribute("email");
-		/*if(!(useremail.equals("")) && useremail!=null) {*/
+		String useremail = (String)request.getSession().getAttribute("email");
 		List<WishListVO> data = test.selectWish(useremail);
-		/*}*/
 		log.error("가져온 data => {}",data);
+		return data;
+	}
+	//위시리스트에 선택한 리스트 삭제
+	@RequestMapping("data/wishDelete")
+	public WishListVO wishDelete(@RequestBody Map param, HttpServletRequest request){
+		WishListVO vo = new WishListVO();
+		String useremail = (String)request.getSession().getAttribute("email");
+		String placename = (String)param.get("placeName");
+		log.error("가져온 이메일 => {}",useremail);
+		log.error("가져온 장소 => {}",placename);
+		vo.setUseremail(useremail);
+		vo.setPlacename(placename);
+
+		test.wishDelete(vo);
+
+		WishListVO data = vo;
+
+		log.error("지운 data => {}",data);
+
 		return data;
 	}
 
