@@ -53,15 +53,7 @@ export class mango{
         console.log("");
     }
 
-    modalshow(){
-        let md = require("../../../../templates/wishListModal.html")
-       /* let call = {'key' : $('#wsModal').val()};*/
-        axios.post('/data/wish', {}).then((result)=>{
-            console.log(result)
-            $('.wishList').append(md(result));
-            $('.wishList').removeClass('hidden');
-        })
-    }
+
 
     pageEvnet()
     {
@@ -157,28 +149,19 @@ export class mango{
             this.cashing.$start.append(this.foodList(result));
         });
     }
-    //위시 리스트 클릭시 모달창 팝업
+    //위시리스트 클릭 후 초기화
     modalEvent(){
         $('#modal').on('click',()=>{
             console.log('위시리스트')
 
             $(".btn.btn-primary.reset").on('click',(e)=>{
                 axios.post("/clearpost", {}).then((result)=> {
-
                     $(".modal-body.dong").empty();
-
                 });
             });
-
-            // this.modalshow();
         })
-        // const myModal = document.getElementById('myModal')
-        // const myInput = document.getElementById('myInput')
-        //
-        // myModal.addEventListener('shown.bs.modal', () => {
-        //     myInput.focus()
-        // })
     }
+
 
 
 

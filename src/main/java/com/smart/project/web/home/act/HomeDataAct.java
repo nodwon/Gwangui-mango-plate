@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -81,11 +82,21 @@ public class HomeDataAct {
 		List<MangoVO> data = test.selectName(name);
 		return data;
 	}
+	//위시리스트 값 가져와서 저장하기
 	@RequestMapping("/wishStore")
-	public ModalVO getData(@ModelAttribute ModalVO vo, Model model, HttpSession session){
-
-		ModalVO data = vo;
+	public WishListVO getData(@ModelAttribute WishListVO vo, HttpServletRequest request){
+		String useremail = (String) request.getSession().getAttribute("email");
+		String placename = vo.getPlacename();
+		String roadname = vo.getRoadname();
+		log.error("세션에서 가져온 email => {}",useremail);
+		log.error("세션에서 가져온 placename => {}",placename);
+		log.error("세션에서 가져온 roadname => {}",roadname);
+		vo.setUseremail(useremail);
+		WishListVO data = vo;
+		if(!(vo.getUseremail().equals(""))) {
+		}
 		log.error("name => {}",vo);
+		test.insertWish(vo);
 		return data;
 	}
 
@@ -97,11 +108,8 @@ public class HomeDataAct {
 
 		return idCount;
 	}
-	@PostMapping("/data/wish")
-	public Map<String, Object> getwish(@RequestBody Map param){
-		Map<String, Object> data = new HashMap<>();
-		return data;
-	}
+
+
 
 
 }

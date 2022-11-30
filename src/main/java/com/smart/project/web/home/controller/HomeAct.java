@@ -34,8 +34,6 @@ public class HomeAct {
 	public String home(Model model, Criteria cri, HttpServletRequest request) {
 	 List<MangoVO> list = test.searchAll(cri) ;
 		model.addAttribute("list",list);
-
-
 		return "mango";
 	}
 	@RequestMapping("/foodTypeListPage")

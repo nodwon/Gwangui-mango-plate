@@ -54,5 +54,10 @@
         SELECT * FROM foodlist where name = #{name};
     </select>
 
+    <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
+        insert ignore into wishList_tbl(useremail, placename, roadname) values
+        (#{useremail},#{placename},#{roadname})
+    </insert>
+
 
 </mapper>

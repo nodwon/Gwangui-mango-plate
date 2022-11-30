@@ -8,7 +8,7 @@ export class detailPage{
     constructor() {
 
         this.modalEvent();
-
+        this.wishListEvent();
         this.favoriteStore();
         /*$("#Nav").append(this.head);*/
 
@@ -88,13 +88,23 @@ export class detailPage{
 
 
         $(".btn.btn-primary.reset").on('click',(e)=>{
-            axios.post("/clearpost", {}).then((result)=> {
+            axios.post("/clearpost", {}).then(()=> {
 
-                $(".modal-body.dong").empty();
-                console.log(result.data);
+                $(".current").empty();
             });
         });
 
+    }
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
+        })
     }
 
     DetailEvent(){
@@ -143,16 +153,15 @@ export class detailPage{
             console.log(roadName);
             console.log(src);
             let Object = {
-                "name" : name,
-                "roadName" : roadName,
-                "src" : src
+                "placename" : name,
+                "roadname" : roadName
             }
-
             axios({
                 method:"post",
                 url:'/wishStore',
                 params : Object
             }).then((result)=>{
+                console.log(Object);
                 console.log(result.data);
             })
 
