@@ -178,10 +178,12 @@ export class detailPage{
                     var html = [
                         '<li>'+placename+'</li>',
                         '<li>'+roadname+'</li>',
-                        '<img style="width: 80px;height: 80px" src='+mainimg+'>'
+                        '<img style="width: 80px;height: 80px" src='+mainimg+'>',
+                        '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>'
                     ].join('');
                     $('.wish-list').append(html);
                 });
+
             })
         })
     }
