@@ -56,6 +56,8 @@ export class detailPage{
                     '</div>'
                 ].join('');
 
+
+
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
                 });
