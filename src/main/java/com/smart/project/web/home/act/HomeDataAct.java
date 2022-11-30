@@ -3,9 +3,11 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
+import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +70,7 @@ public class HomeDataAct {
 	public List<MangoVO>getMapData(@RequestBody Map param){
 		String name = String.valueOf(param.get("name"));
 		log.error("클릭한 맛집  : {}",name);
+		test.viewCount(name);
 		List<MangoVO> data = test.selectName(name);
 		return data;
 	}
@@ -101,6 +104,27 @@ public class HomeDataAct {
 		log.error("가져온 data => {}",data);
 		return data;
 	}
+
+/*	@PostMapping("/data/select")//해외
+	public String userDB(@RequestBody modalVO param){
+
+
+		//String keyData = String.valueOf(param);  //우리가 post (key,object)
+		log.error("user 정보 확인 : {}", param);
+		//받은 MAP 데이터 {'KEY' : 값형태} 형태
+		log.error("user 정보 확인 : {}", param.getName());
+
+		//log.error("{}",isData);
+		List<modalVO> modalVO = new ArrayList<>();
+		modalVO.add(param);
+		log.error("{}",modalVO);
+
+
+		//add한 codeVOList를 데이터베이스에 넣기
+		//test.userInsert(modalVO);
+
+		return "index";
+	}*/
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){

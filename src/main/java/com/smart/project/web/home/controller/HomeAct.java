@@ -95,5 +95,10 @@ public class HomeAct {
 		return "Member/join/mJoin";
 	}
 
+	@RequestMapping("/findIdPw")
+	public String findIdPw() {
+		return "Member/login/password";
+	}
+
 
 }
