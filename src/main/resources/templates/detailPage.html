@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -23,8 +24,7 @@
 
 
 <div layout:fragment="content" >
-
-    <!--위시 리스트 모달-->
+    <!--리스트 모달-->
     <div class="wishList">
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
@@ -38,7 +38,7 @@
                     </div>
                     <!--최근본페이지모달-->
                     <div class="modal-body current-body">
-                        <div class="modal-body current">
+                        <div th:if="${session.list}!=null" class="modal-body current">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
                                 <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
                                     <li th:text="${list.name}"></li>
@@ -118,7 +118,7 @@
 
 
                             <th>
-                                <a><i class="favoriteStore fa-solid fa-star fa-2x me-2"></i></a>
+                                <a><i id="alertStart" class="favoriteStore fa-solid fa-star fa-2x me-2"></i></a>
                             </th>
                         </tr>
                         </thead>

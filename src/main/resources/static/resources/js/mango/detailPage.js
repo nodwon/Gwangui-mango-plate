@@ -105,7 +105,6 @@ export class detailPage{
                 $(".current").empty();
             });
         });
-
     }
     //위시리스트로 화면 전환
     wishListEvent(){
@@ -153,7 +152,6 @@ export class detailPage{
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
-
     }
 
     favoriteStore(){
@@ -166,7 +164,10 @@ export class detailPage{
             // console.log(src);
             let email = $('.email').text();
             if(email == null || email == ""){
-                alert("로그인하세요!");
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
             }else{
                 let Object = {
                     "placename" : name,
@@ -178,7 +179,6 @@ export class detailPage{
                     url:'/wishStore',
                     params : Object
                 }).then((result)=>{
-
                     console.log(Object);
                     console.log(result.data);
                 })
@@ -186,6 +186,7 @@ export class detailPage{
 
         })
     }
+
     //위시리스트 띄워주는 이벤트
     wishListShowEvent(){
         axios.post("data/wishSelect", {}).then((result)=>{
@@ -208,7 +209,6 @@ export class detailPage{
                     '</form>'
                 ].join('');
                 $('.wish-list').append(html);
-
             });
             this.wishListDeleteOne();
         })

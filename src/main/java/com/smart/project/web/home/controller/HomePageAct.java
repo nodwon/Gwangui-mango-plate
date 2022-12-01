@@ -1,6 +1,7 @@
 package com.smart.project.web.home.controller;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.act.HomeDataAct;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.MangoVO;
@@ -30,17 +31,18 @@ public class HomePageAct {
 
     final private Test test;
 
+    final private HomeDataAct homeDataAct;
+
     //일반 회원 로그인
     @PostMapping("/commonLogin")
-    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletResponse response){
+    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request){
         log.error("{}",vo);
         String userId = vo.getUserId();
         String userPw = vo.getUserPw();
         CommonMemberVO result  = test.selectOneMem(userId,userPw);
-        String userEmail = result.getUserEmail();
-        log.error("user=>{}",result );
-
         if(result!=null){
+            String userEmail = result.getUserEmail();
+            log.error("user111=>{}",userEmail );
             System.out.println("로그인 성공");
             //로그인시 쿠키 생성
             Cookie cookieId = new Cookie("email", userEmail);
@@ -48,11 +50,15 @@ public class HomePageAct {
             cookieId.setMaxAge(60*1);
             response.addCookie(cookieId);
             session.setAttribute("email",result.getUserEmail());
+            HttpServletRequest useremail = request;
+            useremail.getSession().getAttribute("email");
+            log.error("user222=>{}",useremail );
+            homeDataAct.wishSelect(useremail);
         }else{
             System.out.println("로그인 실패");
             return "Member/login/login";
         }
-        return "redirect:/mango";
+        return "redirect:/";
     }
 
     //가입
@@ -60,7 +66,7 @@ public class HomePageAct {
     public String createMember(CommonMemberVO vo) {
         test.insertMember(vo);
         log.info(vo.toString());
-        return "redirect:/mango";
+        return "redirect:/";
     }
     
     //카카오 로그인 데이터 저장
@@ -71,14 +77,13 @@ public class HomePageAct {
         Cookie cookieEmail = new Cookie("email", email);
         cookieEmail.setMaxAge(60*1);
         response.addCookie(cookieEmail);
-
         if(!(vo.getEmail().equals(""))){
             session.setAttribute("email",vo.getEmail());
             System.out.println(vo.getEmail());
         }
         test.kakaoJoin(vo);
         System.out.println(vo);
-        return "redirect:/mango";
+        return "redirect:/";
     }
     //로그아웃
     @RequestMapping("/logout")
@@ -86,7 +91,7 @@ public class HomePageAct {
         HttpSession session = request.getSession();
         session.invalidate();
         request.getSession(true);
-        return "redirect:/mango";
+        return "redirect:/";
     }
 
     @PostMapping("/FindId")

@@ -25,21 +25,19 @@ public class HomeAct {
 	ArrayList list = new ArrayList();
 
 	@RequestMapping("/clearpost")
-	public String clearpost(@RequestBody Map param ) {
+	public String clearpost(@RequestBody Map param, HttpSession session) {
 		list.clear();
+		session.removeAttribute("list");
 
 		return "mango";
 	}
 
 	@RequestMapping("/")
 	public String home(Model model, Criteria cri, HttpServletRequest request, HttpSession session) {
-
-		List<MangoVO> list = test.searchAll(cri) ;
-	/* if(session !=null){
-		 log.error("세션은 =>>> {}",session.getAttribute("pageNum"));
-		}*/
-		model.addAttribute("list",list);
-
+//		String email = (String) session.getAttribute("email");
+//		if(email!=null){
+//
+//		}
 		return "mango";
 	}
 	@RequestMapping("/foodTypeListPage")
@@ -54,10 +52,6 @@ public class HomeAct {
 	public String admin(){
 		return "admin/admin";
 	}
-	@RequestMapping("/mango")
-	public String main(){
-		return "mango";
-	}
 
 	@RequestMapping("/login")
 	public String login(){
@@ -69,23 +63,17 @@ public class HomeAct {
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
 		// 최근 클릭한 가게
-
 		StringBuffer str = new StringBuffer(modal.getSrc());
 		str.insert(str.indexOf(",")+1,"&src=");
 		modal.setSrc(str.toString());
+
 		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);
-		model.addAttribute("name", modal.getName());
-		model.addAttribute("roadName", modal.getRoadName());
-		model.addAttribute("src", str.toString());
-
 		session.setAttribute("list", duplicateData);
-
+		log.error("세션 => {}", session.getAttribute("list"));
 		String name = modal.getName();
 		MangoVO mangoVO = test.getMangoVO(name);
 		model.addAttribute("mango",mangoVO);
-
-
 
 		return"detailPage";
 	}

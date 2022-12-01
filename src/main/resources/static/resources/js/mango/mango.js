@@ -35,7 +35,7 @@ export class mango{
         }
         this.modalEvent();
         this.wishListEvent();
-
+        this.wishListEvent();
         this.clearEvent();
     }
     cashing ={
@@ -43,11 +43,6 @@ export class mango{
         $start :  $("#start"),
         $pagination : $("#pagination")
     }
-    //위시 리스트 클릭시 모달창 팝업
-    wishListEvent(){
-        console.log("");
-    }
-
     clearEvent()
     {
         $(".navbar-brand").on("click",(e)=>{
@@ -168,16 +163,73 @@ export class mango{
     }
     //위시리스트 클릭 후 초기화
     modalEvent(){
-        $('#modal').on('click',()=>{
+        $('#modal').on('click',(e)=>{
             console.log('위시리스트')
+            $('.wish-list').empty();
+            this.wishListShowEvent();
+            this.modalShow();
+        })
+    }
+    //위시리스트 띄워주는 이벤트
+    wishListShowEvent(){
+        axios.post("data/wishSelect", {}).then((result)=>{
+            console.log(result);
 
-            $(".btn.btn-primary.reset").on('click',(e)=>{
-                axios.post("/clearpost", {}).then((result)=> {
-                    $(".modal-body.dong").empty();
-                });
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let mainimg = e.mainimg;
+                let placename = e.placename;
+                let roadname = e.roadname;
+                console.log(mainimg);
+                console.log(placename);
+
+                var html = [
+                    '<form class="wishForm">',
+                    '<li class="placename">'+placename+'</li>',
+                    '<li>'+roadname+'</li>',
+                    '<img style="width: 80px;height: 80px" src='+mainimg+'>',
+                    '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '</form>'
+                ].join('');
+                $('.wish-list').append(html);
+
             });
+            this.wishListDeleteOne();
         })
 
+    }
+    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
+    wishListDeleteOne(){
+        $('.deleteWish').on("click",(e)=>{
+            let placeName = $(e.currentTarget).prev().prev().prev().text();
+            console.log(placeName);
+
+            axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
+                $(e.currentTarget).parent($('.wishForm')).remove();
+                console.log(result);
+            })
+        })
+    }
+
+    modalShow(){
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then(()=> {
+
+                $(".current").empty();
+            });
+        });
+    }
+
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
+        })
     }
 
 
