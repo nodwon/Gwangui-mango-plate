@@ -13,8 +13,6 @@
         <p>
         <h5 class="fw-bolder">
         <a class ="name b"href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">{{$value.name}}
-
-
         </a>
         <span style="color: orange" >{{$value.review}}</span>
       </h5>
@@ -23,17 +21,15 @@
         <p>
         <!-- Product price-->
         <a class = "roadName c" href="/detailPage?roadName={{$value.roadname}}&name={{$value.name}}&src={{$value.img1}}">{{$value.roadname}}</a>
-
       </div>
     </div>
     <!-- Product actions-->
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
       <div class="text-center">
-        <a class="favoriteStore btn btn-outline-dark mt-auto">View options</a>
+        <a class="favoriteStore btn btn-outline-dark mt-auto">위시리스트 담기</a>
       </div>
     </div>
     </p>
-
   </div>
 </div>
 {{/each}}
