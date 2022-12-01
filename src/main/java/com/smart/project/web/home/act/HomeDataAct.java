@@ -91,11 +91,7 @@ public class HomeDataAct {
 		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
-		if(!(vo.getUseremail().equals("")) && vo.getUseremail()!=null) {
 			test.insertWish(vo);
-		}else {
-			log.error("로그인 되지 않음");
-		}
 		return data;
 	}
 	//위시리스트에 DB저장된 값 출력

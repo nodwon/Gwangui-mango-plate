@@ -152,19 +152,25 @@ export class detailPage{
             // console.log(name);
             // console.log(roadName);
             // console.log(src);
-            let Object = {
-                "placename" : name,
-                "roadname" : roadName,
-                "mainimg" : src
+            let email = $('.email').text();
+            if(email == null || email == ""){
+                alert("로그인하세요!");
+            }else{
+                let Object = {
+                    "placename" : name,
+                    "roadname" : roadName,
+                    "mainimg" : src
+                }
+                axios({
+                    method:"post",
+                    url:'/wishStore',
+                    params : Object
+                }).then((result)=>{
+
+                    console.log(Object);
+                    console.log(result.data);
+                })
             }
-            axios({
-                method:"post",
-                url:'/wishStore',
-                params : Object
-            }).then((result)=>{
-                console.log(Object);
-                console.log(result.data);
-            })
 
         })
     }

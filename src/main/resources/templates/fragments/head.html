@@ -53,7 +53,7 @@
                             <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
-                                <p th:text="${session.email}"></p>
+                                <p class="email" th:text="${session.email}"></p>
                             </a>
                         </form>
 
