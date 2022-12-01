@@ -5548,6 +5548,9 @@ ul.wish_middle_list {
   padding: revert;
 
 }
+a.mid_modal {
+  width: 300px;
+}
 
 .modal-dialog-scrollable {
   height: calc(100% - 1rem);
@@ -5582,8 +5585,10 @@ ul.wish_middle_list {
 .wish_mid_name {
   color: #584647;
   float: right;
+  width: 200px;
   padding-top: 25px;
-  font-size: medium ;
+  padding-left: 35px;
+
 }
 
 .modal-backdrop {
