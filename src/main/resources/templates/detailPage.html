@@ -30,17 +30,22 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-3 " id="staticBackdropLabel" style="font-weight: bolder">최근 본 맛집</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="modal-body dong">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
-                                    <img class=modal_body_img style="width: 80px;height: 80px" th:src="${list.src}">
-                                    <div class=modal_body_name><p th:text="${list.name}"></p>
-                                        <p th:text="${list.roadName}"></p></div>
+                               <div style="width: 80%"> <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+
+                                   <img th:src="${list.src}" style="width: 100px;height: 100px">
+                                   <div class="wish_mid_name">
+                                      <b><span th:text="${list.name}"></span></b>
+                                   <br>
+                                    <span th:text="${list.roadName}"></span>
+                                   </div>
                                 </a>
+                                </div>
                             </ul>
                         </div>
                     </div>

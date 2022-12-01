@@ -5597,6 +5597,9 @@ textarea.form-control-lg {
   padding: 1rem;
 }
 
+
+
+
 .modal-footer {
   display: flex;
   flex-wrap: wrap;
@@ -11699,3 +11702,4 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
