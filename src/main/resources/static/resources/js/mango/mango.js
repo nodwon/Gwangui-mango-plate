@@ -35,8 +35,8 @@ export class mango{
         }
         this.modalEvent();
         this.wishListEvent();
-        this.wishListEvent();
         this.clearEvent();
+
     }
     cashing ={
         $search :$("input[name=search]"),
@@ -159,6 +159,7 @@ export class mango{
 
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
+            this.favoriteStore();
         });
     }
     //위시리스트 클릭 후 초기화
@@ -168,6 +169,40 @@ export class mango{
             $('.wish-list').empty();
             this.wishListShowEvent();
             this.modalShow();
+        })
+    }
+    //위시리스트 db에 저장하기
+    favoriteStore(){
+        $('.favoriteStore').on("click",(e)=>{
+            let name = $(e.currentTarget).parents('.h-100').children().find($('.b')).text();
+            let roadName = $(e.currentTarget).parents('.h-100').children().find($('.c')).text();
+            let src = $(e.currentTarget).parents('.h-100').children().find($('.mainimg')).attr("src");
+            console.log(name);
+            console.log(roadName);
+            console.log(src);
+            let email = $('.email').text();
+            console.log(email)
+            if(email == null || email == ""){
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
+            }else{
+                let Object = {
+                    "placename" : name,
+                    "roadname" : roadName,
+                    "mainimg" : src
+                }
+                axios({
+                    method:"post",
+                    url:'/wishStore',
+                    params : Object
+                }).then((result)=>{
+                    console.log(Object);
+                    console.log(result.data);
+                })
+            }
+
         })
     }
     //위시리스트 띄워주는 이벤트
@@ -225,10 +260,14 @@ export class mango{
         $('.wishlist-place').on("click",(e)=>{
             $('.current-body').addClass("hidden");
             $('.wish-body').removeClass("hidden");
+            $('.reset').hide();
         })
         $('.current-place').on("click",(e)=>{
             $('.wish-body').addClass("hidden");
             $('.current-body').removeClass("hidden");
+            if($('.reset').hide()){
+                $('.reset').show();
+            }
         })
     }
 

@@ -111,10 +111,14 @@ export class detailPage{
         $('.wishlist-place').on("click",(e)=>{
             $('.current-body').addClass("hidden");
             $('.wish-body').removeClass("hidden");
+            $('.reset').hide();
         })
         $('.current-place').on("click",(e)=>{
             $('.wish-body').addClass("hidden");
             $('.current-body').removeClass("hidden");
+            if($('.reset').hide()){
+                $('.reset').show();
+            }
         })
     }
 
@@ -153,7 +157,7 @@ export class detailPage{
             }
         });
     }
-
+    //위시리스트 db에 저장하기
     favoriteStore(){
         $('.favoriteStore').on("click",()=>{
             let name = $('.name').text();
