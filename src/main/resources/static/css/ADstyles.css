@@ -4453,9 +4453,14 @@ textarea.form-control-lg {
   overflow-y: visible;
 }
 
+
+
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  font-family: 'East Sea Dokdo', cursive;
+  font-size: xx-large;
 }
+
+
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
 }
