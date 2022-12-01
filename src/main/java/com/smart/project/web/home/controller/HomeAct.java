@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 
@@ -19,21 +22,24 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class HomeAct {
 	final private Test test;
-
 	ArrayList list = new ArrayList();
 
 	@RequestMapping("/clearpost")
-	public String clearpost(@RequestBody Map param) {
-
+	public String clearpost(@RequestBody Map param ) {
 		list.clear();
 
 		return "mango";
 	}
 
 	@RequestMapping("/")
-	public String home(Model model, Criteria cri, HttpServletRequest request) {
-	 List<MangoVO> list = test.searchAll(cri) ;
+	public String home(Model model, Criteria cri, HttpServletRequest request, HttpSession session) {
+
+		List<MangoVO> list = test.searchAll(cri) ;
+	/* if(session !=null){
+		 log.error("세션은 =>>> {}",session.getAttribute("pageNum"));
+		}*/
 		model.addAttribute("list",list);
+
 		return "mango";
 	}
 	@RequestMapping("/foodTypeListPage")
@@ -63,8 +69,7 @@ public class HomeAct {
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
 		// 최근 클릭한 가게
-		log.error("src 값 =>{}", modal.getSrc());
-		log.error("list 값 =>{}", list);
+
 		StringBuffer str = new StringBuffer(modal.getSrc());
 		str.insert(str.indexOf(",")+1,"&src=");
 		modal.setSrc(str.toString());
@@ -73,7 +78,9 @@ public class HomeAct {
 		model.addAttribute("name", modal.getName());
 		model.addAttribute("roadName", modal.getRoadName());
 		model.addAttribute("src", str.toString());
+
 		session.setAttribute("list", duplicateData);
+
 		String name = modal.getName();
 		MangoVO mangoVO = test.getMangoVO(name);
 		model.addAttribute("mango",mangoVO);

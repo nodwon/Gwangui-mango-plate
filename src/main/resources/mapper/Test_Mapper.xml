@@ -64,6 +64,7 @@
         select * from wishList_tbl where useremail=#{useremail}
     </select>
 
+
     <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
         delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
     </delete>

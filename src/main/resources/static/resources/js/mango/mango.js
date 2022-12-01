@@ -11,17 +11,8 @@ $(()=>{
 
 export class mango{
     constructor() {
-        /*       axios({
-                   method : "post",
-                   url : "/getHtml",
-
-               }).then((response)=>{
-                   /!*location.href ="test2";*!/
-
-                   $("#Nav").append(response.data);
 
 
-               })*/
 
         this.searchKeyword = "";
         this.foodList = require("@/mango/foodList.html");
@@ -29,30 +20,41 @@ export class mango{
         this.pageList = require("@/mango/pagingNumber.html");
 
 
-/*        axios.post("/data/head",{}).then((result)=>{
-            $("#Nav").append(result.data);
-
-        })*/
-
-
-
         this.eventBind();
-        $("#pagination").addClass("hidden");
+
+        this.cashing.$pagination.addClass("hidden");
+
+        if(sessionStorage.getItem("search")!=null)
+        {
+            this.cashing.$pagination.removeClass("hidden");
+            console.log()
+            let search = JSON.parse(sessionStorage.getItem("search"));
+            this.foodPageList(search);
 
 
+        }
         this.modalEvent();
         this.wishListEvent();
 
+        this.clearEvent();
     }
     cashing ={
         $search :$("input[name=search]"),
-        $start :  $("#start")
+        $start :  $("#start"),
+        $pagination : $("#pagination")
     }
     //위시 리스트 클릭시 모달창 팝업
     wishListEvent(){
         console.log("");
     }
 
+    clearEvent()
+    {
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
+        })
+    }
 
 
     pageEvnet()
@@ -60,15 +62,31 @@ export class mango{
         $(".page-item.x").on("click",(e)=>{
             $("#pagination").removeClass("hidden");
             let pageNum = $(e.currentTarget).text();
+            if(sessionStorage.getItem("search")!=null)
+            {
+                let s = JSON.parse(sessionStorage.getItem("search"));
+                this.searchKeyword = s["search"];
+
+            }
             let search = {"search":this.searchKeyword, "pageNum":pageNum};
-           this.foodPageList(search);
+
+            sessionStorage.setItem("search",JSON.stringify(search))
+
+            this.foodPageList(search);
+
 
         });
     }
     //지도 foodlist 와 page 처리하는 이벤트
+
+
+
+
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {
+            console.log(search)
+
             //지도처리
             let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
@@ -126,13 +144,12 @@ export class mango{
                 let endPage = pageMaker.endPage
                 let prev = pageMaker.prev;
                 let next = pageMaker.next;
-                console.log("엔드페이지는 ", endPage)
                 let paging = ''
                 if (prev) {
                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
 
-                for (var i = startPage; i <= endPage; i++) {
+                for (let i = startPage; i <= endPage; i++) {
                     let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
                     paging = paging + page
                 }
@@ -160,6 +177,7 @@ export class mango{
                 });
             });
         })
+
     }
 
 
@@ -172,6 +190,8 @@ export class mango{
             if(!(this.searchKeyword ===""))
             {
                 let search = {"search": this.searchKeyword, "pageNum" : 1}
+                sessionStorage.setItem("search",JSON.stringify(search))
+
                 this.foodPageList(search);
             }
         });
@@ -184,6 +204,7 @@ export class mango{
             let search = {"search":$(e.currentTarget).find('.fw-bolder').text(),"pageNum":1};
             this.searchKeyword =$(e.currentTarget).find('.fw-bolder').text();
 
+            sessionStorage.setItem("search",JSON.stringify(search))
             if(!($(e.currentTarget).find('.fw-bolder').text()===""))
             {
                 this.foodPageList(search);

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Struct;
 import java.util.*;
-
+@SessionAttributes("pageNum")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class HomeDataAct {
 	}
 	// 검색 입력 or 음식 메뉴 클릭 시 음식점 리스트 띄우기
 	@PostMapping("/data/searchAll")
-	public Map<String, Object> getSearchAll(@RequestBody Map param, HttpSession session, Criteria cri){
+	public Map<String, Object> getSearchAll(Model model ,@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
 		String search = "";
 		int pageNum = 1;
@@ -44,14 +44,12 @@ public class HomeDataAct {
 			search = String.valueOf(param.get("search"));
 		if(param.get("pageNum") != null )
 			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
-
+		model.addAttribute("pageNum",pageNum);
 		cri.setSearch(search); // 검색 창에 입력한 것
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
 		List<MangoVO> data = test.searchAll(cri);
 
-		log.error("데이터 사이즈 {}",data.size());
 		int totalCount = test.totalCount(cri);
-
 		if(!(totalCount==0))
 		{
 			PageMaker pageMaker = new PageMaker();
@@ -65,7 +63,6 @@ public class HomeDataAct {
 			result.put("page",null);
 		}
 
-		log.error("select 결과 list : {}",data);
 		result.put("food",data);
 		return result;
 	}

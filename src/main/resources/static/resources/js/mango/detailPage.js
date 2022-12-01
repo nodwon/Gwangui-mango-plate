@@ -56,6 +56,8 @@ export class detailPage{
                     '</div>'
                 ].join('');
 
+
+
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
                 });
@@ -75,6 +77,16 @@ export class detailPage{
 
 
         this.DetailEvent();
+        this.clearEvent();
+
+    }
+
+    clearEvent()
+    {
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
+        })
     }
 
     modalEvent(){
