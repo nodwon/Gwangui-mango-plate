@@ -10,7 +10,6 @@ export class Join
 {
 
 	constructor() {
-		console.log('join')
 		this.joinEvent();
 	}
 
@@ -78,6 +77,7 @@ export class Join
 			}
 		});
 		this.findEvent();
+		this.updateEvent();
 	}
 
 	findEvent() {
@@ -112,6 +112,29 @@ export class Join
 				$('.find_txt.error').hide();
 				$('.find_txt.error:eq(4)').show();
 				e.preventDefault();
+			}
+		});
+	}
+
+	updateEvent() {
+
+		// 비밀번호 변경하기 입력칸 미입력 시 제출 방지
+		$('.frm_up').on('submit', function (e) {
+			if($('#inputPw_up').val() !== $('#inputPwCk_up').val()) {
+				$('.ch_txt.error').hide();
+				$('.ch_txt.error:eq(0)').show();
+				e.preventDefault();
+			}
+		});
+
+		// 비밀번호 변경란 4 ~ 12자 영어,숫자만 입력 가능
+		$('#inputPw_up').on("keyup",(e)=>{
+			let pattern = FormatUtil.pattern('password');
+			if (!pattern.test($('#inputPw_up').val())) {
+				$('.ch_txt.error').hide();
+				$('.ch_txt.error:eq(1)').show();
+			} else {
+				$('.ch_txt.error').hide();
 			}
 		});
 	}

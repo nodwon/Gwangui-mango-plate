@@ -3,26 +3,19 @@ package com.smart.project.web.home.controller;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.MangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.smart.project.web.home.vo.ModalVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.util.resources.cldr.rof.CalendarData_rof_TZ;
-import sun.util.resources.cldr.rwk.CalendarData_rwk_TZ;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -30,18 +23,19 @@ import java.util.Map;
 public class HomePageAct {
 
     final private Test test;
+    final private BCryptPasswordEncoder encoder;
 
     //일반 회원 로그인
     @PostMapping("/commonLogin")
-    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletResponse response){
+    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         log.error("{}",vo);
         String userId = vo.getUserId();
-        String userPw = vo.getUserPw();
-        CommonMemberVO result  = test.selectOneMem(userId,userPw);
+        String userPw = request.getParameter("userPw");
+        CommonMemberVO result  = test.selectOneMem(userId);
         String userEmail = result.getUserEmail();
         log.error("user=>{}",result );
 
-        if(result!=null){
+        if(result!=null && encoder.matches(userPw, result.getUserPw())){
             System.out.println("로그인 성공");
             //로그인시 쿠키 생성
             Cookie cookieId = new Cookie("email", userEmail);
@@ -59,6 +53,9 @@ public class HomePageAct {
     //가입
     @PostMapping("/register")
     public String createMember(CommonMemberVO vo) {
+        String securityPw = encoder.encode(vo.getUserPw());
+        vo.setUserPw(securityPw);
+
         test.insertMember(vo);
         log.info(vo.toString());
         return "redirect:/mango";
@@ -115,7 +112,7 @@ public class HomePageAct {
     }
 
     @PostMapping("/FindPw")
-    public String FindPw(CommonMemberVO vo, HttpServletResponse response) throws Exception {
+    public String FindPw(CommonMemberVO vo, HttpServletResponse response,HttpSession session) throws Exception {
 
         response.setContentType("text/html; charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -124,18 +121,31 @@ public class HomePageAct {
         String userEmail = vo.getUserEmail();
         String userName = vo.getUserName();
         String userPhoneNum = vo.getUserPhoneNum();
-
         CommonMemberVO result = test.findMemberPw(userEmail, userName, userPhoneNum);
 
         if(result != null) {
             System.out.println("비밀번호 찾기 성공");
-            out.println("<script>alert('비밀번호는 "+result.getUserPw()+" 입니다');</script>");
+            session.setAttribute("userEmail",userEmail);
+            return "Member/login/updatePw";
         }
         else {
             System.out.println("비밀번호 찾기 실패");
             out.println("<script>alert('가입된 비밀번호가 없습니다');</script>");
+            return "Member/login/password";
         }
-        return "Member/login/password";
+    }
+
+    @PostMapping("/updatePw")
+    public String updatePw(CommonMemberVO vo, HttpSession session) {
+
+        String userEmail = (String) session.getAttribute("userEmail");
+        String userPw = vo.getUserPw();
+        System.out.println(userEmail);
+
+        test.updateMemberPw(userEmail, userPw);
+
+        return "Member/login/login";
+
     }
 
 

@@ -85,6 +85,10 @@ p {
   color: red;
 }
 
+.ch_txt.error {
+  color: red;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

@@ -6,6 +6,7 @@ import com.smart.project.annotation.Master;
 import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public interface Test {
     int idCount(String userId);
 
 	/*CommonMemberVO selectOneMem(CommonMemberVO vo);*/
-	@Select("select * from table_join where userID=#{userId} and userPw=#{userPw}")
-	CommonMemberVO selectOneMem(@Param("userId") String userId, @Param("userPw") String userPw);
+	@Select("select * from table_join where userID=#{userId}")
+	CommonMemberVO selectOneMem(@Param("userId") String userId);
 
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
@@ -50,4 +51,7 @@ public interface Test {
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
     void viewCount(String name);
+
+	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")
+	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
 }
