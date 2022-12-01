@@ -14,14 +14,6 @@
         select count(*) from table_join where userId = #{userId}
     </select>
 
-<!--    <insert id ="insertMangoJson" parameterType="java.util.List">
-        insert into bteam (id,name,address,menu,phone) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.name},#{item.address},#{item.menu},#{item.phone})
-        </foreach>
-    </insert>-->
-
-
     <select id="selectMango2" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
@@ -34,22 +26,13 @@
         SELECT * FROM foodlist where  name= #{name}
     </select>
 
-<!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%')
-            or foodtype like concat('%',#{search},'%');
-    </select>-->
-
-
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
         limit #{pageStart},#{perPageNum} ;
 
     </select>
 
-    <select id="getReviewList" resultType="com.smart.project.web.home.vo.ReviewDTO">
-        SELECT * FROM  review_table
-            where bno = #{bno}
-        ORDER BY  rno DESC
+
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
@@ -57,10 +40,6 @@
     <select id="getMangoVO" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodlist where name = #{name}
     </select>
-    <insert id="saveReview">
-        insert into ReviewTable (id, title,review,grade, update_date)
-        values (#{id},#{title},#{review}, #{grade})
-    </insert>
 
     <insert id="insertWish" parameterType="com.smart.project.web.home.vo.WishListVO">
         insert into wishList_tbl(useremail, placename, roadname, mainimg)
@@ -79,7 +58,45 @@
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
+    <insert id="insert">
+
+        insert into tbl_reply (bno, reply, replyer)
+        values (#{bno}, #{reply}, #{replyer})
+
+    </insert>
+
+    <select id="read" resultType="com.smart.project.web.home.vo.ReviewDTO">
+
+        select rno,bno,reply,replyer,replyDate,updateDate
+        from tbl_reply where rno = #{rno}
+
+    </select>
+
+    <select id="getListWithPaging"
+            resultType="com.smart.project.web.home.vo.ReviewDTO">
+        select /*+index(tbl_reply idx_reply)*/
+            rno, bno, reply, replyer, replyDate, updatedate
+        from tbl_reply
+        where bno = #{bno}
+            limit ${(cri.pageNum-1)*cri.amount}, #{cri.amount}
+    </select>
+
+    <select id="getCountByBno" resultType="com.smart.project.web.home.vo.ReviewDTO">
+        select count(rno) from tbl_reply where bno = #{bno}
+    </select>
 
 
+    <delete id="delete">
 
+        delete from tbl_reply where rno = #{rno}
+
+    </delete>
+
+    <update id="update">
+
+        update tbl_reply set reply = #{reply},updatedate =
+            now()
+        where rno = #{rno}
+
+    </update>
 </mapper>

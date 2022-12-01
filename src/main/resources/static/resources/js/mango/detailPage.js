@@ -3,10 +3,9 @@ import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
-
 })
 
-export class detailPage{
+export class detailPage {
 
     constructor() {
         window.onload = function setTemplate() {
@@ -15,14 +14,18 @@ export class detailPage{
 
         const commentContainer = document.getElementById('allComments');
         document.getElementById('addComments').addEventListener('click', function (ev) {
-            //commentText를 DB에 넣은 다음에
             addComment(ev);
+            ev.preventDefault();
+            review
         });
 
         function addComment(ev) {
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
             const likeButton = document.createElement('button'); //버튼 만들기
+            const updateButton = document.createElement('button') // 수정 버튼
+            updateButton.innerHTML = "수정";
+            updateButton.className = "updateComment"
             likeButton.innerHTML = 'Like';
             likeButton.className = 'likeComment';
             const deleteButton = document.createElement('button');
@@ -33,38 +36,25 @@ export class detailPage{
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
                 document.getElementById('comment').value = '';
-                saveReview(commentText);
-                if(saveReview(commentText)===true) {
-                    textBox.innerHTML = commentText;
-                    wrapDiv.append(textBox, likeButton, deleteButton);
-                    commentContainer.appendChild(wrapDiv);
-                }else{
-                    return onn
-                }
+                // saveReview(commentText);
+                // if(saveReview(commentText)===true) {
+                textBox.innerHTML = commentText;
+                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
+                commentContainer.appendChild(wrapDiv);
+                // }else{
+                //     return onn
+                // }
             } else {
                 wrapDiv = ev.target.parentElement;
                 commentText = ev.target.parentElement.firstElementChild.value;
                 textBox.innerHTML = commentText;
                 wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox, likeButton, deleteButton);
+                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
             }
             setOnLocalStorage();
         }
-        // function saveReview(){
-        //     process(this, async() =>{
-        //         await axios.post('/saveReview',{
-        //             id : this.reviewId;
-        //             title : this.title;
-        //             grade : this.grade;
-        //             commentText : this.review;
-        //
-        //         });
-        //         await ok(this, '')
-        //     })
-        //
-        // }
 
-        function setOnLocalStorage() {
+        function setOnLocalStorage() { // 모든 댓글
             localStorage.setItem('template', document.getElementById('allComments').innerHTML);
         }
 
@@ -83,24 +73,32 @@ export class detailPage{
                 e.target.parentElement.innerHTML = '';
                 setOnLocalStorage();
             } else if (hasClass(e.target, 'deleteComment')) {
+                $.ajax({
+                    method: "post",
+                    url: '/deleteReview',
+                    params: Object
+                }).then((result) => {
+                    console.log(Object);
+                    console.log(result.data);
+                })
                 e.target.parentElement.remove();
             }
         });
 
-
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
+        this.reviewEvent();
         /*$("#Nav").append(this.head);*/
 
 
         console.log("detailpage");
 
-        let name =$(".name").text();
-        let search = {"name":name}
+        let name = $(".name").text();
+        let search = {"name": name}
 
 
-        axios.post("data/map",search).then((result)=>{
+        axios.post("data/map", search).then((result) => {
             let data = result.data;   //data = List<locationVO>
 
             var mapOptions = {
@@ -110,8 +108,8 @@ export class detailPage{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data,(e)=>{
-                let latitude  = e.latitude;
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let foodtype = e.foodtype;
@@ -128,22 +126,21 @@ export class detailPage{
                 });
                 var contentString = [
                     '<div class="iw_inner">',
-                    '   <h3>'+name+'</h3>',
-                    '   <p>'+mainmenu+'<br>',
-                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       '+roadname+'<br>',
-                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
+                    '   <h3>' + name + '</h3>',
+                    '   <p>' + mainmenu + '<br>',
+                    '       <img src="' + img1 + '" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       ' + roadname + '<br>',
+                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
-
 
 
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
                 });
 
-                naver.maps.Event.addListener(marker, "click", function(e) {
+                naver.maps.Event.addListener(marker, "click", function (e) {
                     if (infowindow.getMap()) {
                         infowindow.close();
                     } else {
@@ -151,8 +148,8 @@ export class detailPage{
                     }
                 });
 
-                console.log("위도"+latitude);
-                console.log( longitude)
+                console.log("위도" + latitude);
+                console.log(longitude)
             })
         });
 
@@ -162,16 +159,15 @@ export class detailPage{
 
     }
 
-    clearEvent()
-    {
-        $(".navbar-brand").on("click",(e)=>{
+    clearEvent() {
+        $(".navbar-brand").on("click", (e) => {
             sessionStorage.clear();
-            location.href="/";
+            location.href = "/";
         })
     }
 
-    modalEvent(){
-        $('#modal').on('click',(e)=>{
+    modalEvent() {
+        $('#modal').on('click', (e) => {
             console.log('위시리스트')
             $('.wish-list').empty();
             this.wishListShowEvent();
@@ -179,29 +175,30 @@ export class detailPage{
         })
     }
 
-    modalShow(){
-        $(".btn.btn-primary.reset").on('click',(e)=>{
-            axios.post("/clearpost", {}).then(()=> {
+    modalShow() {
+        $(".btn.btn-primary.reset").on('click', (e) => {
+            axios.post("/clearpost", {}).then(() => {
 
                 $(".current").empty();
             });
         });
 
     }
+
     //위시리스트로 화면 전환
-    wishListEvent(){
-        $('.wishlist-place').on("click",(e)=>{
+    wishListEvent() {
+        $('.wishlist-place').on("click", (e) => {
             $('.current-body').addClass("hidden");
             $('.wish-body').removeClass("hidden");
         })
-        $('.current-place').on("click",(e)=>{
+        $('.current-place').on("click", (e) => {
             $('.wish-body').addClass("hidden");
             $('.current-body').removeClass("hidden");
         })
     }
 
-    DetailEvent(){
-        $("#modal").on("click",(e)=>{
+    DetailEvent() {
+        $("#modal").on("click", (e) => {
             $(".normal_pop_wrap").removeClass("hidden")
             this.ModalEvent();
         });
@@ -210,15 +207,15 @@ export class detailPage{
         $("#mapShow").append()
 
     }
+
     ModalEvent() {
-        $(".btn_cls").on("click",(e)=>{
+        $(".btn_cls").on("click", (e) => {
             $(".normal_pop_wrap").addClass("hidden")
         });
 
         //모달 최근본 이미지 클릭시 이벤트
-        $(".slct_food").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
+        $(".slct_food").on("click", (e) => {
+            if (!$(e.currentTarget).hasClass("active")) {
                 $(e.currentTarget).addClass("active");
                 $(".slct_want").removeClass("active");
                 $(".pop_region_content.region_content_kr").removeClass("hidden");
@@ -226,18 +223,17 @@ export class detailPage{
             }
         });
         //모달 가고싶은곳
-        $(".slct_want").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
+        $(".slct_want").on("click", (e) => {
+            if (!$(e.currentTarget).hasClass("active")) {
                 $(e.currentTarget).addClass("active");
                 $(".slct_food").removeClass("active");
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
-        $(".btn_reset").click(function(){
-            return document.getElementById("mTxtArea").value='';
+        $(".btn_reset").click(function () {
+            return document.getElementById("mTxtArea").value = '';
         })
-        $("#detailTitle").click(function(){
+        $("#detailTitle").click(function () {
             return "/";
 
         })
@@ -245,8 +241,8 @@ export class detailPage{
     }
 
 
-    favoriteStore(){
-        $('.favoriteStore').on("click",()=>{
+    favoriteStore() {
+        $('.favoriteStore').on("click", () => {
             let name = $('.name').text();
             let roadName = $('.roadName').text();
             let src = $(".card-img-top>.wishimg").attr("src");
@@ -254,28 +250,29 @@ export class detailPage{
             // console.log(roadName);
             // console.log(src);
             let Object = {
-                "placename" : name,
-                "roadname" : roadName,
-                "mainimg" : src
+                "placename": name,
+                "roadname": roadName,
+                "mainimg": src
             }
             axios({
-                method:"post",
-                url:'/wishStore',
-                params : Object
-            }).then((result)=>{
+                method: "post",
+                url: '/wishStore',
+                params: Object
+            }).then((result) => {
                 console.log(Object);
                 console.log(result.data);
             })
 
         })
     }
+
     //위시리스트 띄워주는 이벤트
-    wishListShowEvent(){
-        axios.post("data/wishSelect", {}).then((result)=>{
+    wishListShowEvent() {
+        axios.post("data/wishSelect", {}).then((result) => {
             console.log(result);
 
             let data = result.data;
-            _.forEach(data,(e)=>{
+            _.forEach(data, (e) => {
                 let mainimg = e.mainimg;
                 let placename = e.placename;
                 let roadname = e.roadname;
@@ -284,10 +281,10 @@ export class detailPage{
 
                 var html = [
                     '<form class="wishForm">',
-                        '<li class="placename">'+placename+'</li>',
-                        '<li>'+roadname+'</li>',
-                        '<img style="width: 80px;height: 80px" src='+mainimg+'>',
-                        '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '<li class="placename">' + placename + '</li>',
+                    '<li>' + roadname + '</li>',
+                    '<img style="width: 80px;height: 80px" src=' + mainimg + '>',
+                    '<button type="reset" class="btn btn-danger deleteWish">' + '삭제' + '</button>',
                     '</form>'
                 ].join('');
                 $('.wish-list').append(html);
@@ -297,23 +294,156 @@ export class detailPage{
         })
 
     }
-    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
-    wishListDeleteOne(){
-        $('.deleteWish').on("click",(e)=>{
-                let placeName = $(e.currentTarget).prev().prev().prev().text();
-                console.log(placeName);
 
-                axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
-                    $(e.currentTarget).parent($('.wishForm')).remove();
-                   console.log(result);
-                })
+    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
+    wishListDeleteOne() {
+        $('.deleteWish').on("click", (e) => {
+            let placeName = $(e.currentTarget).prev().prev().prev().text();
+            console.log(placeName);
+
+            axios.post("data/wishDelete", {"placeName": placeName}).then((result) => {
+                $(e.currentTarget).parent($('.wishForm')).remove();
+                console.log(result);
+            })
+        })
+    }
+
+    //////////////////////////////////
+    //작성하기 버튼 클릭시
+    reviewEvent() {
+        $("#addComments").on("click", function (e) {
+            e.preventDefault();
+            let reviewcontents = $("#reviewTxt").val();
+            if (useremail === "") {
+                alert("로그인 후 이용해주세요");
+                return;
+            } else if (reviewcontents == null) {
+                alert("내용을 입력해주세요");
+                return;
+            }
+            review.addreview(
+                {useremail: useremail, username: username, productnum: productnum, reviewcontents: reviewcontents},
+                function (result) {
+                    if (result > 0) {
+                        alert(result + "번 리뷰 작성 성공!");
+                        location.reload();
+                    }
+                }
+            );
+        });
+
+        //리뷰 삭제
+        $("#deleteComment").on("click", function (e) {
+            e.preventDefault();
+            let reviewnum = $(this).attr('href');
+            review.drop(
+                reviewnum,
+                function (result) {
+                    if (result == "success") {
+                        alert(reviewnum + "번 리뷰 삭제 성공!");
+                        location.reload();
+                    }
+                }
+            )
+        })
+
+//리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
+        let mf = false;
+        $("#updateComment").on("click", function (e) {
+            e.preventDefault();
+            if (mf === true) {
+                alert("이미 수정중인 리뷰가 있습니다");
+                return;
+            }
+            mf = true;
+            $(".inlinereview").attr("readonly", false);
+            $(this).hide();
+            $(this).next().show();
+        })
+
+//수정 완료 버튼
+        $("#updateComment").on("click", function (e) {
+            e.preventDefault();
+            mf == false;
+            let reviewcontents = $(".inlinereview").val();
+            let reviewnum = $(this).attr('href');
+            buyService.modify(
+                {reviewcontents: reviewcontents, reviewnum: reviewnum},
+                function (result) {
+                    if (result === "success") {
+                        alert("리뷰를 수정 하였습니다.");
+                        $(".inlinereview").attr("readonly", true);
+                        $(this).show();
+                        $(this).prev().hide();
+                        location.reload();
+                    }
+                }
+            )
         })
     }
 
 
-
 }
 
+const review = (function(){
+
+    //리뷰 작성 ajax
+    function review(review, callback){
+        $.ajax({
+            type:"POST",
+            url:"/buy/review",
+            data:JSON.stringify(review),
+            contentType:"application/json; charset=utf-8",
+            success:function(result){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error:function(err){
+                alert("리뷰 작성 실패!");
+            }
+        })
+    }
+
+    //리뷰 삭제
+    function reviewDelete(review,callback){
+        $.ajax({
+            type:"POST",
+            url:"/buy/reviewDelete",
+            data:JSON.stringify(review),
+            contentType:"application/json; charset=utf-8",
+            success:function(result){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error:function(err){
+                alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
+            }
+        })
+    }
+
+    //리뷰 수정
+    function reviewModify(review,callback){
+        $.ajax({
+            type:"PUT",
+            url:"/buy/"+review.reviewnum,
+            data:JSON.stringify(review),
+            contentType:"application/json; charset=utf-8",
+            success:function(result){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error:function(err){
+                alert("리뷰 수정 실패. 다시 시도해주세요~");
+            }
+        })
+    }
+
+
+    return {addreview:review, drop:reviewDelete, modify:reviewModify};
+})();
 
 
 

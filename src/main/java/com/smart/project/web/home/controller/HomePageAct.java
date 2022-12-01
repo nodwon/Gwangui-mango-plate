@@ -1,12 +1,14 @@
 package com.smart.project.web.home.controller;
 
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.CommonMemberVO;
-import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.ReviewDTO;
+import com.smart.project.web.home.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -88,12 +90,6 @@ public class HomePageAct {
         return "redirect:/mango";
     }
 
-    @PostMapping("/saveReview")
-    public void saveReview(ReviewDTO reviewDTO){
-        String id = UUID.randomUUID().toString();
-        test.saveReview(reviewDTO);
-    }
-
 
     @PostMapping("/FindId")
     public String FindId(CommonMemberVO vo, HttpServletResponse response) throws Exception {
@@ -164,10 +160,24 @@ public class HomePageAct {
 
         return "test2";
     }*/
-
-
-
-
+//    @RequestMapping("/saveReview")
+//    public void saveReview(ReviewDTO reviewDTO) {
+//        test.saveReview(reviewDTO);
+//    }
+//    @PostMapping("/getReview")
+//    public ReviewDTO getReview(String reviewId) {
+//        return test.getReview(reviewId);
+//    }
+//    @RequestMapping("/getUpdate")
+//    public List<ReviewDTO> getReviewsByKeySet(String reviewUpdateDate, String reviewId) {
+//        return test.getReviewsByKeySet(reviewUpdateDate, reviewId);
+//    }
+//
+//    @RequestMapping("/deleteReview")
+//    public void deleteReviews(ReviewDTO reviewDTO) {
+//        List<String> reviewIds = reviewDTO.getReviewIds();
+//        test.deleteReviews(reviewIds);
+//    }
 
 
 /*

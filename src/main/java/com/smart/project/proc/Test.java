@@ -6,6 +6,7 @@ import com.smart.project.annotation.Master;
 import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -55,15 +56,30 @@ public interface Test {
 	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
-    void viewCount(String name);
-	void saveReview(ReviewDTO reviewDTO);
-//	List<ImgFileDTO> getImeges(@Param("reviewId") String reviewId);
-//	void saveFile(
-//			@Param("fileId") String fildId,
-//			@Param("reviewId") String reviewId,
-//			@Param("fileName") String fileName,
-//			@Param("fileSize") long fileSize,
-//			@Param("contentType") String contentType
-//	);
-	//void deleteFiles(@Param("fileIds") List<String> fileIds);
+	 boolean insert(ReviewDTO vo);
+
+	List<ReviewDTO> read(Long bno);
+
+	boolean delete(int bno);
+
+	boolean update(ReviewDTO reply);
+
+	 List<ReviewDTO> getListWithPaging(
+			@Param("cri") Criteria cri, @Param("bno") Long bno);
+	List<ReviewDTO> getCountByBno(Long bno);
+
+	void viewCount(String name);
+
+	int register(ReviewDTO vo);
+
+	Object getList(Criteria cri, Long bno);
+
+	int modify(ReviewDTO reviewDTO);
+
+	int remove(Long rno);
+
+	Object get(Long rno);
+
+	HttpStatus getReviewnum();
+
 }

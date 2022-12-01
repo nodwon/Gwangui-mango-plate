@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
@@ -161,7 +164,6 @@ public class HomeDataAct {
 
 		return data;
 	}
-
 /*	@PostMapping("/data/select")//해외
 	public String userDB(@RequestBody modalVO param){
 
@@ -191,7 +193,64 @@ public class HomeDataAct {
 		return idCount;
 	}
 
+//	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+//	public ResponseEntity<String> create(@RequestBody ReviewDTO reviewDTO) {
+//		int insertCount = test.register(reviewDTO);
+//
+//		return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+//
+//	@GetMapping(value = "/pages/{bno}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
+//			MediaType.APPLICATION_JSON_UTF8_VALUE })
+//	public ResponseEntity<List<ReviewDTO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno) {
+//
+//		Criteria cri = new Criteria(page, 10);
+//
+//		return new ResponseEntity<List<ReviewDTO>>((List<ReviewDTO>) test.getList(cri, bno), HttpStatus.OK);
+//	}
+//
+//	@GetMapping(value = "/{rno}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+//	public ResponseEntity<ReviewDTO> get(@PathVariable("rno") Long rno) {
+//
+//		return new ResponseEntity<ReviewDTO>((ReviewDTO) test.get(rno), HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(method = { RequestMethod.PUT,
+//			RequestMethod.PATCH }, value = "/{rno}", consumes = "application/json", produces = {
+//			MediaType.TEXT_PLAIN_VALUE })
+//	public ResponseEntity<String> modify(@RequestBody ReviewDTO reviewDTO, @PathVariable("rno") Long rno) {
+//
+//		reviewDTO.setRno(rno);
+//
+//		return test.modify(reviewDTO) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//	}
+//
+//	@DeleteMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE })
+//	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
+//
+//		return test.remove(rno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//	}
 
+	//리뷰 등록
+	@PostMapping(value ="/review", consumes = "application/json")
+	public ResponseEntity<String> review(@RequestBody ReviewDTO review){
+		return test.insert(review) ? new ResponseEntity<String>(test.getReviewnum()+"",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
+	//리뷰 삭제
+	@PostMapping(value="/reviewDelete", consumes = "application/json")
+	public ResponseEntity<String> reviewDelete(@RequestBody int reviewnum){
+		return test.delete(reviewnum) ? new ResponseEntity<String>("success",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
+	//리뷰 수정
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{reviewnum}", consumes = "application/json")
+	public ResponseEntity<String> reviewModify(@RequestBody ReviewDTO review){
+		return test.update(review) ? new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
