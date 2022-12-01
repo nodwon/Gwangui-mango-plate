@@ -4454,7 +4454,7 @@ textarea.form-control-lg {
 }
 
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  color: orangered;
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
@@ -5596,6 +5596,9 @@ textarea.form-control-lg {
   flex: 1 1 auto;
   padding: 1rem;
 }
+
+
+
 
 .modal-footer {
   display: flex;
@@ -11699,3 +11702,4 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
