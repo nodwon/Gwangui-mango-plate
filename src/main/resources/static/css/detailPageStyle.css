@@ -5637,6 +5637,28 @@ a.mid_modal {
   font-family: 'East Sea Dokdo', cursive;
 }
 
+a#staticBackdropLabel {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+  margin-left: 50px;
+}
+
+
+a#\32 {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+}
+
+
+
 
 .modal-title {
   margin-bottom: 0;
