@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        >
 
 
 <head>
@@ -12,8 +16,57 @@
     <link href="\css\mJoin.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 </head>
+<div id = "Nav" class="fixed">
+    <div class ="navbar-expand-lg" >
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">맹고플레이트
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">Up</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <!--로그인버튼이 생기려면 email세션 null result==0 -->
+                        <a th:if="${session.email}==null" href="/login" class="btn btn-outline-dark me-3" type="submit">
+                            <i class="fa-solid fa-check"></i>
+                            로그인
+                        </a>
+                    </form>
+                    <form class="d-flex">
+                        <a  th:if="${session.email eq null}" href="/join" class="btn btn-outline-dark me-3" type="submit">
+                            <i class="fa-solid fa-user-plus"></i>
+                            회원가입
+                        </a>
+                    </form>
+
+                    <form class="d-flex" action="/logout">
+                        <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            로그아웃
+                            <p th:text="${session.email}"></p>
+                        </a>
+                    </form>
+
+                    <!-- 찜(가고싶다) -->
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+</div>
+
+
+
 <body class="bg-primary">
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
@@ -102,6 +155,8 @@
                             </div>
                             <div class="card-footer text-center py-3">
                                 <div class="small"><a href="/login">이미 계정이 있나요? 로그인 하러가기</a></div>
+
+
                             </div>
                         </div>
                     </div>
@@ -109,19 +164,8 @@
             </div>
         </main>
     </div>
-    <div id="layoutAuthentication_footer">
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid px-4">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
+
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -130,5 +174,8 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/resources/js/join/mjoin.js"></script>
 
+
+
 </body>
+
 </html>

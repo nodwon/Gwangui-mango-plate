@@ -109,9 +109,10 @@ export class mango{
                 var contentString = [
                     '<div class="iw_inner">',
                     '   <h3>' + name + '</h3>',
-                    '   <p>' + mainmenu + '<br>',
-                    '       <img src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       ' + roadname + '<br>',
+                    '   <p>',
+                    '       <img style="float: left" src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" />',
+                    '      ' + mainmenu + '<br>',
+                    '       '  + roadname + '',
                     '       <a href="' + url + '" target="_blank">' + url + '/</a>',
                     '   </p>',
                     '</div>'
