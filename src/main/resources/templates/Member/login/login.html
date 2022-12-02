@@ -50,12 +50,8 @@
             </div>
             <div class="input_pw">
               <label class="login_lb pw_lb">비밀번호</label>
-              <!-- #5784 비밀번호 표시기능 -->
-              <!-- 비밀번호 보기 : join_pass 클래스 삭제 -->
               <input type="password" name="userPw" class="join_form join_pass" placeholder="비밀번호" maxlength="12">
-              <!-- 비밀번호 보기 아이콘 : active 클래스 추가 -->
               <a class="pw_hide"></a>
-              <!-- // #5784 -->
             </div>
           </div>
 
@@ -94,5 +90,7 @@
 
 <section layout:fragment="contentScriptFragment">
   <script type="text/javascript" th:src="${@versionComponent.getVersion('../resources/build/login.bundle.js')}"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script type="module" src="resources/js/join/join.js"></script>
 </section>
 </html>

@@ -13,7 +13,6 @@ export class Join
 		this.joinEvent();
 	}
 
-	// 회원가입
 	joinEvent(){
 
 		// 아이디 중복 검사
@@ -78,6 +77,7 @@ export class Join
 		});
 		this.findEvent();
 		this.updateEvent();
+		this.logEvent();
 	}
 
 	findEvent() {
@@ -118,7 +118,7 @@ export class Join
 
 	updateEvent() {
 
-		// 비밀번호 변경하기 입력칸 미입력 시 제출 방지
+		// 비밀번호와 비밀번호 확인이 불일치인 경우 제출 방지
 		$('.frm_up').on('submit', function (e) {
 			if($('#inputPw_up').val() !== $('#inputPwCk_up').val()) {
 				$('.ch_txt.error').hide();
@@ -135,6 +135,20 @@ export class Join
 				$('.ch_txt.error:eq(1)').show();
 			} else {
 				$('.ch_txt.error').hide();
+			}
+		});
+	}
+
+	logEvent() {
+
+		// 비밀번호 보기/숨기기
+		$('.pw_hide').on('click', (e)=> {
+			if($('.pw_hide').hasClass("active")){
+				$('.pw_hide').removeClass("active");
+				$('input[name=userPw]').prop('type', "password");
+			}else {
+				$('.pw_hide').addClass("active");
+				$('input[name=userPw]').prop('type', "text");
 			}
 		});
 	}
