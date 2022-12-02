@@ -81,13 +81,11 @@ export class detailPage{
             }
         });
 
-
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
         /*$("#Nav").append(this.head);*/
-
 
         console.log("detailpage");
 
@@ -329,11 +327,11 @@ export class detailPage{
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", function (e) {
-            let reviewcontents = $("#reviewTxt").val();
+            let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let rating = $("#grade").val();
-            debugger;
+            let rating = $('#grade').val();
+            console.log(rating)
             if (useremail === "") {
                 alert("로그인 후 이용해주세요");
                 return;
@@ -343,8 +341,11 @@ export class detailPage{
             }
             const comment = {useremail: useremail, title: title, grade: rating, reviewcontents: reviewcontents};
 
-            $.ajax({
-                type:"POST",
+            axios({
+                method : "post",
+                url : '/saveReview',
+                params : comment
+                /*type:"POST",
                 url:"/saveReview",
                 data:JSON.stringify(comment),
                 contentType:"application/json",
@@ -358,7 +359,9 @@ export class detailPage{
                     alert("리뷰 작성 실패!");
                     alert(reviewcontents,useremail,title,rating);
 
-                }
+                }*/
+            }).then((result)=>{
+                console.log(result);
             })
         });
 

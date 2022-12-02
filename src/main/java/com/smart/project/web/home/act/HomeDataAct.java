@@ -128,13 +128,13 @@ public class HomeDataAct {
 	@RequestMapping("/wishStore")
 	public WishListVO getData(@ModelAttribute WishListVO vo, HttpServletRequest request){
 		String useremail = (String) request.getSession().getAttribute("email");
-		String placename = vo.getPlacename();
-		String roadname = vo.getRoadname();
-		String mainimg = vo.getMainimg();
+//		String placename = vo.getPlacename();
+//		String roadname = vo.getRoadname();
+//		String mainimg = vo.getMainimg();
 		log.error("세션에서 가져온 email => {}",useremail);
-		log.error("세션에서 가져온 placename => {}",placename);
-		log.error("세션에서 가져온 roadname => {}",roadname);
-		log.error("세션에서 가져온 이미지src => {}",mainimg);
+//		log.error("세션에서 가져온 placename => {}",placename);
+//		log.error("세션에서 가져온 roadname => {}",roadname);
+//		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
 			test.insertWish(vo);

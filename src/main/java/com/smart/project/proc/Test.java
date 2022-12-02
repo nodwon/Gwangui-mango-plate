@@ -60,8 +60,6 @@ public interface Test {
 
 	MangoVO selectCurrent(String placename);
 
-	void viewCount(String name);
-
 	void saveReview(ReviewDTO reviewDTO);
 	ReviewDTO getReview(@Param("reviewId") String reviewId);
 	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
@@ -78,5 +76,5 @@ public interface Test {
 	);
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
-
+	void currentReview(String placename);
 }
