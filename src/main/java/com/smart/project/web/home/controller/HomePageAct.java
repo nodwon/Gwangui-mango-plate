@@ -35,6 +35,7 @@ import java.util.UUID;
 public class HomePageAct {
 
     final private Test test;
+    final private BCryptPasswordEncoder encoder;
 
     final private HomeDataAct homeDataAct;
 
@@ -69,6 +70,9 @@ public class HomePageAct {
     //가입
     @PostMapping("/register")
     public String createMember(CommonMemberVO vo) {
+        String securityPw = encoder.encode(vo.getUserPw());
+        vo.setUserPw(securityPw);
+
         test.insertMember(vo);
         log.info(vo.toString());
         return "redirect:/";
@@ -125,7 +129,7 @@ public class HomePageAct {
     }
 
     @PostMapping("/FindPw")
-    public String FindPw(CommonMemberVO vo, HttpServletResponse response) throws Exception {
+    public String FindPw(CommonMemberVO vo, HttpServletResponse response,HttpSession session) throws Exception {
 
         response.setContentType("text/html; charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -134,18 +138,33 @@ public class HomePageAct {
         String userEmail = vo.getUserEmail();
         String userName = vo.getUserName();
         String userPhoneNum = vo.getUserPhoneNum();
-
         CommonMemberVO result = test.findMemberPw(userEmail, userName, userPhoneNum);
 
         if(result != null) {
             System.out.println("비밀번호 찾기 성공");
-            out.println("<script>alert('비밀번호는 "+result.getUserPw()+" 입니다');</script>");
+            session.setAttribute("userEmail",userEmail);
+            out.println("<script>alert('비밀번호를 변경해주세요.');</script>");
+            return "Member/login/updatePw";
         }
         else {
             System.out.println("비밀번호 찾기 실패");
             out.println("<script>alert('가입된 비밀번호가 없습니다');</script>");
+            return "Member/login/password";
         }
-        return "Member/login/password";
+    }
+
+    @PostMapping("/updatePw")
+    public String updatePw(CommonMemberVO vo, HttpSession session) {
+
+        String userEmail = (String) session.getAttribute("userEmail");
+        String userPw = vo.getUserPw();
+        System.out.println(userEmail);
+
+        String securityPw = encoder.encode(userPw);
+        test.updateMemberPw(userEmail, securityPw);
+
+        return "Member/login/login";
+
     }
 
 /*    @RequestMapping("/data/select")//해외
