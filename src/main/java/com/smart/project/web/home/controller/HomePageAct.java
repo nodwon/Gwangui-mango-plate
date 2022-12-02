@@ -148,8 +148,6 @@ public class HomePageAct {
         return "Member/login/password";
     }
 
-
-
 /*    @RequestMapping("/data/select")//해외
     public String userDB(Model model , @ModelAttribute ModalVO param){
         //String keyData = String.valueOf(param);  //우리가 post (key,object)

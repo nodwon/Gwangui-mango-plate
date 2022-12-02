@@ -5772,7 +5772,7 @@ ul.wish_middle_list {
   width: 400px;
   margin: auto;
   margin-bottom: revert;
-  padding: revert;
+  padding-left: 0px;
 
 }
 a.mid_modal {
@@ -5816,7 +5816,6 @@ a.mid_modal {
   padding-top: 25px;
   padding-left: 35px;
 
-
 }
 
 .modal-backdrop {
@@ -5850,10 +5849,39 @@ a.mid_modal {
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
+.modal-header.flex_container {
+  background-color: bisque;
+  font-family: 'East Sea Dokdo', cursive;
+}
+
+a#staticBackdropLabel {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+  margin-left: 50px;
+}
+
+
+a#\32 {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+}
+
+
+
+
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
 }
+
 
 .modal-body {
   position: relative;

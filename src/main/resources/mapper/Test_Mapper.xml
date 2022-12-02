@@ -32,7 +32,6 @@
 
     </select>
 
-
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
@@ -50,6 +49,7 @@
     <select id="selectWish" resultType="com.smart.project.web.home.vo.WishListVO">
         select * from wishList_tbl where useremail=#{useremail}
     </select>
+
 
     <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
         delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
@@ -83,75 +83,8 @@
             update_date = UTC_TIMESTAMP()
     </insert>
 
-    <select id="getReviewsByKeySet" resultType="com.smart.project.web.home.vo.ReviewDTO">
-        select
-        r.id,
-        r.bno,
-        r.review,
-        r.user,
-        r.grade,
-        DATE_FORMAT(r.update_date, '%Y%m%d%H%i%s') as review_up_date_str,
-        f.file_id,
-        f.file_name,
-        f.file_size,
-        f.content_type,
-        DATE_FORMAT(f.update_date, '%Y%m%d%H%i%s') as file_up_date_str
-        from
-        tbl_review r
-        left join
-        tbl_file_info f
-        on
-        f.file_id = (
-        select
-        file_id
-        from
-        tbl_file_info file
-        where
-        file.review_id = r.id
-        limit 1
-        )
-        <where>
-            <if test="reviewUpdateDate != null and reviewId != null">
-                r.update_date <![CDATA[<=]]> #{reviewUpdateDate}
-                and
-                r.id <![CDATA[<]]> #{reviewId}
-            </if>
-        </where>
-        order by r.update_date, r.id desc
-        limit 10
+    <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
+        select name, roadname, img1  from foodlist where name = #{placename}
     </select>
 
-    <select id="getReview" resultType="com.smart.project.web.home.vo.ReviewDTO">
-        select
-            r.id,
-            r.bno,
-            r.review,
-            r.user,
-            r.grade,
-            DATE_FORMAT(r.update_date, '%Y%m%d%H%i%s') as review_up_date_str
-        from
-            tbl_review r
-        where
-            r.id = #{reviewId}
-    </select>
-
-    <select id="getReviewsForMap" resultType="com.smart.project.web.home.vo.ReviewDTO">
-        select
-            r.id,
-            r.bno,
-            r.user,
-            r.grade,
-        from
-            tbl_review r
-    </select>
-
-    <delete id="deleteReviews">
-        delete
-        from tbl_review
-        <where>
-            <foreach collection="reviewIds" item="reviewId" separator="or">
-                id = #{reviewId}
-            </foreach>
-        </where>
-    </delete>
 </mapper>

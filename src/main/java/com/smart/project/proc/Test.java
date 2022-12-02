@@ -56,7 +56,7 @@ public interface Test {
 	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
-	void viewCount(String name);
+
 
 	void saveReview(ReviewDTO reviewDTO);
 	ReviewDTO getReview(@Param("reviewId") String reviewId);
@@ -74,5 +74,9 @@ public interface Test {
 	);
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
+
+    void viewCount(String name);
+
+	MangoVO selectCurrent(String placename);
 
 }
