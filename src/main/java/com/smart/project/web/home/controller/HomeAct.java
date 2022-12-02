@@ -61,10 +61,7 @@ public class HomeAct {
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
-		/*HttpSession sessionEmail = request.getParameter();*/
-//		String loginEmail = (String) session.getAttribute("email");
 		String placename = vo.getName();
-
 		MangoVO mangoVO1 = test.selectCurrent(placename);
 		// 최근 클릭한 가게
 		if(mangoVO1.getName()==placename) {
