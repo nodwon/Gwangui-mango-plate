@@ -70,7 +70,6 @@ public class HomeAct {
 			vo.setImg1(str.toString());
 			log.error("가져온 src => {}", vo.getImg1());
 		}
-
 		list.add(mangoVO1);
 		log.error("list 값 =>{}", list);
 		HashSet<String> duplicateData = new HashSet<>(list);
