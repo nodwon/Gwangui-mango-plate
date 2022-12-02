@@ -6,6 +6,7 @@ import com.smart.project.annotation.Master;
 import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.http.HttpStatus;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,12 @@ public interface Test {
 	int totalCount(Criteria criteria);
 
 	MangoVO getMangoVO(String name);
+
+	void insertWish(WishListVO vo);
+
+	List<WishListVO> selectWish(String useremail);
+
+	void wishDelete(WishListVO vo);
 	List<Mango2VO> searchAll(String search);
 
 	@Select("select userId from table_join where userEmail=#{userEmail} and userName=#{userName}")
@@ -50,8 +57,31 @@ public interface Test {
 	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
+
+
+	void saveReview(ReviewDTO reviewDTO);
+
+	ReviewDTO getReview(@Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
+									   @Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsForMap();
+	void deleteReviews(@Param("reviewIds") List<String> reviewIds);
+	List<FileDTO> getImages(@Param("reviewId") String reviewId);
+	void saveFile(
+			@Param("fileId") String fileId,
+			@Param("reviewId") String reviewId,
+			@Param("fileName") String fileName,
+			@Param("fileSize") long fileSize,
+			@Param("contentType") String contentType
+	);
+	void deleteFiles(@Param("fileIds") List<String> fileIds);
+
+
     void viewCount(String name);
 
 	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
+
+	MangoVO selectCurrent(String placename);
+
 }

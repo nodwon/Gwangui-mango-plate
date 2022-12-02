@@ -5,23 +5,11 @@ import md from "../../../../templates/wishListModal.html";
 $(()=>{
     new mango();
 })
-//
-
-
 
 export class mango{
     constructor() {
-        /*       axios({
-                   method : "post",
-                   url : "/getHtml",
-
-               }).then((response)=>{
-                   /!*location.href ="test2";*!/
-
-                   $("#Nav").append(response.data);
 
 
-               })*/
 
         this.searchKeyword = "";
         this.foodList = require("@/mango/foodList.html");
@@ -29,54 +17,68 @@ export class mango{
         this.pageList = require("@/mango/pagingNumber.html");
 
 
-/*        axios.post("/data/head",{}).then((result)=>{
-            $("#Nav").append(result.data);
-
-        })*/
-
-
-
         this.eventBind();
-        $("#pagination").addClass("hidden");
+
+        this.cashing.$pagination.addClass("hidden");
+
+        if(sessionStorage.getItem("search")!=null)
+        {
+            this.cashing.$pagination.removeClass("hidden");
+            console.log()
+            let search = JSON.parse(sessionStorage.getItem("search"));
+            this.foodPageList(search);
 
 
+        }
         this.modalEvent();
         this.wishListEvent();
+        this.clearEvent();
 
     }
     cashing ={
         $search :$("input[name=search]"),
-        $start :  $("#start")
+        $start :  $("#start"),
+        $pagination : $("#pagination")
     }
-    //위시 리스트 클릭시 모달창 팝업
-    wishListEvent(){
-        console.log("");
-    }
-
-    modalshow(){
-        let md = require("../../../../templates/wishListModal.html")
-       /* let call = {'key' : $('#wsModal').val()};*/
-        axios.post('/data/wish', {}).then((result)=>{
-            console.log(result)
-            $('.wishList').append(md(result));
-            $('.wishList').removeClass('hidden');
+    clearEvent()
+    {
+        $(".navbar-brand").on("click",(e)=>{
+            sessionStorage.clear();
+            location.href="/";
         })
     }
+
 
     pageEvnet()
     {
         $(".page-item.x").on("click",(e)=>{
             $("#pagination").removeClass("hidden");
             let pageNum = $(e.currentTarget).text();
+            if(sessionStorage.getItem("search")!=null)
+            {
+                let s = JSON.parse(sessionStorage.getItem("search"));
+                this.searchKeyword = s["search"];
+
+            }
             let search = {"search":this.searchKeyword, "pageNum":pageNum};
-           this.foodPageList(search);
+
+            sessionStorage.setItem("search",JSON.stringify(search))
+
+            this.foodPageList(search);
+
 
         });
     }
     //지도 foodlist 와 page 처리하는 이벤트
+
+
+
+
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {
+            console.log(search)
+
             //지도처리
             let data = result.data.food;   //data = List<locationVO>
             var mapOptions = {
@@ -134,13 +136,12 @@ export class mango{
                 let endPage = pageMaker.endPage
                 let prev = pageMaker.prev;
                 let next = pageMaker.next;
-                console.log("엔드페이지는 ", endPage)
                 let paging = ''
                 if (prev) {
                     paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
 
-                for (var i = startPage; i <= endPage; i++) {
+                for (let i = startPage; i <= endPage; i++) {
                     let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
                     paging = paging + page
                 }
@@ -155,30 +156,118 @@ export class mango{
 
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
+            this.favoriteStore();
         });
     }
-    //위시 리스트 클릭시 모달창 팝업
+    //위시리스트 클릭 후 초기화
     modalEvent(){
-        $('#modal').on('click',()=>{
+        $('#modal').on('click',(e)=>{
             console.log('위시리스트')
-
-            $(".btn.btn-primary.reset").on('click',(e)=>{
-                axios.post("/clearpost", {}).then((result)=> {
-
-                    $(".modal-body.dong").empty();
-
-                });
-            });
-
-            // this.modalshow();
+            $('.wish-list').empty();
+            this.wishListShowEvent();
+            this.modalShow();
         })
-        // const myModal = document.getElementById('myModal')
-        // const myInput = document.getElementById('myInput')
-        //
-        // myModal.addEventListener('shown.bs.modal', () => {
-        //     myInput.focus()
-        // })
     }
+    //위시리스트 db에 저장하기
+    favoriteStore(){
+        $('.favoriteStore').on("click",(e)=>{
+            let name = $(e.currentTarget).parents('.h-100').children().find($('.b')).text();
+            let roadName = $(e.currentTarget).parents('.h-100').children().find($('.c')).text();
+            let src = $(e.currentTarget).parents('.h-100').children().find($('.mainimg')).attr("src");
+            console.log(name);
+            console.log(roadName);
+            console.log(src);
+            let email = $('.email').text();
+            console.log(email)
+            if(email == null || email == ""){
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
+            }else{
+                let Object = {
+                    "placename" : name,
+                    "roadname" : roadName,
+                    "mainimg" : src
+                }
+                axios({
+                    method:"post",
+                    url:'/wishStore',
+                    params : Object
+                }).then((result)=>{
+                    console.log(Object);
+                    console.log(result.data);
+                })
+            }
+
+        })
+    }
+    //위시리스트 띄워주는 이벤트
+    wishListShowEvent(){
+        axios.post("data/wishSelect", {}).then((result)=>{
+            console.log(result);
+
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let mainimg = e.mainimg;
+                let placename = e.placename;
+                let roadname = e.roadname;
+                console.log(mainimg);
+                console.log(placename);
+
+                var html = [
+                    '<form class="wishForm">',
+                    '<li class="placename">'+placename+'</li>',
+                    '<li>'+roadname+'</li>',
+                    '<img style="width: 80px;height: 80px" src='+mainimg+'>',
+                    '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '</form>'
+                ].join('');
+                $('.wish-list').append(html);
+
+            });
+            this.wishListDeleteOne();
+        })
+
+    }
+    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
+    wishListDeleteOne(){
+        $('.deleteWish').on("click",(e)=>{
+            let placeName = $(e.currentTarget).prev().prev().prev().text();
+            console.log(placeName);
+
+            axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
+                $(e.currentTarget).parent($('.wishForm')).remove();
+                console.log(result);
+            })
+        })
+    }
+
+    modalShow(){
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then(()=> {
+
+                $(".current").empty();
+            });
+        });
+    }
+
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+            $('.reset').hide();
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
+            if($('.reset').hide()){
+                $('.reset').show();
+            }
+        })
+    }
+
 
 
 
@@ -189,6 +278,8 @@ export class mango{
             if(!(this.searchKeyword ===""))
             {
                 let search = {"search": this.searchKeyword, "pageNum" : 1}
+                sessionStorage.setItem("search",JSON.stringify(search))
+
                 this.foodPageList(search);
             }
         });
@@ -201,6 +292,7 @@ export class mango{
             let search = {"search":$(e.currentTarget).find('.fw-bolder').text(),"pageNum":1};
             this.searchKeyword =$(e.currentTarget).find('.fw-bolder').text();
 
+            sessionStorage.setItem("search",JSON.stringify(search))
             if(!($(e.currentTarget).find('.fw-bolder').text()===""))
             {
                 this.foodPageList(search);

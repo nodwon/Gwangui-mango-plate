@@ -124,7 +124,12 @@ h2, .h2 {
   h2, .h2 {
     font-size: 2rem;
   }
-}
+}h1.display-4 {
+     font-size: 6.5rem;
+     color: orangered;
+ }
+
+
 
 h3, .h3 {
   font-size: calc(1.3rem + 0.6vw);
@@ -529,10 +534,12 @@ progress {
   font-size: calc(1.475rem + 2.7vw);
   font-weight: 300;
   line-height: 1.2;
+    font-family: 'East Sea Dokdo', cursive;
 }
 @media (min-width: 1200px) {
   .display-4 {
     font-size: 3.5rem;
+      font-family: 'East Sea Dokdo', cursive;
   }
 }
 
@@ -4049,6 +4056,8 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
 }
+
+
 .navbar-brand {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -4438,9 +4447,13 @@ textarea.form-control-lg {
   overflow-y: visible;
 }
 
+
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+    color: orangered;
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: xx-large;
 }
+
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
 }
@@ -11270,7 +11283,7 @@ form.example button {
   float: left;
   width: 20%;
   padding: 25px;
-  background: #2196F3;
+  background: orangered;
   color: white;
   font-size: 25px;
   border: 1px solid grey;
@@ -11281,7 +11294,7 @@ form.example button {
 }
 
 form.example button:hover {
-  background: #0b7dda;
+  background: #ff450054;
 }
 
 form.example::after {
@@ -11346,9 +11359,10 @@ div.fixed{
 
 }
 
- #background {
-   background-image: url('https://www.baemin.com/_next/static/images/main_03@2x.jpg');
-
+#background {
+    background-image: url(../resources/vendors/images/광주야.jpg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
 }
 a.a img.card-img-top {
 

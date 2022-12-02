@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 
@@ -19,23 +22,22 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class HomeAct {
 	final private Test test;
-
 	ArrayList list = new ArrayList();
 
 	@RequestMapping("/clearpost")
-	public String clearpost(@RequestBody Map param) {
-
+	public String clearpost(@RequestBody Map param, HttpSession session) {
 		list.clear();
+		session.removeAttribute("list");
 
 		return "mango";
 	}
 
 	@RequestMapping("/")
-	public String home(Model model, Criteria cri, HttpServletRequest request) {
-	 List<MangoVO> list = test.searchAll(cri) ;
-		model.addAttribute("list",list);
-
-
+	public String home(Model model, Criteria cri, HttpServletRequest request, HttpSession session) {
+//		String email = (String) session.getAttribute("email");
+//		if(email!=null){
+//
+//		}
 		return "mango";
 	}
 	@RequestMapping("/foodTypeListPage")
@@ -50,10 +52,6 @@ public class HomeAct {
 	public String admin(){
 		return "admin/admin";
 	}
-	@RequestMapping("/mango")
-	public String main(){
-		return "mango";
-	}
 
 	@RequestMapping("/login")
 	public String login(){
@@ -61,31 +59,24 @@ public class HomeAct {
 }
 
 	@RequestMapping("/detailPage")
-	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session, Model model){
-		/*HttpSession sessionEmail = request.getParameter();*/
-//		String loginEmail = (String) session.getAttribute("email");
+	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
+		String placename = vo.getName();
+		MangoVO mangoVO1 = test.selectCurrent(placename);
 		// 최근 클릭한 가게
-		log.error("src 값 =>{}", modal.getSrc());
+		if(mangoVO1.getName()==placename) {
+			StringBuffer str = new StringBuffer(vo.getImg1());
+			str.insert(str.indexOf(",") + 1, "&src=");
+			vo.setImg1(str.toString());
+			log.error("가져온 src => {}", vo.getImg1());
+		}
+		list.add(mangoVO1);
 		log.error("list 값 =>{}", list);
-		StringBuffer str = new StringBuffer(modal.getSrc());
-		str.insert(str.indexOf(",")+1,"&src=");
-		modal.setSrc(str.toString());
-		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);
-		model.addAttribute("name", modal.getName());
-		model.addAttribute("roadName", modal.getRoadName());
-		model.addAttribute("src", str.toString());
+		session.setAttribute("list",duplicateData);
+		log.error("중복방지처리 =>{}", duplicateData);
 
-		/*model.addAttribute("src", modal.getSrc());*/
-		log.error("주소=>{}",str.toString());
-		session.setAttribute("list", duplicateData);
-//		log.error("가져온 세션 이메일 => {}", loginEmail);
-		log.error("중복결과제거 => {}", duplicateData);
-		String name = modal.getName();
-		MangoVO mangoVO = test.getMangoVO(name);
+		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
-
-
 
 		return"detailPage";
 	}

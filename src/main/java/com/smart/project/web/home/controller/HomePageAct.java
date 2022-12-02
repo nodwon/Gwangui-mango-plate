@@ -1,13 +1,19 @@
 package com.smart.project.web.home.controller;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.act.HomeDataAct;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
+import com.smart.project.web.home.vo.MangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import com.smart.project.web.home.vo.ModalVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -24,6 +36,8 @@ public class HomePageAct {
 
     final private Test test;
     final private BCryptPasswordEncoder encoder;
+
+    final private HomeDataAct homeDataAct;
 
     //일반 회원 로그인
     @PostMapping("/commonLogin")
@@ -43,11 +57,15 @@ public class HomePageAct {
             cookieId.setMaxAge(60*1);
             response.addCookie(cookieId);
             session.setAttribute("email",result.getUserEmail());
+            HttpServletRequest useremail = request;
+            useremail.getSession().getAttribute("email");
+            log.error("user222=>{}",useremail );
+            homeDataAct.wishSelect(useremail);
         }else{
             System.out.println("로그인 실패");
             return "Member/login/login";
         }
-        return "redirect:/mango";
+        return "redirect:/";
     }
 
     //가입
@@ -58,7 +76,7 @@ public class HomePageAct {
 
         test.insertMember(vo);
         log.info(vo.toString());
-        return "redirect:/mango";
+        return "redirect:/";
     }
     
     //카카오 로그인 데이터 저장
@@ -69,14 +87,13 @@ public class HomePageAct {
         Cookie cookieEmail = new Cookie("email", email);
         cookieEmail.setMaxAge(60*1);
         response.addCookie(cookieEmail);
-
         if(!(vo.getEmail().equals(""))){
             session.setAttribute("email",vo.getEmail());
             System.out.println(vo.getEmail());
         }
         test.kakaoJoin(vo);
         System.out.println(vo);
-        return "redirect:/mango";
+        return "redirect:/";
     }
     //로그아웃
     @RequestMapping("/logout")
@@ -84,8 +101,9 @@ public class HomePageAct {
         HttpSession session = request.getSession();
         session.invalidate();
         request.getSession(true);
-        return "redirect:/mango";
+        return "redirect:/";
     }
+
 
     @PostMapping("/FindId")
     public String FindId(CommonMemberVO vo, HttpServletResponse response) throws Exception {
@@ -121,6 +139,7 @@ public class HomePageAct {
         String userEmail = vo.getUserEmail();
         String userName = vo.getUserName();
         String userPhoneNum = vo.getUserPhoneNum();
+
         CommonMemberVO result = test.findMemberPw(userEmail, userName, userPhoneNum);
 
         if(result != null) {
@@ -149,8 +168,6 @@ public class HomePageAct {
         return "Member/login/login";
 
     }
-
-
 
 /*    @RequestMapping("/data/select")//해외
     public String userDB(Model model , @ModelAttribute ModalVO param){

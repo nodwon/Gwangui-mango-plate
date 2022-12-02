@@ -10,6 +10,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -63,12 +64,206 @@
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
-
-*,
-*::before,
-*::after {
+* {
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
+
+input[type=text]:invalid {
+  border: red solid 1px;
+}
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 10px 0;
+  padding: 0;
+}
+.imgbtn {
+  padding: 10px 15px;
+
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 1.4;
+  color: #ffffff;
+
+  background-color: #4FB2F0;
+
+  border: none;
+  border-radius: 4px;
+
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+.imgbtn:hover,
+.imgbtn:focus {
+  color: #ffffff;
+  outline: none;
+}
+.imgbtn:active,
+.imgbtn.active {
+  outline: none;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+#dd-dropbox {
+  padding: 40px 20px;
+
+  color: #bbbbbb;
+  float: left;
+
+  border: 3px dashed #dddddd;
+  border-radius: 4px;
+}
+#dd-dropbox h3 {
+
+}
+#dd-dropbox h6 {
+  text-align: center;
+}
+#dd-dropbox button {
+  margin: 0 10px;
+}
+
+#dd-previewer {
+
+}
+#dd-previewer img {
+  width: 100px;
+  height: 100px;
+}
+
+
+.dd-upload-pending {
+  box-shadow: 0 0 3px yellow;
+}
+.dd-upload-success {
+  box-shadow: 0 0 3px green;
+}
+.dd-upload-error {
+  box-shadow: 0 0 3px red;
+}
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  border: none;
+  float: right;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+
+#wrapper{
+  width: 100%;
+  height: 100vh
+}
+
+#container > comment{
+  width: 100%;
+  background: #eee;
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+  resize: none;
+  box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.19);
+  border-radius: 2px;
+  margin-bottom: 0.3rem;
+}
+#comment {
+  background: #eee;
+  padding: 1rem;
+  animation-name: fadeIn;
+  animation: fadeIn 1.5s;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #737373;
+  margin-top: 15px;
+}
+#addComments{
+  background: green;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(24, 150, 113);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#allComments > li > button.deleteComment {
+
+  background: darkgrey;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(00, 75, 113);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+#allComments > li > div{
+  background: #eee;
+  padding: 1rem;
+  animation-name: fadeIn;
+  animation: fadeIn 1.5s;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #737373;
+  margin-top: 15px;
+}
+#allComments > li > button.likeComment {
+  background: #ed2553;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   :root {
@@ -83,7 +278,6 @@ body {
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -91,6 +285,29 @@ body {
 .card-img-top {
   width : 850px;
   height: 350px;
+}
+input[type=text]:invalid {
+  border: red solid 1px;
+}
+
+.container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.container > label {
+  text-align: center;
+}
+
+#addComments {
+  width: 20%;
+  padding: 5px;
+}
+
+.wrapper > button {
+  margin-right: 5px;
+  padding: 5px;
 }
 
 .bi-eye {
@@ -189,7 +406,7 @@ address {
 
 ol,
 ul {
-  padding-left: 2rem;
+  padding-left: 1rem;
 }
 
 ol,
@@ -4480,7 +4697,7 @@ textarea.form-control-lg {
 }
 
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  color: orangered;
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
@@ -5550,6 +5767,17 @@ textarea.form-control-lg {
 .modal.modal-static .modal-dialog {
   transform: scale(1.02);
 }
+ul.wish_middle_list {
+  border: 1px solid saddlebrown;
+  width: 400px;
+  margin: auto;
+  margin-bottom: revert;
+  padding-left: 0px;
+
+}
+a.mid_modal {
+  width: 300px;
+}
 
 .modal-dialog-scrollable {
   height: calc(100% - 1rem);
@@ -5579,6 +5807,15 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+}
+
+.wish_mid_name {
+  color: #584647;
+  float: right;
+  width: 200px;
+  padding-top: 25px;
+  padding-left: 35px;
+
 }
 
 .modal-backdrop {
@@ -5612,10 +5849,39 @@ textarea.form-control-lg {
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
+.modal-header.flex_container {
+  background-color: bisque;
+  font-family: 'East Sea Dokdo', cursive;
+}
+
+a#staticBackdropLabel {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+  margin-left: 50px;
+}
+
+
+a#\32 {
+  background-color: #f39f72c7;
+  color: floralwhite;
+  border: 3px solid #f39f72c7;
+  border-radius: 20px;
+  font-size: 25px !important;
+  text-decoration-line: none;
+}
+
+
+
+
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
 }
+
 
 .modal-body {
   position: relative;
@@ -5637,6 +5903,9 @@ textarea.form-control-lg {
 .modal-footer > * {
   margin: 0.25rem;
 }
+
+
+
 
 @media (min-width: 576px) {
   .modal-dialog {
@@ -11329,6 +11598,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 
+
+
+
+
+
+
+
+
 }
 /* 이미지 */
 .grid-image {
@@ -11358,6 +11635,7 @@ textarea.form-control-lg {
     margin-right:15px;
   }
 }
+
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-bottom-width:1px;border-color:black;border-style:solid;border-top-width:1px;border-width:0px;
   font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
@@ -11378,3 +11656,6 @@ div.card-img-top img {
   height: 100%;
   object-fit: cover;
 }
+
+
+
