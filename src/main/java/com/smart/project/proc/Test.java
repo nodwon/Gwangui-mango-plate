@@ -56,4 +56,7 @@ public interface Test {
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
     void viewCount(String name);
+
+	MangoVO selectCurrent(String placename);
+
 }

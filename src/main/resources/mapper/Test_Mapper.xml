@@ -73,6 +73,8 @@
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
 
-
+    <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
+        select name, roadname, img1  from foodlist where name = #{placename}
+    </select>
 
 </mapper>

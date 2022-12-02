@@ -28,11 +28,6 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/13c79383be.js" crossorigin="anonymous"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
-
-
         <!--<script type="text/javascript" src="../resources/js/mango.js"></script>-->
         <style>
 
@@ -56,12 +51,12 @@
                         </div>
                         <!--최근본페이지모달-->
                         <div class="modal-body current-body">
-                            <div th:if="${session.list}!=null" class="modal-body current">
+                            <div th:if="${session.list}" class="modal-body current">
                                 <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                    <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+                                    <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&img1=${list.img1}|" th:href="@{${link}}">
                                         <li th:text="${list.name}"></li>
-                                        <li th:text="${list.roadName}"></li>
-                                        <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                        <li th:text="${list.roadname}"></li>
+                                        <img style="width: 80px;height: 80px" th:src="${list.img1}">
                                     </a>
                                 </ul>
                             </div>
@@ -89,7 +84,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-black">
                     <h1 class="display-4">광주야 플레이트</h1>
-                    <form class="example py-4" id="sumbit" onsubmit="return false" >
+                    <form class="example py-5" id="sumbit" onsubmit="return false" >
                         <input type="text" placeholder="지역,식당 또는 음식" name="search" >
                         <button id="search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
@@ -147,7 +142,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">View options</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -172,7 +167,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
 
@@ -196,7 +191,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" >자세히보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto" >Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +213,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a><p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a><p></div>
                             </div>
                         </div>
                     </div>
@@ -241,7 +236,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -263,7 +258,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">View options</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -289,7 +284,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
@@ -311,7 +306,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">자세히 보기</a></p></div>
+                                <div class="text-center"><p><a class="btn btn-outline-dark mt-auto">Add to cart</a></p></div>
                             </div>
                         </div>
                     </div>
