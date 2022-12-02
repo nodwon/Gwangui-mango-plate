@@ -11656,6 +11656,23 @@ div.card-img-top img {
   height: 100%;
   object-fit: cover;
 }
+h1.fw-bolder {
+  color: orangered;
+  font-family: 'East Sea Dokdo';
+  font-size: 6.5rem;
+  font-weight: unset !important;
+}
 
+
+header.py-5.bg-light.border-bottom.mb-4 {
+  background-image: url(../resources/vendors/images/광주야.jpg) !important;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+p.lead.mb-0 {
+  font-family: 'East Sea Dokdo';
+  font-size: 2.2em;
+}
 
 
