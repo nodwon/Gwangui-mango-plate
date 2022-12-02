@@ -152,31 +152,34 @@
                             <td class="tg-mnzm" colspan="2" th:text ="${mango.getReviewcount()}"></td>
                         </tr>
 
-             <!--           <tr>
-                            <td class="tg-9rpp" rowspan="3">메뉴</td>
-                            <td class="tg-l6nl">특양</td>
-                            <td class="tg-l6nl">30,000원</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-mnzm">양곱창</td>
-                            <td class="tg-mnzm">33,000원</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-mnzm">곱창</td>
-                            <td class="tg-mnzm">31,000원</td>
-                        </tr>-->
                         </tbody>
                     </table>
                     <hr style="border: #0d0501" >
-                    <div class="mb-3">
-                        <label>asdf</label>
-                    </div>
                     <div class="container">
                         <h4 for="comment" name="comment">리뷰 </h4>
+                            <span id ="user" th:text="${session.email}"></span>
+                            <span id ="title" th:text = "${modalVO.getName()}"}></span>
+<!--                        <div id="dd-dropbox">-->
+<!--                            <h3>Drag and drop files here</h3>-->
+<!--                            <h6>or</h6>-->
+<!--                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>-->
+<!--                        </div>-->
+                        <div id="dd-previewer"></div>
+                        <fieldset id = "grade" class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </fieldset>
                         <button id="reviewcount">  </button>
                         <textarea id="comment"></textarea>
                         <button id="addComments">추가</button>
-<!--                        <button id="removeComments">취소</button>-->
                         <div id="allComments"></div>
                     </div>
                     <!-- Pagination-->

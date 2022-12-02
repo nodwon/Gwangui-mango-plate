@@ -8,15 +8,15 @@ import java.util.List;
 
 @Data
 public class ReviewDTO {
-//    private Long rno;
-//    private Long bno;
+
 //
 //    private String reply;
 //    private String replyer;
 //    private Date replyDate;
 //    private Date updateDate;
-    String id;
-    String title;
+    String id; // private rno;
+    String title; // private Long bno;
+    private String user; //  user
     Integer grade;
     String review;
     List<MultipartFile> files;

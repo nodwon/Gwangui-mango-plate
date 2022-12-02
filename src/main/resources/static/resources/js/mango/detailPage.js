@@ -15,7 +15,6 @@ export class detailPage {
         const commentContainer = document.getElementById('allComments');
         document.getElementById('addComments').addEventListener('click', function (ev) {
             addComment(ev);
-            ev.preventDefault();
         });
 
         function addComment(ev) {
@@ -83,6 +82,7 @@ export class detailPage {
                 e.target.parentElement.remove();
             }
         });
+
 
         this.modalEvent();
         this.wishListEvent();
@@ -233,10 +233,6 @@ export class detailPage {
     //위시리스트 db에 저장하기
     favoriteStore(){
         $('.favoriteStore').on("click",()=>{
-
-
-    favoriteStore() {
-        $('.favoriteStore').on("click", () => {
             let name = $('.name').text();
             let roadName = $('.roadName').text();
             let src = $(".card-img-top>.wishimg").attr("src");
@@ -314,29 +310,26 @@ export class detailPage {
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", function (e) {
-            e.preventDefault();
             let reviewcontents = $("#reviewTxt").val();
-            // if (useremail === "") {
-            //     alert("로그인 후 이용해주세요");
-            //     return;
-            // } else if (reviewcontents == null) {
-            //     alert("내용을 입력해주세요");
-            //     return;
-            // }
-            // review.addreview(
-            //     {useremail: useremail, username: username, productnum: productnum, reviewcontents: reviewcontents},
-            //     function (result) {
-            //         if (result > 0) {
-            //             alert(result + "번 리뷰 작성 성공!");
-            //             location.reload();
-            //         }
-            //     }
-            // );
+            let useremail = $("#user").text();
+            let title = $("#title").text();
+            let rating = $("#grade").val();
+            debugger;
+            if (useremail === "") {
+                alert("로그인 후 이용해주세요");
+                return;
+            } else if (reviewcontents == null) {
+                alert("내용을 입력해주세요");
+                return;
+            }
+            const comment = {useremail: useremail, title: title, grade: rating, reviewcontents: reviewcontents};
+
             $.ajax({
                 type:"POST",
                 url:"/saveReview",
-                data:'json',
-                contentType:"application/json; charset=utf-8",
+                data:JSON.stringify(comment),
+                contentType:"application/json",
+                // "charset=ut
                 success:function(result){
                     if(callback){
                         callback(result);
@@ -344,29 +337,11 @@ export class detailPage {
                 },
                 error:function(err){
                     alert("리뷰 작성 실패!");
+                    alert(reviewcontents,useremail,title,rating);
+
                 }
             })
         });
-
-        //리뷰 삭제
-        $("#deleteComment").on("click", function (e) {
-            e.preventDefault();
-            let reviewnum = $(this).attr('href');
-            $.ajax({
-                type:"PUT",
-                url:"/deleteReviews",
-                data:'json',
-                contentType:"application/json; charset=utf-8",
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰 수정 실패. 다시 시도해주세요~");
-                }
-            })
-        })
 
 //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         let mf = false;

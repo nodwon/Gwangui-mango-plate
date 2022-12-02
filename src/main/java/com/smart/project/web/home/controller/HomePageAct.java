@@ -5,6 +5,7 @@ import com.smart.project.web.home.act.HomeDataAct;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.MangoVO;
+import com.smart.project.web.home.vo.ModalVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

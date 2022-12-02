@@ -61,21 +61,24 @@
     <insert id="saveReview">
         insert into tbl_review (
             id,
-            title,
+            bno,
             review,
+            user
             grade,
             update_date
         )
         values (
                    #{id},
-                   #{title},
+                   #{bno},
                    #{review},
+                    #{user},
                    #{grade},
                    UTC_TIMESTAMP()
                ) on duplicate key
         update
-            title = #{title},
+            title = #{bno},
             review = #{review},
+            user = #{user},
             grade = #{grade},
             update_date = UTC_TIMESTAMP()
     </insert>
@@ -83,8 +86,9 @@
     <select id="getReviewsByKeySet" resultType="com.smart.project.web.home.vo.ReviewDTO">
         select
         r.id,
-        r.title,
+        r.bno,
         r.review,
+        r.user,
         r.grade,
         DATE_FORMAT(r.update_date, '%Y%m%d%H%i%s') as review_up_date_str,
         f.file_id,
@@ -120,8 +124,9 @@
     <select id="getReview" resultType="com.smart.project.web.home.vo.ReviewDTO">
         select
             r.id,
-            r.title,
+            r.bno,
             r.review,
+            r.user,
             r.grade,
             DATE_FORMAT(r.update_date, '%Y%m%d%H%i%s') as review_up_date_str
         from
@@ -133,7 +138,8 @@
     <select id="getReviewsForMap" resultType="com.smart.project.web.home.vo.ReviewDTO">
         select
             r.id,
-            r.title,
+            r.bno,
+            r.user,
             r.grade,
         from
             tbl_review r
