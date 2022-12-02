@@ -5632,10 +5632,17 @@ a.mid_modal {
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
+.modal-header.flex_container {
+  background-color: bisque;
+  font-family: 'East Sea Dokdo', cursive;
+}
+
+
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
 }
+
 
 .modal-body {
   position: relative;
