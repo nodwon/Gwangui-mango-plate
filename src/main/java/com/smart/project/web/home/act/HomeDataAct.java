@@ -7,6 +7,8 @@ import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,9 +16,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Struct;
 import java.util.*;
 @SessionAttributes("pageNum")
@@ -164,26 +174,6 @@ public class HomeDataAct {
 
 		return data;
 	}
-/*	@PostMapping("/data/select")//해외
-	public String userDB(@RequestBody modalVO param){
-
-
-		//String keyData = String.valueOf(param);  //우리가 post (key,object)
-		log.error("user 정보 확인 : {}", param);
-		//받은 MAP 데이터 {'KEY' : 값형태} 형태
-		log.error("user 정보 확인 : {}", param.getName());
-
-		//log.error("{}",isData);
-		List<modalVO> modalVO = new ArrayList<>();
-		modalVO.add(param);
-		log.error("{}",modalVO);
-
-
-		//add한 codeVOList를 데이터베이스에 넣기
-		//test.userInsert(modalVO);
-
-		return "index";
-	}*/
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){
@@ -192,65 +182,113 @@ public class HomeDataAct {
 
 		return idCount;
 	}
-
-//	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
-//	public ResponseEntity<String> create(@RequestBody ReviewDTO reviewDTO) {
-//		int insertCount = test.register(reviewDTO);
-//
-//		return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
-//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//
-//	@GetMapping(value = "/pages/{bno}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
-//			MediaType.APPLICATION_JSON_UTF8_VALUE })
-//	public ResponseEntity<List<ReviewDTO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno) {
-//
-//		Criteria cri = new Criteria(page, 10);
-//
-//		return new ResponseEntity<List<ReviewDTO>>((List<ReviewDTO>) test.getList(cri, bno), HttpStatus.OK);
-//	}
-//
-//	@GetMapping(value = "/{rno}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-//	public ResponseEntity<ReviewDTO> get(@PathVariable("rno") Long rno) {
-//
-//		return new ResponseEntity<ReviewDTO>((ReviewDTO) test.get(rno), HttpStatus.OK);
-//	}
-//
-//	@RequestMapping(method = { RequestMethod.PUT,
-//			RequestMethod.PATCH }, value = "/{rno}", consumes = "application/json", produces = {
-//			MediaType.TEXT_PLAIN_VALUE })
-//	public ResponseEntity<String> modify(@RequestBody ReviewDTO reviewDTO, @PathVariable("rno") Long rno) {
-//
-//		reviewDTO.setRno(rno);
-//
-//		return test.modify(reviewDTO) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
-//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//	}
-//
-//	@DeleteMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE })
-//	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
-//
-//		return test.remove(rno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
-//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//	}
-
-	//리뷰 등록
-	@PostMapping(value ="/review", consumes = "application/json")
-	public ResponseEntity<String> review(@RequestBody ReviewDTO review){
-		return test.insert(review) ? new ResponseEntity<String>(test.getReviewnum()+"",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@PostMapping("/saveReview")
+	public void saveReview(ReviewDTO reviewDTO) {
+		String id = reviewDTO.getId();
+		if (id == null || id.isEmpty()) {
+			String uuidStr = UUID.randomUUID().toString();
+			reviewDTO.setId(uuidStr);
+		}
+		log.error("{}===>",id+"id");
+		test.saveReview(reviewDTO);
+        test.deleteFiles((List<String>) reviewDTO);
 	}
 
-	//리뷰 삭제
-	@PostMapping(value="/reviewDelete", consumes = "application/json")
-	public ResponseEntity<String> reviewDelete(@RequestBody int reviewnum){
-		return test.delete(reviewnum) ? new ResponseEntity<String>("success",HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@RequestMapping("/getReview")
+	public ReviewDTO getReview(String reviewId) {
+		log.error("{}===>",reviewId+"reviewId");
+		return test.getReview(reviewId);
+	}
+	@RequestMapping("/getReviewsByKeySet")
+	public List<ReviewDTO> getReviewsByKeySet(String reviewUpdateDate, String reviewId) {
+		log.error("{}===>",reviewUpdateDate,reviewId+"reviewUpdateDate,reviewId");
+		return test.getReviewsByKeySet(reviewUpdateDate, reviewId);
+	}
+	@RequestMapping("/getReviewsForMap")
+	public List<ReviewDTO> getReviewsForMap() {
+		return test.getReviewsForMap();
 	}
 
-	//리뷰 수정
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{reviewnum}", consumes = "application/json")
-	public ResponseEntity<String> reviewModify(@RequestBody ReviewDTO review){
-		return test.update(review) ? new ResponseEntity<String>("success",HttpStatus.OK):new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@RequestMapping("/deleteReviews")
+	public void deleteReviews(ReviewDTO reviewDTO) {
+		List<String> reviewIds = reviewDTO.getReviewIds();
+		log.error("{}===>",reviewIds+"reviewIds");
+		test.deleteReviews(reviewIds);
 	}
+	@GetMapping("/getImages")
+	public List<FileDTO> getImages(@RequestParam String reviewId) {
+		log.error("{}===>",reviewId+"reviewId+asdfasf");
+
+		return test.getImages(reviewId);
+	}
+	private Path imgDirPath;
+
+	@Value("src/main/resources/static/upload-dir")
+	private String imgDir;
+
+	@PostConstruct
+	public void init() {
+		this.imgDirPath = Paths.get(imgDir);
+	}
+
+
+	@RequestMapping("/delete")
+	public void deleteFiles(ReviewDTO reviewDTO) {
+		List<String> fileIds = reviewDTO.getFileIds();
+		if (fileIds == null || fileIds.isEmpty()) {
+			return;
+		}
+		test.deleteFiles(fileIds);
+	}
+
+	@RequestMapping("/get")
+	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
+		List<MultipartFile> files = reviewDTO.getFiles();
+		String reviewId = reviewDTO.getId();
+		if (files == null || files.isEmpty()) {
+			return;
+		}
+
+
+			if (! Files.exists(imgDirPath)) {
+				Files.createDirectories(imgDirPath);
+			}
+
+			Path reviewImgDirPath = imgDirPath.resolve(
+					Paths.get(reviewId)).normalize().toAbsolutePath();
+
+			if (! Files.exists(reviewImgDirPath)) {
+				Files.createDirectories(reviewImgDirPath);
+			}
+
+		for (MultipartFile file : files) {
+			saveFile(file, reviewId);
+		}
+	}
+
+	@RequestMapping("/save")
+	public void saveFile(MultipartFile file, String reviewId) {
+		try {
+			String originFilename = file.getOriginalFilename();
+			long fileSize = file.getSize();
+			String contentType = file.getContentType();
+
+
+			Path destinationFile = imgDirPath
+					.resolve(Paths.get(reviewId))
+					.resolve(Paths.get(originFilename))
+					.normalize()
+					.toAbsolutePath();
+
+			try (InputStream inputStream = file.getInputStream()) {
+				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+			}
+
+			String fileId = UUID.randomUUID().toString();
+			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
+		} catch (IOException e) {
+			log.error("filenotfond",e);
+		}
+	}
+
 }

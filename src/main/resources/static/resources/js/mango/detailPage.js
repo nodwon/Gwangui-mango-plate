@@ -16,7 +16,6 @@ export class detailPage {
         document.getElementById('addComments').addEventListener('click', function (ev) {
             addComment(ev);
             ev.preventDefault();
-            review
         });
 
         function addComment(ev) {
@@ -314,37 +313,56 @@ export class detailPage {
         $("#addComments").on("click", function (e) {
             e.preventDefault();
             let reviewcontents = $("#reviewTxt").val();
-            if (useremail === "") {
-                alert("로그인 후 이용해주세요");
-                return;
-            } else if (reviewcontents == null) {
-                alert("내용을 입력해주세요");
-                return;
-            }
-            review.addreview(
-                {useremail: useremail, username: username, productnum: productnum, reviewcontents: reviewcontents},
-                function (result) {
-                    if (result > 0) {
-                        alert(result + "번 리뷰 작성 성공!");
-                        location.reload();
+            // if (useremail === "") {
+            //     alert("로그인 후 이용해주세요");
+            //     return;
+            // } else if (reviewcontents == null) {
+            //     alert("내용을 입력해주세요");
+            //     return;
+            // }
+            // review.addreview(
+            //     {useremail: useremail, username: username, productnum: productnum, reviewcontents: reviewcontents},
+            //     function (result) {
+            //         if (result > 0) {
+            //             alert(result + "번 리뷰 작성 성공!");
+            //             location.reload();
+            //         }
+            //     }
+            // );
+            $.ajax({
+                type:"POST",
+                url:"/saveReview",
+                data:'json',
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
                     }
+                },
+                error:function(err){
+                    alert("리뷰 작성 실패!");
                 }
-            );
+            })
         });
 
         //리뷰 삭제
         $("#deleteComment").on("click", function (e) {
             e.preventDefault();
             let reviewnum = $(this).attr('href');
-            review.drop(
-                reviewnum,
-                function (result) {
-                    if (result == "success") {
-                        alert(reviewnum + "번 리뷰 삭제 성공!");
-                        location.reload();
+            $.ajax({
+                type:"PUT",
+                url:"/deleteReviews",
+                data:'json',
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
                     }
+                },
+                error:function(err){
+                    alert("리뷰 수정 실패. 다시 시도해주세요~");
                 }
-            )
+            })
         })
 
 //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
@@ -359,6 +377,20 @@ export class detailPage {
             $(".inlinereview").attr("readonly", false);
             $(this).hide();
             $(this).next().show();
+            $.ajax({
+                type:"POST",
+                url:"/saveReview",
+                data:'json',
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
+                    }
+                },
+                error:function(err){
+                    alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
+                }
+            })
         })
 
 //수정 완료 버튼
@@ -379,71 +411,26 @@ export class detailPage {
                     }
                 }
             )
+            $.ajax({
+                type:"PUT",
+                url:"/buy/"+review.reviewnum,
+                data:JSON.stringify(review),
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
+                    }
+                },
+                error:function(err){
+                    alert("리뷰 수정 실패. 다시 시도해주세요~");
+                }
+            })
         })
     }
 
 
 }
 
-const review = (function(){
-
-    //리뷰 작성 ajax
-    function review(review, callback){
-        $.ajax({
-            type:"POST",
-            url:"/buy/review",
-            data:JSON.stringify(review),
-            contentType:"application/json; charset=utf-8",
-            success:function(result){
-                if(callback){
-                    callback(result);
-                }
-            },
-            error:function(err){
-                alert("리뷰 작성 실패!");
-            }
-        })
-    }
-
-    //리뷰 삭제
-    function reviewDelete(review,callback){
-        $.ajax({
-            type:"POST",
-            url:"/buy/reviewDelete",
-            data:JSON.stringify(review),
-            contentType:"application/json; charset=utf-8",
-            success:function(result){
-                if(callback){
-                    callback(result);
-                }
-            },
-            error:function(err){
-                alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
-            }
-        })
-    }
-
-    //리뷰 수정
-    function reviewModify(review,callback){
-        $.ajax({
-            type:"PUT",
-            url:"/buy/"+review.reviewnum,
-            data:JSON.stringify(review),
-            contentType:"application/json; charset=utf-8",
-            success:function(result){
-                if(callback){
-                    callback(result);
-                }
-            },
-            error:function(err){
-                alert("리뷰 수정 실패. 다시 시도해주세요~");
-            }
-        })
-    }
-
-
-    return {addreview:review, drop:reviewDelete, modify:reviewModify};
-})();
 
 
 

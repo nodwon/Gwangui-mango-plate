@@ -3,10 +3,12 @@ package com.smart.project.web.home.vo;
 import lombok.Data;
 
 @Data
-public class ImgFileDTO {
+public class FileDTO {
     String fileId;
     String reviewId;
-    Long fileName;
+    Long fileSize;
+    String fileName;
     String ContentType;
-    String fileDateStr;
+    String fileUpDateStr;
+
 }

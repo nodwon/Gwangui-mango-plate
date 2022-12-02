@@ -56,30 +56,23 @@ public interface Test {
 	@Select("select userPw from table_join where userEmail=#{userEmail} and userName=#{userName} and userPhoneNum=#{userPhoneNum}")
 	CommonMemberVO findMemberPw(@Param("userEmail")String userEmail, @Param("userName") String userName, @Param("userPhoneNum") String userPhoneNum);
 
-	 boolean insert(ReviewDTO vo);
-
-	List<ReviewDTO> read(Long bno);
-
-	boolean delete(int bno);
-
-	boolean update(ReviewDTO reply);
-
-	 List<ReviewDTO> getListWithPaging(
-			@Param("cri") Criteria cri, @Param("bno") Long bno);
-	List<ReviewDTO> getCountByBno(Long bno);
-
 	void viewCount(String name);
 
-	int register(ReviewDTO vo);
+	void saveReview(ReviewDTO reviewDTO);
+	ReviewDTO getReview(@Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
+									   @Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsForMap();
+	void deleteReviews(@Param("reviewIds") List<String> reviewIds);
+	List<FileDTO> getImages(@Param("reviewId") String reviewId);
+	void saveFile(
+			@Param("fileId") String fileId,
+			@Param("reviewId") String reviewId,
+			@Param("fileName") String fileName,
+			@Param("fileSize") long fileSize,
+			@Param("contentType") String contentType
+	);
+	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
-	Object getList(Criteria cri, Long bno);
-
-	int modify(ReviewDTO reviewDTO);
-
-	int remove(Long rno);
-
-	Object get(Long rno);
-
-	HttpStatus getReviewnum();
 
 }
