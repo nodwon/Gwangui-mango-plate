@@ -295,7 +295,7 @@ address {
 
 ol,
 ul {
-  padding-left: 2rem;
+  padding-left: 1rem;
 }
 
 ol,
@@ -4586,7 +4586,7 @@ textarea.form-control-lg {
 }
 
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  color: orangered;
 }
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
@@ -5656,6 +5656,17 @@ textarea.form-control-lg {
 .modal.modal-static .modal-dialog {
   transform: scale(1.02);
 }
+ul.wish_middle_list {
+  border: 1px solid saddlebrown;
+  width: 400px;
+  margin: auto;
+  margin-bottom: revert;
+  padding: revert;
+
+}
+a.mid_modal {
+  width: 300px;
+}
 
 .modal-dialog-scrollable {
   height: calc(100% - 1rem);
@@ -5685,6 +5696,16 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+}
+
+.wish_mid_name {
+  color: #584647;
+  float: right;
+  width: 200px;
+  padding-top: 25px;
+  padding-left: 35px;
+
+
 }
 
 .modal-backdrop {
@@ -5743,6 +5764,9 @@ textarea.form-control-lg {
 .modal-footer > * {
   margin: 0.25rem;
 }
+
+
+
 
 @media (min-width: 576px) {
   .modal-dialog {
@@ -11435,6 +11459,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 
+
+
+
+
+
+
+
+
 }
 /* 이미지 */
 .grid-image {
@@ -11485,3 +11517,6 @@ div.card-img-top img {
   height: 100%;
   object-fit: cover;
 }
+
+
+

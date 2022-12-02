@@ -181,7 +181,6 @@ export class detailPage {
                 $(".current").empty();
             });
         });
-
     }
 
     //위시리스트로 화면 전환
@@ -189,6 +188,7 @@ export class detailPage {
         $('.wishlist-place').on("click", (e) => {
             $('.current-body').addClass("hidden");
             $('.wish-body').removeClass("hidden");
+            $('.reset').hide();
         })
         $('.current-place').on("click", (e) => {
             $('.wish-body').addClass("hidden");
@@ -229,15 +229,10 @@ export class detailPage {
                 $(".pop_region_content.region_content_kr").addClass("hidden");
             }
         });
-        $(".btn_reset").click(function () {
-            return document.getElementById("mTxtArea").value = '';
-        })
-        $("#detailTitle").click(function () {
-            return "/";
-
-        })
-
     }
+    //위시리스트 db에 저장하기
+    favoriteStore(){
+        $('.favoriteStore').on("click",()=>{
 
 
     favoriteStore() {
@@ -248,19 +243,27 @@ export class detailPage {
             // console.log(name);
             // console.log(roadName);
             // console.log(src);
-            let Object = {
-                "placename": name,
-                "roadname": roadName,
-                "mainimg": src
+            let email = $('.email').text();
+            if(email == null || email == ""){
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
+            }else{
+                let Object = {
+                    "placename" : name,
+                    "roadname" : roadName,
+                    "mainimg" : src
+                }
+                axios({
+                    method:"post",
+                    url:'/wishStore',
+                    params : Object
+                }).then((result)=>{
+                    console.log(Object);
+                    console.log(result.data);
+                })
             }
-            axios({
-                method: "post",
-                url: '/wishStore',
-                params: Object
-            }).then((result) => {
-                console.log(Object);
-                console.log(result.data);
-            })
 
         })
     }

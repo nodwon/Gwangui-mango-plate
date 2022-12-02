@@ -23,20 +23,20 @@
     <script src="/resources/vendors/jquery-mobile.event.min.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
     <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/onLoad.bundle.js')}"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
 </head>
     <div id = "Nav" class="fixed">
         <div class ="navbar-expand-lg" >
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container px-4 px-lg-5">
-                    <a class="navbar-brand" href="/">맹고플레이트
+                    <a class="navbar-brand" href="/">광주야 플레이트
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">Up</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="#bottom">Down    &nbsp </a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#top">▲Top</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#bottom">▼Bottom    &nbsp </a></li>
                         </ul>
                         <form class="d-flex">
                             <!--로그인버튼이 생기려면 email세션 null result==0 -->
@@ -56,7 +56,7 @@
                             <a th:if="${session.email}" class="btn btn-outline-dark me-3" type="submit" href="https://kauth.kakao.com/oauth/logout?client_id=69be1a111282098525e83fb2e70767ec&logout_redirect_uri=http://localhost/logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 로그아웃
-                                <p th:text="${session.email}"></p>
+                                <p class="email" th:text="${session.email}"></p>
                             </a>
                         </form>
 

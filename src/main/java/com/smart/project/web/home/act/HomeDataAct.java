@@ -47,7 +47,7 @@ public class HomeDataAct {
 
 		return result;
 	}
-
+	// 검색 입력 or 음식 메뉴 클릭 시 음식점 리스트 띄우기
 	@PostMapping("/data/searchAll")
 	public Map<String, Object> getSearchAll(Model model ,@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
@@ -80,9 +80,6 @@ public class HomeDataAct {
 
 		return result;
 	}
-
-
-
 
 
 	@PostMapping("/data/mango2")
@@ -140,11 +137,7 @@ public class HomeDataAct {
 		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
-		if(!(vo.getUseremail().equals("")) && vo.getUseremail()!=null) {
 			test.insertWish(vo);
-		}else {
-			log.error("로그인 되지 않음");
-		}
 		return data;
 	}
 	//위시리스트에 DB저장된 값 출력
@@ -174,6 +167,28 @@ public class HomeDataAct {
 
 		return data;
 	}
+
+
+/*	@PostMapping("/data/select")//해외
+	public String userDB(@RequestBody modalVO param){
+
+
+		//String keyData = String.valueOf(param);  //우리가 post (key,object)
+		log.error("user 정보 확인 : {}", param);
+		//받은 MAP 데이터 {'KEY' : 값형태} 형태
+		log.error("user 정보 확인 : {}", param.getName());
+
+		//log.error("{}",isData);
+		List<modalVO> modalVO = new ArrayList<>();
+		modalVO.add(param);
+		log.error("{}",modalVO);
+
+
+		//add한 codeVOList를 데이터베이스에 넣기
+		//test.userInsert(modalVO);
+
+		return "index";
+	}*/
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){

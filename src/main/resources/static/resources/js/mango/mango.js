@@ -32,19 +32,14 @@ export class mango{
         }
         this.modalEvent();
         this.wishListEvent();
-
         this.clearEvent();
+
     }
     cashing ={
         $search :$("input[name=search]"),
         $start :  $("#start"),
         $pagination : $("#pagination")
     }
-    //위시 리스트 클릭시 모달창 팝업
-    wishListEvent(){
-        console.log("");
-    }
-
     clearEvent()
     {
         $(".navbar-brand").on("click",(e)=>{
@@ -161,20 +156,116 @@ export class mango{
 
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
+            this.favoriteStore();
         });
     }
     //위시리스트 클릭 후 초기화
     modalEvent(){
-        $('#modal').on('click',()=>{
+        $('#modal').on('click',(e)=>{
             console.log('위시리스트')
+            $('.wish-list').empty();
+            this.wishListShowEvent();
+            this.modalShow();
+        })
+    }
+    //위시리스트 db에 저장하기
+    favoriteStore(){
+        $('.favoriteStore').on("click",(e)=>{
+            let name = $(e.currentTarget).parents('.h-100').children().find($('.b')).text();
+            let roadName = $(e.currentTarget).parents('.h-100').children().find($('.c')).text();
+            let src = $(e.currentTarget).parents('.h-100').children().find($('.mainimg')).attr("src");
+            console.log(name);
+            console.log(roadName);
+            console.log(src);
+            let email = $('.email').text();
+            console.log(email)
+            if(email == null || email == ""){
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
+            }else{
+                let Object = {
+                    "placename" : name,
+                    "roadname" : roadName,
+                    "mainimg" : src
+                }
+                axios({
+                    method:"post",
+                    url:'/wishStore',
+                    params : Object
+                }).then((result)=>{
+                    console.log(Object);
+                    console.log(result.data);
+                })
+            }
 
-            $(".btn.btn-primary.reset").on('click',(e)=>{
-                axios.post("/clearpost", {}).then((result)=> {
-                    $(".modal-body.dong").empty();
-                });
+        })
+    }
+    //위시리스트 띄워주는 이벤트
+    wishListShowEvent(){
+        axios.post("data/wishSelect", {}).then((result)=>{
+            console.log(result);
+
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let mainimg = e.mainimg;
+                let placename = e.placename;
+                let roadname = e.roadname;
+                console.log(mainimg);
+                console.log(placename);
+
+                var html = [
+                    '<form class="wishForm">',
+                    '<li class="placename">'+placename+'</li>',
+                    '<li>'+roadname+'</li>',
+                    '<img style="width: 80px;height: 80px" src='+mainimg+'>',
+                    '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '</form>'
+                ].join('');
+                $('.wish-list').append(html);
+
             });
+            this.wishListDeleteOne();
         })
 
+    }
+    //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
+    wishListDeleteOne(){
+        $('.deleteWish').on("click",(e)=>{
+            let placeName = $(e.currentTarget).prev().prev().prev().text();
+            console.log(placeName);
+
+            axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
+                $(e.currentTarget).parent($('.wishForm')).remove();
+                console.log(result);
+            })
+        })
+    }
+
+    modalShow(){
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then(()=> {
+
+                $(".current").empty();
+            });
+        });
+    }
+
+    //위시리스트로 화면 전환
+    wishListEvent(){
+        $('.wishlist-place').on("click",(e)=>{
+            $('.current-body').addClass("hidden");
+            $('.wish-body').removeClass("hidden");
+            $('.reset').hide();
+        })
+        $('.current-place').on("click",(e)=>{
+            $('.wish-body').addClass("hidden");
+            $('.current-body').removeClass("hidden");
+            if($('.reset').hide()){
+                $('.reset').show();
+            }
+        })
     }
 
 
