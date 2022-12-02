@@ -31,7 +31,7 @@ export class detailPage{
                 const wrapDiv = document.createElement('li');
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
-                document.getElementById('comment').value = '';
+                //document.getElementById('comment').value = '';
                 // saveReview(commentText);
                 // if(saveReview(commentText)===true) {
                 textBox.innerHTML = commentText;
@@ -330,8 +330,7 @@ export class detailPage{
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let rating = $('#grade').val();
-            console.log(rating)
+            let rating = document.querySelector('input[name ="rating"]:checked').value;
             if (useremail === "") {
                 alert("로그인 후 이용해주세요");
                 return;
@@ -339,7 +338,7 @@ export class detailPage{
                 alert("내용을 입력해주세요");
                 return;
             }
-            const comment = {useremail: useremail, title: title, grade: rating, reviewcontents: reviewcontents};
+            const comment = {email: useremail, title: title, grade: rating, review: reviewcontents};
 
             axios({
                 method : "post",
