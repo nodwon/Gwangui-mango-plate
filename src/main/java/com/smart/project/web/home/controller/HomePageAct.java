@@ -126,6 +126,7 @@ public class HomePageAct {
         if(result != null) {
             System.out.println("비밀번호 찾기 성공");
             session.setAttribute("userEmail",userEmail);
+            out.println("<script>alert('비밀번호를 변경해주세요.');</script>");
             return "Member/login/updatePw";
         }
         else {
@@ -142,7 +143,8 @@ public class HomePageAct {
         String userPw = vo.getUserPw();
         System.out.println(userEmail);
 
-        test.updateMemberPw(userEmail, userPw);
+        String securityPw = encoder.encode(userPw);
+        test.updateMemberPw(userEmail, securityPw);
 
         return "Member/login/login";
 
