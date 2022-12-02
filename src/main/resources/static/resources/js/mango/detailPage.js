@@ -6,10 +6,86 @@ $(()=>{
 })
 export class detailPage{
     constructor() {
+        window.onload = function setTemplate() {
+            document.getElementById('allComments').innerHTML = localStorage.getItem('template');
+        };
+
+        const commentContainer = document.getElementById('allComments');
+        document.getElementById('addComments').addEventListener('click', function (ev) {
+            addComment(ev);
+        });
+
+        function addComment(ev) {
+            let commentText, wrapDiv; // 입력창과 div감싸기
+            const textBox = document.createElement('div'); //  입력 창 div 만들기
+            const likeButton = document.createElement('button'); //버튼 만들기
+            const updateButton = document.createElement('button') // 수정 버튼
+            updateButton.innerHTML = "수정";
+            updateButton.className = "updateComment"
+            likeButton.innerHTML = 'Like';
+            likeButton.className = 'likeComment';
+            const deleteButton = document.createElement('button');
+            deleteButton.innerHTML = 'Delete';
+            deleteButton.className = 'deleteComment';
+            if (hasClass(ev.target.parentElement, 'container')) {
+                const wrapDiv = document.createElement('li');
+                wrapDiv.className = 'wrapper';
+                commentText = document.getElementById('comment').value;
+                //document.getElementById('comment').value = '';
+                // saveReview(commentText);
+                // if(saveReview(commentText)===true) {
+                textBox.innerHTML = commentText;
+                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
+                commentContainer.appendChild(wrapDiv);
+                // }else{
+                //     return onn
+                // }
+            } else {
+                wrapDiv = ev.target.parentElement;
+                commentText = ev.target.parentElement.firstElementChild.value;
+                textBox.innerHTML = commentText;
+                wrapDiv.innerHTML = '';
+                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
+            }
+            setOnLocalStorage();
+        }
+
+        function setOnLocalStorage() { // 모든 댓글
+            localStorage.setItem('template', document.getElementById('allComments').innerHTML);
+        }
+
+        function hasClass(elem, className) {
+            return elem.className.split(' ').indexOf(className) > -1;
+        }
+
+        document.getElementById('allComments').addEventListener('click', function (e) {
+            if (hasClass(e.target, 'addReply')) {
+                addComment(e);
+            } else if (hasClass(e.target, 'likeComment')) {
+                const likeBtnValue = e.target.innerHTML;
+                e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
+                setOnLocalStorage();
+            } else if (hasClass(e.target, 'cancelReply')) {
+                e.target.parentElement.innerHTML = '';
+                setOnLocalStorage();
+            } else if (hasClass(e.target, 'deleteComment')) {
+                $.ajax({
+                    method: "post",
+                    url: '/deleteReview',
+                    params: Object
+                }).then((result) => {
+                    console.log(Object);
+                    console.log(result.data);
+                })
+                e.target.parentElement.remove();
+            }
+        });
+
 
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
+        this.reviewEvent();
         /*$("#Nav").append(this.head);*/
 
 
@@ -250,7 +326,112 @@ export class detailPage{
                 })
         })
     }
-    
+
+    //////////////////////////////////
+    //작성하기 버튼 클릭시
+    reviewEvent() {
+        $("#addComments").on("click", function (e) {
+            let reviewcontents = $("#comment").val();
+            let useremail = $("#user").text();
+            let title = $("#title").text();
+            let rating = document.querySelector('input[name ="rating"]:checked').value;
+            if (useremail === "") {
+                alert("로그인 후 이용해주세요");
+                return;
+            } else if (reviewcontents == null) {
+                alert("내용을 입력해주세요");
+                return;
+            }
+            const comment = {email: useremail, title: title, grade: rating, review: reviewcontents};
+
+            axios({
+                method : "post",
+                url : '/saveReview',
+                params : comment
+                /*type:"POST",
+                url:"/saveReview",
+                data:JSON.stringify(comment),
+                contentType:"application/json",
+                // "charset=ut
+                success:function(result){
+                    if(callback){
+                        callback(result);
+                    }
+                },
+                error:function(err){
+                    alert("리뷰 작성 실패!");
+                    alert(reviewcontents,useremail,title,rating);
+
+                }*/
+            }).then((result)=>{
+                console.log(result);
+            })
+        });
+
+//리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
+        let mf = false;
+        $("#updateComment").on("click", function (e) {
+            e.preventDefault();
+            if (mf === true) {
+                alert("이미 수정중인 리뷰가 있습니다");
+                return;
+            }
+            mf = true;
+            $(".inlinereview").attr("readonly", false);
+            $(this).hide();
+            $(this).next().show();
+            $.ajax({
+                type:"POST",
+                url:"/saveReview",
+                data:'json',
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
+                    }
+                },
+                error:function(err){
+                    alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
+                }
+            })
+        })
+
+//수정 완료 버튼
+        $("#updateComment").on("click", function (e) {
+            e.preventDefault();
+            mf == false;
+            let reviewcontents = $(".inlinereview").val();
+            let reviewnum = $(this).attr('href');
+            buyService.modify(
+                {reviewcontents: reviewcontents, reviewnum: reviewnum},
+                function (result) {
+                    if (result === "success") {
+                        alert("리뷰를 수정 하였습니다.");
+                        $(".inlinereview").attr("readonly", true);
+                        $(this).show();
+                        $(this).prev().hide();
+                        location.reload();
+                    }
+                }
+            )
+            $.ajax({
+                type:"PUT",
+                url:"/buy/"+review.reviewnum,
+                data:JSON.stringify(review),
+                contentType:"application/json; charset=utf-8",
+                success:function(result){
+                    if(callback){
+                        callback(result);
+                    }
+                },
+                error:function(err){
+                    alert("리뷰 수정 실패. 다시 시도해주세요~");
+                }
+            })
+        })
+    }
+
+
 }
 
 

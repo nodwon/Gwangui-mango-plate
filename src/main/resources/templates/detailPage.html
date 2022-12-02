@@ -152,67 +152,31 @@
                             <td class="tg-mnzm" colspan="2" th:text ="${mango.getReviewcount()}"></td>
                         </tr>
 
-             <!--           <tr>
-                            <td class="tg-9rpp" rowspan="3">메뉴</td>
-                            <td class="tg-l6nl">특양</td>
-                            <td class="tg-l6nl">30,000원</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-mnzm">양곱창</td>
-                            <td class="tg-mnzm">33,000원</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-mnzm">곱창</td>
-                            <td class="tg-mnzm">31,000원</td>
-                        </tr>-->
                         </tbody>
                     </table>
-
-
-                    <!-- 리뷰 -->
-                    <section class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
-
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="리뷰를 작성해주세요"></textarea></form>
-
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">김곱창</div>
-                                        친절하고 맛있어요~
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">주인</div>
-                                                감사합니다.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex mt-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">이막창</div>
-                                        맛집이에요~
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex mt-4" >
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">박염통</div>
-                                        맛집이에요~
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
+                    <hr style="border: #0d0501" >
+                    <div class="container">
+                        <h4 for="comment" name="comment">리뷰 </h4>
+                            <span id ="user" th:text="${session.email}"></span>
+                            <span id ="title" th:text="${mango.name}"}></span>
+<!--                        <div id="dd-dropbox">-->
+<!--                            <h3>Drag and drop files here</h3>-->
+<!--                            <h6>or</h6>-->
+<!--                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>-->
+<!--                        </div>-->
+                        <div id="dd-previewer"></div>
+                        <fieldset id = "grade" class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                        </fieldset>
+                        <button id="reviewcount">  </button>
+                        <textarea id="comment" name="comment"></textarea>
+                        <button id="addComments">추가</button>
+                        <div id="allComments"></div>
+                    </div>
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
                         <hr class="my-0" />
@@ -239,6 +203,7 @@
                 </div>
 
                 <div id="map" style="width:100%;height:500px;">
+
                 </div>
 
 
@@ -256,8 +221,6 @@
 
 
 </div>
-
-
 
 <section layout:fragment="contentScriptFragment">
     <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/detailPage.bundle.js')}"></script>

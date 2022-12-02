@@ -14,14 +14,6 @@
         select count(*) from table_join where userId = #{userId}
     </select>
 
-<!--    <insert id ="insertMangoJson" parameterType="java.util.List">
-        insert into bteam (id,name,address,menu,phone) values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.name},#{item.address},#{item.menu},#{item.phone})
-        </foreach>
-    </insert>-->
-
-
     <select id="selectMango2" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
@@ -33,12 +25,6 @@
     <select id="selectName" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         SELECT * FROM foodlist where  name= #{name}
     </select>
-
-<!--    <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
-        SELECT * FROM foodmango where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%')
-            or foodtype like concat('%',#{search},'%');
-    </select>-->
-
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
@@ -72,7 +58,25 @@
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
-
+    <insert id="saveReview">
+        insert into tbl_review (
+            email,
+            title,
+            review,
+            grade,
+            updateDate
+        )
+        values (
+                   #{email},
+                   #{title},
+                   #{review},
+                   #{grade},
+                   now()
+               )
+    </insert>
+<!--    <update id="viewCount" parameterType="java.lang.String">-->
+<!--        update tbl_review set title = #{title},review = #{review},grade = #{grade},update_date = UTC_TIMESTAMP() where id = #{id}, title = #{title}-->
+<!--    </update>-->
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
