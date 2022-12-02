@@ -98,7 +98,7 @@ export class mango{
                 let img1 = e.img1;
                 let url = e.url;
 
-
+//
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(latitude, longitude),
                     map: map
