@@ -49,6 +49,7 @@ public class HomePageAct {
         String userEmail = result.getUserEmail();
         log.error("user=>{}",result );
 
+
         if(result!=null && encoder.matches(userPw, result.getUserPw())){
             System.out.println("로그인 성공");
             //로그인시 쿠키 생성
