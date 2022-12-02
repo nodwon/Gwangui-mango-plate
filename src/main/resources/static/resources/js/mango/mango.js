@@ -5,9 +5,6 @@ import md from "../../../../templates/wishListModal.html";
 $(()=>{
     new mango();
 })
-//
-
-
 
 export class mango{
     constructor() {

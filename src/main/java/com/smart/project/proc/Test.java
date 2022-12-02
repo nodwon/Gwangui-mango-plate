@@ -6,6 +6,7 @@ import com.smart.project.annotation.Master;
 import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -58,5 +59,24 @@ public interface Test {
     void viewCount(String name);
 
 	MangoVO selectCurrent(String placename);
+
+	void viewCount(String name);
+
+	void saveReview(ReviewDTO reviewDTO);
+	ReviewDTO getReview(@Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
+									   @Param("reviewId") String reviewId);
+	List<ReviewDTO> getReviewsForMap();
+	void deleteReviews(@Param("reviewIds") List<String> reviewIds);
+	List<FileDTO> getImages(@Param("reviewId") String reviewId);
+	void saveFile(
+			@Param("fileId") String fileId,
+			@Param("reviewId") String reviewId,
+			@Param("fileName") String fileName,
+			@Param("fileSize") long fileSize,
+			@Param("contentType") String contentType
+	);
+	void deleteFiles(@Param("fileIds") List<String> fileIds);
+
 
 }
