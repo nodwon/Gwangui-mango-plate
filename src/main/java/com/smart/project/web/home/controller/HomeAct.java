@@ -63,9 +63,9 @@ public class HomeAct {
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
 		// 최근 클릭한 가게
-		StringBuffer str = new StringBuffer(modal.getSrc());
-		str.insert(str.indexOf(",")+1,"&src=");
-		modal.setSrc(str.toString());
+//		StringBuffer str = new StringBuffer(modal.getSrc());
+//		str.insert(str.indexOf(",")+1,"&src=");
+//		modal.setSrc(str.toString());
 
 		list.add(modal);
 		HashSet<String> duplicateData = new HashSet<>(list);

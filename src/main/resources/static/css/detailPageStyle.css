@@ -5555,7 +5555,7 @@ ul.wish_middle_list {
   width: 400px;
   margin: auto;
   margin-bottom: revert;
-  padding: revert;
+  padding-left: 0px;
 
 }
 a.mid_modal {
@@ -5598,7 +5598,6 @@ a.mid_modal {
   width: 200px;
   padding-top: 25px;
   padding-left: 35px;
-
 
 }
 
