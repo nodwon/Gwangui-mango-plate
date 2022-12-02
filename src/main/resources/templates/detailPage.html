@@ -39,10 +39,13 @@
                     <div class="modal-body current-body">
                         <div th:if="${session.list}" class="modal-body current">
                             <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&src=${list.img1}|" th:href="@{${link}}">
-                                    <li th:text="${list.name}"></li>
-                                    <li th:text="${list.roadname}"></li>
-                                    <img style="width: 80px;height: 80px" th:src="${list.img1}">
+                                <div><a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}" class="mid_modal">
+                                    <img style="width: 100px;height: 100px" th:src="${list.src} ">
+                                    <div class="wish_mid_name">
+                                        <b><span style="font-size: larger" th:text="${list.name}"></span></b>
+                                    <br>
+                                    <span th:text="${list.roadName}"></span>
+                                    </div>
                                 </a>
                             </ul>
                         </div>
