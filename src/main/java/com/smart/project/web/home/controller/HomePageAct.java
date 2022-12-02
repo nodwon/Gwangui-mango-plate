@@ -5,12 +5,13 @@ import com.smart.project.web.home.act.HomeDataAct;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.MangoVO;
-import com.smart.project.web.home.vo.ModalVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import com.smart.project.web.home.vo.ModalVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -41,14 +42,16 @@ public class HomePageAct {
 
     //일반 회원 로그인
     @PostMapping("/commonLogin")
-    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletResponse response, HttpServletRequest request){
+    public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         log.error("{}",vo);
         String userId = vo.getUserId();
-        String userPw = vo.getUserPw();
-        CommonMemberVO result  = test.selectOneMem(userId,userPw);
-        if(result!=null){
-            String userEmail = result.getUserEmail();
-            log.error("user111=>{}",userEmail );
+        String userPw = request.getParameter("userPw");
+        CommonMemberVO result  = test.selectOneMem(userId);
+        String userEmail = result.getUserEmail();
+        log.error("user=>{}",result );
+
+
+        if(result!=null && encoder.matches(userPw, result.getUserPw())){
             System.out.println("로그인 성공");
             //로그인시 쿠키 생성
             Cookie cookieId = new Cookie("email", userEmail);
@@ -138,6 +141,7 @@ public class HomePageAct {
         String userEmail = vo.getUserEmail();
         String userName = vo.getUserName();
         String userPhoneNum = vo.getUserPhoneNum();
+
         CommonMemberVO result = test.findMemberPw(userEmail, userName, userPhoneNum);
 
         if(result != null) {
