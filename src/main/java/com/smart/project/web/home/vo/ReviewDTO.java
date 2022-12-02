@@ -13,10 +13,9 @@ public class ReviewDTO {
 //    private String reply;
 //    private String replyer;
 //    private Date replyDate;
-//    private Date updateDate;
-    String id; // private rno;
+    private Date updateDate;
+    String email; // private rno;
     String title; // private Long bno;
-    private String user; //  user
     Integer grade;
     String review;
     List<MultipartFile> files;

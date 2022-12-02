@@ -60,29 +60,23 @@
     </update>
     <insert id="saveReview">
         insert into tbl_review (
-            id,
-            bno,
+            email,
+            title,
             review,
-            user
             grade,
-            update_date
+            updateDate
         )
         values (
-                   #{id},
-                   #{bno},
+                   #{email},
+                   #{title},
                    #{review},
-                    #{user},
                    #{grade},
-                   UTC_TIMESTAMP()
-               ) on duplicate key
-        update
-            title = #{bno},
-            review = #{review},
-            user = #{user},
-            grade = #{grade},
-            update_date = UTC_TIMESTAMP()
+                   now()
+               )
     </insert>
-
+<!--    <update id="viewCount" parameterType="java.lang.String">-->
+<!--        update tbl_review set title = #{title},review = #{review},grade = #{grade},update_date = UTC_TIMESTAMP() where id = #{id}, title = #{title}-->
+<!--    </update>-->
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>

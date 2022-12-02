@@ -1,5 +1,4 @@
 "use strict";
-import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
@@ -31,7 +30,7 @@ export class detailPage{
                 const wrapDiv = document.createElement('li');
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
-                document.getElementById('comment').value = '';
+                //document.getElementById('comment').value = '';
                 // saveReview(commentText);
                 // if(saveReview(commentText)===true) {
                 textBox.innerHTML = commentText;
@@ -327,11 +326,10 @@ export class detailPage{
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", function (e) {
-            let reviewcontents = $("#reviewTxt").val();
+            let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let rating = $("#grade").val();
-            debugger;
+            let rating = document.querySelector('input[name ="rating"]:checked').value;
             if (useremail === "") {
                 alert("로그인 후 이용해주세요");
                 return;
@@ -339,10 +337,13 @@ export class detailPage{
                 alert("내용을 입력해주세요");
                 return;
             }
-            const comment = {useremail: useremail, title: title, grade: rating, reviewcontents: reviewcontents};
+            const comment = {email: useremail, title: title, grade: rating, review: reviewcontents};
 
-            $.ajax({
-                type:"POST",
+            axios({
+                method : "post",
+                url : '/saveReview',
+                params : comment
+                /*type:"POST",
                 url:"/saveReview",
                 data:JSON.stringify(comment),
                 contentType:"application/json",
@@ -356,7 +357,9 @@ export class detailPage{
                     alert("리뷰 작성 실패!");
                     alert(reviewcontents,useremail,title,rating);
 
-                }
+                }*/
+            }).then((result)=>{
+                console.log(result);
             })
         });
 

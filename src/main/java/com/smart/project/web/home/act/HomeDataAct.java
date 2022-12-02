@@ -199,14 +199,15 @@ public class HomeDataAct {
 	}
 	@PostMapping("/saveReview")
 	public void saveReview(ReviewDTO reviewDTO) {
-		String id = reviewDTO.getId();
+		log.error("{}===>",reviewDTO);
+		String id = reviewDTO.getEmail();
 		if (id == null || id.isEmpty()) {
 			String uuidStr = UUID.randomUUID().toString();
-			reviewDTO.setId(uuidStr);
+			reviewDTO.setEmail(uuidStr);
 		}
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
-        test.deleteFiles((List<String>) reviewDTO);
+//        test.deleteFiles((List<String>) reviewDTO);
 	}
 
 	@RequestMapping("/getReview")
@@ -259,7 +260,7 @@ public class HomeDataAct {
 	@RequestMapping("/get")
 	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
 		List<MultipartFile> files = reviewDTO.getFiles();
-		String reviewId = reviewDTO.getId();
+		String reviewId = reviewDTO.getEmail();
 		if (files == null || files.isEmpty()) {
 			return;
 		}
