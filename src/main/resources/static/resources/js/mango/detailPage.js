@@ -95,6 +95,16 @@ export class detailPage{
             $('.wish-list').empty();
             this.wishListShowEvent();
             this.modalShow();
+            this.currentMove();
+        })
+    }
+
+    //최근본 페이지 클릭시 중복적용되는 부분 방지
+    currentMove(){
+        $('.currentMove').on("click",(e)=>{
+           /* axios.post("/data/duplicate", {}).then(()=> {
+
+            });*/
         })
     }
 

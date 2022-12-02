@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 
@@ -59,20 +60,27 @@ public class HomeAct {
 }
 
 	@RequestMapping("/detailPage")
-	public String datailPage(@ModelAttribute ModalVO modal, HttpSession session, Model model){
+	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
 		/*HttpSession sessionEmail = request.getParameter();*/
 //		String loginEmail = (String) session.getAttribute("email");
-		// 최근 클릭한 가게
-		StringBuffer str = new StringBuffer(modal.getSrc());
-		str.insert(str.indexOf(",")+1,"&src=");
-		modal.setSrc(str.toString());
+		String placename = vo.getName();
 
-		list.add(modal);
+		MangoVO mangoVO1 = test.selectCurrent(placename);
+		// 최근 클릭한 가게
+		if(mangoVO1.getName()==placename) {
+			StringBuffer str = new StringBuffer(vo.getImg1());
+			str.insert(str.indexOf(",") + 1, "&src=");
+			vo.setImg1(str.toString());
+			log.error("가져온 src => {}", vo.getImg1());
+		}
+
+		list.add(mangoVO1);
+		log.error("list 값 =>{}", list);
 		HashSet<String> duplicateData = new HashSet<>(list);
-		session.setAttribute("list", duplicateData);
-		log.error("세션 => {}", session.getAttribute("list"));
-		String name = modal.getName();
-		MangoVO mangoVO = test.getMangoVO(name);
+		session.setAttribute("list",duplicateData);
+		log.error("중복방지처리 =>{}", duplicateData);
+
+		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
 
 		return"detailPage";

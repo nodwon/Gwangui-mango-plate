@@ -52,12 +52,12 @@
                         </div>
                         <!--최근본페이지모달-->
                         <div class="modal-body current-body">
-                            <div th:if="${session.list}!=null" class="modal-body current">
+                            <div th:if="${session.list}" class="modal-body current">
                                 <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                    <a th:with="link=|${'/detailPage'}?roadName=${list.roadName}&name=${list.name}&src=${list.src}|" th:href="@{${link}}">
+                                    <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&img1=${list.img1}|" th:href="@{${link}}">
                                         <li th:text="${list.name}"></li>
-                                        <li th:text="${list.roadName}"></li>
-                                        <img style="width: 80px;height: 80px" th:src="${list.src} ">
+                                        <li th:text="${list.roadname}"></li>
+                                        <img style="width: 80px;height: 80px" th:src="${list.img1}">
                                     </a>
                                 </ul>
                             </div>
