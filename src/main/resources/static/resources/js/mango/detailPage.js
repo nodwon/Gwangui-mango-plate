@@ -15,36 +15,48 @@ export class detailPage{
         });
 
         function addComment(ev) {
+            let useremail = $("#user").text(); // 중복
+            let title = $("#title").text(); // 중복
+            let rating = document.querySelector('input[name ="rating"]:checked').value; // 중복
+            let updateDate ; //날짜 가져오기
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
             const likeButton = document.createElement('button'); //버튼 만들기
             const updateButton = document.createElement('button') // 수정 버튼
+            const deleteButton = document.createElement('button'); // 삭제 버튼
+            const ratingshow = document.createElement("a") // star 만들기
+            const idli = document.createElement("a"); //id li 만들기
+            const titleshow = document.createElement("a"); // title li 만들기
+            const img = document.createElement("img"); // img 추가 버튼 만들기
             updateButton.innerHTML = "수정";
-            updateButton.className = "updateComment"
+            updateButton.className = "updateComment";
             likeButton.innerHTML = 'Like';
             likeButton.className = 'likeComment';
-            const deleteButton = document.createElement('button');
             deleteButton.innerHTML = 'Delete';
             deleteButton.className = 'deleteComment';
+            idli.innerHTML = useremail;
+            idli.className ="showId";
+            ratingshow.innerHTML =rating;
+            ratingshow.className ="showRating";
+            titleshow.innerHTML =title;
+            titleshow.className ="showTitle";
+            img.innerHTML ="사진"; //
+            img.className ="showImg";
+
             if (hasClass(ev.target.parentElement, 'container')) {
                 const wrapDiv = document.createElement('li');
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
                 //document.getElementById('comment').value = '';
-                // saveReview(commentText);
-                // if(saveReview(commentText)===true) {
                 textBox.innerHTML = commentText;
-                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
-                commentContainer.appendChild(wrapDiv);
-                // }else{
-                //     return onn
-                // }
-            } else {
+                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
+                commentContainer.appendChild(wrapDiv);}
+             else {
                 wrapDiv = ev.target.parentElement;
                 commentText = ev.target.parentElement.firstElementChild.value;
                 textBox.innerHTML = commentText;
                 wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
+                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
             }
             setOnLocalStorage();
         }
@@ -53,7 +65,7 @@ export class detailPage{
             localStorage.setItem('template', document.getElementById('allComments').innerHTML);
         }
 
-        function hasClass(elem, className) {
+        function hasClass(elem, className) { //삭제
             return elem.className.split(' ').indexOf(className) > -1;
         }
 
@@ -343,27 +355,16 @@ export class detailPage{
                 method : "post",
                 url : '/saveReview',
                 params : comment
-                /*type:"POST",
-                url:"/saveReview",
-                data:JSON.stringify(comment),
-                contentType:"application/json",
-                // "charset=ut
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰 작성 실패!");
-                    alert(reviewcontents,useremail,title,rating);
-
-                }*/
             }).then((result)=>{
                 console.log(result);
             })
+            // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
+            //     var me = $(this);
+            //     log.html(me.attr('value'));
+            // https://codepen.io/lsirivong/pen/nRNLYL
         });
 
-//리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
+        //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         let mf = false;
         $("#updateComment").on("click", function (e) {
             e.preventDefault();

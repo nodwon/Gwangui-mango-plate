@@ -157,13 +157,9 @@
                     <hr style="border: #0d0501" >
                     <div class="container">
                         <h4 for="comment" name="comment">리뷰 </h4>
-                            <span id ="user" th:text="${session.email}"></span>
-                            <span id ="title" th:text="${mango.name}"}></span>
-<!--                        <div id="dd-dropbox">-->
-<!--                            <h3>Drag and drop files here</h3>-->
-<!--                            <h6>or</h6>-->
-<!--                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>-->
-<!--                        </div>-->
+                            <span id ="user" th:text="${session.email}" hidden></span>
+                            <span id ="title" th:text="${mango.name}"} hidden></span>
+<!--                            <span id ="updateDate" th:text="${tbl_review.updateDate}"></span>-->
                         <div id="dd-previewer"></div>
                         <fieldset id = "grade" class="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -174,8 +170,12 @@
                         </fieldset>
                         <button id="reviewcount">  </button>
                         <textarea id="comment" name="comment"></textarea>
-                        <button id="addComments">추가</button>
-                        <div id="allComments"></div>
+                        <div id="dd-dropbox">
+                            <h6>Drag and drop files here or </h6>
+                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
+                        </div>
+                            <button id="addComments">추가</button>
+                            <div id="allComments"></div>
                     </div>
                     <!-- Pagination-->
                     <nav aria-label="Pagination">

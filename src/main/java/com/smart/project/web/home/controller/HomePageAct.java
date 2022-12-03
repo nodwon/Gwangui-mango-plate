@@ -4,17 +4,12 @@ import com.smart.project.proc.Test;
 import com.smart.project.web.home.act.HomeDataAct;
 import com.smart.project.web.home.vo.CommonMemberVO;
 import com.smart.project.web.home.vo.KakaoMemberVO;
-import com.smart.project.web.home.vo.MangoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import com.smart.project.web.home.vo.ModalVO;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 
@@ -170,64 +165,5 @@ public class HomePageAct {
         return "Member/login/login";
 
     }
-
-/*    @RequestMapping("/data/select")//해외
-    public String userDB(Model model , @ModelAttribute ModalVO param){
-        //String keyData = String.valueOf(param);  //우리가 post (key,object)
-        log.error("user 정보 확인 : {}", param);
-        //받은 MAP 데이터 {'KEY' : 값형태} 형태
-        log.error("user 정보 확인 : {}", param.getName());
-
-        //log.error("{}",isData);
-        List<ModalVO> modalVO = new ArrayList<>();
-        modalVO.add(param);
-        log.error("{}",modalVO);
-        model.addAttribute("modalList",modalVO);
-
-
-        //add한 codeVOList를 데이터베이스에 넣기
-        //test.userInsert(modalVO);
-
-        return "test2";
-    }*/
-
-
-
-
-
-
-/*
-    @RequestMapping("/getModal")
-    public String getModal(Model model, @ModelAttribute ModalVO modal){
-      *//*  list<vo> store = model.getAttribute("stores");
-        store.add(new vo());
-        model.addAttribute("stores",store);*//*
-
-        //리스트를 생성하는 부분은
-
-        log.error("name => {}",modal.getName());
-        log.error("name => {}",modal.getRoadName());
-        log.error("name => {}",modal.getSrc());
-        return "test";
-
-    }*/
-/*    @RequestMapping("/getHtml")
-    public String getHtml(){
-
-        return "topNav";
-
-
-    }*/
-    @PostMapping("/data/modal")
-    public String getModal(Model model, ModalVO modal){
-        model.addAttribute("name", modal.getName());
-        model.addAttribute("roadName", modal.getRoadName());
-        model.addAttribute("src", modal.getSrc());
-        log.error("name => {}",modal.getName());
-        log.error("roadname => {}",modal.getRoadName());
-        log.error("src => {}",modal.getSrc());
-        return "detailPage";
-    }
-
 
 }

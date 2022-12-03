@@ -2,10 +2,10 @@ package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
 
-//import com.smart.project.web.home.vo.KakaoMemberVO;
 import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.http.HttpStatus;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
