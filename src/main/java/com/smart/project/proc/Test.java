@@ -77,5 +77,5 @@ public interface Test {
 	);
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
-	void currentReview(String placename);
+	ReviewDTO currentReview(String placename);
 }

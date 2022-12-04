@@ -81,4 +81,7 @@
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
 
+    <select id="currentReview" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
+        select * from tbl_review where title = #{placename}
+    </select>
 </mapper>

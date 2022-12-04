@@ -158,7 +158,7 @@
                     <div class="container">
                         <h4 for="comment" name="comment">리뷰 </h4>
                             <span id ="user" th:text="${session.email}"></span>
-                            <span id ="title" th:text = "${modalVO.getName()}"}></span>
+                            <span id ="title" th:text = "${mango.name}"}></span>
 <!--                        <div id="dd-dropbox">-->
 <!--                            <h3>Drag and drop files here</h3>-->
 <!--                            <h6>or</h6>-->
@@ -172,24 +172,11 @@
                             <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
                             <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                         </fieldset>
-                        <button id="reviewcount">  </button>
+                        <button id="reviewcount"> </button>
                         <textarea id="comment" name="comment"></textarea>
                         <button id="addComments">추가</button>
                         <div id="allComments"></div>
                     </div>
-                    <!-- Pagination-->
-                    <nav aria-label="Pagination">
-                        <hr class="my-0" />
-                        <ul class="pagination justify-content-center my-4">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
 

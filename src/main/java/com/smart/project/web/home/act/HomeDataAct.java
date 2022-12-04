@@ -158,13 +158,19 @@ public class HomeDataAct {
 		log.error("가져온 장소 => {}",placename);
 		vo.setUseremail(useremail);
 		vo.setPlacename(placename);
-
 		test.wishDelete(vo);
-
 		WishListVO data = vo;
-
 		log.error("지운 data => {}",data);
 
+		return data;
+	}
+
+	//해당 이메일에 로그인되어있을 때 리뷰 삭제
+	@RequestMapping("data/deleteReply")
+	public ReviewDTO deleteReply(RequestBody Map param, HttpServletRequest request) {
+		ReviewDTO dto = new ReviewDTO();
+		String useremail = (String)request.getSession().getAttribute("email");
+		String placename = (String)param.get("placeName");
 		return data;
 	}
 

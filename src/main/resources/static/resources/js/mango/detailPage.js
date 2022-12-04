@@ -52,6 +52,7 @@ export class detailPage{
 
         function setOnLocalStorage() { // 모든 댓글
             localStorage.setItem('template', document.getElementById('allComments').innerHTML);
+
         }
 
         function hasClass(elem, className) {
@@ -69,14 +70,35 @@ export class detailPage{
                 e.target.parentElement.innerHTML = '';
                 setOnLocalStorage();
             } else if (hasClass(e.target, 'deleteComment')) {
-                $.ajax({
+                let reviewcontents = $("#comment").val();
+                let useremail = $("#user").text();
+                let title = $("#title").text();
+                let rating = document.querySelector('input[name ="rating"]:checked').value;
+
+                let object = {
+                    "email" : useremail,
+                    "placename" : title,
+                    "rating" : rating
+                }
+
+                axios.post({
+                    method : "post",
+                    url : "data/deleteReply",
+                    params : object
+                }).then((result)=>{
+                    console.log(object);
+                    console.log(result.data);
+                })
+
+
+                /*$.ajax({
                     method: "post",
                     url: '/deleteReview',
                     params: Object
                 }).then((result) => {
                     console.log(Object);
                     console.log(result.data);
-                })
+                })*/
                 e.target.parentElement.remove();
             }
         });
