@@ -167,10 +167,13 @@ public class HomeDataAct {
 
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")
-	public ReviewDTO deleteReply(RequestBody Map param, HttpServletRequest request) {
-		ReviewDTO dto = new ReviewDTO();
-		String useremail = (String)request.getSession().getAttribute("email");
-		String placename = (String)param.get("placeName");
+	public ReviewDTO deleteReply(ReviewDTO dto, HttpServletRequest request) {
+		String email =  dto.getEmail();
+		String title =  dto.getTitle();
+		dto.setEmail(email);
+		dto.setTitle(title);
+		ReviewDTO data = dto;
+		test.deleteReply(email, title);
 		return data;
 	}
 

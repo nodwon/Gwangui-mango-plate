@@ -78,4 +78,6 @@ public interface Test {
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
 	ReviewDTO currentReview(String placename);
+
+	ReviewDTO deleteReply(String email, String title);
 }
