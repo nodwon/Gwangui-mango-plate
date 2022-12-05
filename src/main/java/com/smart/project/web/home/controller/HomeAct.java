@@ -76,6 +76,7 @@ public class HomeAct {
 		log.error("중복방지처리 =>{}", duplicateData);
 
 		test.reviewAvg(placename);
+		test.reviewCount(placename);
 
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);

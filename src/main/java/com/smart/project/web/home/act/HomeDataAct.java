@@ -201,12 +201,10 @@ public class HomeDataAct {
 	public void saveReview(ReviewDTO reviewDTO) {
 		log.error("{}===>",reviewDTO);
 		String id = reviewDTO.getEmail();
-//		String title = reviewDTO.getTitle();
 		if (id == null || id.isEmpty()) {
 			String uuidStr = UUID.randomUUID().toString();
 			reviewDTO.setEmail(uuidStr);
 		}
-//		test.reviewCount(title,1);
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
 //        test.deleteFiles((List<String>) reviewDTO);
@@ -230,9 +228,6 @@ public class HomeDataAct {
 	@RequestMapping("/deleteReviews")
 	public void deleteReviews(ReviewDTO reviewDTO) {
 		List<String> reviewIds = reviewDTO.getReviewIds();
-
-//		String title = reviewDTO.getTitle();
-//		test.reviewCount(title, -1);
 
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
