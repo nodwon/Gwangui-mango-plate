@@ -21,5 +21,7 @@ public class MangoVO {
     private String img2;
     private String img3;
     private int viewCount;
+    private int rvCount;
+    private double rvAvg;
 
 }

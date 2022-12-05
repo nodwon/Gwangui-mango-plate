@@ -62,13 +62,7 @@ public class HomeDataAct {
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
 		List<MangoVO> data = test.searchAll(cri);
 
-		if(data.size()==0){
-			result.put("food",null);
 
-		}
-		else{
-			result.put("food",data);
-		}
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
 		{
@@ -323,36 +317,5 @@ public class HomeDataAct {
 			log.error("filenotfond",e);
 		}
 	}
-
-
-/*	@RequestMapping("/profile-upload")
-	public void uploadProfile(@RequestParam MultipartFile file, String reviewId){
-
-		System.out.println(file.getOriginalFilename());
-		String originalFilename = file.getOriginalFilename();
-		try {
-			String originFilename = file.getOriginalFilename();
-			long fileSize = file.getSize();
-			String contentType = file.getContentType();
-
-
-			Path destinationFile = imgDirPath
-				*//*	.resolve(Paths.get(reviewId))*//*
-					.resolve(Paths.get(originFilename))
-					.normalize()
-					.toAbsolutePath();
-
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-			}
-
-			String fileId = UUID.randomUUID().toString();
-			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
-		} catch (IOException e) {
-			log.error("filenotfond",e);
-		}
-
-	}*/
-
 
 }

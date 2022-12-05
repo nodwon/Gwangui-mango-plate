@@ -77,84 +77,82 @@ export class mango{
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {
-
             console.log(search)
 
-                //지도처리
-                let data = result.data.food;   //data = List<locationVO>
-                var mapOptions = {
-                    center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
-                    zoom: 11
-                };
+            //지도처리
+            let data = result.data.food;   //data = List<locationVO>
+            var mapOptions = {
+                center: new naver.maps.LatLng(data[0].latitude, data[0].longitude),
+                zoom: 11
+            };
 
-                var map = new naver.maps.Map('map', mapOptions);
+            var map = new naver.maps.Map('map', mapOptions);
 
-                _.forEach(data, (e) => {
-                    let latitude = e.latitude;
-                    let longitude = e.longitude;
-                    let name = e.name;
-                    let foodtype = e.foodtype;
-                    let roadname = e.roadname;
-                    let mainmenu = e.mainmenu;
-                    let img1 = e.img1;
-                    let url = e.url;
-
-
-                    var marker = new naver.maps.Marker({
-                        position: new naver.maps.LatLng(latitude, longitude),
-                        map: map
-                    });
-                    var contentString = [
-                        '<div class="iw_inner">',
-                        '   <h3>' + name + '</h3>',
-                        '   <p>',
-                        '       <img style="float: left" src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" />',
-                        '      ' + mainmenu + '<br>',
-                        '       ' + roadname + '',
-                        '       <a href="' + url + '" target="_blank">' + url + '/</a>',
-                        '   </p>',
-                        '</div>'
-                    ].join('');
-
-                    var infowindow = new naver.maps.InfoWindow({
-                        content: contentString
-                    });
-
-                    naver.maps.Event.addListener(marker, "click", function (e) {
-                        if (infowindow.getMap()) {
-                            infowindow.close();
-                        } else {
-                            infowindow.open(map, marker);
-                        }
-                    });
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
+                let longitude = e.longitude;
+                let name = e.name;
+                let foodtype = e.foodtype;
+                let roadname = e.roadname;
+                let mainmenu = e.mainmenu;
+                let img1 = e.img1;
+                let url = e.url;
 
 
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(latitude, longitude),
+                    map: map
+                });
+                var contentString = [
+                    '<div class="iw_inner">',
+                    '   <h3>' + name + '</h3>',
+                    '   <p>' + mainmenu + '<br>',
+                    '       <img src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       ' + roadname + '<br>',
+                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
+                    '   </p>',
+                    '</div>'
+                ].join('');
+
+                var infowindow = new naver.maps.InfoWindow({
+                    content: contentString
                 });
 
-                //페이징처리
-                if (!(result.data.page == null)) {
-                    let pageMaker = result.data.page
-                    let startPage = pageMaker.startPage
-                    let endPage = pageMaker.endPage
-                    let prev = pageMaker.prev;
-                    let next = pageMaker.next;
-                    let paging = ''
-                    if (prev) {
-                        paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
+                naver.maps.Event.addListener(marker, "click", function (e) {
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        infowindow.open(map, marker);
                     }
+                });
 
-                    for (let i = startPage; i <= endPage; i++) {
-                        let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
-                        paging = paging + page
-                    }
-                    if (next) {
-                        paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
-                    }
 
-                    console.log(result)
-                    $(".pagination.justify-content-center").empty().append(paging)
-                    this.pageEvnet();
+            });
+
+            //페이징처리
+            if (!(result.data.page == null)) {
+                let pageMaker = result.data.page
+                let startPage = pageMaker.startPage
+                let endPage = pageMaker.endPage
+                let prev = pageMaker.prev;
+                let next = pageMaker.next;
+                let paging = ''
+                if (prev) {
+                    paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
+                    paging = paging + page
+                }
+                if (next) {
+                    paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                }
+
+                console.log(result)
+                $(".pagination.justify-content-center").empty().append(paging)
+                this.pageEvnet();
+            }
 
                 this.cashing.$start.empty();
                 this.cashing.$start.append(this.foodList(result));
@@ -295,7 +293,6 @@ export class mango{
                 this.foodPageList(search);
             }
         });
-
 
 
         //한식 ,중식, 일식 눌렀을때 이벤트
