@@ -79,5 +79,5 @@ public interface Test {
 
 	ReviewDTO currentReview(String placename);
 
-	ReviewDTO deleteReply(String email, String title);
+	ReviewDTO deleteReply(String email);
 }

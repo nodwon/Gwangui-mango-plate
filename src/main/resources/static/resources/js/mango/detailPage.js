@@ -335,7 +335,7 @@ export class detailPage{
     //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
     wishListDeleteOne(){
         $('.deleteWish').on("click",(e)=>{
-                let placeName = $(e.currentTarget).prev().prev().prev().text();
+                let placeName = $(e.currentTarget).parent($('.wishForm')).find($('.placename')).text()
                 console.log(placeName);
 
                 axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{

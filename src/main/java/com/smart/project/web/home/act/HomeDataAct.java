@@ -169,11 +169,9 @@ public class HomeDataAct {
 	@RequestMapping("data/deleteReply")
 	public ReviewDTO deleteReply(ReviewDTO dto, HttpServletRequest request) {
 		String email =  dto.getEmail();
-		String title =  dto.getTitle();
 		dto.setEmail(email);
-		dto.setTitle(title);
 		ReviewDTO data = dto;
-		test.deleteReply(email, title);
+		test.deleteReply(email);
 		return data;
 	}
 
