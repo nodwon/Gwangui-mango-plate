@@ -340,6 +340,7 @@ export class detailPage{
                     "placename": title,
                     "rating": rating
                 }
+                //
                 axios.post({
                     method: "post",
                     url: "data/deleteReply",
