@@ -84,4 +84,7 @@ public interface Test {
 
 	MangoVO selectCurrent(String placename);
 
+	void reviewAvg(String placename);
+
+//	void reviewCount(@Param("title")String title, @Param("amount")int amount);
 }

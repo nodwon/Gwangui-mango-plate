@@ -75,6 +75,8 @@ public class HomeAct {
 		session.setAttribute("list",duplicateData);
 		log.error("중복방지처리 =>{}", duplicateData);
 
+		test.reviewAvg(placename);
+
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
 

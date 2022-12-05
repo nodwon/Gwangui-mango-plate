@@ -81,4 +81,16 @@
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
 
+<!--    <update id="reviewCount">-->
+<!--        update foodlist set rvCount = rvCount + #{amount} where name = #{title}-->
+<!--    </update>-->
+
+    <select id="reviewAvg" parameterType="java.lang.String" resultType="double">
+        update foodlist set rvAvg = (select round(avg(grade), 1)
+                                     from tbl_review
+                                     group by title
+                                     having title = #{placename})
+                        where name = #{placename}
+    </select>
+
 </mapper>
