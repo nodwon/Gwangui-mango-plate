@@ -128,13 +128,13 @@ public class HomeDataAct {
 	@RequestMapping("/wishStore")
 	public WishListVO getData(@ModelAttribute WishListVO vo, HttpServletRequest request){
 		String useremail = (String) request.getSession().getAttribute("email");
-		String placename = vo.getPlacename();
-		String roadname = vo.getRoadname();
-		String mainimg = vo.getMainimg();
+//		String placename = vo.getPlacename();
+//		String roadname = vo.getRoadname();
+//		String mainimg = vo.getMainimg();
 		log.error("세션에서 가져온 email => {}",useremail);
-		log.error("세션에서 가져온 placename => {}",placename);
-		log.error("세션에서 가져온 roadname => {}",roadname);
-		log.error("세션에서 가져온 이미지src => {}",mainimg);
+//		log.error("세션에서 가져온 placename => {}",placename);
+//		log.error("세션에서 가져온 roadname => {}",roadname);
+//		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
 			test.insertWish(vo);
@@ -158,13 +158,21 @@ public class HomeDataAct {
 		log.error("가져온 장소 => {}",placename);
 		vo.setUseremail(useremail);
 		vo.setPlacename(placename);
-
 		test.wishDelete(vo);
-
 		WishListVO data = vo;
-
 		log.error("지운 data => {}",data);
 
+		return data;
+	}
+
+	//해당 이메일에 로그인되어있을 때 리뷰 삭제
+	@RequestMapping("data/deleteReply")
+	public ReviewDTO deleteReply(ReviewDTO dto, HttpServletRequest request) {
+		String email =  dto.getEmail();
+		dto.setEmail(email);
+		ReviewDTO data = dto;
+		test.deleteReply(email);
+		log.error("지울 것? => {}",data);
 		return data;
 	}
 
@@ -207,6 +215,8 @@ public class HomeDataAct {
 		}
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
+
+
 //        test.deleteFiles((List<String>) reviewDTO);
 	}
 

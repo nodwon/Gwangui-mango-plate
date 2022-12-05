@@ -32,6 +32,7 @@
 
     </select>
 
+
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
     </select>
@@ -50,7 +51,6 @@
         select * from wishList_tbl where useremail=#{useremail}
     </select>
 
-
     <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
         delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
     </delete>
@@ -58,27 +58,24 @@
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
+
     <insert id="saveReview">
-        insert into tbl_review (
-            email,
-            title,
-            review,
-            grade,
-            updateDate
-        )
-        values (
-                   #{email},
-                   #{title},
-                   #{review},
-                   #{grade},
-                   now()
-               )
+        insert into tbl_review ( email,title,review,grade,updateDate ) values (#{email}, #{title}, #{review}, #{grade}, now())
     </insert>
+
 <!--    <update id="viewCount" parameterType="java.lang.String">-->
 <!--        update tbl_review set title = #{title},review = #{review},grade = #{grade},update_date = UTC_TIMESTAMP() where id = #{id}, title = #{title}-->
 <!--    </update>-->
+
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
 
+    <select id="currentReview" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
+        select * from tbl_review where title = #{placename}
+    </select>
+
+    <delete id="deleteReply" parameterType="java.lang.String">
+        delete from deleteReply where email = #{email}
+    </delete>
 </mapper>

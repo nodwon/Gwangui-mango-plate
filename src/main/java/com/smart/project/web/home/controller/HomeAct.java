@@ -60,23 +60,25 @@ public class HomeAct {
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
+
 		String placename = vo.getName();
 		MangoVO mangoVO1 = test.selectCurrent(placename);
 		// 최근 클릭한 가게
-		if(mangoVO1.getName()==placename) {
-			StringBuffer str = new StringBuffer(vo.getImg1());
-			str.insert(str.indexOf(",") + 1, "&src=");
-			vo.setImg1(str.toString());
-			log.error("가져온 src => {}", vo.getImg1());
-		}
+//		if(mangoVO1.getName()==placename) {
+//			StringBuffer str = new StringBuffer(vo.getImg1());
+//			str.insert(str.indexOf(",") + 1, "&src=");
+//			vo.setImg1(str.toString());
+//		}
 		list.add(mangoVO1);
-		log.error("list 값 =>{}", list);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		session.setAttribute("list",duplicateData);
-		log.error("중복방지처리 =>{}", duplicateData);
-
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
+		//해당페이지에 맞는 리뷰 가져오기
+		log.error("가져온 가게 이름 => {}", placename);
+		List<ReviewDTO> dto = test.currentReview(placename);
+		model.addAttribute("dto", dto);
+		log.error("가져온 DTO => {}", dto);
 
 		return"detailPage";
 	}

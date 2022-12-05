@@ -1,12 +1,11 @@
 "use strict";
-import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
 })
 export class detailPage{
     constructor() {
-        window.onload = function setTemplate() {
+        /*window.onload = function setTemplate() {
             document.getElementById('allComments').innerHTML = localStorage.getItem('template');
         };
 
@@ -16,45 +15,58 @@ export class detailPage{
         });
 
         function addComment(ev) {
+            let useremail = $("#user").text(); // 중복
+            let title = $("#title").text(); // 중복
+            let rating = document.querySelector('input[name ="rating"]:checked').value; // 중복
+            let updateDate ; //날짜 가져오기
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
             const likeButton = document.createElement('button'); //버튼 만들기
             const updateButton = document.createElement('button') // 수정 버튼
+            const deleteButton = document.createElement('button'); // 삭제 버튼
+            const ratingshow = document.createElement("a") // star 만들기
+            const idli = document.createElement("a"); //id li 만들기
+            const titleshow = document.createElement("a"); // title li 만들기
+            const img = document.createElement("img"); // img 추가 버튼 만들기
             updateButton.innerHTML = "수정";
-            updateButton.className = "updateComment"
+            updateButton.className = "updateComment";
             likeButton.innerHTML = 'Like';
             likeButton.className = 'likeComment';
-            const deleteButton = document.createElement('button');
             deleteButton.innerHTML = 'Delete';
             deleteButton.className = 'deleteComment';
+            idli.innerHTML = useremail;
+            idli.className ="showId";
+            ratingshow.innerHTML =rating;
+            ratingshow.className ="showRating";
+            titleshow.innerHTML =title;
+            titleshow.className ="showTitle";
+            img.innerHTML ="사진"; //
+            img.className ="showImg";
+
             if (hasClass(ev.target.parentElement, 'container')) {
                 const wrapDiv = document.createElement('li');
                 wrapDiv.className = 'wrapper';
                 commentText = document.getElementById('comment').value;
                 //document.getElementById('comment').value = '';
-                // saveReview(commentText);
-                // if(saveReview(commentText)===true) {
                 textBox.innerHTML = commentText;
-                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
-                commentContainer.appendChild(wrapDiv);
-                // }else{
-                //     return onn
-                // }
-            } else {
+                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
+                commentContainer.appendChild(wrapDiv);}
+             else {
                 wrapDiv = ev.target.parentElement;
                 commentText = ev.target.parentElement.firstElementChild.value;
                 textBox.innerHTML = commentText;
                 wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox, updateButton, likeButton, deleteButton);
+                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
             }
             setOnLocalStorage();
         }
 
         function setOnLocalStorage() { // 모든 댓글
             localStorage.setItem('template', document.getElementById('allComments').innerHTML);
+
         }
 
-        function hasClass(elem, className) {
+        function hasClass(elem, className) { //삭제
             return elem.className.split(' ').indexOf(className) > -1;
         }
 
@@ -69,18 +81,27 @@ export class detailPage{
                 e.target.parentElement.innerHTML = '';
                 setOnLocalStorage();
             } else if (hasClass(e.target, 'deleteComment')) {
-                $.ajax({
-                    method: "post",
-                    url: '/deleteReview',
-                    params: Object
-                }).then((result) => {
-                    console.log(Object);
+                let reviewcontents = $("#comment").val();
+                let useremail = $("#user").text();
+                let title = $("#title").text();
+                let rating = document.querySelector('input[name ="rating"]:checked').value;
+                let object = {
+                    "email" : useremail,
+                    "placename" : title,
+                    "rating" : rating
+                }
+                axios.post({
+                    method : "post",
+                    url : "data/deleteReply",
+                    params : object
+                }).then((result)=>{
+                    console.log(object);
                     console.log(result.data);
                 })
+
                 e.target.parentElement.remove();
             }
-        });
-
+        });*/
 
         this.modalEvent();
         this.wishListEvent();
@@ -88,11 +109,10 @@ export class detailPage{
         this.reviewEvent();
         /*$("#Nav").append(this.head);*/
 
-
         console.log("detailpage");
 
-        let name =$(".name").text();
-        let search = {"name":name}
+        let name = $(".name").text();
+        let search = {"name": name}
 
 
         axios.post("data/map",search).then((result)=>{
@@ -123,12 +143,11 @@ export class detailPage{
                 });
                 var contentString = [
                     '<div class="iw_inner">',
-                    '   <h3>' + name + '</h3>',
-                    '   <p>',
-                    '       <img style="float: left" src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" />',
-                    '      ' + mainmenu + '<br>',
-                    '       '  + roadname + '',
-                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
+                    '   <h3>'+name+'</h3>',
+                    '   <p>'+mainmenu+'<br>',
+                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
+                    '       '+roadname+'<br>',
+                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
@@ -158,9 +177,8 @@ export class detailPage{
 
     }
 
-    clearEvent()
-    {
-        $(".navbar-brand").on("click",(e)=>{
+    clearEvent() {
+        $(".navbar-brand").on("click", (e) => {
             sessionStorage.clear();
             location.href="/";
         })
@@ -193,6 +211,7 @@ export class detailPage{
             });
         });
     }
+
     //위시리스트로 화면 전환
     wishListEvent(){
         $('.wishlist-place').on("click",(e)=>{
@@ -219,6 +238,7 @@ export class detailPage{
         $("#mapShow").append()
 
     }
+
     ModalEvent() {
         $(".btn_cls").on("click",(e)=>{
             $(".normal_pop_wrap").addClass("hidden")
@@ -298,7 +318,7 @@ export class detailPage{
 
                         '<div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">' +
                      '<b><a></a><span class="placename" style="font-size: larger">'+placename+'</span></b>',
-                    
+
                         '<br>',
                         '<span class="placeRoadName">'+roadname+'</span>' +
                         '</div>',
@@ -317,7 +337,7 @@ export class detailPage{
     //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
     wishListDeleteOne(){
         $('.deleteWish').on("click",(e)=>{
-                let placeName = $(e.currentTarget).prev().prev().prev().text();
+                let placeName = $(e.currentTarget).parent($('.wishForm')).find($('.placename')).text()
                 console.log(placeName);
 
                 axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
@@ -330,11 +350,12 @@ export class detailPage{
     //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
-        $("#addComments").on("click", function (e) {
+        $("#addComments").on("click", ()=> {
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let rating = document.querySelector('input[name ="rating"]:checked').value;
+            let rating = $('input[name ="rating"]:checked').val();
+
             if (useremail === "") {
                 alert("로그인 후 이용해주세요");
                 return;
@@ -342,33 +363,54 @@ export class detailPage{
                 alert("내용을 입력해주세요");
                 return;
             }
-            const comment = {email: useremail, title: title, grade: rating, review: reviewcontents};
+            const comment = {
+                "email": useremail,
+                "title": title,
+                "grade": rating,
+                "review": reviewcontents
+            };
 
+            let start = "";
+            for(var i =1 ;i<=rating;i++)
+            {
+                    start +='<i class="fa-solid fa-star"></i>'
+            }
+
+            // 리뷰 쓴 데이터 append 시키기
+            let html1 = [
+            '<li class="wrapper">',
+               '<p>'+reviewcontents+'</p>',
+               '<p class="showId">'+ useremail+ '</p>',
+               '<p class="showRating">'+rating+' </p>',
+               start,
+               '<br>',
+               '<button class="updateComment">수정</button>',
+               '<button class="likeComment">like</button>',
+               '<button class="deleteComment">delete</button>',
+
+
+          '  </li>'].join('');
+            $('#allComments').append(html1);
+
+
+            //리뷰데이터를 저장
             axios({
                 method : "post",
                 url : '/saveReview',
                 params : comment
-                /*type:"POST",
-                url:"/saveReview",
-                data:JSON.stringify(comment),
-                contentType:"application/json",
-                // "charset=ut
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰 작성 실패!");
-                    alert(reviewcontents,useremail,title,rating);
-
-                }*/
-            }).then((result)=>{
-                console.log(result);
             })
+
+
+
+
+            // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
+            //     var me = $(this);
+            //     log.html(me.attr('value'));
+            // https://codepen.io/lsirivong/pen/nRNLYL
         });
 
-//리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
+
+        //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         let mf = false;
         $("#updateComment").on("click", function (e) {
             e.preventDefault();
