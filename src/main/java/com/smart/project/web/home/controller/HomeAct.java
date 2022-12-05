@@ -60,6 +60,7 @@ public class HomeAct {
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
+
 		String placename = vo.getName();
 		MangoVO mangoVO1 = test.selectCurrent(placename);
 		// 최근 클릭한 가게
@@ -75,8 +76,9 @@ public class HomeAct {
 		model.addAttribute("mango",mangoVO);
 		//해당페이지에 맞는 리뷰 가져오기
 		log.error("가져온 가게 이름 => {}", placename);
-		ReviewDTO dto = test.currentReview(placename);
+		List<ReviewDTO> dto = test.currentReview(placename);
 		model.addAttribute("dto", dto);
+		log.error("가져온 DTO => {}", dto);
 
 		return"detailPage";
 	}

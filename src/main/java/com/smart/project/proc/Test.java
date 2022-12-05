@@ -78,7 +78,7 @@ public interface Test {
 	);
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
-	ReviewDTO currentReview(String placename);
+	List<ReviewDTO> currentReview(String placename);
 
 	ReviewDTO deleteReply(String email);
 	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")

@@ -179,10 +179,21 @@
                             <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
                         </div>
                             <button id="addComments">추가</button>
-                            <div id="allComments"></div>
+                            <div id="allComments">
+                                <li th:each="review, i:${dto}" class="wrapper">
+                                    <p th:text="${review.review}"></p>
+                                    <p class="showId" th:text="${review.email}"></p>
+                                    <p class="showRating" th:text="${review.grade}"></p>
+                                    <button class="updateComment">수정</button>
+                                    <button class="likeComment">like</button>
+                                    <button class="deleteComment">delete</button>
+                                </li>
+                            </div>
                     </div>
                 </div>
             </div>
+
+
 
             <!-- Side widgets-->
             <div class="col-lg-4" >

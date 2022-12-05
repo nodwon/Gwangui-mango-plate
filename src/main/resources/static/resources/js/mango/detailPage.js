@@ -6,7 +6,7 @@ $(()=>{
 })
 export class detailPage{
     constructor() {
-        window.onload = function setTemplate() {
+        /*window.onload = function setTemplate() {
             document.getElementById('allComments').innerHTML = localStorage.getItem('template');
         };
 
@@ -86,13 +86,11 @@ export class detailPage{
                 let useremail = $("#user").text();
                 let title = $("#title").text();
                 let rating = document.querySelector('input[name ="rating"]:checked').value;
-
                 let object = {
                     "email" : useremail,
                     "placename" : title,
                     "rating" : rating
                 }
-
                 axios.post({
                     method : "post",
                     url : "data/deleteReply",
@@ -102,18 +100,9 @@ export class detailPage{
                     console.log(result.data);
                 })
 
-
-                /*$.ajax({
-                    method: "post",
-                    url: '/deleteReview',
-                    params: Object
-                }).then((result) => {
-                    console.log(Object);
-                    console.log(result.data);
-                })*/
                 e.target.parentElement.remove();
             }
-        });
+        });*/
 
         this.modalEvent();
         this.wishListEvent();
@@ -360,11 +349,12 @@ export class detailPage{
     //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
-        $("#addComments").on("click", function (e) {
+        $("#addComments").on("click", ()=> {
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let rating = document.querySelector('input[name ="rating"]:checked').value;
+            let rating = $('input[name ="rating"]:checked').val();
+
             if (useremail === "") {
                 alert("로그인 후 이용해주세요");
                 return;
@@ -372,20 +362,54 @@ export class detailPage{
                 alert("내용을 입력해주세요");
                 return;
             }
-            const comment = {email: useremail, title: title, grade: rating, review: reviewcontents};
+            const comment = {
+                "email": useremail,
+                "title": title,
+                "grade": rating,
+                "review": reviewcontents
+            };
 
+            let start = "";
+            for(var i =1 ;i<=rating;i++)
+            {
+                    start +='<i class="fa-solid fa-star"></i>'
+
+            }
+
+
+            // 리뷰 쓴 데이터 append 시키기
+            let html1 = [
+            '<li class="wrapper">',
+               '<p>'+reviewcontents+'</p>',
+               '<p class="showId">'+ useremail+ '</p>',
+               '<p class="showRating">'+rating+' </p>',
+               start,
+                '<br>',
+               '<button class="updateComment">수정</button>',
+               '<button class="likeComment">like</button>',
+               '<button class="deleteComment">delete</button>',
+
+
+          '  </li>'].join('');
+            $('#allComments').append(html1);
+
+
+            //리뷰데이터를 저장
             axios({
                 method : "post",
                 url : '/saveReview',
                 params : comment
-            }).then((result)=>{
-                console.log(result);
             })
+
+
+
+
             // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
             //     var me = $(this);
             //     log.html(me.attr('value'));
             // https://codepen.io/lsirivong/pen/nRNLYL
         });
+
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         let mf = false;

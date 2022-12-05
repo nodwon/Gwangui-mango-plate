@@ -172,6 +172,7 @@ public class HomeDataAct {
 		dto.setEmail(email);
 		ReviewDTO data = dto;
 		test.deleteReply(email);
+		log.error("지울 것? => {}",data);
 		return data;
 	}
 
@@ -214,6 +215,8 @@ public class HomeDataAct {
 		}
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
+
+
 //        test.deleteFiles((List<String>) reviewDTO);
 	}
 
