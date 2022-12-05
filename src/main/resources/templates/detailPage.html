@@ -184,7 +184,8 @@
                                 <li th:each="review, i:${dto}" class="wrapper">
                                     <p th:text="${review.review}"></p>
                                     <p class="showId" th:text="${review.email}"></p>
-                                    <p class="showRating" th:text="${review.grade}"></p>
+                                    <p class="showRating hidden" th:text="${review.grade}"></p>
+                                    <p class="showDate" th:text="${review.updateDate}"></p>
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                         <i class="fa-solid fa-star"></i>
                                     </th:block> <br>

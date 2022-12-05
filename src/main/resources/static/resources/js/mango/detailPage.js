@@ -348,9 +348,6 @@ export class detailPage{
                 params : comment
             })
 
-
-
-
             // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
             //     var me = $(this);
             //     log.html(me.attr('value'));
