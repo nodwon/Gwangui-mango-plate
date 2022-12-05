@@ -373,9 +373,7 @@ export class detailPage{
             for(var i =1 ;i<=rating;i++)
             {
                     start +='<i class="fa-solid fa-star"></i>'
-
             }
-
 
             // 리뷰 쓴 데이터 append 시키기
             let html1 = [
@@ -384,7 +382,7 @@ export class detailPage{
                '<p class="showId">'+ useremail+ '</p>',
                '<p class="showRating">'+rating+' </p>',
                start,
-                '<br>',
+               '<br>',
                '<button class="updateComment">수정</button>',
                '<button class="likeComment">like</button>',
                '<button class="deleteComment">delete</button>',
