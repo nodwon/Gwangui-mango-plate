@@ -91,6 +91,9 @@ public interface Test {
 
 	void reviewCount(String placename);
 
+	void updateReview(String email);
+
+
 
 	List<ReviewDTO> showEmailReview(String email);
 }

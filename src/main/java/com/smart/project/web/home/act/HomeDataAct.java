@@ -171,6 +171,13 @@ public class HomeDataAct {
 		dto.setEmail(email);
 		test.deleteReply(email);
 	}
+	// 해당 이메일로 로그인되었을때 리뷰 변경
+	@RequestMapping("data/updateReply")
+	public void updateReply(@ModelAttribute ReviewDTO reviewDTO){
+		String email = reviewDTO.getEmail();
+		reviewDTO.setEmail(email);
+		test.updateReview(email);
+	}
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){

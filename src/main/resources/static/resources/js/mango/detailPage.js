@@ -348,45 +348,39 @@ export class detailPage{
                 params : comment
             })
 
-            // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
-            //     var me = $(this);
-            //     log.html(me.attr('value'));
-            // https://codepen.io/lsirivong/pen/nRNLYL
+            //else if (hasClass(e.target, 'likeComment')) {
+            //                 const likeBtnValue = e.target.innerHTML;
+            //                 e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
         });
-
-
-
+        $("#likeComment").on("click", function (e){
+            const  likeBtnValue = e.target.innerHTML;
+            e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
+        })
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         let mf = false;
         $("#updateComment").on("click", function (e) {
-            e.preventDefault();
-            if (mf === true) {
-                alert("이미 수정중인 리뷰가 있습니다");
-                return;
-            }
-            mf = true;
-            $(".inlinereview").attr("readonly", false);
-            $(this).hide();
-            $(this).next().show();
-            $.ajax({
-                type:"POST",
-                url:"/saveReview",
-                data:'json',
-                contentType:"application/json; charset=utf-8",
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
-                }
+            let reviewcontents = $("#comment").val(); // 중복
+            let useremail = $("#user").text(); // 중복
+            let title = $("#title").text(); // 중복
+            let rating = $('input[name ="rating"]:checked').val(); // 중복
+
+            const comment = {  // 중복
+                "email": useremail,
+                "title": title,
+                "grade": rating,
+                "review": reviewcontents
+            };
+            axios({
+                method : "post",
+                url : '/data/updateReply',
+                params : comment
             })
+
         })
 
-//수정 완료 버튼
-        $("#updateComment").on("click", function (e) {
+        //수정 완료 버튼
+        $("#updatebutton").on("click", function (e) {
             e.preventDefault();
             mf == false;
             let reviewcontents = $(".inlinereview").val();

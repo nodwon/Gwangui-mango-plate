@@ -257,8 +257,6 @@ button.updateComment {
   transition: 0.3s ease;
 }
 
-
-
 #allComments > li > button.deleteComment {
 
   background: darkgrey;
