@@ -168,9 +168,12 @@ public class HomeDataAct {
 	@RequestMapping("data/deleteReply")
 	public ReviewDTO deleteReply(@ModelAttribute ReviewDTO dto, Model model, HttpServletRequest request) {
 		String email =  dto.getEmail();
+		String title = dto.getTitle();
 		dto.setEmail(email);
 		log.error("지울 것? => {}",dto.getEmail());
 		ReviewDTO data = dto;
+
+		test.reviewCount(title, -1);
 		test.deleteReply(email);
 		model.addAttribute("dto", data);
 		log.error("지울 것? => {}",data.getEmail());
@@ -210,10 +213,12 @@ public class HomeDataAct {
 	public void saveReview(ReviewDTO reviewDTO) {
 		log.error("{}===>",reviewDTO);
 		String id = reviewDTO.getEmail();
+		String title = reviewDTO.getTitle();
 		if (id == null || id.isEmpty()) {
 			String uuidStr = UUID.randomUUID().toString();
 			reviewDTO.setEmail(uuidStr);
 		}
+		test.reviewCount(title, 1);
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
 

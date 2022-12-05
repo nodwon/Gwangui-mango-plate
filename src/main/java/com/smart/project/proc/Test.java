@@ -87,5 +87,7 @@ public interface Test {
 
 	void reviewAvg(String placename);
 
-	void reviewCount(String placename);
+	void reviewCount(@Param("title")String title, @Param("amount")int amount);
+
+	void rvShow(String placename);
 }
