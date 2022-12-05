@@ -154,13 +154,21 @@ export class mango{
                 this.pageEvnet();
             }
 
-            this.cashing.$start.empty();
-            this.cashing.$start.append(this.foodList(result));
-            this.favoriteStore();
-        }).catch(()=>{
+                this.cashing.$start.empty();
+                this.cashing.$start.append(this.foodList(result));
+                this.favoriteStore();
+
+        })/*.catch(()=>{
             $(".py-5.map").addClass("hidden");
+            Swal.fire({
+                icon: 'success',
+                title: '해당 데이터가 없습니다.'
+            });
+
+
         });
-    }
+*/
+         }
     //위시리스트 클릭 후 초기화
     modalEvent(){
         $('#modal').on('click',(e)=>{

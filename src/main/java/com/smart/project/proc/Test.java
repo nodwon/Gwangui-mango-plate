@@ -90,4 +90,7 @@ public interface Test {
 	void reviewAvg(String placename);
 
 	void reviewCount(String placename);
+
+
+	List<ReviewDTO> showEmailReview(String email);
 }

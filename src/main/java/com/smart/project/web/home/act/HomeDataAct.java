@@ -3,10 +3,16 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
+import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Struct;
 import java.util.*;
 @SessionAttributes("pageNum")
 @Slf4j
@@ -125,7 +132,6 @@ public class HomeDataAct {
 //		String placename = vo.getPlacename();
 //		String roadname = vo.getRoadname();
 //		String mainimg = vo.getMainimg();
-		log.error("세션에서 가져온 email => {}",useremail);
 //		log.error("세션에서 가져온 placename => {}",placename);
 //		log.error("세션에서 가져온 roadname => {}",roadname);
 //		log.error("세션에서 가져온 이미지src => {}",mainimg);
@@ -139,7 +145,6 @@ public class HomeDataAct {
 	public List<WishListVO> wishSelect(HttpServletRequest request){
 		String useremail = (String)request.getSession().getAttribute("email");
 		List<WishListVO> data = test.selectWish(useremail);
-		log.error("가져온 data => {}",data);
 		return data;
 	}
 	//위시리스트에 선택한 리스트 삭제
@@ -161,55 +166,11 @@ public class HomeDataAct {
 
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")
-	public ReviewDTO deleteReply(@ModelAttribute ReviewDTO dto, Model model, HttpServletRequest request) {
+	public void deleteReply(@ModelAttribute ReviewDTO dto) {
 		String email =  dto.getEmail();
 		dto.setEmail(email);
-		log.error("지울 것? => {}",dto.getEmail());
-		ReviewDTO data = dto;
 		test.deleteReply(email);
-		model.addAttribute("dto", data);
-		log.error("지울 것? => {}",data.getEmail());
-		return data;
 	}
-
-	@RequestMapping("data/getTitle")
-	public ReviewDTO getTitle(ReviewDTO reviewDTO, HttpServletRequest request){
-		String title = reviewDTO.getTitle();
-//		reviewDTO.setTitle();
-		ReviewDTO data = reviewDTO;
-		test.selectTitle(title);
-		return data;
-	}
-
-//	@RequestMapping("data/getDate")
-//	public ReviewDTO updateDate(ReviewDTO reviewDTO, HttpServletRequest request){
-//		Date updateDate = reviewDTO.getUpdateDate();
-//		reviewDTO.setReview();
-//		ReviewDTO data = reviewDTO;
-//		test.selectUpdateDate(updateDate);
-//		return data;
-//	}
-
-/*	@PostMapping("/data/select")//해외
-	public String userDB(@RequestBody modalVO param){
-
-
-		//String keyData = String.valueOf(param);  //우리가 post (key,object)
-		log.error("user 정보 확인 : {}", param);
-		//받은 MAP 데이터 {'KEY' : 값형태} 형태
-		log.error("user 정보 확인 : {}", param.getName());
-
-		//log.error("{}",isData);
-		List<modalVO> modalVO = new ArrayList<>();
-		modalVO.add(param);
-		log.error("{}",modalVO);
-
-
-		//add한 codeVOList를 데이터베이스에 넣기
-		//test.userInsert(modalVO);
-
-		return "index";
-	}*/
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){
@@ -259,16 +220,15 @@ public class HomeDataAct {
 
 		return test.getImages(reviewId);
 	}
-//	@RequestMapping("/gettime")
-//	private Path imgDirPath;
+	private Path imgDirPath;
 
-//	@Value("src/main/resources/static/upload-dir")
-//	private String imgDir;
-//
-//	@PostConstruct
-//	public void init() {
-//		this.imgDirPath = Paths.get(imgDir);
-//	}
+	@Value("src/main/resources/static/upload-dir")
+	private String imgDir;
+
+	@PostConstruct
+	public void init() {
+		this.imgDirPath = Paths.get(imgDir);
+	}
 
 
 	@RequestMapping("/delete")
@@ -280,54 +240,54 @@ public class HomeDataAct {
 		test.deleteFiles(fileIds);
 	}
 
-//	@RequestMapping("/get")
-//	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
-//		List<MultipartFile> files = reviewDTO.getFiles();
-//		String reviewId = reviewDTO.getEmail();
-//		if (files == null || files.isEmpty()) {
-//			return;
-//		}
-//
-//
-//			if (! Files.exists(imgDirPath)) {
-//				Files.createDirectories(imgDirPath);
-//			}
-//
-//			Path reviewImgDirPath = imgDirPath.resolve(
-//					Paths.get(reviewId)).normalize().toAbsolutePath();
-//
-//			if (! Files.exists(reviewImgDirPath)) {
-//				Files.createDirectories(reviewImgDirPath);
-//			}
-//
-//		for (MultipartFile file : files) {
-//			saveFile(file, reviewId);
-//		}
-//	}
+	@RequestMapping("/get")
+	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
+		List<MultipartFile> files = reviewDTO.getFiles();
+		String reviewId = reviewDTO.getEmail();
+		if (files == null || files.isEmpty()) {
+			return;
+		}
 
-//	@RequestMapping("/save")
-//	public void saveFile(MultipartFile file, String reviewId) {
-//		try {
-//			String originFilename = file.getOriginalFilename();
-//			long fileSize = file.getSize();
-//			String contentType = file.getContentType();
-//
-//
-//			Path destinationFile = imgDirPath
-//					.resolve(Paths.get(reviewId))
-//					.resolve(Paths.get(originFilename))
-//					.normalize()
-//					.toAbsolutePath();
-//
-//			try (InputStream inputStream = file.getInputStream()) {
-//				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-//			}
-//
-//			String fileId = UUID.randomUUID().toString();
-//			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
-//		} catch (IOException e) {
-//			log.error("filenotfond",e);
-//		}
-//	}
+
+			if (! Files.exists(imgDirPath)) {
+				Files.createDirectories(imgDirPath);
+			}
+
+			Path reviewImgDirPath = imgDirPath.resolve(
+					Paths.get(reviewId)).normalize().toAbsolutePath();
+
+			if (! Files.exists(reviewImgDirPath)) {
+				Files.createDirectories(reviewImgDirPath);
+			}
+
+		for (MultipartFile file : files) {
+			saveFile(file, reviewId);
+		}
+	}
+
+	@RequestMapping("/save")
+	public void saveFile(MultipartFile file, String reviewId) {
+		try {
+			String originFilename = file.getOriginalFilename();
+			long fileSize = file.getSize();
+			String contentType = file.getContentType();
+
+
+			Path destinationFile = imgDirPath
+					.resolve(Paths.get(reviewId))
+					.resolve(Paths.get(originFilename))
+					.normalize()
+					.toAbsolutePath();
+
+			try (InputStream inputStream = file.getInputStream()) {
+				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+			}
+
+			String fileId = UUID.randomUUID().toString();
+			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
+		} catch (IOException e) {
+			log.error("filenotfond",e);
+		}
+	}
 
 }

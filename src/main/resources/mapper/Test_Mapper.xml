@@ -28,7 +28,7 @@
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
-        limit #{pageStart},#{perPageNum} ;
+        order by review desc limit #{pageStart},#{perPageNum} ;
 
     </select>
 
@@ -90,10 +90,9 @@
     <delete id="deleteReply" parameterType="java.lang.String">
         delete from tbl_review where email = #{email}
     </delete>
-    <select id="selectTitle" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
-        SELECT * FROM tbl_review where name = #{title}
+
+    <select id="showEmailReview" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
+        select * from tbl_review where email = #{email}
     </select>
-<!--    <select id="selectTitle" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">-->
-<!--        SELECT * FROM tbl_review where name = #{title}-->
-<!--    </select>-->
+
 </mapper>
