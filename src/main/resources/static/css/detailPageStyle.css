@@ -240,6 +240,37 @@ h1,h2,h3,h4,h5,h6 {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
+#allComments > li > button.updateComment {
+
+  background: green;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(00, 154, 00);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+#allComments >  li:nth-child(26) > a.showId{
+  /*아이디*/
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+}
+#allComments > li:nth-child(26) > a.showRating{
+
+}
+#allComments > li:nth-child(26) > a.showTitle{
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #414b66;
+
+}
 #allComments > li > div{
   background: #eee;
   padding: 1rem;
