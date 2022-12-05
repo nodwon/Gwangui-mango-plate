@@ -185,11 +185,9 @@
                                     <p th:text="${review.review}"></p>
                                     <p class="showId" th:text="${review.email}"></p>
                                     <p class="showRating" th:text="${review.grade}"></p>
-
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                         <i class="fa-solid fa-star"></i>
                                     </th:block> <br>
-
                                     <button class="updateComment">수정</button>
                                     <button class="likeComment">like</button>
                                     <button class="deleteComment">delete</button>

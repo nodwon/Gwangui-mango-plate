@@ -62,6 +62,7 @@ public class HomeDataAct {
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
 		List<MangoVO> data = test.searchAll(cri);
 
+
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
 		{
