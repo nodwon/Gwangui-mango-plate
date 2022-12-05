@@ -13,11 +13,14 @@
         <p>
         <h5 class="fw-bolder">
         <a class ="name b"href="/detailPage?roadname={{$value.roadname}}&name={{$value.name}}&img1={{$value.img1}}">{{$value.name}}
-
+          {{if $value.rvAvg}}
+          <span style="color: orange" >&nbsp{{$value.rvAvg}}</span>
+          {{/if}}
 
         </a>
-        <span style="color: orange" >{{$value.rvAvg}}</span>
+
       </h5>
+
 
         </p>
         <p>

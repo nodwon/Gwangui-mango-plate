@@ -112,7 +112,9 @@
                         <tr>
                             <th class="tg-f2a8" colspan="2">
                                 <span class="name" th:text="${mango.name}"></span>
+                                <th:block th:if="${mango.getRvAvg()}">
                                 <span style="color: orange" th:text="${mango.getRvAvg()}"></span>
+                                </th:block>
 <!--                                  <span style="color: orange" th:text="${#numbers.formatDecimal(mango.getReview(),1,1)}"></span>-->
                                 <i class="bi bi-eye"></i><span class="viewCount" th:text="${mango.getViewCount()}"></span>
                             </th>
@@ -146,6 +148,7 @@
                         <tr>
                             <td class="tg-ofg3">별점 </td>
                             <td class="tg-mnzm" colspan="2" th:text ="${mango.getRvAvg()}"></td>
+
                         </tr>
 
                         <tr>
