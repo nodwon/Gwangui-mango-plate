@@ -3,16 +3,10 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
-import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.Struct;
 import java.util.*;
 @SessionAttributes("pageNum")
 @Slf4j
@@ -176,6 +169,23 @@ public class HomeDataAct {
 		return data;
 	}
 
+	@RequestMapping("data/getTitle")
+	public ReviewDTO getTitle(ReviewDTO reviewDTO, HttpServletRequest request){
+		String title = reviewDTO.getTitle();
+//		reviewDTO.setTitle();
+		ReviewDTO data = reviewDTO;
+		test.selectTitle(title);
+		return data;
+	}
+
+	@RequestMapping("data/getDate")
+	public ReviewDTO updateDate(ReviewDTO reviewDTO, HttpServletRequest request){
+		Date updateDate = reviewDTO.getUpdateDate();
+		reviewDTO.setReview();
+		ReviewDTO data = reviewDTO;
+		test.selectUpdateDate(updateDate);
+		return data;
+	}
 
 /*	@PostMapping("/data/select")//해외
 	public String userDB(@RequestBody modalVO param){
@@ -247,6 +257,7 @@ public class HomeDataAct {
 
 		return test.getImages(reviewId);
 	}
+	@RequestMapping("/gettime")
 	private Path imgDirPath;
 
 	@Value("src/main/resources/static/upload-dir")

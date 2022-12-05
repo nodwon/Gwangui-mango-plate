@@ -60,7 +60,8 @@ public interface Test {
     void viewCount(String name);
 
 	MangoVO selectCurrent(String placename);
-
+	ReviewDTO selectTitle(String title);
+	ReviewDTO selectUpdateDate(Date updateDate);
 	void saveReview(ReviewDTO reviewDTO);
 
 	ReviewDTO getReview(@Param("reviewId") String reviewId);

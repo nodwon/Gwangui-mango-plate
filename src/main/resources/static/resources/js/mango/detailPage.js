@@ -6,7 +6,7 @@ $(()=>{
 })
 export class detailPage{
     constructor() {
-        /*window.onload = function setTemplate() {
+       /* window.onload = function setTemplate() {
             document.getElementById('allComments').innerHTML = localStorage.getItem('template');
         };
 
@@ -19,7 +19,6 @@ export class detailPage{
             let useremail = $("#user").text(); // 중복
             let title = $("#title").text(); // 중복
             let rating = document.querySelector('input[name ="rating"]:checked').value; // 중복
-            let updateDate ; //날짜 가져오기
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
             const likeButton = document.createElement('button'); //버튼 만들기
@@ -29,6 +28,9 @@ export class detailPage{
             const idli = document.createElement("a"); //id li 만들기
             const titleshow = document.createElement("a"); // title li 만들기
             const img = document.createElement("img"); // img 추가 버튼 만들기
+            const updateDate = document.createElement('span');
+            // updateDate.innerHTML = getTime();
+            updateDate.className = "inserttime";
             updateButton.innerHTML = "수정";
             updateButton.className = "updateComment";
             likeButton.innerHTML = 'Like';
@@ -41,7 +43,7 @@ export class detailPage{
             ratingshow.className ="showRating";
             titleshow.innerHTML =title;
             titleshow.className ="showTitle";
-            img.innerHTML ="사진"; //
+            img.innerHTML ="사진";
             img.className ="showImg";
 
             if (hasClass(ev.target.parentElement, 'container')) {
@@ -57,7 +59,7 @@ export class detailPage{
                 commentText = ev.target.parentElement.firstElementChild.value;
                 textBox.innerHTML = commentText;
                 wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
+                wrapDiv.append(textBox,idli,ratingshow,titleshow, updateButton, likeButton, deleteButton);
             }
             setOnLocalStorage();
         }
@@ -72,6 +74,9 @@ export class detailPage{
         }
 
         document.getElementById('allComments').addEventListener('click', function (e) {
+            if(hasClass(e.target,'showTitle') != title){ /// 제목이랑 같을때 만 보여주고 나머지는 hidden
+                e.target.hidden;
+            }
             if (hasClass(e.target, 'addReply')) {
                 addComment(e);
             } else if (hasClass(e.target, 'likeComment')) {
@@ -102,6 +107,20 @@ export class detailPage{
 
                 e.target.parentElement.remove();
             }
+        });
+        function getTime(){
+            let datetime = new Date();
+            let year = datetime.getFullYear();
+            let month = datetime.getMonth();
+            let day = datetime.getDate();
+            let hour = datetime.getHours();
+            let minute = datetime.getMinutes();
+            let scecond = datetime.getSeconds();
+            // let fullupdatetime = document.write(year+"년"+(month+1)+"월"+day+"일"+hour+"시"+minute+"분"+scecond+"초");
+           return  year+"년"+(month+1)+"월"+day+"일"+hour+"시"+minute+"분"+scecond+"초";
+
+        }
+
         });*/
 
         this.modalEvent();
@@ -109,6 +128,7 @@ export class detailPage{
         this.favoriteStore();
         this.reviewEvent();
         /*$("#Nav").append(this.head);*/
+
 
         console.log("detailpage");
 
@@ -353,6 +373,8 @@ export class detailPage{
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
+            // let rating = document.querySelector('input[name ="rating"]:checked').value;
+            // let reviewdate = $("#allComments > li:nth-child(28) > span").text();
             let rating = $('input[name ="rating"]:checked').val();
 
             if (useremail === "") {
@@ -361,7 +383,11 @@ export class detailPage{
             } else if (reviewcontents == null) {
                 alert("내용을 입력해주세요");
                 return;
+            }else if (rating == null) {
+                alert("별점을 매겨주세요");
+                return;
             }
+            //const comment = {email: useremail, title: title, grade: rating, review: reviewcontents, updateDate: reviewdate};
             const comment = {
                 "email": useremail,
                 "title": title,

@@ -51,6 +51,7 @@
         select * from wishList_tbl where useremail=#{useremail}
     </select>
 
+
     <delete id="wishDelete" parameterType="com.smart.project.web.home.vo.WishListVO">
         delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
     </delete>
@@ -78,4 +79,10 @@
     <delete id="deleteReply" parameterType="java.lang.String">
         delete from deleteReply where email = #{email}
     </delete>
+    <select id="selectTitle" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
+        SELECT * FROM tbl_review where name = #{title}
+    </select>
+<!--    <select id="selectTitle" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">-->
+<!--        SELECT * FROM tbl_review where name = #{title}-->
+<!--    </select>-->
 </mapper>

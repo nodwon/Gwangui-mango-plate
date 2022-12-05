@@ -164,6 +164,7 @@
 <!--                            <h6>or</h6>-->
 <!--                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>-->
 <!--                        </div>-->
+                            <span id ="time"></span>
                         <div id="dd-previewer"></div>
                         <fieldset id = "grade" class="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -172,13 +173,15 @@
                             <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
                             <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                         </fieldset>
-                        <button id="reviewcount"> </button>
+                        <button id="reviewcount">  </button>
                         <textarea id="comment" name="comment"></textarea>
                         <div id="dd-dropbox">
                             <h6>Drag and drop files here or </h6>
                             <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
                         </div>
                             <button id="addComments">추가</button>
+<!--                            <div id="allComments"></div>-->
+<!--                            <span id ="updateDate" th:text="${reviewdto.updateDate}" hidden></span>-->
                             <div id="allComments">
                                 <li th:each="review, i:${dto}" class="wrapper">
                                     <p th:text="${review.review}"></p>
@@ -190,10 +193,21 @@
                                 </li>
                             </div>
                     </div>
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-
-
 
             <!-- Side widgets-->
             <div class="col-lg-4" >
