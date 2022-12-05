@@ -218,12 +218,13 @@ export class detailPage{
                 var html =
                     `<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
                     <button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">삭제</button>
+                      <a href="/detailPage?roadname=${roadname}&name=${placename}&img1=${mainimg}">
                     <div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">
-                    <b><a></a><span class="placename" style="font-size: larger">${placename}</span></b>
+                    <b><span class="placename" style="font-size: larger">${placename}</span></b>
                     <br>
                     <span class="placeRoadName">${roadname}</span>
                     </div>
-                    <img style="width: 100px;height: 100px" src="${mainimg}">
+                    <img style="width: 100px;height: 100px" src="${mainimg}"></a>
                     </form>`
 
                 $('.wish-list').append(html);
