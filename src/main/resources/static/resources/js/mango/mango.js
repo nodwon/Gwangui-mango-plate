@@ -103,16 +103,18 @@ export class mango{
                     position: new naver.maps.LatLng(latitude, longitude),
                     map: map
                 });
-                var contentString = [
-                    '<div class="iw_inner">',
-                    '   <h3>' + name + '</h3>',
-                    '   <p>' + mainmenu + '<br>',
-                    '       <img src=' + img1 + ' width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       ' + roadname + '<br>',
-                    '       <a href="' + url + '" target="_blank">' + url + '/</a>',
-                    '   </p>',
-                    '</div>'
-                ].join('');
+                var contentString =
+                    `<div class="iw_inner">
+                      <h3>${name}</h3>
+                      <p>${mainmenu}<br>
+                        <img src="${img1}" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>
+                      ${roadname}<br>
+                        <a href="${url}" target="_blank">${url}</a>
+                     </p>
+                    </div>`
+
+
+
 
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
@@ -154,9 +156,9 @@ export class mango{
                 this.pageEvnet();
             }
 
-                this.cashing.$start.empty();
-                this.cashing.$start.append(this.foodList(result));
-                this.favoriteStore();
+            this.cashing.$start.empty();
+            this.cashing.$start.append(this.foodList(result));
+            this.favoriteStore();
 
         })/*.catch(()=>{
             $(".py-5.map").addClass("hidden");
@@ -168,7 +170,7 @@ export class mango{
 
         });
 */
-         }
+    }
     //위시리스트 클릭 후 초기화
     modalEvent(){
         $('#modal').on('click',(e)=>{
@@ -225,14 +227,18 @@ export class mango{
                 console.log(mainimg);
                 console.log(placename);
 
-                var html = [
-                    '<form class="wishForm">',
-                    '<li class="placename">'+placename+'</li>',
-                    '<li>'+roadname+'</li>',
-                    '<img style="width: 80px;height: 80px" src='+mainimg+'>',
-                    '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
-                    '</form>'
-                ].join('');
+                var html =
+                    `<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
+                    <button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">삭제</button>
+                      <a href="/detailPage?roadname=${roadname}&name=${placename}&img1=${mainimg}">
+                    <div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">
+                    <b><span class="placename" style="font-size: larger">${placename}</span></b>
+                    <br>
+                    <span class="placeRoadName">${roadname}</span>
+                    </div>
+                    <img style="width: 100px;height: 100px" src="${mainimg}"></a>
+                    </form>`
+
                 $('.wish-list').append(html);
 
             });
