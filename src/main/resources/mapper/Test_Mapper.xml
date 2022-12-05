@@ -28,7 +28,7 @@
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
-        limit #{pageStart},#{perPageNum} ;
+        order by review desc limit #{pageStart},#{perPageNum} ;
 
     </select>
 

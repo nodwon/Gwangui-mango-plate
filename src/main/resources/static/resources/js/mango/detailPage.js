@@ -6,118 +6,29 @@ $(()=>{
 })
 export class detailPage{
     constructor() {
-        /*window.onload = function setTemplate() {
-            document.getElementById('allComments').innerHTML = localStorage.getItem('template');
-        };
-
-        const commentContainer = document.getElementById('allComments');
-        document.getElementById('addComments').addEventListener('click', function (ev) {
-            addComment(ev);
-        });
-
-        function addComment(ev) {
-            let useremail = $("#user").text(); // 중복
-            let title = $("#title").text(); // 중복
-            let rating = document.querySelector('input[name ="rating"]:checked').value; // 중복
-            let updateDate ; //날짜 가져오기
-            let commentText, wrapDiv; // 입력창과 div감싸기
-            const textBox = document.createElement('div'); //  입력 창 div 만들기
-            const likeButton = document.createElement('button'); //버튼 만들기
-            const updateButton = document.createElement('button') // 수정 버튼
-            const deleteButton = document.createElement('button'); // 삭제 버튼
-            const ratingshow = document.createElement("a") // star 만들기
-            const idli = document.createElement("a"); //id li 만들기
-            const titleshow = document.createElement("a"); // title li 만들기
-            const img = document.createElement("img"); // img 추가 버튼 만들기
-            updateButton.innerHTML = "수정";
-            updateButton.className = "updateComment";
-            likeButton.innerHTML = 'Like';
-            likeButton.className = 'likeComment';
-            deleteButton.innerHTML = 'Delete';
-            deleteButton.className = 'deleteComment';
-            idli.innerHTML = useremail;
-            idli.className ="showId";
-            ratingshow.innerHTML =rating;
-            ratingshow.className ="showRating";
-            titleshow.innerHTML =title;
-            titleshow.className ="showTitle";
-            img.innerHTML ="사진"; //
-            img.className ="showImg";
-
-            if (hasClass(ev.target.parentElement, 'container')) {
-                const wrapDiv = document.createElement('li');
-                wrapDiv.className = 'wrapper';
-                commentText = document.getElementById('comment').value;
-                //document.getElementById('comment').value = '';
-                textBox.innerHTML = commentText;
-                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
-                commentContainer.appendChild(wrapDiv);}
-             else {
-                wrapDiv = ev.target.parentElement;
-                commentText = ev.target.parentElement.firstElementChild.value;
-                textBox.innerHTML = commentText;
-                wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox,idli,ratingshow,titleshow,updateButton, likeButton, deleteButton);
-            }
-            setOnLocalStorage();
-        }
-
-        function setOnLocalStorage() { // 모든 댓글
-            localStorage.setItem('template', document.getElementById('allComments').innerHTML);
-
-        }
-
-        function hasClass(elem, className) { //삭제
-            return elem.className.split(' ').indexOf(className) > -1;
-        }
-
-        document.getElementById('allComments').addEventListener('click', function (e) {
-            if (hasClass(e.target, 'addReply')) {
-                addComment(e);
-            } else if (hasClass(e.target, 'likeComment')) {
-                const likeBtnValue = e.target.innerHTML;
-                e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
-                setOnLocalStorage();
-            } else if (hasClass(e.target, 'cancelReply')) {
-                e.target.parentElement.innerHTML = '';
-                setOnLocalStorage();
-            } else if (hasClass(e.target, 'deleteComment')) {
-                let reviewcontents = $("#comment").val();
-                let useremail = $("#user").text();
-                let title = $("#title").text();
-                let rating = document.querySelector('input[name ="rating"]:checked').value;
-                let object = {
-                    "email" : useremail,
-                    "placename" : title,
-                    "rating" : rating
-                }
-                axios.post({
-                    method : "post",
-                    url : "data/deleteReply",
-                    params : object
-                }).then((result)=>{
-                    console.log(object);
-                    console.log(result.data);
-                })
-
-                e.target.parentElement.remove();
-            }
-        });*/
 
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
-        this.replyDeleteEvent();
-        /*$("#Nav").append(this.head);*/
 
-        console.log("detailpage");
+
+      this.addMap();
+
+
+        this.DetailEvent();
+        this.clearEvent();
+
+    }
+
+
+    addMap(){
 
         let name = $(".name").text();
         let search = {"name": name}
 
 
-        axios.post("data/map", search).then((result) => {
+        axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
 
             var mapOptions = {
@@ -131,7 +42,6 @@ export class detailPage{
                 let latitude  = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
-                let foodtype = e.foodtype;
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
                 let img1 = e.img1;
@@ -155,6 +65,7 @@ export class detailPage{
                 ].join('');
 
 
+
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
                 });
@@ -172,11 +83,9 @@ export class detailPage{
             })
         });
 
-
-        this.DetailEvent();
-        this.clearEvent();
-
     }
+
+
 
     clearEvent() {
         $(".navbar-brand").on("click", (e) => {
@@ -185,8 +94,8 @@ export class detailPage{
         })
     }
 
-    modalEvent() {
-        $('#modal').on('click', (e) => {
+    modalEvent(){
+        $('#modal').on('click',(e)=>{
             console.log('위시리스트')
             $('.wish-list').empty();
             this.wishListShowEvent();
@@ -212,6 +121,7 @@ export class detailPage{
             });
         });
     }
+
     //위시리스트로 화면 전환
     wishListEvent(){
         $('.wishlist-place').on("click",(e)=>{
@@ -380,10 +290,22 @@ export class detailPage{
             let rating = $('input[name ="rating"]:checked').val();
 
             if (useremail === "") {
-                alert("로그인 후 이용해주세요");
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 필요합니다'
+                })
                 return;
-            } else if (reviewcontents == null) {
-                alert("내용을 입력해주세요");
+            } else if (reviewcontents === "") {
+                Swal.fire({
+                    icon: 'success',
+                    title: '내용을 입력해주세요'
+                })
+                return;
+            } else if (!rating){
+                Swal.fire({
+                    icon: 'success',
+                    title: '별점을  눌러주세요'
+                })
                 return;
             }
             const comment = {
