@@ -158,7 +158,7 @@ export class mango{
                 this.cashing.$start.append(this.foodList(result));
                 this.favoriteStore();
 
-        }).catch(()=>{
+        })/*.catch(()=>{
             $(".py-5.map").addClass("hidden");
             Swal.fire({
                 icon: 'success',
@@ -167,7 +167,7 @@ export class mango{
 
 
         });
-
+*/
          }
     //위시리스트 클릭 후 초기화
     modalEvent(){

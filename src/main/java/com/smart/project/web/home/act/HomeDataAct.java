@@ -77,7 +77,7 @@ public class HomeDataAct {
 			result.put("page",null);
 		}
 
-
+		result.put("food",data);
 
 		return result;
 	}
