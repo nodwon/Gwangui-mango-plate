@@ -13,7 +13,7 @@ export class detailPage{
         this.reviewEvent();
 
 
-      this.addMap();
+        this.addMap();
 
 
         this.DetailEvent();
@@ -46,26 +46,21 @@ export class detailPage{
                 let roadname = e.roadname;
                 let mainmenu = e.mainmenu;
                 let img1 = e.img1;
-
-
                 let url = e.url;
 
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(latitude, longitude),
                     map: map
                 });
-                var contentString = [
-                    '<div class="iw_inner">',
-                    '   <h3>'+name+'</h3>',
-                    '   <p>'+mainmenu+'<br>',
-                    '       <img src="'+img1+'" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>',
-                    '       '+roadname+'<br>',
-                    '       <a href="'+url+'" target="_blank">'+url+'/</a>',
-                    '   </p>',
-                    '</div>'
-                ].join('');
-
-
+                var contentString =
+                    `<div class="iw_inner">
+                      <h3>${name}</h3>
+                      <p>${mainmenu}<br>
+                        <img src="${img1}" width="55" height="55" alt="나중에 해당 사진 넣어주세요" class="thumb" /><br>
+                      ${roadname}<br>
+                        <a href="${url}" target="_blank">${url}</a>
+                     </p>
+                    </div>`
 
                 var infowindow = new naver.maps.InfoWindow({
                     content: contentString
@@ -79,8 +74,6 @@ export class detailPage{
                     }
                 });
 
-                console.log("위도"+latitude);
-                console.log( longitude)
             })
         });
 
@@ -222,23 +215,17 @@ export class detailPage{
                 console.log(mainimg);
                 console.log(placename);
 
-                var html = [
-                    '<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >',
+                var html =
+                    `<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
+                    <button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">삭제</button>
+                    <div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">
+                    <b><a></a><span class="placename" style="font-size: larger">${placename}</span></b>
+                    <br>
+                    <span class="placeRoadName">${roadname}</span>
+                    </div>
+                    <img style="width: 100px;height: 100px" src="${mainimg}">
+                    </form>`
 
-                    '<button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">'+'삭제'+'</button>',
-
-                        '<div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">' +
-                     '<b><a></a><span class="placename" style="font-size: larger">'+placename+'</span></b>',
-
-                        '<br>',
-                        '<span class="placeRoadName">'+roadname+'</span>' +
-                        '</div>',
-
-
-                        '<img style="width: 100px;height: 100px" src='+mainimg+'>',
-                        // '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
-                    '</form>'
-                ].join('');
                 $('.wish-list').append(html);
             });
             this.wishListDeleteOne();
