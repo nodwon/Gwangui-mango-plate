@@ -166,7 +166,7 @@ public class HomeDataAct {
 
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")
-	public ReviewDTO deleteReply(@ModelAttribute ReviewDTO dto, Model model, HttpServletRequest request) {
+	public void deleteReply(@ModelAttribute ReviewDTO dto) {
 		String email =  dto.getEmail();
 		String title = dto.getTitle();
 		dto.setEmail(email);
@@ -175,32 +175,7 @@ public class HomeDataAct {
 
 		test.reviewCount(title, -1);
 		test.deleteReply(email);
-		model.addAttribute("dto", data);
-		log.error("지울 것? => {}",data.getEmail());
-		return data;
 	}
-
-
-/*	@PostMapping("/data/select")//해외
-	public String userDB(@RequestBody modalVO param){
-
-
-		//String keyData = String.valueOf(param);  //우리가 post (key,object)
-		log.error("user 정보 확인 : {}", param);
-		//받은 MAP 데이터 {'KEY' : 값형태} 형태
-		log.error("user 정보 확인 : {}", param.getName());
-
-		//log.error("{}",isData);
-		List<modalVO> modalVO = new ArrayList<>();
-		modalVO.add(param);
-		log.error("{}",modalVO);
-
-
-		//add한 codeVOList를 데이터베이스에 넣기
-		//test.userInsert(modalVO);
-
-		return "index";
-	}*/
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){
@@ -242,7 +217,6 @@ public class HomeDataAct {
 	@RequestMapping("/deleteReviews")
 	public void deleteReviews(ReviewDTO reviewDTO) {
 		List<String> reviewIds = reviewDTO.getReviewIds();
-
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}
