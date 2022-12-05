@@ -219,23 +219,42 @@ export class detailPage{
                 console.log(mainimg);
                 console.log(placename);
 
+                // var html = [
+                //     '<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >',
+                //
+                //     '<button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">'+'삭제'+'</button>',
+                //
+                //         '<div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">' +
+                //      '<b><a></a><span class="placename" style="font-size: larger">'+placename+'</span></b>',
+                //
+                //         '<br>',
+                //         '<span class="placeRoadName">'+roadname+'</span>' +
+                //         '</div>',
+                //
+                //
+                //         '<img style="width: 100px;height: 100px" src='+mainimg+'>',
+                //         // '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                //     '</form>'
+                // ].join('');
                 var html = [
                     '<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >',
 
                     '<button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">'+'삭제'+'</button>',
 
-                        '<div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">' +
-                     '<b><a></a><span class="placename" style="font-size: larger">'+placename+'</span></b>',
+                    '<div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">' +
+                    '<b><a></a><span class="placename" style="font-size: larger">'+placename+'</span></b>',
 
-                        '<br>',
-                        '<span class="placeRoadName">'+roadname+'</span>' +
-                        '</div>',
+                    '<br>',
+                    '<span class="placeRoadName">'+roadname+'</span>' +
+                    '</div>',
 
 
-                        '<img style="width: 100px;height: 100px" src='+mainimg+'>',
-                        // '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
+                    '<img style="width: 100px;height: 100px" src='+mainimg+'>',
+                    // '<button type="reset" class="btn btn-danger deleteWish">'+'삭제'+'</button>',
                     '</form>'
                 ].join('');
+
+
                 $('.wish-list').append(html);
             });
             this.wishListDeleteOne();
@@ -257,12 +276,13 @@ export class detailPage{
     reviewEvent() {
         const commentContainer = document.getElementById('allComments');
         document.getElementById('addComments').addEventListener('click', function (ev) {
+
             addComment(ev);
         });
         function addComment(ev) {
             let useremail = $("#user").text(); // 중복
             let title = $("#title").text(); // 중복
-            let rating = document.querySelector('input[name ="rating"]:checked').val(); // 중복
+            let rating = document.querySelector('input[name ="rating"]:checked').value; // 중복
             let commentText, wrapDiv; // 입력창과 div감싸기
             const textBox = document.createElement('div'); //  입력 창 div 만들기
             const likeButton = document.createElement('button'); //버튼 만들기
@@ -296,14 +316,14 @@ export class detailPage{
                 commentText = document.getElementById('comment').value;
                 //document.getElementById('comment').value = '';
                 textBox.innerHTML = commentText;
-                wrapDiv.append(textBox, idli, ratingshow, titleshow, updateButton, likeButton, deleteButton);
+               // wrapDiv.append(textBox, idli, ratingshow, titleshow, updateButton, likeButton, deleteButton);
                 commentContainer.appendChild(wrapDiv);
             } else {
                 wrapDiv = ev.target.parentElement;
                 commentText = ev.target.parentElement.firstElementChild.value;
                 textBox.innerHTML = commentText;
                 wrapDiv.innerHTML = '';
-                wrapDiv.append(textBox, idli, ratingshow, titleshow, updateButton, likeButton, deleteButton);
+               // wrapDiv.append(textBox, idli, ratingshow, titleshow, updateButton, likeButton, deleteButton);
             }
 
         }
@@ -370,26 +390,26 @@ export class detailPage{
         //리뷰 삭제 클릭시 이벤트
         // replyDeleteEvent()
         // {
-        //     $('.deleteReply').on("click", (e) => {
-        //         let useremail = $("#user").text();
-        //         let title = $("#title").text();
-        //         /*let rating = $('input[name ="rating"]:checked').val();*/
-        //         let object = {
-        //             "email": useremail,
-        //             "title": title
-        //         }
-        //         console.log(object);
-        //         if (useremail != null) {
-        //             axios({
-        //                 method: 'post',
-        //                 url: 'data/deleteReply',
-        //                 params: object
-        //             })
-        //             $(e.currentTarget).parent('.wrapper').remove();
-        //         }
-        //     })
-        //
-        // }
+            $('.deleteReply').on("click", (e) => {
+                let useremail = $("#user").text();
+                let title = $("#title").text();
+                /*let rating = $('input[name ="rating"]:checked').val();*/
+                let object = {
+                    "email": useremail,
+                    "title": title
+                }
+                console.log(object);
+                if (useremail != null) {
+                    axios({
+                        method: 'post',
+                        url: 'data/deleteReply',
+                        params: object
+                    })
+                    $(e.currentTarget).parent('.wrapper').remove();
+                }
+            })
+
+
 
         //////////////////////////////////
         //작성하기 버튼 클릭시
@@ -426,20 +446,20 @@ export class detailPage{
 
 
             // 리뷰 쓴 데이터 append 시키기
-            // let html1 = [
-            //     '<li class="wrapper">',
-            //     '<p>' + reviewcontents + '</p>',
-            //     '<p class="showId">' + useremail + '</p>',
-            //     '<p class="showRating">' + rating + ' </p>',
-            //     start,
-            //     '<br>',
-            //     '<button class="updateComment">수정</button>',
-            //     '<button class="likeComment">like</button>',
-            //     '<button class="deleteComment deleteReply">delete</button>',
-            //
-            //
-            //     '  </li>'].join('');
-            $('#allComments').append(setOnLocalStorage());
+            let html1 = [
+                '<li class="wrapper">',
+                '<p>' + reviewcontents + '</p>',
+                '<p class="showId">' + useremail + '</p>',
+                '<p class="showRating">' + rating + ' </p>',
+                start,
+                '<br>',
+                '<button class="updateComment">수정</button>',
+                '<button class="likeComment">like</button>',
+                '<button class="deleteComment deleteReply">delete</button>',
+
+
+                '  </li>'].join('');
+            $('#allComments').append(html1);
 
         //    this.replyDeleteEvent();
             //리뷰데이터를 저장
