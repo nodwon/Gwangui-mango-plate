@@ -188,9 +188,9 @@
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                         <i class="fa-solid fa-star"></i>
                                     </th:block> <br>
-                                    <button class="updateComment">수정</button>
+                                    <button th:if="${session.email}!=null" class="updateComment">수정</button>
                                     <button class="likeComment">like</button>
-                                    <button class="deleteComment">delete</button>
+                                    <button th:if="${session.email}" class="deleteComment deleteReply">delete</button>
                                 </li>
                             </div>
                     </div>
@@ -209,9 +209,7 @@
                 </div>
 
                 <div id="map" style="width:100%;height:500px;">
-
                 </div>
-
 
             </div>
         </div>

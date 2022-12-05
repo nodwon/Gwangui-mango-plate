@@ -88,6 +88,6 @@
     </select>
 
     <delete id="deleteReply" parameterType="java.lang.String">
-        delete from deleteReply where email = #{email}
+        delete from tbl_review where email = #{email}
     </delete>
 </mapper>

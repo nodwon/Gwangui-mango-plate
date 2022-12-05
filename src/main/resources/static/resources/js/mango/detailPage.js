@@ -108,6 +108,7 @@ export class detailPage{
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
+        this.replyDeleteEvent();
         /*$("#Nav").append(this.head);*/
 
         console.log("detailpage");
@@ -346,6 +347,29 @@ export class detailPage{
         })
     }
 
+    //리뷰 삭제 클릭시 이벤트
+    replyDeleteEvent(){
+        $('.deleteReply').on("click",(e)=>{
+            let useremail = $("#user").text();
+            let title = $("#title").text();
+            /*let rating = $('input[name ="rating"]:checked').val();*/
+            let object = {
+                "email" : useremail,
+                "title" : title
+            }
+            console.log(object);
+            if(useremail!=null){
+            axios({
+                method : 'post',
+                url : 'data/deleteReply',
+                params : object
+            })
+                $(e.currentTarget).parent('.wrapper').remove();
+            }
+        })
+
+    }
+
     //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
@@ -385,13 +409,13 @@ export class detailPage{
                '<br>',
                '<button class="updateComment">수정</button>',
                '<button class="likeComment">like</button>',
-               '<button class="deleteComment">delete</button>',
+               '<button class="deleteComment deleteReply">delete</button>',
 
 
           '  </li>'].join('');
             $('#allComments').append(html1);
 
-
+            this.replyDeleteEvent();
             //리뷰데이터를 저장
             axios({
                 method : "post",
@@ -407,6 +431,8 @@ export class detailPage{
             //     log.html(me.attr('value'));
             // https://codepen.io/lsirivong/pen/nRNLYL
         });
+
+
 
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
