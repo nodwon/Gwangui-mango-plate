@@ -195,7 +195,7 @@
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                         <i class="fa-solid fa-star"></i>
                                     </th:block> <br>
-                                    <button th:if="${session.email}==${review.email}" class="updateComment">수정</button>
+                                    <button th:if="${session.email}==${review.email}" class="updateComment updatebtn" >수정</button>
                                     <button class="likeComment">like</button>
                                     <button th:if="${session.email}==${review.email}" class="deleteComment deleteReply">delete</button>
                                 </li>
