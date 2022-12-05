@@ -238,6 +238,7 @@ public class HomeDataAct {
 	@RequestMapping("/deleteReviews")
 	public void deleteReviews(ReviewDTO reviewDTO) {
 		List<String> reviewIds = reviewDTO.getReviewIds();
+
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}
