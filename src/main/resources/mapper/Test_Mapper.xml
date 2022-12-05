@@ -90,4 +90,9 @@
     <delete id="deleteReply" parameterType="java.lang.String">
         delete from tbl_review where email = #{email}
     </delete>
+
+    <select id="showEmailReview" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">
+        select * from tbl_review where email = #{email}
+    </select>
+
 </mapper>

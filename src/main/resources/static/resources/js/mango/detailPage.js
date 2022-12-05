@@ -18,6 +18,7 @@ export class detailPage{
 
         this.DetailEvent();
         this.clearEvent();
+        this.replyDeleteEvent();
 
     }
 
@@ -273,8 +274,11 @@ export class detailPage{
                 method : 'post',
                 url : 'data/deleteReply',
                 params : object
-            })
+            }).then((email)=>{
+                console.log(email);
                 $(e.currentTarget).parent('.wrapper').remove();
+            });
+
             }
         })
 
@@ -332,7 +336,6 @@ export class detailPage{
                '<button class="updateComment">수정</button>',
                '<button class="likeComment">like</button>',
                '<button class="deleteComment deleteReply">delete</button>',
-
 
           '  </li>'].join('');
             $('#allComments').append(html1);
