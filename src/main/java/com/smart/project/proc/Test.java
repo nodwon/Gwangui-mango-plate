@@ -81,9 +81,12 @@ public interface Test {
 
 	List<ReviewDTO> currentReview(String placename);
 
-	ReviewDTO deleteReply(String email);
+	void deleteReply(String email);
 	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
 
 
+	void reviewAvg(String placename);
+
+	void reviewCount(String placename);
 }

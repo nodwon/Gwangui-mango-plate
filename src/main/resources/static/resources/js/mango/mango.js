@@ -157,6 +157,8 @@ export class mango{
             this.cashing.$start.empty();
             this.cashing.$start.append(this.foodList(result));
             this.favoriteStore();
+        }).catch(()=>{
+            $(".py-5.map").addClass("hidden");
         });
     }
     //위시리스트 클릭 후 초기화

@@ -72,13 +72,17 @@ public class HomeAct {
 		list.add(mangoVO1);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		session.setAttribute("list",duplicateData);
+		log.error("중복방지처리 =>{}", duplicateData);
+
+		test.reviewAvg(placename);
+		test.reviewCount(placename);
+
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
 		//해당페이지에 맞는 리뷰 가져오기
-		log.error("가져온 가게 이름 => {}", placename);
 		List<ReviewDTO> dto = test.currentReview(placename);
 		model.addAttribute("dto", dto);
-		log.error("가져온 DTO => {}", dto);
+
 
 		return"detailPage";
 	}
