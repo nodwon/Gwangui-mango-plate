@@ -9,6 +9,7 @@ $(()=>{
 export class mango{
     constructor() {
         this.searchKeyword = "";
+        this.selectAlign = ""
         this.foodList = require("@/mango/foodList.html");
         this.modalList = require("@/mango/modalList.html");
         this.eventBind();
@@ -27,6 +28,7 @@ export class mango{
         this.modalEvent();
         this.wishListEvent();
         this.clearEvent();
+        this.arrayEvent();
 
     }
     cashing ={
@@ -47,14 +49,17 @@ export class mango{
     {
         $(".page-item.x").on("click",(e)=>{
             $("#pagination").removeClass("hidden");
+
+
             let pageNum = $(e.currentTarget).text();
             if(sessionStorage.getItem("search")!=null)
             {
                 let s = JSON.parse(sessionStorage.getItem("search"));
                 this.searchKeyword = s["search"];
+                this.selectAlign = s["selectAlign"];
 
             }
-            let search = {"search":this.searchKeyword, "pageNum":pageNum};
+            let search = {"search":this.searchKeyword, "pageNum":pageNum ,"selectAlign" : this.selectAlign};
 
             sessionStorage.setItem("search",JSON.stringify(search))
 
@@ -70,6 +75,7 @@ export class mango{
 
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
+        $(".dropdown").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {
             console.log(search)
 
@@ -147,7 +153,7 @@ export class mango{
 
                 console.log(result)
                 $(".pagination.justify-content-center").empty().append(paging)
-                this.pageEvnet();
+                this.pageEvnet(search);
             }
 
             this.cashing.$start.empty();
@@ -310,6 +316,27 @@ export class mango{
 
     }
 
+    //맛집 정렬 이벤트
+    arrayEvent(){
+        $(".dropdown-menu > li").on("click",(e)=> {
+            this.selectAlign = $(e.currentTarget).text();
+            if(sessionStorage.getItem("search")!=null)
+            {
+                let s = JSON.parse(sessionStorage.getItem("search"));
+                this.searchKeyword = s["search"];
+                if(sessionStorage.getItem("selectAlign")!=null)
+                this.selectAlign = s["selectAlign"];
+
+            }
+            let search = { "search" :this.searchKeyword ,"pageNum":1 ,"selectAlign":this.selectAlign};
+            sessionStorage.setItem("search",JSON.stringify(search));
+
+            this.foodPageList(search);
+
+
+
+        });
+    }
 
 }
 

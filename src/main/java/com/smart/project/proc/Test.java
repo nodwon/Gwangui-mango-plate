@@ -40,6 +40,8 @@ public interface Test {
 
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
+	List<MangoVO> searchAllReviewCount(Criteria criteria);
+	List<MangoVO> searchAllShowCount(Criteria criteria);
 
 	int totalCount(Criteria criteria);
 
@@ -50,7 +52,8 @@ public interface Test {
 	List<WishListVO> selectWish(String useremail);
 
 	void wishDelete(WishListVO vo);
-	List<Mango2VO> searchAll(String search);
+
+	WishListVO haveWish(WishListVO vo);
 
 	@Select("select userId from table_join where userEmail=#{userEmail} and userName=#{userName}")
 	CommonMemberVO findMemberId(@Param("userEmail") String userEmail,@Param("userName") String userName);
@@ -64,7 +67,6 @@ public interface Test {
 	ReviewDTO selectTitle(String title);
 	ReviewDTO selectUpdateDate(Date updateDate);
 	void saveReview(ReviewDTO reviewDTO);
-
 	ReviewDTO getReview(@Param("reviewId") String reviewId);
 	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
 									   @Param("reviewId") String reviewId);
@@ -78,11 +80,12 @@ public interface Test {
 			@Param("fileSize") long fileSize,
 			@Param("contentType") String contentType
 	);
+
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
 	List<ReviewDTO> currentReview(String placename);
-
 	void deleteReply(String email);
+
 	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
 

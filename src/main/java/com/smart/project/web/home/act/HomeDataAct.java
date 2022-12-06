@@ -51,12 +51,16 @@ public class HomeDataAct {
 	@PostMapping("/data/searchAll")
 	public Map<String, Object> getSearchAll(Model model ,@RequestBody Map param, HttpSession session, Criteria cri){
 		Map<String, Object> result = new HashMap<>();
+		String selectAlign ="";
+
 		String search = "";
 		int pageNum = 1;
 		if(param.get("search") != null)
 			search = String.valueOf(param.get("search"));
 		if(param.get("pageNum") != null )
 			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
+		if(param.get("selectAlign") != null)
+			selectAlign = String.valueOf(param.get("selectAlign"));
 		model.addAttribute("pageNum",pageNum);
 		cri.setSearch(search); // 검색 창에 입력한 것
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
@@ -66,7 +70,23 @@ public class HomeDataAct {
 			test.reviewAvg(placename);
 			test.rvShow(placename);
 		}
-		List<MangoVO> data = test.searchAll(cri);
+
+		log.error("selectAlign 갑승ㄴ ? {}",selectAlign);
+		//정렬
+	if(selectAlign.equals("리뷰 많은순")){
+			List<MangoVO> data = test.searchAllReviewCount(cri);
+			result.put("food",data);
+		} else if (selectAlign.equals("조회순"))
+		{
+			List<MangoVO> data = test.searchAllShowCount(cri);
+			result.put("food",data);
+		} else{
+
+			List<MangoVO> data = test.searchAll(cri);
+			result.put("food",data);
+		}
+
+
 
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
@@ -82,7 +102,7 @@ public class HomeDataAct {
 			result.put("page",null);
 		}
 
-		result.put("food",data);
+
 
 		return result;
 	}
@@ -166,6 +186,17 @@ public class HomeDataAct {
 		WishListVO data = vo;
 		log.error("지운 data => {}",data);
 
+		return data;
+	}
+	//위시리스트 확인 후 있으면 리턴받아 별표 색 유지
+	@RequestMapping("data/haveWish")
+	public WishListVO haveWish(@RequestBody Map param,HttpServletRequest request){
+		WishListVO vo = new WishListVO();
+		String useremail = (String)request.getSession().getAttribute("email");
+		String placename = (String)param.get("placeName");
+		vo.setUseremail(useremail);
+		vo.setPlacename(placename);
+		WishListVO data = test.haveWish(vo);
 		return data;
 	}
 

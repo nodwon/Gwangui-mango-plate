@@ -76,6 +76,16 @@
   }
 }
 
+.dropdown {
+    margin-bottom: 1rem;
+}
+
+#btn-dr {
+    color: #fff;
+    background-color: orangered;
+    border-color: orangered;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
