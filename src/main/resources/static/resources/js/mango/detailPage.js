@@ -88,33 +88,15 @@ export class detailPage{
             location.href="/";
         })
     }
-
+    //위시리스트 클릭 후 초기화
     modalEvent(){
         $('#modal').on('click',(e)=>{
             console.log('위시리스트')
             $('.wish-list').empty();
             this.wishListShowEvent();
             this.modalShow();
-            this.currentMove();
+
         })
-    }
-
-    //최근본 페이지 클릭시 중복적용되는 부분 방지
-    currentMove(){
-        $('.currentMove').on("click",(e)=>{
-           /* axios.post("/data/duplicate", {}).then(()=> {
-
-            });*/
-        })
-    }
-
-    modalShow(){
-        $(".btn.btn-primary.reset").on('click',(e)=>{
-            axios.post("/clearpost", {}).then(()=> {
-
-                $(".current").empty();
-            });
-        });
     }
 
     //위시리스트로 화면 전환
