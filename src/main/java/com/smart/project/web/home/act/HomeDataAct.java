@@ -301,4 +301,15 @@ public class HomeDataAct {
 		}
 	}
 
+	@RequestMapping("data/review")
+	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
+
+		ReviewDTO data = review;
+		log.error("추가된 리뷰는 : {}",data);
+
+		return data;
+
+
+	}
+
 }

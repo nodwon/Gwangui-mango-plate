@@ -7,6 +7,8 @@ $(()=>{
 export class detailPage{
     constructor() {
 
+        this.reviewAppendList = require("@/mango/reviewAppend.html");
+
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
@@ -322,26 +324,18 @@ export class detailPage{
                 "review": reviewcontents
             };
 
-            let start = "";
-            for(var i =1 ;i<=rating;i++)
-            {
-                    start +='<i class="fa-solid fa-star"></i>'
-            }
 
-            // 리뷰 쓴 데이터 append 시키기
-            let html1 = [
-            '<li class="wrapper">',
-               '<p>'+reviewcontents+'</p>',
-               '<p class="showId">'+ useremail+ '</p>',
-               '<p class="showRating">'+rating+' </p>',
-               start,
-               '<br>',
-               '<button class="updateComment">수정</button>',
-               '<button class="likeComment">like</button>',
-               '<button class="deleteComment deleteReply">delete</button>',
+            //추가 클릭 시 리뷰 추가
+            axios({
+                method :"post",
+                url : "data/review",
+                params : comment
 
-          '  </li>'].join('');
-            $('#allComments').append(html1);
+            }).then((data)=>{
+                $('#allComments').append(this.reviewAppendList(data));
+
+            });
+
 
             this.replyDeleteEvent();
             //리뷰데이터를 저장
@@ -350,11 +344,7 @@ export class detailPage{
                 url : '/saveReview',
                 params : comment
             })
-
-            // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
-            //     var me = $(this);
-            //     log.html(me.attr('value'));
-            // https://codepen.io/lsirivong/pen/nRNLYL
+            
         });
 
 

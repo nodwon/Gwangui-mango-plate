@@ -1,0 +1,16 @@
+<li class="wrapper">
+
+
+    <p>{{$data.data.review}}</p>
+    <p class="showId">{{$data.data.email}}</p>
+    <p class="showRating">{{$data.data.grade}}</p>
+
+    <% for(var i = 0; i < $data.data.grade; i++){ %>
+    <i class="fa-solid fa-star"></i>
+    <% } %>
+
+    <br>
+    <button class="updateComment">수정</button>
+    <button class="likeComment">like</button>
+    <button class="deleteComment deleteReply">delete</button>
+</li>
