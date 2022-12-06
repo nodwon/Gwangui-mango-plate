@@ -76,6 +76,17 @@
   }
 }
 
+.dropdown {
+    width: 600px;
+    padding-left: 1407px;
+}
+
+#btn-dr {
+    color: #fff;
+    background-color: orangered;
+    border-color: orangered;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

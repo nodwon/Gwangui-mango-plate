@@ -70,6 +70,7 @@ export class mango{
 
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
+        $(".dropdown").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {
             console.log(search)
 
