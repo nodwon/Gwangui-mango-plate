@@ -373,7 +373,7 @@ export class detailPage {
                ${start}
                <br>
                <div id="fixArea"style="display: none">
-               <textarea maxlength="200" width="100" height="100">
+               <textarea maxlength="200" width="300" height="100">
                </textarea>
                <button id="updatesucess">수정완료</button>
                </div>
