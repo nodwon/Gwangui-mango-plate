@@ -8,7 +8,7 @@ export class detailPage{
     constructor() {
 
         this.reviewAppendList = require("@/mango/reviewAppend.html");
-
+//
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
