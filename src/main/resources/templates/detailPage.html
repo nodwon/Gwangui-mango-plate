@@ -121,7 +121,6 @@
                         <h4 for="comment" name="comment">리뷰 <span th:text="${mango.getRvCount()}"></span></h4>
                             <span id ="user" th:text="${session.email}" hidden></span>
                             <span id ="title" th:text = "${mango.name}" hidden></span>
-                        <div id="dd-previewer"></div>
                         <fieldset id = "grade" class="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -135,6 +134,7 @@
                             <h6>Drag and drop files here or </h6>
                             <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
                         </div>
+                        <div id="dd-previewer"></div>
                             <button id="addComments">추가</button>
                             <div id="allComments">
                                 <li th:each="review, i:${dto}" class="wrapper">

@@ -82,13 +82,7 @@ input[type=text]:invalid {
   border: red solid 1px;
 }
 fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-h1,h2,h3,h4,h5,h6 {
-  margin: 10px 0;
-  padding: 0;
-}
+#dd-dropbox
 .imgbtn {
   padding: 10px 15px;
 
@@ -127,7 +121,7 @@ h1,h2,h3,h4,h5,h6 {
 #dd-dropbox h3 {
 
 }
-#dd-dropbox h6 {
+#dd-dropbox > h6 {
   text-align: center;
 }
 #dd-dropbox button {
