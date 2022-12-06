@@ -87,9 +87,12 @@ public interface Test {
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
 
 
+
 	void reviewAvg(String placename);
 
-	void reviewCount(String placename);
+	void reviewCount(@Param("title")String title, @Param("amount")int amount);
+
+	void rvShow(String placename);
 
 	void updateReview(ReviewDTO reviewDTO);
 

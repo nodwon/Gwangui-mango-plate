@@ -13,16 +13,18 @@
     <link href="../css/styles.css" rel="stylesheet" />
 
 
-
-
     <script src="/resources/vendors/polyfill.min.js"></script>
     <script src="/resources/vendors/jquery.min.js"></script>
     <script src="/resources/vendors/lodash.min.js"></script>
     <script src="/resources/vendors/axios.min.js"></script>
     <script src="/resources/vendors/moment.min.js"></script>
     <script src="/resources/vendors/jquery-mobile.event.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7xei5mr4nb&callback=CALLBACK_FUNCTION"></script>
     <script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/onLoad.bundle.js')}"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
 </head>
     <div id = "Nav" class="fixed">
@@ -72,6 +74,47 @@
         </div>
 
 
+    </div>
+    <div class="wishList">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header flex_container">
+                        <a class="modal-title fs-5 current-place" id="staticBackdropLabel"><span>최근 본 플레이스</span></a>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <a class="modal-title fs-5 wishlist-place" id="2"><span>위시리스트</span></a>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!--최근본페이지모달-->
+                    <div class="modal-body current-body">
+                        <div th:if="${session.list}" class="modal-body current">
+                            <ul th:each="list, i:${session.list}" class="wish_middle_list">
+                                <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&img1=${list.img1}|" th:href="@{${link}}">
+                                    <li th:text="${list.name}"></li>
+                                    <li th:text="${list.roadname}"></li>
+                                    <img style="width: 80px;height: 80px" th:src="${list.img1}">
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--위시리스트모달-->
+                    <div class="modal-body wish-body hidden">
+                        <div class="modal-body wish">
+                            <ul>
+                                <a class="wish-list">
+
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary reset">초기화</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
