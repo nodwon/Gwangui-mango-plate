@@ -55,6 +55,10 @@
         delete from wishList_tbl where useremail=#{useremail} and placename = #{placename}
     </delete>
 
+    <select id="haveWish" resultType="com.smart.project.web.home.vo.WishListVO" parameterType="java.lang.String">
+        select * from wishList_tbl where useremail=#{useremail} and placename=#{placename}
+    </select>
+
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
