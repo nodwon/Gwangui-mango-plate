@@ -8,7 +8,7 @@ export class detailPage{
     constructor() {
 
         this.reviewAppendList = require("@/mango/reviewAppend.html");
-//
+
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
@@ -305,18 +305,18 @@ export class detailPage{
         })
 
         //수정 완료 버튼
-        $("#updatesucess").on("click", (e)=> {
+        $(".updatesucess").on("click", (e)=> {
 
             let updatereview = $(e.currentTarget).prev().val();
             let useremail = $("#user").text();
             let title = $("#title").text();
             let updateRating =  $('input[name ="rating"]:checked').val();
             // 리뷰 쓴 데이터 append 시키기 // 중복
-            let html1 =
-                `<li class="wrapper">
-               
-            </li>`
-            $('#allComments').append(html1);
+            // let html1 =
+            //     `<li class="wrapper">
+            //
+            // </li>`
+            // $('#allComments').append(html1);
 
             const comment = { //중복
                 "title" : title,
@@ -329,10 +329,7 @@ export class detailPage{
                 url: 'updateReview',
                 params: comment
             })
-
-            // $(e.currentTarget).parent().addClass("hidden");
             location.reload();
-
 
         });
     }

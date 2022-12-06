@@ -15,6 +15,7 @@ public class ReviewDTO {
     String title;
     Integer grade;
     String review;
+    int num;
     List<MultipartFile> files;
     List<String> fileIds;
     String reviewUpDateStr;
