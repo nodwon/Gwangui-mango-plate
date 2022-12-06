@@ -58,11 +58,11 @@
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
-    <insert id="saveReview">
-        insert into tbl_review ( email,title,review,grade,updateDate ) values (#{email}, #{title}, #{review}, #{grade}, now())
+    <insert id="saveReview" useGeneratedKeys="true" keyProperty="num" parameterType="com.smart.project.web.home.vo.ReviewDTO">
+        insert into tbl_review ( email,title,review,grade,updateDate) values (#{email}, #{title}, #{review}, #{grade}, now())
     </insert>
     <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReviewDTO">
-        update tbl_review set review = #{review},grade = #{grade},updateDate = now() where email = #{email}
+        update tbl_review set review = #{review},grade = #{grade},updateDate = now() where email = #{email} and num = #{num}
     </update>
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}

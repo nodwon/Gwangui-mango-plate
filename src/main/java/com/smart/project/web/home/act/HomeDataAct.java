@@ -184,9 +184,10 @@ public class HomeDataAct {
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
 	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
-		log.error("{}",reviewDTO);
+		log.error("{}==>asdfasdfa",reviewDTO);
 
 		test.updateReview(reviewDTO);
+
 	}
 
 	@PostMapping("/idCheck")

@@ -11,15 +11,15 @@ public class ReviewDTO {
 
 
     private  Date updateDate;
-    String email;
-    String title;
-    Integer grade;
-    String review;
-    int num;
-    List<MultipartFile> files;
-    List<String> fileIds;
-    String reviewUpDateStr;
-    List<String> reviewIds;
+    private String email;
+    private String title;
+    private Integer grade;
+    private String review;
+    private int num;
+    private List<MultipartFile> files;
+    private List<String> fileIds;
+    private String reviewUpDateStr;
+    private List<String> reviewIds;
 
 
 }

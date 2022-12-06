@@ -176,6 +176,66 @@ h1,h2,h3,h4,h5,h6 {
   color: #ddd;
   float: right;
 }
+/***** CSS Magic to Highlight Stars on Hover *****/
+.dd-previewerup img {
+  width: 100px;
+  height: 100px;
+}
+/****** Style Star Rating Widget *****/
+
+.rating2 {
+  border: none;
+  float: right;
+}
+
+.rating2 > input { display: none; }
+.rating2 > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating2 > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating2 > label {
+  color: #ddd;
+  float: right;
+}
+.rating2 > input:checked ~ label, /* show gold star when clicked */
+.rating2:not(:checked) > label:hover, /* hover current star */
+.rating2:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating2 > input:checked + label:hover, /* hover current star when changing rating */
+.rating2 > input:checked ~ label:hover,
+.rating2 > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating2 > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+.rating2 > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating2 > label {
+  color: #ddd;
+  float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating2 > input:checked ~ label, /* show gold star when clicked */
+.rating2:not(:checked) > label:hover, /* hover current star */
+.rating2:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating2 > input:checked + label:hover, /* hover current star when changing rating */
+.rating2 > input:checked ~ label:hover,
+.rating2 > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating2 > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
@@ -319,9 +379,6 @@ button.updateComment {
   font-size: 10px;
   font-weight: bold;
   color: black;
-}
-#allComments > li:nth-child(26) > a.showRating{
-
 }
 #allComments > li:nth-child(26) > a.showTitle{
   margin-top: 10px;

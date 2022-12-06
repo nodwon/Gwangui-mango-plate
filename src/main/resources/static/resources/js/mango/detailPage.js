@@ -292,9 +292,7 @@ export class detailPage{
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         $(".updatebtn").on("click", (e)=> {
-
             $(e.currentTarget).prev().css({'display':'block'})
-            $(e.currentTarget).parent().find($("#fixArea")).append($("#grade"));
             $(e.currentTarget).parent().find('button.likeComment').addClass("hidden");
             $(e.currentTarget).parent().find('button.deleteComment').addClass("hidden");
             $(e.currentTarget).parent().find('button.updateComment').addClass("hidden");
@@ -310,19 +308,16 @@ export class detailPage{
             let updatereview = $(e.currentTarget).prev().val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-            let updateRating =  $('input[name ="rating"]:checked').val();
-            // 리뷰 쓴 데이터 append 시키기 // 중복
-            // let html1 =
-            //     `<li class="wrapper">
-            //
-            // </li>`
-            // $('#allComments').append(html1);
+            let updateRating =  $('input[name ="rating2"]:checked').val();
+            let updatenum =   $(e.currentTarget).next().text();
+            debugger
 
             const comment = { //중복
                 "title" : title,
                 "grade": updateRating,
                 "email" : useremail,
-                "review": updatereview
+                "review": updatereview,
+                "num" : updatenum
             };
             axios({
                 method: "put",
@@ -337,7 +332,7 @@ export class detailPage{
     //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
-        $("#addComments").on("click", () => {
+        $("#addComments").on("click", (e) => {
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
@@ -361,6 +356,11 @@ export class detailPage{
                     title: '별점을  눌러주세요'
                 })
                 return;
+            } else if($(e.currentTarget)){
+                Swal.fire({
+                    icon: 'success',
+                    title: '리뷰가추가되었습니다.'
+                })
             }
             const comment = {
                 "email": useremail,
