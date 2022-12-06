@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Master
@@ -60,7 +61,8 @@ public interface Test {
     void viewCount(String name);
 
 	MangoVO selectCurrent(String placename);
-
+	ReviewDTO selectTitle(String title);
+	ReviewDTO selectUpdateDate(Date updateDate);
 	void saveReview(ReviewDTO reviewDTO);
 
 	ReviewDTO getReview(@Param("reviewId") String reviewId);
@@ -90,6 +92,9 @@ public interface Test {
 	void reviewCount(@Param("title")String title, @Param("amount")int amount);
 
 	void rvShow(String placename);
+
+	void updateReview(ReviewDTO reviewDTO);
+
 
 
 	List<ReviewDTO> showEmailReview(String email);

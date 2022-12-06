@@ -181,6 +181,13 @@ public class HomeDataAct {
 		test.reviewCount(title, -1);
 		test.deleteReply(email);
 	}
+	// 해당 이메일로 로그인되었을때 리뷰 변경
+	@RequestMapping("updateReview")
+	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
+		log.error("{}",reviewDTO);
+
+		test.updateReview(reviewDTO);
+	}
 
 	@PostMapping("/idCheck")
 	public int checkDuplicateId(@RequestBody Map param){
@@ -203,7 +210,6 @@ public class HomeDataAct {
 		test.saveReview(reviewDTO);
 
 	}
-
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {
 		log.error("{}===>",reviewId+"reviewId");
@@ -222,6 +228,7 @@ public class HomeDataAct {
 	@RequestMapping("/deleteReviews")
 	public void deleteReviews(ReviewDTO reviewDTO) {
 		List<String> reviewIds = reviewDTO.getReviewIds();
+
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}

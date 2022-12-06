@@ -261,8 +261,6 @@ button.updateComment {
   transition: 0.3s ease;
 }
 
-
-
 #allComments > li > button.deleteComment {
 
   background: darkgrey;
@@ -309,6 +307,16 @@ button.updateComment {
 
 }
 #allComments > li > div{
+  background: #eee;
+  padding: 1rem;
+  animation-name: fadeIn;
+  animation: fadeIn 1.5s;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #737373;
+  margin-top: 15px;
+}
+#allComments > li:nth-child(1) > p:nth-child(1){
   background: #eee;
   padding: 1rem;
   animation-name: fadeIn;
