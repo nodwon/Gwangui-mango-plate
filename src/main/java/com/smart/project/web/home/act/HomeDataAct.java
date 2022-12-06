@@ -60,8 +60,13 @@ public class HomeDataAct {
 		model.addAttribute("pageNum",pageNum);
 		cri.setSearch(search); // 검색 창에 입력한 것
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
+		for(MangoVO vo :test.searchAll(cri))
+		{
+			String placename = vo.getName();
+			test.reviewAvg(placename);
+			test.rvShow(placename);
+		}
 		List<MangoVO> data = test.searchAll(cri);
-
 
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))

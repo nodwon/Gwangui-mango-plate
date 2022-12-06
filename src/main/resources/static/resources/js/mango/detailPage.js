@@ -184,19 +184,25 @@ export class detailPage{
                     title: '로그인이 필요합니다'
                 })
             }else{
-                let Object = {
-                    "placename" : name,
-                    "roadname" : roadName,
-                    "mainimg" : src
+                if($('#alertStart').css("color") == 'rgb(0, 0, 0)') {
+                    $('#alertStart').css("color", "yellow");
+                    let Object = {
+                        "placename": name,
+                        "roadname": roadName,
+                        "mainimg": src
+                    }
+                    axios({
+                        method: "post",
+                        url: '/wishStore',
+                        params: Object
+                    }).then((result) => {
+                        console.log(Object);
+                        console.log(result.data);
+                    })
+                }else {
+                    $('#alertStart').css("color", "black");
+
                 }
-                axios({
-                    method:"post",
-                    url:'/wishStore',
-                    params : Object
-                }).then((result)=>{
-                    console.log(Object);
-                    console.log(result.data);
-                })
             }
 
         })
@@ -238,7 +244,6 @@ export class detailPage{
         $('.deleteWish').on("click",(e)=>{
                 let placeName = $(e.currentTarget).parent($('.wishForm')).find($('.placename')).text()
                 console.log(placeName);
-
                 axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
                     $(e.currentTarget).parent($('.wishForm')).remove();
                    console.log(result);

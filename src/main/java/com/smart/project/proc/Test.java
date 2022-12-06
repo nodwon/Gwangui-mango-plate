@@ -90,7 +90,6 @@ public interface Test {
 	void reviewCount(@Param("title")String title, @Param("amount")int amount);
 
 	void rvShow(String placename);
-	void reviewCount(String placename);
 
 
 	List<ReviewDTO> showEmailReview(String email);

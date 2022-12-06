@@ -54,6 +54,7 @@ public class HomeAct {
 	}
 
 	@RequestMapping("/login")
+
 	public String login(){
 		return "Member/login/login";
 }
