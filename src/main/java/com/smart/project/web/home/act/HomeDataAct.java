@@ -172,10 +172,16 @@ public class HomeDataAct {
 		test.deleteReply(email);
 	}
 	// 해당 이메일로 로그인되었을때 리뷰 변경
-	@RequestMapping("data/updateReply")
-	public void updateReply(@ModelAttribute ReviewDTO reviewDTO){
+	@RequestMapping("updateReview")
+	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
 		String email = reviewDTO.getEmail();
+		String title = reviewDTO.getTitle();
+		String review = reviewDTO.getReview();
+		Integer grade = reviewDTO.getGrade();
 		reviewDTO.setEmail(email);
+		reviewDTO.setTitle(title);
+		reviewDTO.setReview(review);
+		reviewDTO.setGrade(grade);
 		test.updateReview(email);
 	}
 
@@ -198,7 +204,6 @@ public class HomeDataAct {
 		test.saveReview(reviewDTO);
 
 	}
-
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {
 		log.error("{}===>",reviewId+"reviewId");

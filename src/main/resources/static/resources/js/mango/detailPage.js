@@ -281,34 +281,48 @@ export class detailPage {
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         $(".updatebtn").on("click", (e)=> {
-            const sucess = document.createElement("p");
+            const sucess = document.createElement("button");
             sucess.className = "updatesucess";
             sucess.innerHTML = "수정완료"
-            $(e.currentTarget).empty();
-            $(e.currentTarget).append($("#comment"));
-            $(e.currentTarget).append(sucess);
+            $(e.currentTarget).parent().empty().append($("#grade"),$("#comment"),sucess);
 
 
         })
 
         //수정 완료 버튼
-        $("#updatesucess").on("click", function (e) {
+        //뭔가 이상
+        $("#allComments > li > button").on("click", function (e) {
             let reviewcontents = $("#comment").val(); //중복
-            let useremail = $("#user").text();  //중복
-            let title = $("#title").text();
             let rating = $('input[name ="rating"]:checked').val();
             e.preventDefault();
+
+            // 리뷰 쓴 데이터 append 시키기 // 중복
+            let start = "";
+            for (let i = 1; i <= rating; i++) {
+                start += '<i class="fa-solid fa-star"></i>'
+            }
+
+            let html1 =
+                `<li class="wrapper">
+               <p>${reviewcontents}</p>
+               ${start}
+               <br>
+            </li>`
+            $('#allComments').append(html1);
+
             const comment = { //중복복
-                "email": useremail,
-                "title": title,
                 "grade": rating,
                 "review": reviewcontents
             };
             axios({
                 method: "put",
-                url: 'data/updateReply',
+                url: 'updateReview',
                 params: comment
             })
+
+            $(e.currentTarget).parent().remove(); //
+            $(e.currentTarget).remove();
+
         })
     }
 
@@ -348,7 +362,7 @@ export class detailPage {
             };
 
             let start = "";
-            for (var i = 1; i <= rating; i++) {
+            for (let i = 1; i <= rating; i++) {
                 start += '<i class="fa-solid fa-star"></i>'
             }
 
@@ -376,9 +390,6 @@ export class detailPage {
                 params: comment
             })
 
-            //else if (hasClass(e.target, 'likeComment')) {
-            //                 const likeBtnValue = e.target.innerHTML;
-            //                 e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
         });
 
     }
