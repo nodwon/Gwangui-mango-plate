@@ -59,7 +59,7 @@ public class HomeDataAct {
 			search = String.valueOf(param.get("search"));
 		if(param.get("pageNum") != null )
 			pageNum = Integer.parseInt(String.valueOf(param.get("pageNum")));
-		if(param.get("search") != null)
+		if(param.get("selectAlign") != null)
 			selectAlign = String.valueOf(param.get("selectAlign"));
 		model.addAttribute("pageNum",pageNum);
 		cri.setSearch(search); // 검색 창에 입력한 것
@@ -71,11 +71,12 @@ public class HomeDataAct {
 			test.rvShow(placename);
 		}
 
-		//정렬렬
-	if(selectAlign=="리뷰수"){
+		log.error("selectAlign 갑승ㄴ ? {}",selectAlign);
+		//정렬
+	if(selectAlign.equals("리뷰 많은순")){
 			List<MangoVO> data = test.searchAllReviewCount(cri);
 			result.put("food",data);
-		} else if (selectAlign =="조회수")
+		} else if (selectAlign.equals("조회순"))
 		{
 			List<MangoVO> data = test.searchAllShowCount(cri);
 			result.put("food",data);

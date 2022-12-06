@@ -78,7 +78,10 @@
 
 .dropdown {
     width: 600px;
-    padding-left: 1407px;
+    align-content: center;
+    padding-bottom: 1.5%;
+    padding-left: 50%;
+
 }
 
 #btn-dr {
