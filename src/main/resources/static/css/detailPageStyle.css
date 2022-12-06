@@ -72,6 +72,8 @@
 
 }
 
+#allComments > li {}
+
 #alertStart {
   color : black;
 }
@@ -305,7 +307,19 @@ button.deleteComment{
   transition: 0.3s ease;
 }
 
-
+button.updatesucess{
+  background: green;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(00, 154, 00);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
 button.updateComment {
 
   background: green;
@@ -320,7 +334,14 @@ button.updateComment {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-
+#allComments > li > a {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f164";
+  visibility: visible;
+  font-weight: 900;
+  padding-left: 5px;
+  color: black;
+}
 #allComments > li > button.deleteComment {
 
   background: darkgrey;
@@ -336,7 +357,7 @@ button.updateComment {
   transition: 0.3s ease;
 }
 #updateArea{
-  width: 200px;
+  width: 80%;
   background: #eee;
   padding: 1rem;
   animation-name: fadeIn;
@@ -397,7 +418,7 @@ button.updateComment {
   color: #737373;
   margin-top: 15px;
 }
-#allComments > li:nth-child(1) > p:nth-child(1){
+#allComments > li.wrapper{
   background: #eee;
   padding: 1rem;
   animation-name: fadeIn;
@@ -407,6 +428,12 @@ button.updateComment {
   color: #737373;
   margin-top: 15px;
 }
+#allComments > li.wrapper > ul{
+  border-top: 1px solid;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
 #allComments > li > button.likeComment {
   background: #ed2553;
   border-radius: 3px;

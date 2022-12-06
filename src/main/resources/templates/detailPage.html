@@ -138,13 +138,16 @@
                             <button id="addComments">추가</button>
                             <div id="allComments">
                                 <li th:each="review, i:${dto}" class="wrapper">
-                                    <p th:text="${review.review}"></p>
-                                    <p class="showId" th:text="${review.email}"></p>
-                                    <p class="showRating hidden" th:text="${review.grade}"></p>
-                                    <p class="showDate" th:text="${review.updateDate}"></p>
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star" style="float: right"></i>
                                     </th:block> <br>
+                                    <a class="showDate" th:text="${review.updateDate}" style="float: right"></a>
+                                    <h3 class="showId" th:text="${review.email}" ></h3>
+                                    <br>
+                                    <h4 th:text="${review.review}"></h4>
+                                    <ul></ul>
+                                    <p class="showRating hidden" th:text="${review.grade}"></p>
+
                                     <div id="fixArea"style="display: none">
                                         <div id="dd-previewerup"></div>
                                         <fieldset id = "updategrade" class="rating2">
@@ -154,7 +157,7 @@
                                             <input type="radio" id="star2!" name="rating2" value="2" /><label class = "full" for="star2!" title="Kinda bad - 2 stars"></label>
                                             <input type="radio" id="star1!" name="rating2" value="1" /><label class = "full" for="star1!" title="Sucks big time - 1 star"></label>
                                         </fieldset>
-                                        <textarea id= "updateArea" maxlength="200" width="250" height="100">
+                                        <textarea id= "updateArea" maxlength="200" width="100" height="100">
 
                                         </textarea>
                                         <button class="updatesucess">수정완료</button>
