@@ -1,5 +1,5 @@
+<!--맛집 리스트 띄우기 -->
 {{each data.food}}
-
 <div class="col mb-5">
 
   <div class="cardList card h-100" >
@@ -16,14 +16,9 @@
           {{if $value.rvAvg}}
           <span style="color: orange" >&nbsp{{$value.rvAvg}}</span>
           {{/if}}
-
         </a>
+      </h5></p><p>
 
-      </h5>
-
-
-        </p>
-        <p>
         <!-- Product price-->
         <a class = "roadName c" href="/detailPage?roadname={{$value.roadname}}&name={{$value.name}}&img1={{$value.img1}}">{{$value.roadname}}</a>
 

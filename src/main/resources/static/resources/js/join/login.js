@@ -14,6 +14,7 @@ export class Login{
     }
 
     event(){
+        $('#modal').addClass('hidden');
         Kakao.init('1c7dbcce4a9a8dcce06171f411ab8aaf');
         $("#kakao-login-btn").on("click", function(){
             //1. 로그인 시도
