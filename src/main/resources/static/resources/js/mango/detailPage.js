@@ -381,12 +381,11 @@ export class detailPage{
 
             }).then((data) => {
                 $('#allComments').append(this.reviewAppendList(data));
-
+                this.replyDeleteEvent();
+                this.replyupdatelike();
             });
 
 
-            this.replyDeleteEvent();
-            this.replyupdatelike();
             //리뷰데이터를 저장
             axios({
                 method: "post",
