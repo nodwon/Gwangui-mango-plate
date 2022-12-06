@@ -251,6 +251,15 @@ export class mango{
         })
     }
 
+    modalShow(){
+        $(".btn.btn-primary.reset").on('click',(e)=>{
+            axios.post("/clearpost", {}).then(()=> {
+
+                $(".current").empty();
+            });
+        });
+    }
+
     //위시리스트로 화면 전환
     wishListEvent(){
         $('.wishlist-place').on("click",(e)=>{
