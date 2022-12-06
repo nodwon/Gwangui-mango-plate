@@ -187,6 +187,17 @@ public class HomeDataAct {
 
 		return data;
 	}
+	//위시리스트 확인 후 있으면 리턴받아 별표 색 유지
+	@RequestMapping("data/haveWish")
+	public WishListVO haveWish(@RequestBody Map param,HttpServletRequest request){
+		WishListVO vo = new WishListVO();
+		String useremail = (String)request.getSession().getAttribute("email");
+		String placename = (String)param.get("placeName");
+		vo.setUseremail(useremail);
+		vo.setPlacename(placename);
+		WishListVO data = test.haveWish(vo);
+		return data;
+	}
 
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")

@@ -7,12 +7,13 @@ $(()=>{
 export class detailPage{
     constructor() {
 
-        this.reviewAppendList = require("@/mango/reviewAppend.html");
-//
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
+        this.haveWishStarEvent();
+
+
         this.addMap();
 
 
@@ -78,6 +79,7 @@ export class detailPage{
         });
 
     }
+
 
 
     clearEvent() {
@@ -213,6 +215,15 @@ export class detailPage{
 
         })
     }
+    //위시리스트에 저장이 되어 있으면 찜(별)색 유지하는 이벤트
+    haveWishStarEvent(){
+        let placename = $('.name').text();
+        axios.post("data/haveWish",{"placeName" : placename}).then((result)=>{
+            if(result.data.useremail!=null){
+                $('#alertStart').css("color", "yellow");
+            }
+        })
+    }
 
     //위시리스트 띄워주는 이벤트
     wishListShowEvent(){
@@ -245,7 +256,6 @@ export class detailPage{
         })
 
     }
-
     //위시리스트중 삭제버튼 클릭시 해당게시물 삭제이벤트
     wishListDeleteOne(){
         $('.deleteWish').on("click",(e)=>{
@@ -254,6 +264,7 @@ export class detailPage{
                 axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
                     $(e.currentTarget).parent($('.wishForm')).remove();
                    console.log(result);
+                    $('#alertStart').css("color", "black");
                 })
         })
     }
