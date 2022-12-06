@@ -8,15 +8,9 @@ $(()=>{
 
 export class mango{
     constructor() {
-
-
-
         this.searchKeyword = "";
         this.foodList = require("@/mango/foodList.html");
         this.modalList = require("@/mango/modalList.html");
-
-
-
         this.eventBind();
 
         this.cashing.$pagination.addClass("hidden");

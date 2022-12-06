@@ -11,6 +11,7 @@ export class detailPage{
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
+        this.haveWishStarEvent();
 
 
         this.addMap();
@@ -195,16 +196,36 @@ export class detailPage{
                         method: "post",
                         url: '/wishStore',
                         params: Object
-                    }).then((result) => {
-                        console.log(Object);
-                        console.log(result.data);
+                    }).then((data) => {
+                        console.log(data.data)
+                        Swal.fire({
+                            icon: 'success',
+                            title: '위시리스트에 담았습니다!'
+                        })
                     })
                 }else {
                     $('#alertStart').css("color", "black");
+                    let placeName = $('.name').text();
+                    console.log(placeName);
+                    axios.post("data/wishDelete",{"placeName" : placeName}).then(()=>{
+                        Swal.fire({
+                            icon: 'success',
+                            title: '위시리스트에 삭제 하였습니다!'
+                        })
+                    })
 
                 }
             }
 
+        })
+    }
+    //위시리스트에 저장이 되어 있으면 찜(별)색 유지하는 이벤트
+    haveWishStarEvent(){
+        let placename = $('.name').text();
+        axios.post("data/haveWish",{"placeName" : placename}).then((result)=>{
+            if(result.data.useremail!=null){
+                $('#alertStart').css("color", "yellow");
+            }
         })
     }
 
@@ -247,6 +268,7 @@ export class detailPage{
                 axios.post("data/wishDelete",{"placeName" : placeName}).then((result)=>{
                     $(e.currentTarget).parent($('.wishForm')).remove();
                    console.log(result);
+                    $('#alertStart').css("color", "black");
                 })
         })
     }
@@ -340,9 +362,6 @@ export class detailPage{
                 url : '/saveReview',
                 params : comment
             })
-
-
-
 
             // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
             //     var me = $(this);
