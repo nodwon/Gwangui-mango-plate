@@ -40,12 +40,12 @@ public class HomePageAct {
     public String commonLogin(CommonMemberVO vo, HttpSession session, HttpServletRequest request, HttpServletResponse response){
         log.error("{}",vo);
         String userId = vo.getUserId();
+        log.error("{}",userId);
         String userPw = request.getParameter("userPw");
         CommonMemberVO result  = test.selectOneMem(userId);
-        String userEmail = result.getUserEmail();
-        log.error("user=>{}",result );
 
-        if(result!=null && encoder.matches(userPw, result.getUserPw())){
+        if(result!= null && encoder.matches(userPw, result.getUserPw())){
+            String userEmail = result.getUserEmail();
             System.out.println("로그인 성공");
             //로그인시 쿠키 생성
             Cookie cookieId = new Cookie("email", userEmail);

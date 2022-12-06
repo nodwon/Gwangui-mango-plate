@@ -61,14 +61,15 @@
     <insert id="saveReview">
         insert into tbl_review ( email,title,review,grade,updateDate ) values (#{email}, #{title}, #{review}, #{grade}, now())
     </insert>
-<!--    <update id="viewCount" parameterType="java.lang.String">-->
-<!--        update tbl_review set title = #{title},review = #{review},grade = #{grade},update_date = UTC_TIMESTAMP() where id = #{id}, title = #{title}-->
-<!--    </update>-->
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
 
-    <update id="reviewCount" parameterType="java.lang.String">
+    <update id="reviewCount">
+        update foodlist set rvCount = rvCount + #{amount} where name = #{title}
+    </update>
+
+    <update id="rvShow" parameterType="java.lang.String">
         update foodlist set rvCount = (select count(title)
                                        from tbl_review
                                        where title = #{placename})

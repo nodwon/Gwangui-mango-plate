@@ -60,8 +60,13 @@ public class HomeDataAct {
 		model.addAttribute("pageNum",pageNum);
 		cri.setSearch(search); // 검색 창에 입력한 것
 		cri.setPage(pageNum); // 페이지 번호  1번누르면 1번 set
+		for(MangoVO vo :test.searchAll(cri))
+		{
+			String placename = vo.getName();
+			test.reviewAvg(placename);
+			test.rvShow(placename);
+		}
 		List<MangoVO> data = test.searchAll(cri);
-
 
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
@@ -168,7 +173,12 @@ public class HomeDataAct {
 	@RequestMapping("data/deleteReply")
 	public void deleteReply(@ModelAttribute ReviewDTO dto) {
 		String email =  dto.getEmail();
+		String title = dto.getTitle();
 		dto.setEmail(email);
+		log.error("지울 것? => {}",dto.getEmail());
+		ReviewDTO data = dto;
+
+		test.reviewCount(title, -1);
 		test.deleteReply(email);
 	}
 
@@ -183,10 +193,12 @@ public class HomeDataAct {
 	public void saveReview(ReviewDTO reviewDTO) {
 		log.error("{}===>",reviewDTO);
 		String id = reviewDTO.getEmail();
+		String title = reviewDTO.getTitle();
 		if (id == null || id.isEmpty()) {
 			String uuidStr = UUID.randomUUID().toString();
 			reviewDTO.setEmail(uuidStr);
 		}
+		test.reviewCount(title, 1);
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
 
