@@ -275,6 +275,30 @@ button.updateComment {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
+#updateArea{
+  width: 200px;
+  background: #eee;
+  padding: 1rem;
+  animation-name: fadeIn;
+  animation: fadeIn 1.5s;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #737373;
+  margin-top: 15px;
+}
+#updatesucess {
+  background: green;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(00, 154, 00);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
 #allComments > li > button.updateComment {
 
   background: green;
