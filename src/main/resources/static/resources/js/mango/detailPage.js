@@ -195,12 +195,22 @@ export class detailPage{
                         method: "post",
                         url: '/wishStore',
                         params: Object
-                    }).then((result) => {
-                        console.log(Object);
-                        console.log(result.data);
+                    }).then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '위시리스트에 담았습니다!'
+                        })
                     })
                 }else {
                     $('#alertStart').css("color", "black");
+                    let placeName = $('.name').text();
+                    console.log(placeName);
+                    axios.post("data/wishDelete",{"placeName" : placeName}).then(()=>{
+                        Swal.fire({
+                            icon: 'success',
+                            title: '위시리스트에 삭제 하였습니다!'
+                        })
+                    })
 
                 }
             }
