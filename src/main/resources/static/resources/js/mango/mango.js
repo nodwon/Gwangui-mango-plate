@@ -310,6 +310,22 @@ export class mango{
 
     }
 
+    //맛집 정렬 이벤트
+    arrayEvent(){
+        $(".selectArray").on("change",(e)=> {
+            let selectAlign = $(e.currentTarget).text();
+            let search = { "search" :this.searchKeyword ,"pageNum":1 ,"selectAlign":selectAlign};
+            if (selectAlign === "별점순") {
+                this.foodPageList(search);
+            } else if (selectAlign === "조회수") {
+
+            } else if (selectAlign === "리뷰순") {
+
+            }
+
+
+        });
+    }
 
 }
 

@@ -28,9 +28,24 @@
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
-        order by review desc limit #{pageStart},#{perPageNum} ;
+        order by rvAvg desc limit #{pageStart},#{perPageNum} ;
 
     </select>
+    <select id="searchAllReviewCount" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
+        order by rvCount desc limit #{pageStart},#{perPageNum} ;
+
+    </select>
+    <select id="searchAllShowCount" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
+        order by viewCount desc limit #{pageStart},#{perPageNum} ;
+
+    </select>
+
+
+
+
+
 
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')

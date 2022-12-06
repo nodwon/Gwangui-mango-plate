@@ -40,6 +40,8 @@ public interface Test {
 
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
+	List<MangoVO> searchAllReviewCount(Criteria criteria);
+	List<MangoVO> searchAllShowCount(Criteria criteria);
 
 	int totalCount(Criteria criteria);
 
