@@ -54,6 +54,7 @@ public class HomeAct {
 	}
 
 	@RequestMapping("/login")
+
 	public String login(){
 		return "Member/login/login";
 }
@@ -75,7 +76,7 @@ public class HomeAct {
 		log.error("중복방지처리 =>{}", duplicateData);
 
 		test.reviewAvg(placename);
-		test.reviewCount(placename);
+		test.rvShow(placename);
 
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);

@@ -13,11 +13,14 @@
         <p>
         <h5 class="fw-bolder">
         <a class ="name b"href="/detailPage?roadname={{$value.roadname}}&name={{$value.name}}&img1={{$value.img1}}">{{$value.name}}
-
+          {{if $value.rvAvg}}
+          <span style="color: orange" >&nbsp{{$value.rvAvg}}</span>
+          {{/if}}
 
         </a>
-        <span style="color: orange" >{{$value.rvAvg}}</span>
+
       </h5>
+
 
         </p>
         <p>
@@ -29,7 +32,7 @@
     <!-- Product actions-->
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
       <div class="text-center">
-        <a class="favoriteStore btn btn-outline-dark mt-auto">View options</a>
+        <a class="favoriteStore btn btn-outline-dark mt-auto">위시리스트에 담기</a>
       </div>
     </div>
     </p>
