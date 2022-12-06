@@ -162,13 +162,8 @@
                     <hr style="border: #0d0501" >
                     <div class="container">
                         <h4 for="comment" name="comment">리뷰 <span th:text="${mango.getRvCount()}"></span></h4>
-                            <span id ="user" th:text="${session.email}"></span>
-                            <span id ="title" th:text = "${mango.name}"}></span>
-<!--                        <div id="dd-dropbox">-->
-<!--                            <h3>Drag and drop files here</h3>-->
-<!--                            <h6>or</h6>-->
-<!--                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>-->
-<!--                        </div>-->
+                            <span id ="user" th:text="${session.email}" hidden></span>
+                            <span id ="title" th:text = "${mango.name}" hidden></span>
                         <div id="dd-previewer"></div>
                         <fieldset id = "grade" class="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -184,8 +179,6 @@
                             <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
                         </div>
                             <button id="addComments">추가</button>
-<!--                            <div id="allComments"></div>-->
-<!--                            <span id ="updateDate" th:text="${reviewdto.updateDate}" hidden></span>-->
                             <div id="allComments">
                                 <li th:each="review, i:${dto}" class="wrapper">
                                     <p th:text="${review.review}"></p>
@@ -195,8 +188,14 @@
                                     <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                         <i class="fa-solid fa-star"></i>
                                     </th:block> <br>
+                                    <div id="fixArea"style="display: none">
+                                        <textarea id= "updateArea" maxlength="200" width="100" height="100">
+
+                                        </textarea>
+                                        <button id="updatesucess">수정완료</button>
+                                    </div>
                                     <button th:if="${session.email}==${review.email}" class="updateComment updatebtn" >수정</button>
-                                    <button class="likeComment">like</button>
+                                    <button class="likeComment likebtn">like</button>
                                     <button th:if="${session.email}==${review.email}" class="deleteComment deleteReply">delete</button>
                                 </li>
                             </div>

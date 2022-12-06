@@ -11,8 +11,6 @@ export class detailPage {
         this.wishListEvent();
         this.favoriteStore();
         this.reviewEvent();
-
-
         this.addMap();
 
 
@@ -274,45 +272,44 @@ export class detailPage {
     }
 
     replyupdatelike() {
-        $("#likebtn").on("click", function (e) {
-            const likeBtnValue = e.target.innerHTML;
-            e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseInt(likeBtnValue) + 1 : 1;
+
+        $(".likebtn").on("click", (e)=> {
+            $(e.currentTarget).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
         })
 
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         $(".updatebtn").on("click", (e)=> {
-            const sucess = document.createElement("button");
-            sucess.className = "updatesucess";
-            sucess.innerHTML = "수정완료"
-            $(e.currentTarget).parent().empty().append($("#grade"),$("#comment"),sucess);
+
+            $(e.currentTarget).prev().css({'display':'block'})
+            $(e.currentTarget).parent().find($("#fixArea")).append($("#grade"));
+            $(e.currentTarget).parent().find('button.likeComment').addClass("hidden");
+            $(e.currentTarget).parent().find('button.deleteComment').addClass("hidden");
+            $(e.currentTarget).parent().find('button.updateComment').addClass("hidden");
+            $(e.currentTarget).parent().find('p').addClass("hidden");
+            $(e.currentTarget).parent().find('i').addClass("hidden");
 
 
         })
 
         //수정 완료 버튼
-        //뭔가 이상
-        $("#allComments > li > button").on("click", function (e) {
-            let reviewcontents = $("#comment").val(); //중복
-            let rating = $('input[name ="rating"]:checked').val();
-            e.preventDefault();
+        $("#updatesucess").on("click", (e)=> {
 
+            let updatereview = $(e.currentTarget).prev().val();
+            let useremail = $("#user").text();
+            let title = $("#title").text();
+            let updateRating =  $('input[name ="rating"]:checked').val();
             // 리뷰 쓴 데이터 append 시키기 // 중복
-            let start = "";
-            for (let i = 1; i <= rating; i++) {
-                start += '<i class="fa-solid fa-star"></i>'
-            }
-
             let html1 =
                 `<li class="wrapper">
-               <p>${reviewcontents}</p>
-               ${start}
-               <br>
+               
             </li>`
             $('#allComments').append(html1);
 
-            const comment = { //중복복
-                "grade": rating,
-                "review": reviewcontents
+            const comment = { //중복
+                "title" : title,
+                "grade": updateRating,
+                "email" : useremail,
+                "review": updatereview
             };
             axios({
                 method: "put",
@@ -320,10 +317,11 @@ export class detailPage {
                 params: comment
             })
 
-            $(e.currentTarget).parent().remove(); //
-            $(e.currentTarget).remove();
+            // $(e.currentTarget).parent().addClass("hidden");
+            location.reload();
 
-        })
+
+        });
     }
 
     //////////////////////////////////
@@ -374,10 +372,16 @@ export class detailPage {
                <p class="showRating">${rating}</p>
                ${start}
                <br>
+               <div id="fixArea"style="display: none">
+               <textarea maxlength="200" width="100" height="100">
+               </textarea>
+               <button id="updatesucess">수정완료</button>
+               </div>
                <button class="updateComment updatebtn">수정</button>
                <button class="likeComment" id="likebtn">like</button>
                <button class="deleteComment deleteReply" >delete</button>
-
+           
+                               
             </li>`
             $('#allComments').append(html1);
 

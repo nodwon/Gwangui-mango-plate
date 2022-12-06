@@ -91,7 +91,7 @@ public interface Test {
 
 	void reviewCount(String placename);
 
-	void updateReview(String email);
+	void updateReview(ReviewDTO reviewDTO);
 
 
 
