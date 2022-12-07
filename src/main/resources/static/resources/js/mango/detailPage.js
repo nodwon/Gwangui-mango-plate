@@ -242,10 +242,13 @@ export class detailPage{
         $('.deleteReply').on("click",(e)=>{
             let useremail = $("#user").text();
             let title = $("#title").text();
+            let review =$(e.currentTarget).parent().find(".review-content").text();
+            debugger;
             /*let rating = $('input[name ="rating"]:checked').val();*/
             let object = {
                 "email" : useremail,
-                "title" : title
+                "title" : title,
+                "review"  : review
             }
             console.log(object);
             if(useremail!=null){

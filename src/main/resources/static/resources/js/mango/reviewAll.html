@@ -5,12 +5,13 @@
     <img src="data:image/png;base64,{{$value.img}}" style="width: 150px;height :150px">
     {{/if}}
     <p class="showRating hidden">{{$value.grade}}</p>
+    <p class="reviewNum hidden"> {{$value.num}}</p>
     <% for(var i = 0; i < $value.grade; i++){ %>
     <i class="fa-solid fa-star" style="float: right"></i>
     <% } %>
     <br>
     <h3 class="showId">{{$value.email}}</h3>
-    <h4>{{$value.review}}</h4>
+    <h4 class="review-content">{{$value.review}}</h4>
     <ul></ul>
     <br>
     <div id="fixArea"style="display: none">

@@ -134,14 +134,10 @@ public class HomeDataAct {
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")
 	public void deleteReply(@ModelAttribute ReviewDTO dto) {
-		String email =  dto.getEmail();
-		String title = dto.getTitle();
-		dto.setEmail(email);
-		log.error("지울 것? => {}",dto.getEmail());
-		ReviewDTO data = dto;
 
-		test.reviewCount(title, -1);
-		test.deleteReply(email);
+
+		test.reviewCount(dto.getTitle(), -1);
+		test.deleteReply(dto);
 	}
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
