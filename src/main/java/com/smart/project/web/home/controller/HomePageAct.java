@@ -99,6 +99,7 @@ public class HomePageAct {
         request.getSession(true);
         return "redirect:/";
     }
+
     @PostMapping("/FindId")
     public String FindId(CommonMemberVO vo, HttpServletResponse response) throws Exception {
 

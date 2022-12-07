@@ -102,8 +102,8 @@
         select * from tbl_review where title = #{placename}
     </select>
 
-    <delete id="deleteReply" parameterType="java.lang.String">
-        delete from tbl_review where email = #{email}
+    <delete id="deleteReply" parameterType="com.smart.project.web.home.vo.ReviewDTO">
+        delete from tbl_review where email = #{email} and review = #{review}
     </delete>
 
     <select id="showEmailReview" resultType="com.smart.project.web.home.vo.ReviewDTO" parameterType="java.lang.String">

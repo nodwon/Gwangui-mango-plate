@@ -136,14 +136,10 @@ public class HomeDataAct {
 	//해당 이메일에 로그인되어있을 때 리뷰 삭제
 	@RequestMapping("data/deleteReply")
 	public void deleteReply(@ModelAttribute ReviewDTO dto) {
-		String email =  dto.getEmail();
-		String title = dto.getTitle();
-		dto.setEmail(email);
-		log.error("지울 것? => {}",dto.getEmail());
-		ReviewDTO data = dto;
 
-		test.reviewCount(title, -1);
-		test.deleteReply(email);
+
+		test.reviewCount(dto.getTitle(), -1);
+		test.deleteReply(dto);
 	}
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
@@ -161,7 +157,6 @@ public class HomeDataAct {
 	}
 	@PostMapping("/saveReview")
 	public ReviewDTO saveReview(MultipartHttpServletRequest request) throws IOException {
-		ModelAndView mav = new ModelAndView();
 		MultipartHttpServletRequest multi = request;
 		List<MultipartFile> file = multi.getFiles("file");
 		String id = request.getParameter("email");
@@ -173,32 +168,39 @@ public class HomeDataAct {
 		reviewDTO.setTitle(title);
 		reviewDTO.setGrade(grade);
 		reviewDTO.setReview(review);
-		try {
+		if (!file.isEmpty()){
 			byte[] img = (file.get(0).getBytes());
 			if(img!=null){
 				reviewDTO.setImg(img);
 			}
-		} catch (IOException e){
-			e.printStackTrace();
+		}else{
+			reviewDTO.setImg(null);
 		}
 
 		test.reviewCount(title, 1);
 		test.saveReview(reviewDTO);
 
-	/*	Iterator itr = request.getFileNames();
-		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
-		if( file_list.size() > 0 ){
-			for( MultipartFile mpf : file_list ){
-				if( ! mpf.isEmpty() ){
-					test.reviewCount(title, 1);
-					test.saveReview(reviewDTO);
-				}
-			}
-		}*/
 		ReviewDTO data = reviewDTO;
 		log.error("추가된 리뷰는 : {}",data);
 		return data;
 	}
+
+
+	@PostMapping("showReview")
+	public Map<String, Object> showReview(@ModelAttribute ReviewDTO review1,HttpServletRequest request) {
+		Map<String, Object> data = new HashMap<>();
+		String placename = review1.getTitle() ;
+
+
+		String useremail = (String)request.getSession().getAttribute("email");
+		List<ReviewDTO> review = test.currentReview(placename);
+		data.put("review",review);
+		data.put("session",useremail);
+		log.error("가져온 리뷰데이터는 {} ",data);
+
+		return data;
+	}
+
 
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {

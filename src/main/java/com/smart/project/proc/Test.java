@@ -73,7 +73,7 @@ public interface Test {
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
 	List<ReviewDTO> currentReview(String placename);
-	void deleteReply(String email);
+	void deleteReply(ReviewDTO reviewDTO);
 
 	@Update("update table_join set userPw = #{userPw} where userEmail = #{userEmail}")
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);

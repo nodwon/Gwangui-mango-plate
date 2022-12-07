@@ -64,17 +64,6 @@ public class HomeAct {
 
 		MangoVO mangoVO = test.getMangoVO(placename);
 		model.addAttribute("mango",mangoVO);
-		//해당페이지에 맞는 리뷰 가져오기
-		List<ReviewDTO> dto = test.currentReview(placename);
-		/*List<ReviewDTO> dto =new ArrayList<>() ;*/
-//		for(ReviewDTO tmpDto : x){
-//			byte[] decode = Base64.getDecoder().decode(tmpDto.getImg());
-//
-//			tmpDto.setImg(decode);
-//			dto.add(tmpDto);
-//		}
-		model.addAttribute("dto", dto);
-
 
 		return"detailPage";
 
