@@ -14,13 +14,13 @@ public class ReviewDTO {
 //    private String replyer;
 //    private Date replyDate;
     private Date updateDate;
-    String email; // private rno;
-    String title; // private Long bno;
-    Integer grade;
-    String review;
-    List<MultipartFile> files;
-    List<String> fileIds;
-    String reviewUpDateStr;
-    List<String> reviewIds;
-
+    private String email; // private rno;
+    private String title; // private Long bno;
+    private Integer grade;
+    private String review;
+    private List<MultipartFile> files;
+    private List<String> fileIds;
+    private String reviewUpDateStr;
+    private List<String> reviewIds;
+    private byte[] img;
 }

@@ -3,32 +3,34 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
-import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.swing.filechooser.FileSystemView;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Struct;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+
 @SessionAttributes("pageNum")
 @Slf4j
 @RestController
@@ -201,19 +203,38 @@ public class HomeDataAct {
 		return idCount;
 	}
 	@PostMapping("/saveReview")
-	public void saveReview(ReviewDTO reviewDTO) {
-		log.error("{}===>",reviewDTO);
-		String id = reviewDTO.getEmail();
-		String title = reviewDTO.getTitle();
-		if (id == null || id.isEmpty()) {
-			String uuidStr = UUID.randomUUID().toString();
-			reviewDTO.setEmail(uuidStr);
+	public void saveReview(MultipartHttpServletRequest request) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		MultipartHttpServletRequest multi = request;
+		List<MultipartFile> file = multi.getFiles("file");
+		String id = request.getParameter("email");
+		String title = request.getParameter("title");
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		String review = request.getParameter("review");
+		ReviewDTO reviewDTO = new ReviewDTO();
+		reviewDTO.setEmail(id);
+		reviewDTO.setTitle(title);
+		reviewDTO.setGrade(grade);
+		reviewDTO.setReview(review);
+		try {
+			byte[] img = file.get(0).getBytes();
+			reviewDTO.setImg(img);
+		} catch (IOException e){
+			e.printStackTrace();
 		}
-		test.reviewCount(title, 1);
-		log.error("{}===>",id+"id");
-		test.saveReview(reviewDTO);
-
+		Iterator itr = request.getFileNames();
+		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
+		if( file_list.size() > 0 ){
+			for( MultipartFile mpf : file_list ){
+				if( ! mpf.isEmpty() ){    // 파일이 빈 껍데기가 아닐때
+					test.reviewCount(title, 1);
+					test.saveReview(reviewDTO);
+					// 파일 저장이든 DB에 값넣고 insert를 하던지 하기
+				}
+			}
+		}
 	}
+
 
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {
@@ -261,30 +282,47 @@ public class HomeDataAct {
 		}
 		test.deleteFiles(fileIds);
 	}
-
+	@RequestMapping(value = "/multipartUpload.do", method = RequestMethod.POST)
+	public String uploadSingle(@RequestParam("files") MultipartFile file) throws Exception {
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		String basePath = rootPath + "/" + "single";
+		String filePath = basePath + "/" + file.getOriginalFilename();
+		File dest = new File(filePath);
+		log.error("가져온 파일 => {}",rootPath);
+		log.error("가져온 파일 => {}",basePath);
+		log.error("가져온 파일 => {}",filePath);
+//		test.transferTo(dest); // 파일 업로드 작업 수행
+		return "uploaded";
+	}
 	@RequestMapping("/get")
-	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
-		List<MultipartFile> files = reviewDTO.getFiles();
-		String reviewId = reviewDTO.getEmail();
-		if (files == null || files.isEmpty()) {
-			return;
-		}
+	public void convertBinary(MultipartFile files) throws IOException {
+//		String fileName = StringUtils.cleanPath(files.getOriginalFilename()) ;
+//		BufferedImage image = ImageIO.read(files.getInputStream());
+//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//		ImageIO.write(image, fileName.substring(fileName.lastIndexOf(".") + 1), baos);
+//		log.error("가져온 파일 => {}",fileName);
+//		log.error("가져온 image => {}",image);
+//		log.error("가져온 baos => {}",baos);
+		/*List<MultipartFile> file = (List<MultipartFile>) files.getFile("files");
+		log.error("가져온 파일 => {}",files);
+		String reviewId = reviewDTO.getEmail();*/
 
 
-			if (! Files.exists(imgDirPath)) {
-				Files.createDirectories(imgDirPath);
-			}
-
-			Path reviewImgDirPath = imgDirPath.resolve(
-					Paths.get(reviewId)).normalize().toAbsolutePath();
-
-			if (! Files.exists(reviewImgDirPath)) {
-				Files.createDirectories(reviewImgDirPath);
-			}
-
-		for (MultipartFile file : files) {
-			saveFile(file, reviewId);
-		}
+//
+//			if (! Files.exists(imgDirPath)) {
+//				Files.createDirectories(imgDirPath);
+//			}
+//
+//			Path reviewImgDirPath = imgDirPath.resolve(
+//					Paths.get(reviewId)).normalize().toAbsolutePath();
+//
+//			if (! Files.exists(reviewImgDirPath)) {
+//				Files.createDirectories(reviewImgDirPath);
+//			}
+//
+//		for (MultipartFile file : files) {
+//			saveFile(file, reviewId);
+//		}
 	}
 
 	@RequestMapping("/save")

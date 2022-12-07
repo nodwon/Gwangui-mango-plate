@@ -20,8 +20,10 @@ export class detailPage{
         this.DetailEvent();
         this.clearEvent();
         this.replyDeleteEvent();
-
+        this.imageEvent();
     }
+
+
 
 
     addMap(){
@@ -197,6 +199,7 @@ export class detailPage{
                         url: '/wishStore',
                         params: Object
                     }).then((data) => {
+
                         console.log(data.data)
                         Swal.fire({
                             icon: 'success',
@@ -299,15 +302,60 @@ export class detailPage{
 
     }
 
+    //이미지 이벤트
+    imageEvent(){
+        function readURL(input) {
+            let formData = new FormData();
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#imgArea').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            /*formData.append("files", input.files[0]);
+            $.ajax({
+                type: "POST",
+                url: '/multipartUpload.do',
+                data: formData,		// 필수
+                processData: false,	// 필수
+                contentType: false,	// 필수
+                cache: false,
+                success: function (result) {
+                },
+                error: function (e) {
+                }
+            });*/
+
+        }
+        $(":input[name='file']").change(function() {
+            if( $(":input[name='file']").val() == '' ) {
+                $('#imgArea').attr('src' , '');
+            }
+            $('#imgViewArea').css({ 'display' : '' });
+            readURL(this);
+        });
+
+
+
+    }
+
     //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
-        $("#addComments").on("click", ()=> {
+        $("#addComments").on("click", (e)=> {
+            let formData = new FormData();
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
             let rating = $('input[name ="rating"]:checked').val();
 
+            formData.append("file", $("#fileInput")[0].files[0]);
+            formData.append("email", useremail);
+            formData.append("title", title);
+            formData.append("grade", rating);
+            formData.append("review", reviewcontents);
             if (useremail === "") {
                 Swal.fire({
                     icon: 'success',
@@ -327,13 +375,12 @@ export class detailPage{
                 })
                 return;
             }
-            const comment = {
+            /*const comment = {
                 "email": useremail,
                 "title": title,
                 "grade": rating,
                 "review": reviewcontents
-            };
-
+            };*/
             let start = "";
             for(var i =1 ;i<=rating;i++)
             {
@@ -356,12 +403,22 @@ export class detailPage{
             $('#allComments').append(html1);
 
             this.replyDeleteEvent();
+
             //리뷰데이터를 저장
             axios({
                 method : "post",
                 url : '/saveReview',
-                params : comment
+                data : formData,
+                headers:{
+                    'Content-Type' : 'multipart/form-data',
+                    "Access-Control-Allow-Origin": "*",
+                },
             })
+            // axios({
+            //     method : "post",
+            //     url : '/saveReview',
+            //     params : comment
+            // })
 
             // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
             //     var me = $(this);
@@ -433,6 +490,7 @@ export class detailPage{
                 }
             })
         })
+
     }
 
 

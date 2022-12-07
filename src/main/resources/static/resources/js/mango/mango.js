@@ -64,10 +64,6 @@ export class mango{
         });
     }
     //지도 foodlist 와 page 처리하는 이벤트
-
-
-
-
     foodPageList(search) {
         $(".py-5.map").removeClass("hidden");
         axios.post("data/searchAll", search).then((result) => {

@@ -134,11 +134,12 @@
                         </fieldset>
                         <button id="reviewcount"> </button>
                         <textarea id="comment" name="comment"></textarea>
-                        <div id="dd-dropbox">
-                            <h6>Drag and drop files here or </h6>
-                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
-                        </div>
-                            <button id="addComments">추가</button>
+                            <!--이미지영역-->
+                        <input type="file" id="fileInput" name="file">
+                            <div id="imgViewArea" style="margin-top:10px; display:none;">
+                                <img id="imgArea" style="width:200px; height:100px;"/>
+                            </div>
+                        <button id="addComments">추가</button>
                             <div id="allComments">
                                 <li th:each="review, i:${dto}" class="wrapper">
                                     <p th:text="${review.review}"></p>
