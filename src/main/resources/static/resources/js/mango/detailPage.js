@@ -341,12 +341,12 @@ export class detailPage{
         //수정 완료 버튼
         $(".updatesucess").on("click", (e)=> {
 
-            let updatereview = $(e.currentTarget).prev().val();
+            let updatereview = $(e.currentTarget).parent().find("#updateArea").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
             let updateRating = $('input[name ="rating2"]:checked').val();
             let updatenum = $(e.currentTarget).next().text();
-
+            debugger;
             const comment = { //중복
                 "title": title,
                 "grade": updateRating,

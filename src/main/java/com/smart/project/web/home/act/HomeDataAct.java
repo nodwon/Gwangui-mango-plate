@@ -79,18 +79,6 @@ public class HomeDataAct {
 	}
 
 
-	@PostMapping("/data/mango2")
-	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
-	 String mainmenu = String.valueOf(param.get("menu"));
-	 String search = String.valueOf(param.get("menu"));
-	 cri.setSearch(search);
-
-	 log.error("검색창에 입력한 것 : {}",mainmenu);
-	 List<MangoVO> data = test.selectMango2(mainmenu);
-		/*List<mango2VO> data=null;*/
-	log.error("select 결과 list : {}",data);
-		return data;
-	}
 
 	@PostMapping("/data/map")
 	public List<MangoVO>getMapData(@RequestBody Map param){
