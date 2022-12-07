@@ -438,7 +438,7 @@ export class detailPage{
                 "review": reviewcontents
             };
 
-
+//
             //추가 클릭 시 리뷰 추가
             axios({
                 method: "post",
