@@ -7,33 +7,20 @@ import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.ui.Model;
 
-import org.springframework.util.CollectionUtils;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.filechooser.FileSystemView;
+
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Struct;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 @SessionAttributes("pageNum")
 @Slf4j
@@ -42,16 +29,6 @@ import java.util.*;
 public class HomeDataAct {
 	final private Test test;
 
-	@PostMapping("/data/mango2All")
-	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
-		Map<String, Object> result = new HashMap<>();
-		List<MangoVO> data = test.selectMango2All();
-		/*List<mango2VO> data=null;*/
-		log.error("select 결과 list : {}",data);
-		result.put("food",data);
-
-		return result;
-	}
 	// 검색 입력 or 음식 메뉴 클릭 시 음식점 리스트 띄우기
 	@PostMapping("/data/searchAll")
 	public Map<String, Object> getSearchAll(Model model ,@RequestBody Map param, HttpSession session, Criteria cri){
@@ -97,7 +74,6 @@ public class HomeDataAct {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 		result.put("page",pageMaker);
-
 
 		return result;
 	}

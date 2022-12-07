@@ -1,5 +1,4 @@
 "use strict";
-import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new detailPage();
@@ -7,8 +6,9 @@ $(()=>{
 export class detailPage{
     constructor() {
 
-        this.reviewAppendList = require("@/mango/reviewAppend.html");
 
+        this.reviewAppendList = require("@/mango/reviewAppend.html");
+        this.wishListShow = require("@/mango/wishListShow.html");
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
@@ -231,30 +231,8 @@ export class detailPage{
     //위시리스트 띄워주는 이벤트
     wishListShowEvent(){
         axios.post("data/wishSelect", {}).then((result)=>{
-            console.log(result);
 
-            let data = result.data;
-            _.forEach(data,(e)=>{
-                let mainimg = e.mainimg;
-                let placename = e.placename;
-                let roadname = e.roadname;
-                console.log(mainimg);
-                console.log(placename);
-
-                var html =
-                    `<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
-                    <button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">삭제</button>
-                      <a href="/detailPage?roadname=${roadname}&name=${placename}&img1=${mainimg}">
-                    <div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">
-                    <b><span class="placename" style="font-size: larger">${placename}</span></b>
-                    <br>
-                    <span class="placeRoadName">${roadname}</span>
-                    </div>
-                    <img style="width: 100px;height: 100px" src="${mainimg}"></a>
-                    </form>`
-
-                $('.wish-list').append(html);
-            });
+            $('.wish-list').append(this.wishListShow(result));
             this.wishListDeleteOne();
         })
 
@@ -400,20 +378,6 @@ export class detailPage{
                 }
                 reader.readAsDataURL(input.files[0]);
             }
-            /*formData.append("files", input.files[0]);
-            $.ajax({
-                type: "POST",
-                url: '/multipartUpload.do',
-                data: formData,		// 필수
-                processData: false,	// 필수
-                contentType: false,	// 필수
-                cache: false,
-                success: function (result) {
-                },
-                error: function (e) {
-                }
-            });*/
-
         }
         $(":input[name='file']").change(function() {
             if( $(":input[name='file']").val() == '' ) {
@@ -427,7 +391,6 @@ export class detailPage{
 
     }
 
-    //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", (e)=> {

@@ -24,10 +24,6 @@ public interface Test {
 	 **********************************************************************************************/
 	void kakaoJoin(KakaoMemberVO vo);
 
-	List<MangoVO> selectMango2(String search);
-
-	List<MangoVO> selectMango2All();
-
     List<MangoVO> selectName(String name);
 
     void insertMember(CommonMemberVO vo);

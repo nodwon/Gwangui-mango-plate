@@ -11,6 +11,9 @@ export class Join
 
 	constructor() {
 		this.joinEvent();
+		this.findEvent();
+		this.updateEvent();
+		this.logEvent();
 	}
 
 	joinEvent(){
@@ -21,7 +24,6 @@ export class Join
 			let userId = $('.form-control:eq(0)').val();
 			if(userId !== "") {
 				axios.post("/idCheck",{"userId": userId}).then((res)=>{
-						//console.log(res);
 						if(res.data >= 1){
 							$('.join_txt.confirm').hide();
 							$('.join_txt.error:eq(0)').show();
@@ -75,9 +77,7 @@ export class Join
 				$('.join_txt.error').hide();
 			}
 		});
-		this.findEvent();
-		this.updateEvent();
-		this.logEvent();
+
 	}
 
 	findEvent() {

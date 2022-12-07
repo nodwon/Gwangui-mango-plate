@@ -107,6 +107,13 @@ p {
   color: red;
 }
 
+#kakao-login-btn{
+  margin-left: 160px;
+}
+
+#submit_btn {
+  margin-left: 30px;
+}
 
 #btnId {
   margin-top: 12px;
@@ -258,11 +265,11 @@ sup {
 }
 
 a {
-  color: #0d6efd;
+  color: orange;
   text-decoration: underline;
 }
 a:hover {
-  color: #0a58ca;
+  color: darkorange;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -3069,13 +3076,13 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #99bff5;
-  border-color: #99bff5;
+  background-color: orange;
+  border-color: orange;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
+  background-color: darkorange;
+  border-color: darkorange;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;

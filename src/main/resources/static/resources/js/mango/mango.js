@@ -1,7 +1,4 @@
 "use strict";
-
-import md from "../../../../templates/wishListModal.html";
-
 $(()=>{
     new mango();
 })
