@@ -195,6 +195,10 @@ export class mango{
                         title: '위시리스트에 추가 되었습니다!'
                     });
                 })
+                Swal.fire({
+                    icon: 'success',
+                    title: '위시리스트에 담았습니다.'
+                })
             }
 
         })

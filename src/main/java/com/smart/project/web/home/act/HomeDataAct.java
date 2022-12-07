@@ -36,7 +36,6 @@ import java.util.*;
 public class HomeDataAct {
 	final private Test test;
 
-
 	@PostMapping("/data/mango2All")
 	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
 		Map<String, Object> result = new HashMap<>();
@@ -93,11 +92,9 @@ public class HomeDataAct {
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(totalCount);
-
 			result.put("page",pageMaker);
 		}
-		else
-		{
+		else {
 			result.put("page",null);
 		}
 
@@ -129,12 +126,6 @@ public class HomeDataAct {
 	@RequestMapping("/wishStore")
 	public WishListVO getData(@ModelAttribute WishListVO vo, HttpServletRequest request){
 		String useremail = (String) request.getSession().getAttribute("email");
-//		String placename = vo.getPlacename();
-//		String roadname = vo.getRoadname();
-//		String mainimg = vo.getMainimg();
-//		log.error("세션에서 가져온 placename => {}",placename);
-//		log.error("세션에서 가져온 roadname => {}",roadname);
-//		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
 			test.insertWish(vo);
@@ -191,9 +182,10 @@ public class HomeDataAct {
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
 	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
-		log.error("{}",reviewDTO);
+		log.error("{}==>asdfasdfa",reviewDTO);
 
 		test.updateReview(reviewDTO);
+
 	}
 
 	@PostMapping("/idCheck")
@@ -208,10 +200,6 @@ public class HomeDataAct {
 		log.error("{}===>",reviewDTO);
 		String id = reviewDTO.getEmail();
 		String title = reviewDTO.getTitle();
-		if (id == null || id.isEmpty()) {
-			String uuidStr = UUID.randomUUID().toString();
-			reviewDTO.setEmail(uuidStr);
-		}
 		test.reviewCount(title, 1);
 		log.error("{}===>",id+"id");
 		test.saveReview(reviewDTO);
@@ -239,82 +227,20 @@ public class HomeDataAct {
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}
-	@GetMapping("/getImages")
-	public List<FileDTO> getImages(@RequestParam String reviewId) {
-		log.error("{}===>",reviewId+"reviewId+asdfasf");
 
-		return test.getImages(reviewId);
-	}
-	private Path imgDirPath;
-
-	@Value("src/main/resources/static/upload-dir")
-	private String imgDir;
-
-	@PostConstruct
-	public void init() {
-		this.imgDirPath = Paths.get(imgDir);
-	}
-
-
-	@RequestMapping("/delete")
-	public void deleteFiles(ReviewDTO reviewDTO) {
-		List<String> fileIds = reviewDTO.getFileIds();
-		if (fileIds == null || fileIds.isEmpty()) {
-			return;
-		}
-		test.deleteFiles(fileIds);
-	}
-
-	@RequestMapping("/get")
-	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
-		List<MultipartFile> files = reviewDTO.getFiles();
-		String reviewId = reviewDTO.getEmail();
-		if (files == null || files.isEmpty()) {
-			return;
-		}
-
-
-			if (! Files.exists(imgDirPath)) {
-				Files.createDirectories(imgDirPath);
-			}
-
-			Path reviewImgDirPath = imgDirPath.resolve(
-					Paths.get(reviewId)).normalize().toAbsolutePath();
-
-			if (! Files.exists(reviewImgDirPath)) {
-				Files.createDirectories(reviewImgDirPath);
-			}
-
-		for (MultipartFile file : files) {
-			saveFile(file, reviewId);
-		}
-	}
-
-	@RequestMapping("/save")
-	public void saveFile(MultipartFile file, String reviewId) {
-		try {
-			String originFilename = file.getOriginalFilename();
-			long fileSize = file.getSize();
-			String contentType = file.getContentType();
-
-
-			Path destinationFile = imgDirPath
-					.resolve(Paths.get(reviewId))
-					.resolve(Paths.get(originFilename))
-					.normalize()
-					.toAbsolutePath();
-
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-			}
-
-			String fileId = UUID.randomUUID().toString();
-			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
-		} catch (IOException e) {
-			log.error("filenotfond",e);
-		}
-	}
-
+//	@RequestMapping("/delete")
+//	public void deleteFiles(ReviewDTO reviewDTO) {
+//		List<String> fileIds = reviewDTO.getFileIds();
+//		if (fileIds == null || fileIds.isEmpty()) {
+//			return;
+//		}
+//		test.deleteFiles(fileIds);
+//	}
+//
+//	@RequestMapping("/get")
+//	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
+//		String reviewId = reviewDTO.getEmail();
+//	}
 	@RequestMapping("data/review")
 	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
 
@@ -322,8 +248,5 @@ public class HomeDataAct {
 		log.error("추가된 리뷰는 : {}",data);
 
 		return data;
-
-
 	}
-
 }
