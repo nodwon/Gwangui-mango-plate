@@ -70,10 +70,8 @@ public class HomeDataAct {
 			test.reviewAvg(placename);
 			test.rvShow(placename);
 		}
-
-		log.error("selectAlign 갑승ㄴ ? {}",selectAlign);
-		//정렬
-	if(selectAlign.equals("리뷰 많은순")){
+		//데이터 정렬
+		if(selectAlign.equals("리뷰 많은순")){
 			List<MangoVO> data = test.searchAllReviewCount(cri);
 			result.put("food",data);
 		} else if (selectAlign.equals("조회순"))
@@ -88,7 +86,7 @@ public class HomeDataAct {
 		}
 
 
-
+		//페이징처리
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
 		{
@@ -103,8 +101,6 @@ public class HomeDataAct {
 			result.put("page",null);
 		}
 
-
-
 		return result;
 	}
 
@@ -113,29 +109,7 @@ public class HomeDataAct {
 	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
 	 String mainmenu = String.valueOf(param.get("menu"));
 	 String search = String.valueOf(param.get("menu"));
-
 	 cri.setSearch(search);
-
-		if(search!=null)
-		{
-/*
-			List<mangoVO> list =test.getList(cri);// 해당 페이지의 perPageNum 만큼의 리스트
-			model.addAttribute("list", list); // list --> ArrayList를 가르킨다.
-			log.error("{}",list);*/
-			/*
-	//페이징 처리에 필요한 객체를 생성
-			//1 2 3 4 5 6 7 8 9 10 페이지를 만들기위해서는 endpage, totalCount 등 PageMaker에 대한 객체생성
-			PageMaker pageMaker= new PageMaker();
-			//전체 게시물의 수를 구하기
-
-			pageMaker.setCri(cri);   // 현재페이지를 넣어주자.
-			pageMaker.setTotalCount(test.totalCount());
-
-			model.addAttribute("pageMaker",pageMaker);*/
-		}
-
-
-
 	 log.error("검색창에 입력한 것 : {}",mainmenu);
 	 List<MangoVO> data = test.selectMango2(mainmenu);
 		/*List<mango2VO> data=null;*/
@@ -172,6 +146,7 @@ public class HomeDataAct {
 		String useremail = (String)request.getSession().getAttribute("email");
 		List<WishListVO> data = test.selectWish(useremail);
 		return data;
+
 	}
 	//위시리스트에 선택한 리스트 삭제
 	@RequestMapping("data/wishDelete")

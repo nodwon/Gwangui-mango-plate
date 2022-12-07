@@ -64,12 +64,6 @@ public class HomeAct {
 
 		String placename = vo.getName();
 		MangoVO mangoVO1 = test.selectCurrent(placename);
-		// 최근 클릭한 가게
-//		if(mangoVO1.getName()==placename) {
-//			StringBuffer str = new StringBuffer(vo.getImg1());
-//			str.insert(str.indexOf(",") + 1, "&src=");
-//			vo.setImg1(str.toString());
-//		}
 		list.add(mangoVO1);
 		HashSet<String> duplicateData = new HashSet<>(list);
 		session.setAttribute("list",duplicateData);
