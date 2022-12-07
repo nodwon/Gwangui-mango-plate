@@ -299,7 +299,7 @@ export class detailPage{
             let useremail = $("#user").text();
             let title = $("#title").text();
             let updateRating = $('input[name ="rating2"]:checked').val();
-            let updatenum = $(e.currentTarget).next().text();
+            let updatenum = $(e.currentTarget).parent().parent().find(".reviewNum").text()
             debugger;
 
             const comment = { //중복
