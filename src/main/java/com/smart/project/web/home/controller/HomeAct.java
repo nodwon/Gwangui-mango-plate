@@ -61,7 +61,6 @@ public class HomeAct {
 
 	@RequestMapping("/detailPage")
 	public String datailPage(@ModelAttribute MangoVO vo, HttpSession session, Model model){
-
 		String placename = vo.getName();
 		MangoVO mangoVO1 = test.selectCurrent(placename);
 		list.add(mangoVO1);
@@ -76,6 +75,13 @@ public class HomeAct {
 		model.addAttribute("mango",mangoVO);
 		//해당페이지에 맞는 리뷰 가져오기
 		List<ReviewDTO> dto = test.currentReview(placename);
+		/*List<ReviewDTO> dto =new ArrayList<>() ;*/
+//		for(ReviewDTO tmpDto : x){
+//			byte[] decode = Base64.getDecoder().decode(tmpDto.getImg());
+//
+//			tmpDto.setImg(decode);
+//			dto.add(tmpDto);
+//		}
 		model.addAttribute("dto", dto);
 
 
