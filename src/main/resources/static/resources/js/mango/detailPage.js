@@ -400,8 +400,9 @@ export class detailPage{
             let useremail = $("#user").text();
             let title = $("#title").text();
             let rating = $('input[name ="rating"]:checked').val();
+            let img = $("#fileInput")[0].files[0];
 
-            formData.append("file", $("#fileInput")[0].files[0]);
+            formData.append("file",img);
             formData.append("email", useremail);
             formData.append("title", title);
             formData.append("grade", rating);
@@ -429,6 +430,7 @@ export class detailPage{
                     icon: 'success',
                     title: '리뷰가추가되었습니다.'
                 })
+
             }
             const comment = {
                 "email": useremail,
