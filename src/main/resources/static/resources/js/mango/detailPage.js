@@ -23,7 +23,6 @@ export class detailPage{
         this.clearEvent();
         this.replyDeleteEvent();
         this.replyupdatelike();
-        this.imgupload();
     }
 
     addMap() {
@@ -306,6 +305,7 @@ export class detailPage{
             $(e.currentTarget).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
         })
 
+
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         $(".updatebtn").on("click", (e) => {
             $(e.currentTarget).prev().css({'display': 'block'})
@@ -330,7 +330,7 @@ export class detailPage{
             let title = $("#title").text();
             let updateRating = $('input[name ="rating2"]:checked').val();
             let updatenum = $(e.currentTarget).next().text();
-
+            debugger;
 
             const comment = { //중복
                 "title": title,
