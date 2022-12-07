@@ -21,10 +21,13 @@ export class detailPage{
         this.clearEvent();
         this.replyDeleteEvent();
         this.replyupdatelike();
+        this.imageEvent();
     }
 
 
-    addMap() {
+
+
+    addMap(){
 
         let name = $(".name").text();
         let search = {"name": name}
@@ -107,7 +110,7 @@ export class detailPage{
             });*/
         })
     }
-
+    //최근 본 페이지 초기화 처리
     modalShow(){
         $(".btn.btn-primary.reset").on('click',(e)=>{
             axios.post("/clearpost", {}).then(()=> {
@@ -295,6 +298,46 @@ export class detailPage{
 
     }
 
+    //이미지 이벤트
+    imageEvent(){
+        function readURL(input) {
+            let formData = new FormData();
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#imgArea').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            /*formData.append("files", input.files[0]);
+            $.ajax({
+                type: "POST",
+                url: '/multipartUpload.do',
+                data: formData,		// 필수
+                processData: false,	// 필수
+                contentType: false,	// 필수
+                cache: false,
+                success: function (result) {
+                },
+                error: function (e) {
+                }
+            });*/
+
+        }
+        $(":input[name='file']").change(function() {
+            if( $(":input[name='file']").val() == '' ) {
+                $('#imgArea').attr('src' , '');
+            }
+            $('#imgViewArea').css({ 'display' : '' });
+            readURL(this);
+        });
+
+
+
+    }
+
+    //////////////////////////////////
     replyupdatelike() {
 
         $(".likebtn").on("click", (e)=> {
@@ -349,12 +392,18 @@ export class detailPage{
 
     //작성하기 버튼 클릭시
     reviewEvent() {
-        $("#addComments").on("click", () => {
+        $("#addComments").on("click", (e)=> {
+            let formData = new FormData();
             let reviewcontents = $("#comment").val();
             let useremail = $("#user").text();
             let title = $("#title").text();
             let rating = $('input[name ="rating"]:checked').val();
 
+            formData.append("file", $("#fileInput")[0].files[0]);
+            formData.append("email", useremail);
+            formData.append("title", title);
+            formData.append("grade", rating);
+            formData.append("review", reviewcontents);
             if (useremail === "") {
                 Swal.fire({
                     icon: 'success',
@@ -399,8 +448,17 @@ export class detailPage{
             axios({
                 method : "post",
                 url : '/saveReview',
-                params : comment
+                data : formData,
+                headers:{
+                    'Content-Type' : 'multipart/form-data',
+                    "Access-Control-Allow-Origin": "*",
+                },
             })
+            // axios({
+            //     method : "post",
+            //     url : '/saveReview',
+            //     params : comment
+            // })
 
             // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
             //     var me = $(this);

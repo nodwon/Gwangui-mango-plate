@@ -9,16 +9,18 @@ import java.util.List;
 @Data
 public class ReviewDTO {
 
-
-    private  Date updateDate;
-    String email;
-    String title;
-    Integer grade;
-    String review;
-    List<MultipartFile> files;
-    List<String> fileIds;
-    String reviewUpDateStr;
-    List<String> reviewIds;
-
-
+//
+//    private String reply;
+//    private String replyer;
+//    private Date replyDate;
+    private Date updateDate;
+    private String email; // private rno;
+    private String title; // private Long bno;
+    private Integer grade;
+    private String review;
+    private List<MultipartFile> files;
+    private List<String> fileIds;
+    private String reviewUpDateStr;
+    private List<String> reviewIds;
+    private byte[] img;
 }
