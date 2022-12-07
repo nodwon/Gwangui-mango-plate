@@ -42,8 +42,8 @@ export class detailPage{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data,(e)=>{
-                let latitude  = e.latitude;
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let roadname = e.roadname;
@@ -292,6 +292,10 @@ export class detailPage{
             });
 
             }
+            Swal.fire({
+                icon: 'success',
+                title: '리뷰가 삭제되었습니다.'
+            })
         })
 
     }
@@ -319,7 +323,7 @@ export class detailPage{
         })
 
         //수정 완료 버튼
-        $("#updatesucess").on("click", (e)=> {
+        $(".updatesucess").on("click", (e)=> {
 
             let updatereview = $(e.currentTarget).prev().val();
             let useremail = $("#user").text();
@@ -345,7 +349,6 @@ export class detailPage{
         });
     }
 
-    //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", (e) => {

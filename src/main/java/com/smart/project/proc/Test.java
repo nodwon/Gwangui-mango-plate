@@ -72,14 +72,7 @@ public interface Test {
 									   @Param("reviewId") String reviewId);
 	List<ReviewDTO> getReviewsForMap();
 	void deleteReviews(@Param("reviewIds") List<String> reviewIds);
-	List<FileDTO> getImages(@Param("reviewId") String reviewId);
-	void saveFile(
-			@Param("fileId") String fileId,
-			@Param("reviewId") String reviewId,
-			@Param("fileName") String fileName,
-			@Param("fileSize") long fileSize,
-			@Param("contentType") String contentType
-	);
+
 
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 

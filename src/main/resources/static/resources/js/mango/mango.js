@@ -209,6 +209,10 @@ export class mango{
                     console.log(Object);
                     console.log(result.data);
                 })
+                Swal.fire({
+                    icon: 'success',
+                    title: '위시리스트에 담았습니다.'
+                })
             }
 
         })
