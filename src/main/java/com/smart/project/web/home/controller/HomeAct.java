@@ -24,28 +24,19 @@ public class HomeAct {
 	final private Test test;
 	ArrayList list = new ArrayList();
 
+	@RequestMapping("/")
+	public String home(Model model, Criteria cri, HttpServletRequest request, HttpSession session) {
+
+		return "mango";
+	}
+
+
 	@RequestMapping("/clearpost")
 	public String clearpost(@RequestBody Map param, HttpSession session) {
 		list.clear();
 		session.removeAttribute("list");
 
 		return "mango";
-	}
-
-	@RequestMapping("/")
-	public String home(Model model, Criteria cri, HttpServletRequest request, HttpSession session) {
-//		String email = (String) session.getAttribute("email");
-//		if(email!=null){
-//
-//		}
-		return "mango";
-	}
-	@RequestMapping("/foodTypeListPage")
-	public String foodTypeListPage(Model model, Criteria cri, HttpServletRequest request) {
-	/*	List<MangoVO> list = test.searchAll("한");
-		model.addAttribute("list",list);*/
-
-		return "foodTypeListPage";
 	}
 
 	@RequestMapping("/admin")
@@ -97,9 +88,5 @@ public class HomeAct {
 	public String findIdPw() {
 		return "Member/login/password";
 	}
-
-
-
-
 
 }

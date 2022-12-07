@@ -88,13 +88,19 @@
                     <!--최근본페이지모달-->
                     <div class="modal-body current-body">
                         <div th:if="${session.list}" class="modal-body current">
-                            <ul th:each="list, i:${session.list}" class="wish_middle_list">
-                                <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&img1=${list.img1}|" th:href="@{${link}}">
-                                    <li th:text="${list.name}"></li>
-                                    <li th:text="${list.roadname}"></li>
-                                    <img style="width: 80px;height: 80px" th:src="${list.img1}">
-                                </a>
-                            </ul>
+                            <a>
+                            <th:block th:each="list, i:${session.list}" class="wish_middle_list">
+                                <form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
+                                    <a class="current-Move" th:with="link=|${'/detailPage'}?roadname=${list.roadname}&name=${list.name}&img1=${list.img1}|" th:href="@{${link}}">
+                                        <div class="wishForm_name" style="width: 227px; float: right; padding-top: 25px; color:#584647 ">
+                                            <b><span style="font-size: larger" th:text="${list.name}"></span></b><br>
+                                            <span th:text="${list.roadname}"></span>
+                                        </div>
+                                        <img style="width: 100px;height: 100px" th:src="${list.img1}">
+                                    </a>
+                                </form>
+                            </th:block>
+                            </a>
                         </div>
                     </div>
                     <!--위시리스트모달-->
