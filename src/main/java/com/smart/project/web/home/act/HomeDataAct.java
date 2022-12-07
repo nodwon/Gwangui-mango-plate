@@ -87,16 +87,11 @@ public class HomeDataAct {
 
 		//페이징처리
 		int totalCount = test.totalCount(cri);
-		if(!(totalCount==0))
-		{
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(totalCount);
-			result.put("page",pageMaker);
-		}
-		else {
-			result.put("page",null);
-		}
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		result.put("page",pageMaker);
+
 
 		return result;
 	}
@@ -182,10 +177,8 @@ public class HomeDataAct {
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
 	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
-		log.error("{}==>asdfasdfa",reviewDTO);
 
 		test.updateReview(reviewDTO);
-
 	}
 
 	@PostMapping("/idCheck")
