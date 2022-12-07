@@ -330,7 +330,6 @@ export class detailPage{
             let title = $("#title").text();
             let updateRating = $('input[name ="rating2"]:checked').val();
             let updatenum = $(e.currentTarget).next().text();
-            debugger;
 
             const comment = { //중복
                 "title": title,
