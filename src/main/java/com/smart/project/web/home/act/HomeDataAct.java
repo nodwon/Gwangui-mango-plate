@@ -218,10 +218,9 @@ public class HomeDataAct {
 		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
 		if( file_list.size() > 0 ){
 			for( MultipartFile mpf : file_list ){
-				if( ! mpf.isEmpty() ){    // 파일이 빈 껍데기가 아닐때
+				if( ! mpf.isEmpty() ){
 					test.reviewCount(title, 1);
 					test.saveReview(reviewDTO);
-					// 파일 저장이든 DB에 값넣고 insert를 하던지 하기
 				}
 			}
 		}
@@ -249,20 +248,6 @@ public class HomeDataAct {
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}
-
-//	@RequestMapping("/delete")
-//	public void deleteFiles(ReviewDTO reviewDTO) {
-//		List<String> fileIds = reviewDTO.getFileIds();
-//		if (fileIds == null || fileIds.isEmpty()) {
-//			return;
-//		}
-//		test.deleteFiles(fileIds);
-//	}
-//
-//	@RequestMapping("/get")
-//	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
-//		String reviewId = reviewDTO.getEmail();
-//	}
 	@RequestMapping("data/review")
 	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
 

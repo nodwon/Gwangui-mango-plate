@@ -71,9 +71,9 @@
                             <th class="tg-f2a8" colspan="2">
                                 <span class="name" th:text="${mango.name}"></span>
                                 <th:block th:if="${mango.getRvAvg()}">
-                                <span style="color: orange" th:text="${mango.getRvAvg()}"></span>
+                                    <span style="color: orange" th:text="${mango.getRvAvg()}"></span>
                                 </th:block>
-<!--                                  <span style="color: orange" th:text="${#numbers.formatDecimal(mango.getReview(),1,1)}"></span>-->
+                                <!--                                  <span style="color: orange" th:text="${#numbers.formatDecimal(mango.getReview(),1,1)}"></span>-->
                                 <i class="bi bi-eye"></i><span class="viewCount" th:text="${mango.getViewCount()}"></span>
                             </th>
 
@@ -119,8 +119,8 @@
                     <hr style="border: #0d0501" >
                     <div class="container">
                         <h4 for="comment" name="comment">리뷰 <span th:text="${mango.getRvCount()}"></span></h4>
-                            <span id ="user" th:text="${session.email}" hidden></span>
-                            <span id ="title" th:text = "${mango.name}" hidden></span>
+                        <span id ="user" th:text="${session.email}" hidden></span>
+                        <span id ="title" th:text = "${mango.name}" hidden></span>
                         <fieldset id = "grade" class="rating">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -130,44 +130,45 @@
                         </fieldset>
                         <button id="reviewcount">  </button>
                         <textarea id="comment" name="comment"></textarea>
-                        <div id="dd-dropbox">
-                            <h6>Drag and drop files here or </h6>
-                            <button id="dd-fileInputBtn" class="imgbtn">Click here to upload files</button>
-                        </div>
                         <div id="dd-previewer"></div>
-                            <button id="addComments">추가</button>
-                            <div id="allComments">
-                                <li th:each="review, i:${dto}" class="wrapper">
-                                    <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
-                                        <i class="fa-solid fa-star" style="float: right" ></i>
-                                    </th:block> <br>
-                                    <a class="showDate" th:text="${review.updateDate}" style="float: right"></a>
-                                    <h3 class="showId" th:text="${review.email}" ></h3>
-                                    <br>
-                                    <h4 th:text="${review.review}"></h4>
-                                    <ul></ul>
-                                    <p class="showRating hidden" th:text="${review.grade}"></p>
+                        <!--이미지영역-->
+                        <input type="file" id="fileInput" name="file">
+                        <div id="imgViewArea" style="margin-top:10px; display:none;">
+                            <img id="imgArea" style="width:200px; height:100px;"/>
+                        </div>
+                        <button id="addComments">추가</button>
+                        <div id="allComments">
+                            <li th:each="review, i:${dto}" class="wrapper">
+                                <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
+                                    <i class="fa-solid fa-star" style="float: right" ></i>
+                                </th:block> <br>
+                                <a class="showDate" th:text="${review.updateDate}" style="float: right"></a>
+                                <h3 class="showId" th:text="${review.email}" ></h3>
+                                <br>
+                                <h4 th:text="${review.review}"></h4>
+                                <ul></ul>
+                                <p class="showRating hidden" th:text="${review.grade}"></p>
 
-                                    <div id="fixArea"style="display: none">
-                                        <div id="dd-previewerup"></div>
-                                        <fieldset id = "updategrade" class="rating2">
-                                            <input type="radio" id="star5!" name="rating2" value="5" /><label class = "full" for="star5!" title="Awesome - 5 stars"></label>
-                                            <input type="radio" id="star4!" name="rating2" value="4" /><label class = "full" for="star4!" title="Pretty good - 4 stars"></label>
-                                            <input type="radio" id="star3!" name="rating2" value="3" /><label class = "full" for="star3!" title="Meh - 3 stars"></label>
-                                            <input type="radio" id="star2!" name="rating2" value="2" /><label class = "full" for="star2!" title="Kinda bad - 2 stars"></label>
-                                            <input type="radio" id="star1!" name="rating2" value="1" /><label class = "full" for="star1!" title="Sucks big time - 1 star"></label>
-                                        </fieldset>
-                                        <textarea id= "updateArea" maxlength="200" width="100" height="100">
+                                <div id="fixArea"style="display: none">
+                                    <div id="dd-previewerup"></div>
+                                    <fieldset id = "updategrade" class="rating2">
+                                        <input type="radio" id="star5!" name="rating2" value="5" /><label class = "full" for="star5!" title="Awesome - 5 stars"></label>
+                                        <input type="radio" id="star4!" name="rating2" value="4" /><label class = "full" for="star4!" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="star3!" name="rating2" value="3" /><label class = "full" for="star3!" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="star2!" name="rating2" value="2" /><label class = "full" for="star2!" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="star1!" name="rating2" value="1" /><label class = "full" for="star1!" title="Sucks big time - 1 star"></label>
+                                    </fieldset>
+                                    <textarea id= "updateArea" maxlength="200" width="100" height="100">
 
                                         </textarea>
-                                        <button class="updatesucess">수정완료</button>
-                                        <p class="shownum hidden" th:text="${review.num}"></p>
-                                    </div>
-                                    <button th:if="${session.email}==${review.email}" class="updateComment updatebtn">수정</button>
-                                    <button class="likeComment likebtn">like</button>
-                                    <button th:if="${session.email}==${review.email}" class="deleteComment deleteReply">delete</button>
-                                </li>
-                            </div>
+                                    <button class="updatesucess">수정완료</button>
+                                    <p class="shownum hidden" th:text="${review.num}"></p>
+                                </div>
+                                <button th:if="${session.email}==${review.email}" class="updateComment updatebtn">수정</button>
+                                <button class="likeComment likebtn">like</button>
+                                <button th:if="${session.email}==${review.email}" class="deleteComment deleteReply">delete</button>
+                            </li>
+                        </div>
                     </div>
                 </div>
             </div>

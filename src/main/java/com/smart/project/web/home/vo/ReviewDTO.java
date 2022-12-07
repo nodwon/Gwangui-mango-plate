@@ -13,6 +13,7 @@ public class ReviewDTO {
     private String email;
     private String title;
     private Integer grade;
+    private int num;
     private String review;
     private List<String> fileIds;
     private String reviewUpDateStr;
