@@ -5,6 +5,7 @@ $(()=>{
     new mango();
 })
 
+
 export class mango{
     constructor() {
         this.searchKeyword = "";
