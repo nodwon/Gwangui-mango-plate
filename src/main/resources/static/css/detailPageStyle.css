@@ -300,7 +300,20 @@ button.deleteComment{
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-
+#fixArea > button.deleteimg{
+  background: darkgrey;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px rgb(00, 75, 113);
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  margin-right: 15px;
+}
 button.updatesucess{
   background: green;
   border-radius: 3px;

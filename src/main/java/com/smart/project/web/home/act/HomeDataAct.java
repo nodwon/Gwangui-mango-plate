@@ -250,19 +250,6 @@ public class HomeDataAct {
 		test.deleteReviews(reviewIds);
 	}
 
-//	@RequestMapping("/delete")
-//	public void deleteFiles(ReviewDTO reviewDTO) {
-//		List<String> fileIds = reviewDTO.getFileIds();
-//		if (fileIds == null || fileIds.isEmpty()) {
-//			return;
-//		}
-//		test.deleteFiles(fileIds);
-//	}
-//
-//	@RequestMapping("/get")
-//	public void saveFiles(ReviewDTO reviewDTO) throws IOException {
-//		String reviewId = reviewDTO.getEmail();
-//	}
 	@RequestMapping("data/review")
 	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
 

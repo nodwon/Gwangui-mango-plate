@@ -308,6 +308,7 @@ export class detailPage{
             $(e.currentTarget).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
         })
 
+
         //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
         $(".updatebtn").on("click", (e) => {
             $(e.currentTarget).prev().css({'display': 'block'})
@@ -320,6 +321,41 @@ export class detailPage{
             $(e.currentTarget).parent().find('h4').addClass("hidden");
             $(e.currentTarget).parent().find('h3').addClass("hidden");
             $(e.currentTarget).parent().find('a').addClass("hidden");
+            let img = $(".imgdb").text();
+            debugger;
+
+            function updatereadURL(input) {
+                let updateformData = new FormData();
+                if (input.files && input.files[0]) {
+                    let updatereader = new FileReader();
+
+                    updatereader.onload = function(e) {
+                        $('#updateimgArea').attr('src', e.currentTarget.result);
+                    }
+                    updatereader.readAsDataURL(input.files[0]);
+                }
+                /*formData.append("files", input.files[0]);
+                $.ajax({
+                    type: "POST",
+                    url: '/multipartUpload.do',
+                    data: formData,		// 필수
+                    processData: false,	// 필수
+                    contentType: false,	// 필수
+                    cache: false,
+                    success: function (result) {
+                    },
+                    error: function (e) {
+                    }
+                });*/
+
+            }
+            $(":input[name='updatefile']").change(function() {
+                if( $(":input[name='updatefile']").val() == '' ) {
+                    $('#updateimgArea').attr('src' , '');
+                }
+                $('#updateimgViewArea').css({ 'display' : '' });
+                updatereadURL(this);
+            });
 
 
         })
@@ -330,6 +366,7 @@ export class detailPage{
             let updatereview = $(e.currentTarget).prev().val();
             let useremail = $("#user").text();
             let title = $("#title").text();
+
             let updateRating = $('input[name ="rating2"]:checked').val();
             let updatenum = $(e.currentTarget).next().text();
 
@@ -355,6 +392,7 @@ export class detailPage{
     //이미지 이벤트
     imageEvent(){
         function readURL(input) {
+            debugger
             let formData = new FormData();
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
