@@ -3,7 +3,7 @@
     <img src="data:image/png;base64,{{$data.data.img}}">
     {{/if}}
     <p class="showRating hidden">{{$data.data.grade}}</p>
-    <p class="reviewNum hidden"> {{$value.num}}</p>
+    <p class="reviewNum hidden"> {{$data.data.num}}</p>
     <% for(var i = 0; i < $data.data.grade; i++){ %>
     <i class="fa-solid fa-star" style="float: right"></i>
     <% } %>
