@@ -7,6 +7,7 @@ $(()=>{
 export class detailPage{
     constructor() {
 
+
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
