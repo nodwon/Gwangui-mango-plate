@@ -31,7 +31,7 @@ export class detailPage{
         let search = {"name": name}
 
 
-        axios.post("data/map", search).then((result) => {
+        axios.post("data/map",search).then((result)=>{
             let data = result.data;   //data = List<locationVO>
 
             var mapOptions = {
@@ -41,8 +41,8 @@ export class detailPage{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data, (e) => {
-                let latitude = e.latitude;
+            _.forEach(data,(e)=>{
+                let latitude  = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let roadname = e.roadname;

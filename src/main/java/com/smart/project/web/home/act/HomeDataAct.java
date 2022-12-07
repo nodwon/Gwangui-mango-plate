@@ -50,10 +50,8 @@ public class HomeDataAct {
 			test.reviewAvg(placename);
 			test.rvShow(placename);
 		}
-
-		log.error("selectAlign 갑승ㄴ ? {}",selectAlign);
-		//정렬
-	if(selectAlign.equals("리뷰 많은순")){
+		//데이터 정렬
+		if(selectAlign.equals("리뷰 많은순")){
 			List<MangoVO> data = test.searchAllReviewCount(cri);
 			result.put("food",data);
 		} else if (selectAlign.equals("조회순"))
@@ -63,9 +61,12 @@ public class HomeDataAct {
 		} else{
 
 			List<MangoVO> data = test.searchAll(cri);
+
 			result.put("food",data);
 		}
 
+
+		//페이징처리
 		int totalCount = test.totalCount(cri);
 		if(!(totalCount==0))
 		{
@@ -77,6 +78,7 @@ public class HomeDataAct {
 		else {
 			result.put("page",null);
 		}
+
 		return result;
 	}
 
@@ -85,7 +87,6 @@ public class HomeDataAct {
 	public List<MangoVO>getMango2Data(@RequestBody Map param, Criteria cri, Model model){
 	 String mainmenu = String.valueOf(param.get("menu"));
 	 String search = String.valueOf(param.get("menu"));
-
 	 cri.setSearch(search);
 
 	 log.error("검색창에 입력한 것 : {}",mainmenu);

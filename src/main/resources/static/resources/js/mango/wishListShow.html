@@ -1,0 +1,13 @@
+{{each data}}
+<form class="wishForm" style="border: 1px solid saddlebrown; width: 400px; margin-left: 10px; margin-bottom: 14px" >
+    <button type="reset" class="btn btn-danger deleteWish" style="float: right; margin-top: 30px; margin-right: 10px">삭제</button>
+    <a href="/detailPage?roadname={{$value.roadname}}&name={{$value.placename}}&img1={{$value.mainimg}}">
+        <div class="wishForm_name" style="width: 200px; float: right; padding-top: 25px; color:#584647 ">
+            <b><span class="placename" style="font-size: larger">{{$value.placename}}</span></b>
+            <br>
+            <span class="placeRoadName">{{$value.roadname}}</span>
+        </div>
+        <img style="width: 100px;height: 100px" src="{{$value.mainimg}}"></a>
+</form>
+
+{{/each}}

@@ -46,9 +46,9 @@
             </div>
         </header>
      <!--   //지도만들기-->
-     <section class="py-5 map hidden">
+<!--     <section class="py-5 map hidden">
          <div class="row  row-cols-2  justify-content-center ">
-         <!--<div class="col mb-5">-->
+         &lt;!&ndash;<div class="col mb-5">&ndash;&gt;
 
              <div class="col-lg-4" >
                  <div  id="map" style="width: 100%;height:500px;object-fit: cover">
@@ -60,7 +60,7 @@
          </div>
 
 
-     </section>
+     </section>-->
 
         <!-- Section-->
         <style>
@@ -74,23 +74,9 @@
         </style>
 
         <section class="py-5">
-
-<!--            <div class="text-md-end" style="width: 700px;"><p><button class="btn btn-outline-dark mt-auto" >바로 가기</button>-->
-<!--                <button class="btn btn-outline-dark mt-auto" >바로 가기</button>-->
-<!--                <button class="btn btn-outline-dark mt-auto" >바로 가기</button></p></div>-->
-<!--            이게 진짜에요-->
-<!--            <div class="dropdown text-md-end hidden">-->
-
-<!--                <button class="btn dropdown-toggle " id="btn-dr" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="position: relative">-->
-<!--                    정렬-->
-<!--                </button>-->
-<!--                <ul class="dropdown-menu">-->
-<!--                    <li>리뷰 많은순</li>-->
-<!--                    <li>평점순</li>-->
-<!--                    <li>조회순</li>-->
-<!--                </ul>-->
-<!--            </div>-->
-
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="map hidden" id="map" style="width: 100%;height:500px;object-fit: cover"></div>
+            </div>
 
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="dropdown text-md-end hidden">
@@ -294,23 +280,29 @@
                     </div>
                 </div>
             </div>
+
+            <div id="pagination" class="py-1 hidden">
+                <div class="container px-4 px-lg-5">
+
+                    <ul class="pagination justify-content-center">
+
+                    </ul>
+                </div>
+            </div>
+
+
         </section>
 
 
-        <div id="test">
-
-        </div>
-
-
         <!--  지역 선택 모달 -->
-        <section id="pagination" class="py-5 hidden">
-            <div class="container px-4 px-lg-5 mt-5">
+<!--        <section id="pagination" class="py-5 hidden">
+            <div class="container px-4 px-lg-5">
 
         <ul class="pagination justify-content-center">
 
         </ul>
         </div>
-        </section>
+        </section>-->
 
 
     </div>
