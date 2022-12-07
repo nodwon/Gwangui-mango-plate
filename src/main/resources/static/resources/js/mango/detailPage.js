@@ -341,14 +341,12 @@ export class detailPage{
                 params: comment
             })
 
-            // $(e.currentTarget).parent().addClass("hidden");
             location.reload();
 
 
         });
     }
 
-    //////////////////////////////////
     //작성하기 버튼 클릭시
     reviewEvent() {
         $("#addComments").on("click", () => {

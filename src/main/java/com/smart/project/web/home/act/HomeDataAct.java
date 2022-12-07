@@ -83,6 +83,7 @@ public class HomeDataAct {
 		} else{
 
 			List<MangoVO> data = test.searchAll(cri);
+
 			result.put("food",data);
 		}
 
