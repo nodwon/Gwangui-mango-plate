@@ -233,7 +233,7 @@ fieldset, label { margin: 0; padding: 0; }
 .rating2 > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+/***** CSS Magic to Highlight Stars on Hover ******/
 
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
