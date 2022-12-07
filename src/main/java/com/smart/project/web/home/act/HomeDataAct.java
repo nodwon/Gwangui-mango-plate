@@ -186,14 +186,18 @@ public class HomeDataAct {
 		reviewDTO.setGrade(grade);
 		reviewDTO.setReview(review);
 		try {
-			byte[] img = file.get(0).getBytes();
+			byte[] img = (file.get(0).getBytes());
 			if(img!=null){
 				reviewDTO.setImg(img);
 			}
 		} catch (IOException e){
 			e.printStackTrace();
 		}
-		Iterator itr = request.getFileNames();
+
+		test.reviewCount(title, 1);
+		test.saveReview(reviewDTO);
+
+	/*	Iterator itr = request.getFileNames();
 		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
 		if( file_list.size() > 0 ){
 			for( MultipartFile mpf : file_list ){
@@ -202,7 +206,7 @@ public class HomeDataAct {
 					test.saveReview(reviewDTO);
 				}
 			}
-		}
+		}*/
 		ReviewDTO data = reviewDTO;
 		log.error("추가된 리뷰는 : {}",data);
 		return data;
