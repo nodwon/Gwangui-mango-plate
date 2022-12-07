@@ -366,7 +366,6 @@ export class detailPage{
             let updatereview = $(e.currentTarget).prev().val();
             let useremail = $("#user").text();
             let title = $("#title").text();
-
             let updateRating = $('input[name ="rating2"]:checked').val();
             let updatenum = $(e.currentTarget).next().text();
 
@@ -392,7 +391,6 @@ export class detailPage{
     //이미지 이벤트
     imageEvent(){
         function readURL(input) {
-            debugger
             let formData = new FormData();
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
@@ -441,6 +439,9 @@ export class detailPage{
             let img = $("#fileInput")[0].files[0];
 
             formData.append("file",img);
+            if($("#fileInput")[0].files[0]!=null){
+            formData.append("file", $("#fileInput")[0].files[0]);
+            }
             formData.append("email", useremail);
             formData.append("title", title);
             formData.append("grade", rating);
@@ -468,9 +469,8 @@ export class detailPage{
                     icon: 'success',
                     title: '리뷰가추가되었습니다.'
                 })
-
             }
-            const comment = {
+            /*const comment = {
                 "email": useremail,
                 "title": title,
                 "grade": rating,
@@ -488,7 +488,7 @@ export class detailPage{
                 $('#allComments').append(this.reviewAppendList(data));
                 this.replyDeleteEvent();
                 this.replyupdatelike();
-            });
+            });*/
 
             //리뷰데이터를 저장
             axios({
@@ -498,8 +498,12 @@ export class detailPage{
                 headers:{
                     'Content-Type' : 'multipart/form-data',
                     "Access-Control-Allow-Origin": "*",
-                },
-            })
+                }
+            }).then((data) => {
+                $('#allComments').append(this.reviewAppendList(data));
+                this.replyDeleteEvent();
+                this.replyupdatelike();
+            });
         });
     }
 }

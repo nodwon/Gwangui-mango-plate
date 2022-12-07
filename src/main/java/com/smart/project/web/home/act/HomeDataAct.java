@@ -196,7 +196,7 @@ public class HomeDataAct {
 		return idCount;
 	}
 	@PostMapping("/saveReview")
-	public void saveReview(MultipartHttpServletRequest request) throws IOException {
+	public ReviewDTO saveReview(MultipartHttpServletRequest request) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		MultipartHttpServletRequest multi = request;
 		List<MultipartFile> file = multi.getFiles("file");
@@ -211,7 +211,9 @@ public class HomeDataAct {
 		reviewDTO.setReview(review);
 		try {
 			byte[] img = file.get(0).getBytes();
-			reviewDTO.setImg(img);
+			if(img!=null){
+				reviewDTO.setImg(img);
+			}
 		} catch (IOException e){
 			e.printStackTrace();
 		}
@@ -225,6 +227,9 @@ public class HomeDataAct {
 				}
 			}
 		}
+		ReviewDTO data = reviewDTO;
+		log.error("추가된 리뷰는 : {}",data);
+		return data;
 	}
 
 	@RequestMapping("/getReview")
@@ -250,12 +255,4 @@ public class HomeDataAct {
 		test.deleteReviews(reviewIds);
 	}
 
-	@RequestMapping("data/review")
-	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
-
-		ReviewDTO data = review;
-		log.error("추가된 리뷰는 : {}",data);
-
-		return data;
-	}
 }
