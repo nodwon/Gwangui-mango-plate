@@ -1,14 +1,39 @@
 package com.smart.project.web.home.act;
 
+
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
+import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import javax.swing.filechooser.FileSystemView;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Struct;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 @SessionAttributes("pageNum")
 @Slf4j
@@ -68,16 +93,11 @@ public class HomeDataAct {
 
 		//페이징처리
 		int totalCount = test.totalCount(cri);
-		if(!(totalCount==0))
-		{
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(totalCount);
-			result.put("page",pageMaker);
-		}
-		else {
-			result.put("page",null);
-		}
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		result.put("page",pageMaker);
+
 
 		return result;
 	}
@@ -119,6 +139,7 @@ public class HomeDataAct {
 		String useremail = (String)request.getSession().getAttribute("email");
 		List<WishListVO> data = test.selectWish(useremail);
 		return data;
+
 	}
 	//위시리스트에 선택한 리스트 삭제
 	@RequestMapping("data/wishDelete")
@@ -163,10 +184,8 @@ public class HomeDataAct {
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
 	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
-		log.error("{}==>asdfasdfa",reviewDTO);
 
 		test.updateReview(reviewDTO);
-
 	}
 
 	@PostMapping("/idCheck")
@@ -177,15 +196,37 @@ public class HomeDataAct {
 		return idCount;
 	}
 	@PostMapping("/saveReview")
-	public void saveReview(ReviewDTO reviewDTO) {
-		log.error("{}===>",reviewDTO);
-		String id = reviewDTO.getEmail();
-		String title = reviewDTO.getTitle();
-		test.reviewCount(title, 1);
-		log.error("{}===>",id+"id");
-		test.saveReview(reviewDTO);
-
+	public void saveReview(MultipartHttpServletRequest request) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		MultipartHttpServletRequest multi = request;
+		List<MultipartFile> file = multi.getFiles("file");
+		String id = request.getParameter("email");
+		String title = request.getParameter("title");
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		String review = request.getParameter("review");
+		ReviewDTO reviewDTO = new ReviewDTO();
+		reviewDTO.setEmail(id);
+		reviewDTO.setTitle(title);
+		reviewDTO.setGrade(grade);
+		reviewDTO.setReview(review);
+		try {
+			byte[] img = file.get(0).getBytes();
+			reviewDTO.setImg(img);
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		Iterator itr = request.getFileNames();
+		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
+		if( file_list.size() > 0 ){
+			for( MultipartFile mpf : file_list ){
+				if( ! mpf.isEmpty() ){
+					test.reviewCount(title, 1);
+					test.saveReview(reviewDTO);
+				}
+			}
+		}
 	}
+
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {
 		log.error("{}===>",reviewId+"reviewId");

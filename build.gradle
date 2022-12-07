@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'commons-io:commons-io:2.6'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.1'

@@ -11360,6 +11360,14 @@ form.example::after {
   padding :0;
 
 }
+ul.wish_middle_list {
+    border: 1px solid saddlebrown;
+    width: 400px;
+    margin: auto;
+    margin-bottom: revert;
+    padding-left: 0px;
+
+}
 
 div.fixed{
 
@@ -11384,4 +11392,47 @@ form.d-flex{
     position: relative;
 
     !important;
+}
+h1.fw-bolder {
+    color: orangered;
+    font-family: 'East Sea Dokdo';
+    font-size: 6.5rem;
+    font-weight: unset !important;
+}
+
+
+header.py-5.bg-light.border-bottom.mb-4 {
+    background-image: url(../resources/vendors/images/광주야.jpg) !important;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+p.lead.mb-0 {
+    font-family: 'East Sea Dokdo';
+    font-size: 2.2em;
+}
+
+.modal-header.flex_container {
+    background-color: bisque;
+    font-family: 'East Sea Dokdo', cursive;
+}
+
+a#staticBackdropLabel {
+    background-color: #f39f72c7;
+    color: floralwhite;
+    border: 3px solid #f39f72c7;
+    border-radius: 20px;
+    font-size: 25px !important;
+    text-decoration-line: none;
+    margin-left: 50px;
+}
+
+
+a#\32 {
+    background-color: #f39f72c7;
+    color: floralwhite;
+    border: 3px solid #f39f72c7;
+    border-radius: 20px;
+    font-size: 25px !important;
+    text-decoration-line: none;
 }
