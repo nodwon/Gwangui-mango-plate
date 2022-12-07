@@ -138,8 +138,8 @@
                         </div>
                         <button id="addComments">추가</button>
                         <div id="allComments">
-                            <li th:each="review, i:${dto}" class="wrapper">
-                               <!-- <img th:src="'data:image/jpeg;base64,'+${review.img}">-->
+                           <!-- <li th:each="review, i:${dto}" class="wrapper">
+                                <img th:src="@{'data:image/jpeg;base64,'+${review.img}}"/>
 
 
                                 <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
@@ -171,7 +171,7 @@
                                 <button th:if="${session.email}==${review.email}" class="updateComment updatebtn">수정</button>
                                 <button class="likeComment likebtn">like</button>
                                 <button th:if="${session.email}==${review.email}" class="deleteComment deleteReply">delete</button>
-                            </li>
+                            </li>-->
                         </div>
                     </div>
                 </div>

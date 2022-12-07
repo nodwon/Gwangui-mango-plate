@@ -9,6 +9,9 @@ export class detailPage{
 
         this.reviewAppendList = require("@/mango/reviewAppend.html");
         this.wishListShow = require("@/mango/wishListShow.html");
+        this.reviewShowAll = require("@/mango/reviewAll.html");
+        this.showReview();
+
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
@@ -19,13 +22,30 @@ export class detailPage{
         this.addMap();
 
 
-        this.DetailEvent();
         this.clearEvent();
         this.replyDeleteEvent();
         this.imageEvent();
         this.replyupdatelike();
+
     }
 
+    showReview(){
+        let title = $("#title").text();
+
+
+        axios({
+            url: "showReview",
+            method : "post",
+            params : { "title": title}
+
+        }).then((data)=>{
+            console.log(data.title);
+
+            $("#allComments").empty().append(this.reviewShowAll(data))
+            this.replyDeleteEvent();
+            this.replyupdatelike();
+        })
+    }
 
     addMap() {
 
@@ -136,42 +156,9 @@ export class detailPage{
         })
     }
 
-    DetailEvent(){
-        $("#modal").on("click",(e)=>{
-            $(".normal_pop_wrap").removeClass("hidden")
-            this.ModalEvent();
-        });
 
-        //map를 표시
-        $("#mapShow").append()
 
-    }
 
-    ModalEvent() {
-        $(".btn_cls").on("click",(e)=>{
-            $(".normal_pop_wrap").addClass("hidden")
-        });
-
-        //모달 최근본 이미지 클릭시 이벤트
-        $(".slct_food").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_want").removeClass("active");
-                $(".pop_region_content.region_content_kr").removeClass("hidden");
-
-            }
-        });
-        //모달 가고싶은곳
-        $(".slct_want").on("click",(e)=>{
-            if(!$(e.currentTarget).hasClass("active"))
-            {
-                $(e.currentTarget).addClass("active");
-                $(".slct_food").removeClass("active");
-                $(".pop_region_content.region_content_kr").addClass("hidden");
-            }
-        });
-    }
     //위시리스트 db에 저장하기
     favoriteStore(){
         $('.favoriteStore').on("click",()=>{
@@ -348,7 +335,8 @@ export class detailPage{
             if( $(":input[name='file']").val() == '' ) {
                 $('#imgArea').attr('src' , '');
             }
-            $('#imgViewArea').css({ 'display' : '' });
+            $('#imgViewArea').css
+            ({ 'display' : '' });
             readURL(this);
         });
 
@@ -395,25 +383,6 @@ export class detailPage{
                     title: '리뷰가추가되었습니다.'
                 })
             }
-            /*const comment = {
-                "email": useremail,
-                "title": title,
-                "grade": rating,
-                "review": reviewcontents
-            };
-
-//
-            //추가 클릭 시 리뷰 추가
-            axios({
-                method: "post",
-                url: "data/review",
-                params: comment
-
-            }).then((data) => {
-                $('#allComments').append(this.reviewAppendList(data));
-                this.replyDeleteEvent();
-                this.replyupdatelike();
-            });*/
 
             //리뷰데이터를 저장
             axios({
@@ -432,7 +401,3 @@ export class detailPage{
         });
     }
 }
-
-
-
-
