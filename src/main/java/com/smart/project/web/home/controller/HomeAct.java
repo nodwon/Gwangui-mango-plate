@@ -77,6 +77,7 @@ public class HomeAct {
 
 
 		return"detailPage";
+
 	}
 
 	@RequestMapping("/join")
