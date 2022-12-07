@@ -28,9 +28,24 @@
 
     <select id="searchAll" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
-        order by rvAvg desc,review desc limit #{pageStart},#{perPageNum} ;
+        order by rvAvg desc limit #{pageStart},#{perPageNum} ;
 
     </select>
+    <select id="searchAllReviewCount" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
+        order by rvCount desc limit #{pageStart},#{perPageNum} ;
+
+    </select>
+    <select id="searchAllShowCount" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="com.smart.project.web.home.vo.Criteria">
+        SELECT * FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
+        order by viewCount desc limit #{pageStart},#{perPageNum} ;
+
+    </select>
+
+
+
+
+
 
     <select id="totalCount" resultType="int" parameterType="com.smart.project.web.home.vo.Criteria">
         SELECT count(*) FROM foodlist where  mainmenu like concat('%',#{search},'%') or name like concat('%',#{search},'%') or roadname like concat('%',#{search},'%') or foodtype like concat('%',#{search},'%')
@@ -62,22 +77,25 @@
     <update id="viewCount" parameterType="java.lang.String">
         update foodlist set viewCount = viewCount + 1 where name = #{name}
     </update>
-    <insert id="saveReview">
+    <insert id="saveReview" useGeneratedKeys="true" keyProperty="num" parameterType="com.smart.project.web.home.vo.ReviewDTO">
         insert into tbl_review ( email,title,review,grade,updateDate,img ) values (#{email}, #{title}, #{review}, #{grade}, now(),#{img})
     </insert>
+    <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReviewDTO">
+        update tbl_review set review = #{review},grade = #{grade},updateDate = now() where email = #{email} and num = #{num}
+    </update>
     <select id="selectCurrent" resultType="com.smart.project.web.home.vo.MangoVO" parameterType="java.lang.String">
         select name, roadname, img1  from foodlist where name = #{placename}
     </select>
-
-    <update id="reviewCount">
-        update foodlist set rvCount = rvCount + #{amount} where name = #{title}
-    </update>
 
     <update id="rvShow" parameterType="java.lang.String">
         update foodlist set rvCount = (select count(title)
                                        from tbl_review
                                        where title = #{placename})
-                        where name = #{placename}
+        where name = #{placename}
+    </update>
+
+    <update id="reviewCount">
+        update foodlist set rvCount = rvCount + #{amount} where name = #{title}
     </update>
 
     <update id="reviewAvg" parameterType="java.lang.String">

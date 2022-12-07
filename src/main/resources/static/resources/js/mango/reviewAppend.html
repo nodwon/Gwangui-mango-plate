@@ -1,0 +1,28 @@
+<li class="wrapper">
+
+    <p class="showRating hidden">{{$data.data.grade}}</p>
+    <% for(var i = 0; i < $data.data.grade; i++){ %>
+    <i class="fa-solid fa-star" style="float: right"></i>
+    <% } %>
+    <br>
+    <h3 class="showId">{{$data.data.email}}</h3>
+    <h4>{{$data.data.review}}</h4>
+    <ul></ul>
+    <br>
+    <div id="fixArea"style="display: none">
+        <div id="dd-previewerup" class="dd-previewerup"></div>
+        <fieldset id = "updategrade" class="rating2">
+            <input type="radio" id="star5!" name="rating2" value="5" /><label class = "full" for="star5!" title="Awesome - 5 stars"></label>
+            <input type="radio" id="star4!" name="rating2" value="4" /><label class = "full" for="star4!" title="Pretty good - 4 stars"></label>
+            <input type="radio" id="star3!" name="rating2" value="3" /><label class = "full" for="star3!" title="Meh - 3 stars"></label>
+            <input type="radio" id="star2!" name="rating2" value="2" /><label class = "full" for="star2!" title="Kinda bad - 2 stars"></label>
+            <input type="radio" id="star1!" name="rating2" value="1" /><label class = "full" for="star1!" title="Sucks big time - 1 star"></label>
+        </fieldset>
+        <textarea id= "updateArea" maxlength="200" width="250" height="100">
+        </textarea>
+        <button class="updatesucess">수정완료</button>
+    </div>
+    <button class="updateComment updatebtn">수정</button>
+    <button class="likeComment likebtn">like</button>
+    <button class="deleteComment deleteReply">delete</button>
+</li>

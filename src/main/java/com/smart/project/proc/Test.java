@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Master
@@ -39,6 +40,8 @@ public interface Test {
 
 	/*List<MangoVO> searchAll(String search);*/
 	List<MangoVO> searchAll(Criteria criteria);
+	List<MangoVO> searchAllReviewCount(Criteria criteria);
+	List<MangoVO> searchAllShowCount(Criteria criteria);
 
 	int totalCount(Criteria criteria);
 
@@ -61,21 +64,15 @@ public interface Test {
     void viewCount(String name);
 
 	MangoVO selectCurrent(String placename);
-
+	ReviewDTO selectTitle(String title);
+	ReviewDTO selectUpdateDate(Date updateDate);
 	void saveReview(ReviewDTO reviewDTO);
 	ReviewDTO getReview(@Param("reviewId") String reviewId);
 	List<ReviewDTO> getReviewsByKeySet(@Param("reviewUpdateDate") String reviewUpdateDate,
 									   @Param("reviewId") String reviewId);
 	List<ReviewDTO> getReviewsForMap();
 	void deleteReviews(@Param("reviewIds") List<String> reviewIds);
-	List<FileDTO> getImages(@Param("reviewId") String reviewId);
-	void saveFile(
-			@Param("fileId") String fileId,
-			@Param("reviewId") String reviewId,
-			@Param("fileName") String fileName,
-			@Param("fileSize") long fileSize,
-			@Param("contentType") String contentType
-	);
+
 
 	void deleteFiles(@Param("fileIds") List<String> fileIds);
 
@@ -86,11 +83,15 @@ public interface Test {
 	void updateMemberPw(@Param("userEmail")String userEmail, @Param("userPw")String userPw);
 
 
+
 	void reviewAvg(String placename);
 
 	void reviewCount(@Param("title")String title, @Param("amount")int amount);
 
 	void rvShow(String placename);
+
+	void updateReview(ReviewDTO reviewDTO);
+
 
 
 	List<ReviewDTO> showEmailReview(String email);

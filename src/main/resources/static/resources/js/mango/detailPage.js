@@ -7,6 +7,8 @@ $(()=>{
 export class detailPage{
     constructor() {
 
+        this.reviewAppendList = require("@/mango/reviewAppend.html");
+
         this.modalEvent();
         this.wishListEvent();
         this.favoriteStore();
@@ -21,18 +23,17 @@ export class detailPage{
         this.clearEvent();
         this.replyDeleteEvent();
         this.imageEvent();
+        this.replyupdatelike();
     }
 
 
-
-
-    addMap(){
+    addMap() {
 
         let name = $(".name").text();
         let search = {"name": name}
 
 
-        axios.post("data/map",search).then((result)=>{
+        axios.post("data/map", search).then((result) => {
             let data = result.data;   //data = List<locationVO>
 
             var mapOptions = {
@@ -42,8 +43,8 @@ export class detailPage{
 
             var map = new naver.maps.Map('map', mapOptions);
 
-            _.forEach(data,(e)=>{
-                let latitude  = e.latitude;
+            _.forEach(data, (e) => {
+                let latitude = e.latitude;
                 let longitude = e.longitude;
                 let name = e.name;
                 let roadname = e.roadname;
@@ -177,9 +178,6 @@ export class detailPage{
             let name = $('.name').text();
             let roadName = $('.roadName').text();
             let src = $(".card-img-top>.wishimg").attr("src");
-            // console.log(name);
-            // console.log(roadName);
-            // console.log(src);
             let email = $('.email').text();
             if(email == null || email == ""){
                 Swal.fire({
@@ -198,9 +196,7 @@ export class detailPage{
                         method: "post",
                         url: '/wishStore',
                         params: Object
-                    }).then((data) => {
-
-                        console.log(data.data)
+                    }).then(() => {
                         Swal.fire({
                             icon: 'success',
                             title: '위시리스트에 담았습니다!'
@@ -298,8 +294,63 @@ export class detailPage{
             });
 
             }
+            Swal.fire({
+                icon: 'success',
+                title: '리뷰가 삭제되었습니다.'
+            })
         })
 
+    }
+
+    replyupdatelike() {
+
+        $(".likebtn").on("click", (e)=> {
+            $(e.currentTarget).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+        })
+
+        //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
+        $(".updatebtn").on("click", (e) => {
+            $(e.currentTarget).prev().css({'display': 'block'})
+            $(e.currentTarget).parent().find('button.likeComment').addClass("hidden");
+            $(e.currentTarget).parent().find('button.deleteComment').addClass("hidden");
+            $(e.currentTarget).parent().find('button.updateComment').addClass("hidden");
+            $(e.currentTarget).parent().find('p').addClass("hidden");
+            $(e.currentTarget).parent().find('i').addClass("hidden");
+            $(e.currentTarget).parent().find('ul').addClass("hidden");
+            $(e.currentTarget).parent().find('h4').addClass("hidden");
+            $(e.currentTarget).parent().find('h3').addClass("hidden");
+            $(e.currentTarget).parent().find('a').addClass("hidden");
+
+
+        })
+
+        //수정 완료 버튼
+        $(".updatesucess").on("click", (e)=> {
+
+            let updatereview = $(e.currentTarget).prev().val();
+            let useremail = $("#user").text();
+            let title = $("#title").text();
+            let updateRating = $('input[name ="rating2"]:checked').val();
+            let updatenum = $(e.currentTarget).next().text();
+            debugger;
+
+            const comment = { //중복
+                "title": title,
+                "grade": updateRating,
+                "email": useremail,
+                "review": updatereview,
+                "num": updatenum
+            };
+            axios({
+                method: "put",
+                url: 'updateReview',
+                params: comment
+            })
+
+            location.reload();
+
+
+        });
     }
 
     //이미지 이벤트
@@ -368,41 +419,37 @@ export class detailPage{
                     title: '내용을 입력해주세요'
                 })
                 return;
-            } else if (!rating){
+            } else if (!rating) {
                 Swal.fire({
                     icon: 'success',
                     title: '별점을  눌러주세요'
                 })
                 return;
+            } else if ($(e.currentTarget)) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '리뷰가추가되었습니다.'
+                })
             }
-            /*const comment = {
+            const comment = {
                 "email": useremail,
                 "title": title,
                 "grade": rating,
                 "review": reviewcontents
-            };*/
-            let start = "";
-            for(var i =1 ;i<=rating;i++)
-            {
-                    start +='<i class="fa-solid fa-star"></i>'
-            }
+            };
 
-            // 리뷰 쓴 데이터 append 시키기
-            let html1 = [
-            '<li class="wrapper">',
-               '<p>'+reviewcontents+'</p>',
-               '<p class="showId">'+ useremail+ '</p>',
-               '<p class="showRating">'+rating+' </p>',
-               start,
-               '<br>',
-               '<button class="updateComment">수정</button>',
-               '<button class="likeComment">like</button>',
-               '<button class="deleteComment deleteReply">delete</button>',
 
-          '  </li>'].join('');
-            $('#allComments').append(html1);
+            //추가 클릭 시 리뷰 추가
+            axios({
+                method: "post",
+                url: "data/review",
+                params: comment
 
-            this.replyDeleteEvent();
+            }).then((data) => {
+                $('#allComments').append(this.reviewAppendList(data));
+                this.replyDeleteEvent();
+                this.replyupdatelike();
+            });
 
             //리뷰데이터를 저장
             axios({
@@ -414,86 +461,8 @@ export class detailPage{
                     "Access-Control-Allow-Origin": "*",
                 },
             })
-            // axios({
-            //     method : "post",
-            //     url : '/saveReview',
-            //     params : comment
-            // })
-
-            // $('[type*="radio"]').change(function () { 별로 바꾸는것 //
-            //     var me = $(this);
-            //     log.html(me.attr('value'));
-            // https://codepen.io/lsirivong/pen/nRNLYL
         });
-
-
-
-
-        //리뷰 수정 버튼 눌렀을 시 수정 버튼은 숨기고 수정 완료버튼 보여주기
-        let mf = false;
-        $("#updateComment").on("click", function (e) {
-            e.preventDefault();
-            if (mf === true) {
-                alert("이미 수정중인 리뷰가 있습니다");
-                return;
-            }
-            mf = true;
-            $(".inlinereview").attr("readonly", false);
-            $(this).hide();
-            $(this).next().show();
-            $.ajax({
-                type:"POST",
-                url:"/saveReview",
-                data:'json',
-                contentType:"application/json; charset=utf-8",
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰를 삭제하지 못했습니다. 다시 시도해 주세요.");
-                }
-            })
-        })
-
-//수정 완료 버튼
-        $("#updateComment").on("click", function (e) {
-            e.preventDefault();
-            mf == false;
-            let reviewcontents = $(".inlinereview").val();
-            let reviewnum = $(this).attr('href');
-            buyService.modify(
-                {reviewcontents: reviewcontents, reviewnum: reviewnum},
-                function (result) {
-                    if (result === "success") {
-                        alert("리뷰를 수정 하였습니다.");
-                        $(".inlinereview").attr("readonly", true);
-                        $(this).show();
-                        $(this).prev().hide();
-                        location.reload();
-                    }
-                }
-            )
-            $.ajax({
-                type:"PUT",
-                url:"/buy/"+review.reviewnum,
-                data:JSON.stringify(review),
-                contentType:"application/json; charset=utf-8",
-                success:function(result){
-                    if(callback){
-                        callback(result);
-                    }
-                },
-                error:function(err){
-                    alert("리뷰 수정 실패. 다시 시도해주세요~");
-                }
-            })
-        })
-
     }
-
-
 }
 
 
