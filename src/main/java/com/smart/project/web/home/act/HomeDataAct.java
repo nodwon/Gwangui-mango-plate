@@ -3,10 +3,16 @@ package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
+import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import org.springframework.util.CollectionUtils;
@@ -29,15 +35,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-
 @SessionAttributes("pageNum")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class HomeDataAct {
 	final private Test test;
-
 
 	@PostMapping("/data/mango2All")
 	public Map<String, Object> getMango2DataAll(@RequestBody Map param){
@@ -90,18 +93,11 @@ public class HomeDataAct {
 
 		//페이징처리
 		int totalCount = test.totalCount(cri);
-		if(!(totalCount==0))
-		{
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(totalCount);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		result.put("page",pageMaker);
 
-			result.put("page",pageMaker);
-		}
-		else
-		{
-			result.put("page",null);
-		}
 
 		return result;
 	}
@@ -131,12 +127,6 @@ public class HomeDataAct {
 	@RequestMapping("/wishStore")
 	public WishListVO getData(@ModelAttribute WishListVO vo, HttpServletRequest request){
 		String useremail = (String) request.getSession().getAttribute("email");
-//		String placename = vo.getPlacename();
-//		String roadname = vo.getRoadname();
-//		String mainimg = vo.getMainimg();
-//		log.error("세션에서 가져온 placename => {}",placename);
-//		log.error("세션에서 가져온 roadname => {}",roadname);
-//		log.error("세션에서 가져온 이미지src => {}",mainimg);
 		vo.setUseremail(useremail);
 		WishListVO data = vo;
 			test.insertWish(vo);
@@ -148,6 +138,7 @@ public class HomeDataAct {
 		String useremail = (String)request.getSession().getAttribute("email");
 		List<WishListVO> data = test.selectWish(useremail);
 		return data;
+
 	}
 	//위시리스트에 선택한 리스트 삭제
 	@RequestMapping("data/wishDelete")
@@ -192,7 +183,6 @@ public class HomeDataAct {
 	// 해당 이메일로 로그인되었을때 리뷰 변경
 	@RequestMapping("updateReview")
 	public void updateReview(@ModelAttribute ReviewDTO reviewDTO){
-		log.error("{}",reviewDTO);
 
 		test.updateReview(reviewDTO);
 	}
@@ -228,15 +218,13 @@ public class HomeDataAct {
 		List<MultipartFile> file_list = request.getFiles( (String) itr.next());
 		if( file_list.size() > 0 ){
 			for( MultipartFile mpf : file_list ){
-				if( ! mpf.isEmpty() ){    // 파일이 빈 껍데기가 아닐때
+				if( ! mpf.isEmpty() ){
 					test.reviewCount(title, 1);
 					test.saveReview(reviewDTO);
-					// 파일 저장이든 DB에 값넣고 insert를 하던지 하기
 				}
 			}
 		}
 	}
-
 
 	@RequestMapping("/getReview")
 	public ReviewDTO getReview(String reviewId) {
@@ -260,99 +248,6 @@ public class HomeDataAct {
 		log.error("{}===>",reviewIds+"reviewIds");
 		test.deleteReviews(reviewIds);
 	}
-	@GetMapping("/getImages")
-	public List<FileDTO> getImages(@RequestParam String reviewId) {
-		log.error("{}===>",reviewId+"reviewId+asdfasf");
-
-		return test.getImages(reviewId);
-	}
-	private Path imgDirPath;
-
-	@Value("src/main/resources/static/upload-dir")
-	private String imgDir;
-
-	@PostConstruct
-	public void init() {
-		this.imgDirPath = Paths.get(imgDir);
-	}
-
-
-	@RequestMapping("/delete")
-	public void deleteFiles(ReviewDTO reviewDTO) {
-		List<String> fileIds = reviewDTO.getFileIds();
-		if (fileIds == null || fileIds.isEmpty()) {
-			return;
-		}
-		test.deleteFiles(fileIds);
-	}
-	@RequestMapping(value = "/multipartUpload.do", method = RequestMethod.POST)
-	public String uploadSingle(@RequestParam("files") MultipartFile file) throws Exception {
-		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-		String basePath = rootPath + "/" + "single";
-		String filePath = basePath + "/" + file.getOriginalFilename();
-		File dest = new File(filePath);
-		log.error("가져온 파일 => {}",rootPath);
-		log.error("가져온 파일 => {}",basePath);
-		log.error("가져온 파일 => {}",filePath);
-//		test.transferTo(dest); // 파일 업로드 작업 수행
-		return "uploaded";
-	}
-	@RequestMapping("/get")
-	public void convertBinary(MultipartFile files) throws IOException {
-//		String fileName = StringUtils.cleanPath(files.getOriginalFilename()) ;
-//		BufferedImage image = ImageIO.read(files.getInputStream());
-//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//		ImageIO.write(image, fileName.substring(fileName.lastIndexOf(".") + 1), baos);
-//		log.error("가져온 파일 => {}",fileName);
-//		log.error("가져온 image => {}",image);
-//		log.error("가져온 baos => {}",baos);
-		/*List<MultipartFile> file = (List<MultipartFile>) files.getFile("files");
-		log.error("가져온 파일 => {}",files);
-		String reviewId = reviewDTO.getEmail();*/
-
-
-//
-//			if (! Files.exists(imgDirPath)) {
-//				Files.createDirectories(imgDirPath);
-//			}
-//
-//			Path reviewImgDirPath = imgDirPath.resolve(
-//					Paths.get(reviewId)).normalize().toAbsolutePath();
-//
-//			if (! Files.exists(reviewImgDirPath)) {
-//				Files.createDirectories(reviewImgDirPath);
-//			}
-//
-//		for (MultipartFile file : files) {
-//			saveFile(file, reviewId);
-//		}
-	}
-
-	@RequestMapping("/save")
-	public void saveFile(MultipartFile file, String reviewId) {
-		try {
-			String originFilename = file.getOriginalFilename();
-			long fileSize = file.getSize();
-			String contentType = file.getContentType();
-
-
-			Path destinationFile = imgDirPath
-					.resolve(Paths.get(reviewId))
-					.resolve(Paths.get(originFilename))
-					.normalize()
-					.toAbsolutePath();
-
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-			}
-
-			String fileId = UUID.randomUUID().toString();
-			test.saveFile(fileId, reviewId, originFilename, fileSize, contentType);
-		} catch (IOException e) {
-			log.error("filenotfond",e);
-		}
-	}
-
 	@RequestMapping("data/review")
 	public ReviewDTO reviewAppend(@ModelAttribute ReviewDTO review ){
 
@@ -360,8 +255,5 @@ public class HomeDataAct {
 		log.error("추가된 리뷰는 : {}",data);
 
 		return data;
-
-
 	}
-
 }

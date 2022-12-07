@@ -1,6 +1,5 @@
 "use strict";
 
-import md from "../../../../templates/wishListModal.html";
 
 $(()=>{
     new mango();
@@ -117,28 +116,27 @@ export class mango{
                 });
 
                 //페이징처리
-                if (!(result.data.page == null)) {
-                    let pageMaker = result.data.page
-                    let startPage = pageMaker.startPage
-                    let endPage = pageMaker.endPage
-                    let prev = pageMaker.prev;
-                    let next = pageMaker.next;
-                    let paging = ''
-                    if (prev) {
-                        paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
-                    }
-                    for (let i = startPage; i <= endPage; i++) {
-                        let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
-                        paging = paging + page
-                    }
-                    if (next) {
-                        paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
-                    }
-
-                    console.log(result)
-                    $(".pagination.justify-content-center").empty().append(paging)
-                    this.pageEvent(search);
+                let pageMaker = result.data.page
+                let startPage = pageMaker.startPage
+                let endPage = pageMaker.endPage
+                let prev = pageMaker.prev;
+                let next = pageMaker.next;
+                let paging = ''
+                if (prev) {
+                    paging = '<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>';
                 }
+                for (let i = startPage; i <= endPage; i++) {
+                    let page = ' <li class="page-item x"><a class="page-link"  >' + i + '</a></li>';
+                    paging = paging + page
+                }
+                if (next) {
+                    paging = paging + '<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+                }
+
+                console.log(result)
+                $(".pagination.justify-content-center").empty().append(paging)
+                this.pageEvent(search);
+
 
 
                 this.cashing.$start.empty();
@@ -194,6 +192,10 @@ export class mango{
                         icon: 'success',
                         title: '위시리스트에 추가 되었습니다!'
                     });
+                })
+                Swal.fire({
+                    icon: 'success',
+                    title: '위시리스트에 담았습니다.'
                 })
             }
 
