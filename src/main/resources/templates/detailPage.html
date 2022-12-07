@@ -139,12 +139,14 @@
                         <button id="addComments">추가</button>
                         <div id="allComments">
                             <li th:each="review, i:${dto}" class="wrapper">
+                                <!--<img th:src="data:image/png;base64,${review.img}">-->
                                 <th:block th:each ="num : ${#numbers.sequence(1,review.getGrade())}">
                                     <i class="fa-solid fa-star" style="float: right" ></i>
                                 </th:block> <br>
                                 <a class="showDate" th:text="${review.updateDate}" style="float: right"></a>
                                 <h3 class="showId" th:text="${review.email}" ></h3>
                                 <br>
+
                                 <h4 th:text="${review.review}"></h4>
                                 <ul></ul>
                                 <p class="showRating hidden" th:text="${review.grade}"></p>

@@ -401,8 +401,9 @@ export class detailPage{
             let useremail = $("#user").text();
             let title = $("#title").text();
             let rating = $('input[name ="rating"]:checked').val();
-
+            if($("#fileInput")[0].files[0]!=null){
             formData.append("file", $("#fileInput")[0].files[0]);
+            }
             formData.append("email", useremail);
             formData.append("title", title);
             formData.append("grade", rating);
@@ -431,7 +432,7 @@ export class detailPage{
                     title: '리뷰가추가되었습니다.'
                 })
             }
-            const comment = {
+            /*const comment = {
                 "email": useremail,
                 "title": title,
                 "grade": rating,
@@ -449,7 +450,7 @@ export class detailPage{
                 $('#allComments').append(this.reviewAppendList(data));
                 this.replyDeleteEvent();
                 this.replyupdatelike();
-            });
+            });*/
 
             //리뷰데이터를 저장
             axios({
@@ -459,8 +460,12 @@ export class detailPage{
                 headers:{
                     'Content-Type' : 'multipart/form-data',
                     "Access-Control-Allow-Origin": "*",
-                },
-            })
+                }
+            }).then((data) => {
+                $('#allComments').append(this.reviewAppendList(data));
+                this.replyDeleteEvent();
+                this.replyupdatelike();
+            });
         });
     }
 }
