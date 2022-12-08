@@ -1,11 +1,10 @@
 # <h2>Gwangui-mango-plate!</h2><br>
 # <h3> 망고플레이트 클론코딩 </h3>
 <br>
-![image](https://user-images.githubusercontent.com/73088512/206371281-9bcfd355-ea78-48f5-a76b-55f9d1f24c6d.png)
-![image](https://user-images.githubusercontent.com/73088512/206372552-b9aebda2-8075-4714-8208-4bec80a73452.png)
 
 ![image](https://user-images.githubusercontent.com/73088512/206371231-9f96900c-20b5-4191-94c8-35a0b8a06f5c.png)
 ![image](https://user-images.githubusercontent.com/73088512/206371338-52f54f3e-bea6-46dd-a932-5326bd91bf0d.png)
+![image](https://user-images.githubusercontent.com/73088512/206372691-2bb8de87-c0d8-4c6c-a4a6-f1ca6d05baaa.png)
 
 ![image](https://user-images.githubusercontent.com/73088512/206371362-576a107c-f143-4bbf-b430-b99294741017.png)
 ![image](https://user-images.githubusercontent.com/73088512/206371423-47311255-aa3c-46aa-b802-fd6c37d32e9c.png)
