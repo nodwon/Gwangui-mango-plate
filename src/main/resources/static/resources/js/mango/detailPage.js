@@ -289,8 +289,7 @@ export class detailPage{
             $(e.currentTarget).parent().find('h4').addClass("hidden");
             $(e.currentTarget).parent().find('h3').addClass("hidden");
             $(e.currentTarget).parent().find('a').addClass("hidden");
-            let img = $(".imgdb").text();
-            debugger;
+
 
             function updatereadURL(input) {
                 let updateformData = new FormData();
@@ -302,19 +301,7 @@ export class detailPage{
                     }
                     updatereader.readAsDataURL(input.files[0]);
                 }
-                /*formData.append("files", input.files[0]);
-                $.ajax({
-                    type: "POST",
-                    url: '/multipartUpload.do',
-                    data: formData,		// 필수
-                    processData: false,	// 필수
-                    contentType: false,	// 필수
-                    cache: false,
-                    success: function (result) {
-                    },
-                    error: function (e) {
-                    }
-                });*/
+
 
             }
             $(":input[name='updatefile']").change(function() {
